@@ -1,6 +1,8 @@
-﻿using MahApps.Metro.Controls.Dialogs;
+﻿using InjectionSoftware.Class;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ using System.Windows.Shapes;
 
 namespace InjectionSoftware
 {
+    
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -24,11 +27,15 @@ namespace InjectionSoftware
         private InjectionPage injectionPage = new InjectionPage();
         private RoomPage roomPage = new RoomPage();
 
+        InjectionsManager injectionsManager = new InjectionsManager();
+
         public MainWindow()
         {
             InitializeComponent();
             //set the default selection to 1
             leftControlBar.SelectedIndex = 0;
+
+            injectionsManager.addInjection("a", "b", "c");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
