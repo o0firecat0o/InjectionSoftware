@@ -136,6 +136,8 @@
     </ApplicationDefinition>
     <Compile Include="Class\Injection.cs" />
     <Compile Include="Class\InjectionsManager.cs" />
+    <Compile Include="Class\Patient.cs" />
+    <Compile Include="Class\PatientManager.cs" />
     <Compile Include="Pages\RoomPage.xaml.cs">
       <DependentUpon>RoomPage.xaml</DependentUpon>
     </Compile>
