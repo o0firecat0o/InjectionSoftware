@@ -13,7 +13,7 @@ namespace InjectionSoftware.ViewModels
     internal class InjectionViewModel
     {
         
-        public List<Injection> Injections { get; set; }
+        public ObservableCollection<Injection> Injections { get; set; }
 
         public Command<Injection> Command1 { get; set; }
 
@@ -22,7 +22,7 @@ namespace InjectionSoftware.ViewModels
         {
             Command1 = new Command<Injection>(ExecuteCommand1);
 
-            Injections = new List<Injection>();
+            Injections = new ObservableCollection<Injection>();
 
             Injections.Add(new Injection()
             {
