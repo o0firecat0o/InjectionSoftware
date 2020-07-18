@@ -8,9 +8,7 @@ namespace InjectionSoftware.Class
 {
     class Injection
     {
-        public String patientSurname;
-        public String patientLastname;
-        public String patientID;
+        public Patient patient;
         public String accessionNumber;
         public int caseNumber;
     }

@@ -15,7 +15,7 @@ namespace InjectionSoftware.Class
         {
             foreach (var injection in injections)
             {
-                if (injection.patientID.Equals(patientID))
+                if (injection.patient.patientID.Equals(patientID))
                 {
                     return injection;
                 }
@@ -27,7 +27,7 @@ namespace InjectionSoftware.Class
         {
             foreach (var injection in injections)
             {
-                if (injection.patientID.Equals(patientID))
+                if (injection.patient.patientID.Equals(patientID))
                 {
                     return true;
                 }
@@ -44,9 +44,9 @@ namespace InjectionSoftware.Class
 
             //add the injection
             Injection injection = new Injection();
-            injection.patientID = patientID;
-            injection.patientSurname = patientSurname;
-            injection.patientLastname = patientLastname;
+            injection.patient.patientID = patientID;
+            injection.patient.patientSurname = patientSurname;
+            injection.patient.patientLastname = patientLastname;
 
             injections.Add(injection);
 
