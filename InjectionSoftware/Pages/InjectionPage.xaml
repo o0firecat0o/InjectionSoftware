@@ -9,8 +9,10 @@
       Title="InjectionPage">
 
     <StackPanel>
-        <ItemsControl ItemsSource="{Binding Data}">
+        <Label> HI </Label>
+        <TextBox Text="{Binding Injection.accessionNumber}">
             
-        </ItemsControl>
+        </TextBox>
+
     </StackPanel>
 </Page>

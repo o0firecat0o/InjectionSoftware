@@ -1,15 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace InjectionSoftware.Class
 {
-    class Injection
+    public class Injection 
     {
         public Patient patient;
-        public String accessionNumber;
-        public int caseNumber;
+        private string accessionNumber;
+        public int caseNumber;                
+
+        public string AccessionNumber
+        {
+            get
+            {
+                return accessionNumber;
+            }
+            set
+            {
+                accessionNumber = value;                
+            }
+        }
     }
 }

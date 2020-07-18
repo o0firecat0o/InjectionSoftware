@@ -1,4 +1,5 @@
 ﻿using InjectionSoftware.Class;
+using InjectionSoftware.ViewModels;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -27,15 +28,13 @@ namespace InjectionSoftware
         private InjectionPage injectionPage = new InjectionPage();
         private RoomPage roomPage = new RoomPage();
 
-        InjectionsManager injectionsManager = new InjectionsManager();
-
         public MainWindow()
         {
             InitializeComponent();
             //set the default selection to 1
             leftControlBar.SelectedIndex = 0;
 
-            injectionsManager.addInjection("a", "b", "c");
+            DataContext = new InjectionViewModel();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -58,7 +57,6 @@ namespace InjectionSoftware
                 case 2:
 
                     break;
-
             }            
         }
     }
