@@ -10,18 +10,23 @@ namespace InjectionSoftware.Class
     public class Injection 
     {
         public Patient patient;
-        private string accessionNumber;
-        public int caseNumber;                
+
+
+        public int CaseNumber 
+        { 
+            get; set; 
+        }
 
         public string AccessionNumber
         {
+            get; set;
+        }
+
+        public int Row
+        {
             get
             {
-                return accessionNumber;
-            }
-            set
-            {
-                accessionNumber = value;                
+                return CaseNumber - 1;
             }
         }
     }

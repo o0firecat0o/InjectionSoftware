@@ -25,22 +25,24 @@
         <StackPanel Grid.Column="0" Background="#2E333A">
 
             <!-- Menu text -->
-            <TextBox  Grid.Row="1"
+            <TextBlock  Grid.Row="1"
              Grid.Column="0"
               Margin="20,20,0,0"
-                    Text= "{Binding Injection.AccessionNumber}"
+                    Text="M E N U"
                     Foreground="White"
                     FontSize="22"
                     Background="Transparent"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center">
                             
-                
-            </TextBox>
-
-            <Button Command="{Binding command1}">
-                Try
-            </Button>
+                 <!--// Shadow Effect //-->
+                <TextBlock.Effect>
+                    <DropShadowEffect  BlurRadius="10"
+                        ShadowDepth="1"
+                        Direction="-90"
+                        Color="White"/>
+                </TextBlock.Effect>
+            </TextBlock>
             
             <!-- Listview -->
             <ListView x:Name="leftControlBar" Background="Transparent"
@@ -86,11 +88,10 @@
 
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Background="#FFE3F3FF">          
-            <Frame x:Name="Main" 
+        <Frame x:Name="Main" 
                    Margin="5"
-                   NavigationUIVisibility="Hidden"/>
-        </StackPanel>
+                   NavigationUIVisibility="Hidden"
+                   Grid.Column="1"/>
         
         
     </Grid>

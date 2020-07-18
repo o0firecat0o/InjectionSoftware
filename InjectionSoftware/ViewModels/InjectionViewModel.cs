@@ -1,6 +1,7 @@
 ﻿using InjectionSoftware.Class;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -11,29 +12,47 @@ namespace InjectionSoftware.ViewModels
 {
     internal class InjectionViewModel
     {
-        private Injection injection;
+        
+        public List<Injection> Injections { get; set; }
 
-        public Command command1 { get; set; }
+        public Command<Injection> Command1 { get; set; }
 
-        public Injection Injection
-        {
-            get
-            {
-                return injection;
-            }
-        }
 
         public InjectionViewModel()
         {
-            injection = new Injection();
-            injection.AccessionNumber = "aghfello";
+            Command1 = new Command<Injection>(ExecuteCommand1);
 
-            command1 = new Command(ExecuteCommand1);
+            Injections = new List<Injection>();
+
+            Injections.Add(new Injection()
+            {
+                AccessionNumber = "hello",
+                CaseNumber = 1
+            }); ;
+
+            Injections.Add(new Injection()
+            {
+                AccessionNumber = "hello2",
+                CaseNumber = 2
+            });
+
+            Injections.Add(new Injection()
+            {
+                AccessionNumber = "hello3",
+                CaseNumber = 3
+            });
+
+            Injections.Add(new Injection()
+            {
+                AccessionNumber = "hello4",
+                CaseNumber = 4
+            });
         }
 
-        private void ExecuteCommand1()
+        private void ExecuteCommand1(Injection injection)
         {
             MessageBox.Show("FUCK YOU");
+            Console.Out.WriteLine("fuck you" + injection.AccessionNumber);
         }
     }
 }
