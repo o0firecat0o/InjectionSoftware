@@ -88,9 +88,9 @@
 
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Background="#FFE3F3FF">
-            <Button Margin="20 20 20 20"  Content="Hello" Click="Button_Click"/>
-            <Frame x:Name="Main" Margin="5"
+        <StackPanel Grid.Column="1" Background="#FFE3F3FF">          
+            <Frame x:Name="Main" 
+                   Margin="5"
                    NavigationUIVisibility="Hidden"/>
         </StackPanel>
         

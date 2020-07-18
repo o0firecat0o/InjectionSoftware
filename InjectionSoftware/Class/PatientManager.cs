@@ -9,5 +9,10 @@ namespace InjectionSoftware.Class
     public static class PatientManager
     {
         private static List<Patient> patients = new List<Patient>();
+
+        public static void AddPatient(Patient patient)
+        {
+            patients.Add(patient);
+        }
     }
 }

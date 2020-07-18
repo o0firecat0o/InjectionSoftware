@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace InjectionSoftware.Class
 {
-    class Patient
+    public class Patient
     {
         public String patientSurname;
         public String patientLastname;
         public String patientID;
+
+        public Patient(String patientID, String patientSurname, String patientLastname)
+        {
+            this.patientID = patientID;
+            this.patientLastname = patientLastname;
+            this.patientSurname = patientSurname;
+            PatientManager.AddPatient(this);
+        }
     }
 }

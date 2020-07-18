@@ -44,9 +44,8 @@ namespace InjectionSoftware.Class
 
             //add the injection
             Injection injection = new Injection();
-            injection.patient.patientID = patientID;
-            injection.patient.patientSurname = patientSurname;
-            injection.patient.patientLastname = patientLastname;
+            Patient patient = new Patient(patientID, patientSurname, patientLastname);
+            injection.patient = patient;
 
             injections.Add(injection);
 
