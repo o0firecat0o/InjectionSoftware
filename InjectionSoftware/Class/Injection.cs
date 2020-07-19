@@ -7,14 +7,23 @@ using System.Threading.Tasks;
 
 namespace InjectionSoftware.Class
 {
-    public class Injection 
+    public class Injection : INotifyPropertyChanged
     {
         public Patient patient;
 
+        private int _CaseNumber;
 
         public int CaseNumber 
-        { 
-            get; set; 
+        {
+            get
+            {
+                return _CaseNumber;
+            }
+            set
+            {
+                _CaseNumber = value;
+                OnPropertyChanged("CaseNumber");
+            }
         }
 
         public string AccessionNumber
@@ -27,6 +36,17 @@ namespace InjectionSoftware.Class
             get
             {
                 return CaseNumber - 1;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }

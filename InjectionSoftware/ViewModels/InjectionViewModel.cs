@@ -17,10 +17,14 @@ namespace InjectionSoftware.ViewModels
 
         public Command<Injection> Command1 { get; set; }
 
+        public Command Command2 { get; set; }
+
+        public Injection injection;
 
         public InjectionViewModel()
         {
             Command1 = new Command<Injection>(ExecuteCommand1);
+            Command2 = new Command(ExecuteCommand2);
 
             Injections = new ObservableCollection<Injection>();
 
@@ -36,11 +40,13 @@ namespace InjectionSoftware.ViewModels
                 CaseNumber = 2
             });
 
-            Injections.Add(new Injection()
+            injection = (new Injection()
             {
                 AccessionNumber = "hello3",
                 CaseNumber = 3
             });
+
+            Injections.Add(injection);
 
             Injections.Add(new Injection()
             {
@@ -53,6 +59,11 @@ namespace InjectionSoftware.ViewModels
         {
             MessageBox.Show("FUCK YOU");
             Console.Out.WriteLine("fuck you" + injection.AccessionNumber);
+        }
+
+        private void ExecuteCommand2()
+        {
+            injection.CaseNumber = 5;
         }
     }
 }

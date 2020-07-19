@@ -10,8 +10,8 @@
       d:DesignHeight="600" d:DesignWidth="800"
       Title="InjectionPage" Background="#FFEBEBEB">
 
-    <Grid>
-    
+    <Grid>   
+        
     <ItemsControl ItemsSource="{Binding Injections}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
