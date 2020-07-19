@@ -2,14 +2,16 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:local="clr-namespace:InjectionSoftware"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800"
       Title="InjectionPage" Background="#FFEBEBEB">
 
-
+    <Grid>
+    
     <ItemsControl ItemsSource="{Binding Injections}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
@@ -42,11 +44,43 @@
                                 </TextBlock>
                             </Viewbox>
                         </Border>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition MaxWidth="38" Width="*"/>                                
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Assigned doctor -->
+                            <Grid Grid.Column="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <!-- the actual banner -->
+                                <Grid Margin="5 0 5 0" Background="#FF5A95FF" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    
+                                    <!-- the doctor icon -->
+                                    <iconPacks:PackIconUnicons Kind="UserMd" HorizontalAlignment="Center" Margin="2" Foreground="White"/>
+                                    
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        
+                        
                     </DockPanel>
                 </Grid>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
 
+        <!-- Grid declartion-->
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <Grid>
@@ -71,6 +105,7 @@
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
 
+        <!-- Grid row, coloumn location declaration-->
         <ItemsControl.ItemContainerStyle>
             <Style>
                 <Setter Property="Grid.Row" Value="{Binding Row}"/>
@@ -79,5 +114,5 @@
         </ItemsControl.ItemContainerStyle>
 
     </ItemsControl>
-
+    </Grid>
 </Page>
