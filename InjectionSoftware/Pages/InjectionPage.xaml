@@ -25,7 +25,7 @@
                     </Border>
                     
                     <!-- actual content of the case-->
-                    <Grid Margin="3">
+                    <DockPanel Margin="3">
                         <!-- Injection case number-->
                         <Border BorderBrush="Black"
                                 BorderThickness="2"
@@ -42,7 +42,7 @@
                                 </TextBlock>
                             </Viewbox>
                         </Border>
-                    </Grid>
+                    </DockPanel>
                 </Grid>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
