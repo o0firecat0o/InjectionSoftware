@@ -17,12 +17,18 @@
                 <Border BorderBrush="Black" BorderThickness="1">
                     <DockPanel>
                         <!-- Injection case number-->
-                        <Border BorderBrush="Black" BorderThickness="1" Padding="1" Margin="1"
+                        <Border BorderBrush="Black"
+                                BorderThickness="2"
+                                CornerRadius="4"
+                                Padding="4"
+                                Margin="10"
                                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                             <Viewbox Stretch="Uniform">
                                 <TextBlock HorizontalAlignment="Center" 
                                        VerticalAlignment="Center"
-                                       Text="{Binding CaseNumber}"/>
+                                       Text="{Binding CaseNumber}"
+                                       Style="{DynamicResource MahApps.Styles.TextBlock.HamburgerMenuHeader}">
+                                </TextBlock>
                             </Viewbox>             
                         </Border>
                         
