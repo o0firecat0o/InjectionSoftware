@@ -89,7 +89,6 @@
         </StackPanel>
 
         <Frame x:Name="Main" 
-                   Margin="5"
                    NavigationUIVisibility="Hidden"
                    Grid.Column="1"/>
         
