@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace InjectionSoftware.Class
 {
-    class InjectionsManager
+    public static class InjectionsManager
     {
-        private List<Injection> injections = new List<Injection>();
+        public static ObservableCollection<Injection> injections = new ObservableCollection<Injection>();
 
-        public Injection getInjection(String patientID)
+        public static Injection getInjection(String patientID)
         {
             foreach (var injection in injections)
             {
@@ -23,7 +24,7 @@ namespace InjectionSoftware.Class
             throw new System.Exception("No patient with patient ID: " + patientID+", is registered. @InjectionManagers/getInjection()");
         }
 
-        public bool hasInjection(String patientID)
+        public static bool hasInjection(String patientID)
         {
             foreach (var injection in injections)
             {
@@ -35,9 +36,10 @@ namespace InjectionSoftware.Class
             return false;
         }
 
-        public bool addInjection(String patientID, String patientSurname, String patientLastname)
+        public static bool addInjection(String patientID, String patientSurname, String patientLastname)
         {
-            //check if patient with patientID already existed in the database
+            // TODO: change to add more
+            // check if patient with patientID already existed in the database
             if (hasInjection(patientID)){
                 return false;
             }
@@ -52,7 +54,7 @@ namespace InjectionSoftware.Class
             return true;
         }
 
-        public void loadAllInjections()
+        public static void loadAllInjections()
         {
 
         }
