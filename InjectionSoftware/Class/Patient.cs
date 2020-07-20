@@ -8,11 +8,11 @@ namespace InjectionSoftware.Class
 {
     public class Patient
     {
-        public String patientSurname;
-        public String patientLastname;
-        public String patientID;
+        public string patientSurname;
+        public string patientLastname;
+        public string patientID;
 
-        public Patient(String patientID, String patientSurname, String patientLastname)
+        public Patient(string patientID, string patientSurname, string patientLastname)
         {
             this.patientID = patientID;
             this.patientLastname = patientLastname;
