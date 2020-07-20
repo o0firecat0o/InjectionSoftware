@@ -23,6 +23,7 @@ namespace InjectionSoftware.Class
             {
                 _CaseNumber = value;
                 OnPropertyChanged("CaseNumber");
+                OnPropertyChanged("Row");
             }
         }
 
