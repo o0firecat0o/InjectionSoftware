@@ -31,31 +31,7 @@ namespace InjectionSoftware.ViewModels
             Command1 = new Command<Injection>(ExecuteCommand1);
             Command2 = new Command(ExecuteCommand2);
 
-            Injections.Add(new Injection()
-            {
-                AccessionNumber = "hello",
-                CaseNumber = 1
-            }); ;
-
-            Injections.Add(new Injection()
-            {
-                AccessionNumber = "hello2",
-                CaseNumber = 2
-            });
-
-            injection = (new Injection()
-            {
-                AccessionNumber = "hello3",
-                CaseNumber = 3
-            });
-
-            Injections.Add(injection);
-
-            Injections.Add(new Injection()
-            {
-                AccessionNumber = "hello4",
-                CaseNumber = 4
-            });
+            InjectionsManager.addInjection("A123456","Hello","World");
         }
 
         private void ExecuteCommand1(Injection injection)

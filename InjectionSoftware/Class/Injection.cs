@@ -9,7 +9,15 @@ namespace InjectionSoftware.Class
 {
     public class Injection : INotifyPropertyChanged
     {
-        public Patient patient;
+        private readonly Patient _Patient;
+
+        public Patient Patient
+        {
+            get
+            {
+                return _Patient;
+            }
+        }
 
         private int _CaseNumber;
 
@@ -38,6 +46,12 @@ namespace InjectionSoftware.Class
             {
                 return CaseNumber - 1;
             }
+        }
+
+        public Injection(Patient patient, int CaseNumber)
+        {
+            _Patient = patient;
+            _CaseNumber = CaseNumber;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

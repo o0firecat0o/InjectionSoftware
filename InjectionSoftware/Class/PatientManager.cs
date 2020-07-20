@@ -21,6 +21,29 @@ namespace InjectionSoftware.Class
             }
             patients.Add(patient);
         }
+        public static void AddPatient(string patientID, string patientSurname, string patientLastname)
+        {
+            if (HasPatient(patientID))
+            {
+                Console.Out.WriteLine("Patient with patient ID:" + patientID + " is already presented in database, fail to add patiet");
+                return;
+            }
+            Patient patient = new Patient(patientID, patientSurname, patientLastname);
+            patients.Add(patient);
+        }
+
+        public static Patient GetPatient(string patientID)
+        {
+            foreach (Patient patient in patients)
+            {
+                if (patient.patientID.Equals(patientID))
+                {
+                    return patient;
+                }
+            }
+            Console.Out.WriteLine("Patient with patient ID:" + patientID + "does not exist in database");
+            return null;
+        }
 
         public static bool HasPatient(string patientID)
         {
@@ -33,15 +56,6 @@ namespace InjectionSoftware.Class
             return false;
         }
 
-        public static void AddPatient(string patientID, string patientSurname, string patientLastname)
-        {
-            if (HasPatient(patientID))
-            {
-                Console.Out.WriteLine("Patient with patient ID:" + patientID + " is already presented in database, fail to add patiet");
-                return;
-            }
-            Patient patient = new Patient(patientID, patientSurname, patientLastname);
-            patients.Add(patient);
-        }
+       
     }
 }

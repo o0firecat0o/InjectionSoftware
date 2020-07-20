@@ -8,9 +8,9 @@ namespace InjectionSoftware.Class
 {
     public class Patient
     {
-        public string patientSurname;
-        public string patientLastname;
-        public string patientID;
+        public string patientSurname { get; set; }
+        public string patientLastname { get; set; }
+        public string patientID { get; set; }
 
         public Patient(string patientID, string patientSurname, string patientLastname)
         {

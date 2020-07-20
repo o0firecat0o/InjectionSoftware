@@ -12,11 +12,11 @@ namespace InjectionSoftware.Class
     {
         public static ObservableCollection<Injection> injections = new ObservableCollection<Injection>();
 
-        public static Injection getInjection(String patientID)
+        public static Injection getInjection(string patientID)
         {
             foreach (var injection in injections)
             {
-                if (injection.patient.patientID.Equals(patientID))
+                if (injection.Patient.patientID.Equals(patientID))
                 {
                     return injection;
                 }
@@ -24,11 +24,11 @@ namespace InjectionSoftware.Class
             throw new System.Exception("No patient with patient ID: " + patientID+", is registered. @InjectionManagers/getInjection()");
         }
 
-        public static bool hasInjection(String patientID)
+        public static bool hasInjection(string patientID)
         {
             foreach (var injection in injections)
             {
-                if (injection.patient.patientID.Equals(patientID))
+                if (injection.Patient.patientID.Equals(patientID))
                 {
                     return true;
                 }
@@ -36,19 +36,22 @@ namespace InjectionSoftware.Class
             return false;
         }
 
-        public static bool addInjection(String patientID, String patientSurname, String patientLastname)
+        public static bool addInjection(string patientID, string patientSurname, string patientLastname)
         {
-            // TODO: change to add more
-            // check if patient with patientID already existed in the database
-            if (hasInjection(patientID)){
-                return false;
+            // find wether the patient is already registered and exist in the database
+            Patient patient;
+            if (PatientManager.HasPatient(patientID))
+            {
+                patient = PatientManager.GetPatient(patientID);
+            }
+            else
+            {
+                patient = new Patient(patientID, patientSurname, patientLastname);
             }
 
             //add the injection
-            Injection injection = new Injection();
-            Patient patient = new Patient(patientID, patientSurname, patientLastname);
-            injection.patient = patient;
-
+            Injection injection = new Injection(patient, 1);
+            
             injections.Add(injection);
 
             return true;
