@@ -109,10 +109,8 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
-                                        <!-- the doctor icon -->
-                                        <TextBlock>
-                                        c
-                                        </TextBlock>
+                                        <!-- the injection icon -->
+                                        <iconPacks:PackIconUnicons Kind="Syringe" Foreground="White" HorizontalAlignment="Center"/>
 
                                     </Grid>
                                 </Grid>
