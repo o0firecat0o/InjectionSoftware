@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace InjectionSoftware
 {
@@ -28,11 +29,28 @@ namespace InjectionSoftware
         private InjectionPage injectionPage = new InjectionPage();
         private RoomPage roomPage = new RoomPage();
 
+        private DispatcherTimer dT = new DispatcherTimer();
+        DispatcherTimer timer;
+
+        
         public MainWindow()
         {
             InitializeComponent();
             //set the default selection to 1
             leftControlBar.SelectedIndex = 0;
+
+            //Sets the timer
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1.00);
+            timer.Start();
+            timer.Tick += new EventHandler(delegate (object s, EventArgs a)
+            {
+                DateTime dt = DateTime.Now;
+                time.Text = "" + DateTime.Now.Hour.ToString("D2") + ":"
+                + DateTime.Now.Minute.ToString("D2") + ":"
+                + DateTime.Now.Second.ToString("D2");
+                Console.Out.WriteLine(time.Text);
+            });
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

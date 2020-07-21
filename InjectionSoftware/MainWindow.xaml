@@ -86,6 +86,18 @@
                 </ListViewItem>
             </ListView>
 
+            <Viewbox Stretch="Uniform">
+                <TextBlock x:Name="time"
+                           FontFamily="Segoe WP Light"
+                           Foreground="#FF1DD4F7">
+                    <TextBlock.Effect>
+                        <DropShadowEffect BlurRadius="2"
+                                          Color="#FF1DD4F7"
+                                          ShadowDepth="0" />
+                    </TextBlock.Effect>
+                </TextBlock>
+            </Viewbox>
+
         </StackPanel>
 
         <Frame x:Name="Main" 
