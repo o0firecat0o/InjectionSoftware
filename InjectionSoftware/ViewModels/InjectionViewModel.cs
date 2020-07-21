@@ -29,6 +29,16 @@ namespace InjectionSoftware.ViewModels
             InjectionsManager.addInjection("A123456", "Hello", "World");
             InjectionsManager.addInjection("A123456", "Hello", "World");
             InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+
         }
 
         private void ExecuteCommand1(Injection injection)

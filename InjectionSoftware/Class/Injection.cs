@@ -32,6 +32,22 @@ namespace InjectionSoftware.Class
                 _CaseNumber = value;
                 OnPropertyChanged("CaseNumber");
                 OnPropertyChanged("Row");
+                OnPropertyChanged("Column");
+            }
+        }
+        public int Row
+        {
+            get
+            {
+                return (CaseNumber - 1) % 10 ;
+            }
+        }
+
+        public int Column
+        {
+            get
+            {
+                return (CaseNumber - 1) / 10;
             }
         }
 
@@ -40,13 +56,7 @@ namespace InjectionSoftware.Class
             get; set;
         }
 
-        public int Row
-        {
-            get
-            {
-                return CaseNumber - 1;
-            }
-        }
+
 
         public Injection(Patient patient, int CaseNumber)
         {
