@@ -32,8 +32,9 @@ namespace InjectionSoftware.ViewModels
 
             InjectionsManager.addInjection("A123456", "Hello", "World");
 
-            CollectionContainer injectionsCollection = new CollectionContainer() { Collection = InjectionsManager.injections };
+            CollectionContainer injectionsCollection = new CollectionContainer() { Collection = InjectionsManager.injections };            
             _CompositeCollection.Add(injectionsCollection);
+            _CompositeCollection.Add(new AddingButton());
 
             InjectionsManager.addInjection("R123456", "Bad", "Temper");
         }
