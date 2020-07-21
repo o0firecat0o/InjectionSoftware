@@ -7,18 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace InjectionSoftware.ViewModels
 {
     internal class InjectionViewModel
     {
         
-        public ObservableCollection<Injection> Injections {
+        public CompositeCollection CompositeCollection
+        {
             get
             {
-                return InjectionsManager.injections;
+                return _CompositeCollection;
             }
         }
+
+        private readonly CompositeCollection _CompositeCollection = new CompositeCollection();
 
         public Command<Injection> Command1 { get; set; }
 
@@ -28,6 +32,10 @@ namespace InjectionSoftware.ViewModels
 
             InjectionsManager.addInjection("A123456", "Hello", "World");
 
+            CollectionContainer injectionsCollection = new CollectionContainer() { Collection = InjectionsManager.injections };
+            _CompositeCollection.Add(injectionsCollection);
+
+            InjectionsManager.addInjection("A123456", "", "");
         }
 
         private void ExecuteCommand1(Injection injection)

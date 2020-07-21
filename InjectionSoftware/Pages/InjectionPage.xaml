@@ -6,15 +6,16 @@
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:local="clr-namespace:InjectionSoftware"
+      xmlns:localclass="clr-namespace:InjectionSoftware.Class"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="800"
       Title="InjectionPage" Background="#FFEBEBEB">
 
-    <Grid>        
-    <ItemsControl ItemsSource="{Binding Injections}">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <!-- Template for each injection case-->
+    <Grid>
+    <ItemsControl ItemsSource="{Binding CompositeCollection}">
+        <ItemsControl.Resources>
+            <!-- Template for each injection case-->
+            <DataTemplate DataType="{x:Type localclass:Injection}">                
                 <Grid>
                     <!-- outline of the injection case-->
                     <Border CornerRadius="4"
@@ -102,7 +103,9 @@
                     </DockPanel>
                 </Grid>
             </DataTemplate>
-        </ItemsControl.ItemTemplate>
+            
+            
+        </ItemsControl.Resources>
 
         <!-- Grid declartion-->
         <ItemsControl.ItemsPanel>
@@ -125,7 +128,6 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-
                 </Grid>
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
