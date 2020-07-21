@@ -40,6 +40,15 @@ namespace InjectionSoftware.ViewModels
             _CompositeCollection.Add(new AddNewButton());
 
             InjectionsManager.addInjection("R123456", "Bad", "Temper");
+            InjectionsManager.addInjection("R123456", "Bad", "Temper");
+            InjectionsManager.addInjection("R123456", "Bad", "Temper");
+            InjectionsManager.addInjection("R123456", "Bad", "Temper");
+            InjectionsManager.addInjection("R123456", "Bad", "Temper");
+            InjectionsManager.addInjection("R123456", "Bad", "Temper");
+            InjectionsManager.addInjection("R123456", "Bad", "Temper");
+            InjectionsManager.addInjection("R123456", "Bad", "Temper");
+            InjectionsManager.addInjection("R123456", "Bad", "Temper");
+            InjectionsManager.addInjection("R123456", "Bad", "Temper");
         }
 
         private void ExecuteCommand1(Injection injection)
