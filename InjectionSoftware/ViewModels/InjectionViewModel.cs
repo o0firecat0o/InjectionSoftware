@@ -35,7 +35,7 @@ namespace InjectionSoftware.ViewModels
             CollectionContainer injectionsCollection = new CollectionContainer() { Collection = InjectionsManager.injections };
             _CompositeCollection.Add(injectionsCollection);
 
-            InjectionsManager.addInjection("A123456", "", "");
+            InjectionsManager.addInjection("R123456", "Bad", "Temper");
         }
 
         private void ExecuteCommand1(Injection injection)

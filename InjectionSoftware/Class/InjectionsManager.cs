@@ -49,8 +49,10 @@ namespace InjectionSoftware.Class
                 patient = new Patient(patientID, patientSurname, patientLastname);
             }
 
+            Console.Out.WriteLine(patientSurname);
 
-            // TODO: correct count after delete or adding
+            // TODO: avoid duplicated adding of patient
+            // TODO: correct count after delete or adding <= sort by injection time
             // add the injection
             Injection injection = new Injection(patient, injections.Count + 1);
             
