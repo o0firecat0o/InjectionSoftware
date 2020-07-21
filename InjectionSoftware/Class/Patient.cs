@@ -13,7 +13,7 @@ namespace InjectionSoftware.Class
         public string patientLastname { get; set; }
         public string patientID { get; set; }
 
-        public string patientFullname
+        public string PatientFullname
         {
             get
             {

@@ -91,6 +91,13 @@
 
                                     </Grid>
                                 </Grid>
+
+                                <!-- Patient information -->
+                                <Grid Grid.Column="0">
+                                    <Viewbox Stretch="Uniform">
+                                        <TextBlock Text="{Binding Patient.PatientFullname}" VerticalAlignment="Center" Margin="2" />
+                                    </Viewbox>                                    
+                                </Grid>
                             </Grid>
 
 
