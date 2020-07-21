@@ -46,15 +46,14 @@
 
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition MaxWidth="38" Width="*"/>
                                     <ColumnDefinition MaxWidth="38" Width="*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Assigned doctor -->
-                                <Grid Grid.Column="4">
+                                <Grid Grid.Column="3">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="2*"/>
                                         <RowDefinition Height="*"/>
@@ -73,7 +72,7 @@
                                 </Grid>
 
                                 <!-- FDG/ PSMA -->
-                                <Grid Grid.Column="3">
+                                <Grid Grid.Column="2">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="2*"/>
                                         <RowDefinition Height="*"/>

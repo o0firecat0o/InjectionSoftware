@@ -6,11 +6,20 @@ using System.Threading.Tasks;
 
 namespace InjectionSoftware.Class
 {
+    //TODO: implement INotifyPropertyChanged to patient's property
     public class Patient
     {
         public string patientSurname { get; set; }
         public string patientLastname { get; set; }
         public string patientID { get; set; }
+
+        public string patientFullname
+        {
+            get
+            {
+                return patientSurname + " " + patientLastname;
+            }
+        }
 
         public Patient(string patientID, string patientSurname, string patientLastname)
         {
