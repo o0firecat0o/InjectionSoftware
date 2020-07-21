@@ -106,13 +106,27 @@
 
             <!-- Adding Button -->
             <DataTemplate DataType="{x:Type localclass:AddingButton}">
-                <Border CornerRadius="4"
-                        Margin="3"
-                        Background="GhostWhite">
-                    <Border.Effect>
-                        <DropShadowEffect ShadowDepth="2" Color="#FF666666" BlurRadius="3" Opacity="0.7" />
-                    </Border.Effect>
-                </Border> 
+                <Grid>
+                    <!-- Background panel -->
+                    <Border CornerRadius="4"
+                    Margin="3"
+                    Background="GhostWhite">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="2" Color="#FF666666" BlurRadius="3" Opacity="0.7" />
+                        </Border.Effect>
+                    </Border>
+                    
+                    <!-- Add + New -->
+                    <Viewbox Stretch="Uniform">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ADD" VerticalAlignment="Center" Foreground="GreenYellow" />
+                            <iconPacks:PackIconBoxIcons Kind="RegularPlusCircle" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"
+                                                Foreground="GreenYellow"/>
+                            <TextBlock Text="NEW" VerticalAlignment="Center" Foreground="GreenYellow" />
+                        </StackPanel>                            
+                    </Viewbox>
+                    
+                </Grid>
              </DataTemplate>
         </ItemsControl.Resources>
 
