@@ -7,7 +7,7 @@ using System.Web.UI.WebControls.WebParts;
 
 namespace InjectionSoftware.Class
 {
-    public class AddingButton
+    public class AddNewButton
     {
         public int Row
         {

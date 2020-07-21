@@ -105,7 +105,7 @@
             </DataTemplate>
 
             <!-- Adding Button -->
-            <DataTemplate DataType="{x:Type localclass:AddingButton}">
+            <DataTemplate DataType="{x:Type localclass:AddNewButton}">
                 <Grid>
                     <!-- Background panel -->
                     <Border CornerRadius="4"
