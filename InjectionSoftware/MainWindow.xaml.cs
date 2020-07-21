@@ -33,8 +33,6 @@ namespace InjectionSoftware
             InitializeComponent();
             //set the default selection to 1
             leftControlBar.SelectedIndex = 0;
-
-            DataContext = new InjectionViewModel();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
