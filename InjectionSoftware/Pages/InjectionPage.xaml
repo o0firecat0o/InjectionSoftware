@@ -44,64 +44,62 @@
                             </Viewbox>
                         </Border>
 
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition MaxWidth="38" Width="*"/>
-                                    <ColumnDefinition MaxWidth="38" Width="*"/>
-                                </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition MaxWidth="38" Width="*"/>
+                                <ColumnDefinition MaxWidth="38" Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                                <!-- Assigned doctor -->
-                                <Grid Grid.Column="3">
+                            <!-- Assigned doctor -->
+                            <Grid Grid.Column="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <!-- the actual banner -->
+                                <Grid Margin="5 0 5 0" Background="#FF5A95FF" >
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    <!-- the actual banner -->
-                                    <Grid Margin="5 0 5 0" Background="#FF5A95FF" >
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
 
-                                        <!-- the doctor icon -->
-                                        <iconPacks:PackIconUnicons Kind="UserMd" HorizontalAlignment="Center" Margin="2" Foreground="White"/>
+                                    <!-- the doctor icon -->
+                                    <iconPacks:PackIconUnicons Kind="UserMd" HorizontalAlignment="Center" Margin="2" Foreground="White"/>
 
-                                    </Grid>
-                                </Grid>
-
-                                <!-- FDG/ PSMA -->
-                                <Grid Grid.Column="2">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="2*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <!-- the actual banner -->
-                                    <Grid Margin="5 0 5 0" Background="#FFAA6FFF" >
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-
-                                        <!-- the doctor icon -->
-                                        <TextBlock>
-                                            c
-                                        </TextBlock>
-
-                                    </Grid>
-                                </Grid>
-
-                                <!-- Patient information -->
-                                <Grid Grid.Column="0">
-                                    <Viewbox Stretch="Uniform">
-                                        <TextBlock Text="{Binding Patient.PatientFullname}" VerticalAlignment="Center" Margin="2" />
-                                    </Viewbox>                                    
                                 </Grid>
                             </Grid>
 
+                            <!-- FDG/ PSMA -->
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <!-- the actual banner -->
+                                <Grid Margin="5 0 5 0" Background="#FFAA6FFF" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
 
-                        </DockPanel>
+                                    <!-- the doctor icon -->
+                                    <TextBlock>
+                                        c
+                                    </TextBlock>
+
+                                </Grid>
+                            </Grid>
+
+                            <!-- Patient information -->
+                            <Grid Grid.Column="0">
+                                <Viewbox Stretch="Uniform">
+                                    <TextBlock Text="{Binding Patient.PatientFullname}" VerticalAlignment="Center" Margin="2" />
+                                </Viewbox>                                    
+                            </Grid>
+                        </Grid>
+                    </DockPanel>
                 </Grid>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
@@ -127,6 +125,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+
                 </Grid>
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>

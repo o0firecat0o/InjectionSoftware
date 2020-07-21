@@ -27,17 +27,6 @@ namespace InjectionSoftware.ViewModels
             Command1 = new Command<Injection>(ExecuteCommand1);
 
             InjectionsManager.addInjection("A123456", "Hello", "World");
-            InjectionsManager.addInjection("A123456", "Hello", "World");
-            InjectionsManager.addInjection("A123456", "Hello", "World");
-            InjectionsManager.addInjection("A123456", "Hello", "World");
-            InjectionsManager.addInjection("A123456", "Hello", "World");
-            InjectionsManager.addInjection("A123456", "Hello", "World");
-            InjectionsManager.addInjection("A123456", "Hello", "World");
-            InjectionsManager.addInjection("A123456", "Hello", "World");
-            InjectionsManager.addInjection("A123456", "Hello", "World");
-            InjectionsManager.addInjection("A123456", "Hello", "World");
-            InjectionsManager.addInjection("A123456", "Hello", "World");
-            InjectionsManager.addInjection("A123456", "Hello", "World");
 
         }
 
