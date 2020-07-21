@@ -49,37 +49,58 @@
                             </Viewbox>
                         </Border>
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition MaxWidth="38" Width="*"/>                                
-                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition MaxWidth="38" Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-                            <!-- Assigned doctor -->
-                            <Grid Grid.Column="4">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="2*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <!-- the actual banner -->
-                                <Grid Margin="5 0 5 0" Background="#FF5A95FF" >
+                                <!-- Assigned doctor -->
+                                <Grid Grid.Column="4">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="2*"/>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
-                                    
-                                    <!-- the doctor icon -->
-                                    <iconPacks:PackIconUnicons Kind="UserMd" HorizontalAlignment="Center" Margin="2" Foreground="White"/>
-                                    
+                                    <!-- the actual banner -->
+                                    <Grid Margin="5 0 5 0" Background="#FF5A95FF" >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- the doctor icon -->
+                                        <iconPacks:PackIconUnicons Kind="UserMd" HorizontalAlignment="Center" Margin="2" Foreground="White"/>
+
+                                    </Grid>
+                                </Grid>
+
+                                <!-- FDG/ PSMA -->
+                                <Grid Grid.Column="3">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <!-- the actual banner -->
+                                    <Grid Margin="5 0 5 0" Background="#FFAA6FFF" >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <!-- the doctor icon -->
+                                        <TextBlock>
+                                            c
+                                        </TextBlock>
+
+                                    </Grid>
                                 </Grid>
                             </Grid>
-                        </Grid>
-                        
-                        
-                    </DockPanel>
+
+
+                        </DockPanel>
                 </Grid>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
