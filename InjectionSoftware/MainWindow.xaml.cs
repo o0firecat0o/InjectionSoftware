@@ -37,18 +37,6 @@ namespace InjectionSoftware
 
             //set the default selection to 1
             leftControlBar.SelectedIndex = 0;
-
-            //Sets the timer
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1.00);
-            timer.Start();
-            timer.Tick += new EventHandler(delegate (object s, EventArgs a)
-            {
-                DateTime dt = DateTime.Now;
-                time.Text = "" + DateTime.Now.Hour.ToString("D2") + ":"
-                + DateTime.Now.Minute.ToString("D2") + ":"
-                + DateTime.Now.Second.ToString("D2");
-            });
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

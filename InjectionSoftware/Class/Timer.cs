@@ -13,6 +13,9 @@ namespace InjectionSoftware.Class
         private float _h = 30;
         private float _m = 30;
         private float _s = 30;
+        private string _time;
+        private string _date;
+        private string _day;
 
         public Timer()
         {
@@ -26,7 +29,54 @@ namespace InjectionSoftware.Class
                 S = ((float)dateTime.Millisecond / 1000 + dateTime.Second)/60f*100f;
                 M = (float)dateTime.Minute / 60f * 100f;
                 H = (float)(dateTime.Hour % 12) / 12f * 100f;
+
+                Time = "" + dateTime.Hour.ToString("D2") + ":"
+                + dateTime.Minute.ToString("D2") + ":"
+                + dateTime.Second.ToString("D2");
+
+                Date = "" + dateTime.ToString("dd-MM-yyyy");
+
+                Day = "" + dateTime.DayOfWeek;
             });
+        }
+
+        public string Time
+        {
+            get
+            {
+                return _time;
+            }
+            set
+            {
+                _time = value;
+                OnPropertyChanged("Time");
+            }
+        }
+
+        public string Date
+        {
+            get
+            {
+                return _date;
+            }
+            set
+            {
+                _date = value;
+                OnPropertyChanged("Date");
+            }
+        }
+
+        public string Day
+        {
+            get
+            {
+                return _day;
+            }
+            set
+            {
+                _day = value;
+                OnPropertyChanged("Day");
+            }
         }
 
         public float H

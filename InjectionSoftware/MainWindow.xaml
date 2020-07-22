@@ -93,19 +93,52 @@
                 </ListViewItem>
             </ListView>
 
-            <Viewbox Stretch="Uniform">                
+            <Viewbox Stretch="Uniform">
                 <Grid>
-                    <TextBlock x:Name="time"
+
+                    <StackPanel VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                        <!-- Time -->
+                        <TextBlock Text="{Binding Timer.Time}" 
+                               FontFamily="Segoe WP Light"
+                               Foreground="#FF1DD4F7"
+                                   VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               >
+                            <TextBlock.Effect>
+                                <DropShadowEffect BlurRadius="2"
+                                              Color="#FF1DD4F7"
+                                              ShadowDepth="0" />
+                            </TextBlock.Effect>
+                        </TextBlock>
+
+                        <!-- Date -->
+                        <TextBlock Text="{Binding Timer.Date}" 
                                FontFamily="Segoe WP Light"
                                Foreground="#FF1DD4F7"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center">
-                        <TextBlock.Effect>
-                            <DropShadowEffect BlurRadius="2"
+                            <TextBlock.Effect>
+                                <DropShadowEffect BlurRadius="2"
                                               Color="#FF1DD4F7"
                                               ShadowDepth="0" />
-                        </TextBlock.Effect>
-                    </TextBlock>
+                            </TextBlock.Effect>
+                        </TextBlock>
+
+                        <!-- Date -->
+                        <TextBlock Text="{Binding Timer.Day}" 
+                               FontFamily="Segoe WP Light"
+                               Foreground="#FF1DD4F7"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center">
+                            <TextBlock.Effect>
+                                <DropShadowEffect BlurRadius="2"
+                                              Color="#FF1DD4F7"
+                                              ShadowDepth="0" />
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </StackPanel>
+                    
 
                     <xrpb:RadialProgressBar Value="{Binding Timer.H}"
                                             Width="160"
@@ -142,7 +175,7 @@
                                               ShadowDepth="0" />
                         </xrpb:RadialProgressBar.Effect>
                     </xrpb:RadialProgressBar>
-                </Grid>                
+                </Grid>
             </Viewbox>
         </StackPanel>
 
