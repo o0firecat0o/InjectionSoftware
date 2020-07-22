@@ -13,131 +13,277 @@
                       ResizeMode="NoResize"
                       GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
                       WindowStartupLocation="CenterScreen">
-    <StackPanel Margin="20 10 20 10">
-        <TextBlock> Patient Surname:</TextBlock>
-        <TextBox />
-        <TextBlock> Patient Lastame:</TextBlock>
-        <TextBox />
-        <TextBlock> Patient ID:</TextBlock>
-        <TextBox />
-        <ListView Height="60"
-                  Margin="5 20 5 0"
-                  SelectionMode="Multiple"
-                  Style="{DynamicResource MahApps.Styles.ListView}"
-                  HorizontalAlignment="Center">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
+    
+    <DockPanel >
+        <StackPanel Margin="20 10 20 10"
+                    DockPanel.Dock="Top">
+            <TextBlock> Patient Surname:</TextBlock>
+            <TextBox />
+            <TextBlock> Patient Lastame:</TextBlock>
+            <TextBox />
+            <TextBlock> Patient ID:</TextBlock>
+            <TextBox />
 
-            <ListViewItem Width="60" Background="AliceBlue">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               TextAlignment="Center">
+            <TextBlock> Radiopharmaceutical:</TextBlock>
+            <ListView Height="60"
+                      Margin="5 5 5 20"
+                      SelectionMode="Multiple"
+                      Style="{DynamicResource MahApps.Styles.ListView}"
+                      HorizontalAlignment="Center"
+                      SelectedIndex="0">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListViewItem Width="60"
+                              Background="#FFA6D6FF">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
                         F18 <LineBreak />
                         FDG
-                    </TextBlock>
-                </Grid>
-            </ListViewItem>
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
 
-            <ListViewItem Width="60"
-                          Background="#FFF8F0FF">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               TextAlignment="Center">
+                <ListViewItem Width="60"
+                              Background="#FFDBB1FF">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
                         F18 <LineBreak />
                         PSMA
-                    </TextBlock>
-                </Grid>
-            </ListViewItem>
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
 
-            <ListViewItem Width="60"
-                          Background="#FFFFE0CA">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               TextAlignment="Center">
+                <ListViewItem Width="60"
+                              Background="#FFFFE0CA">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
                         C11 <LineBreak />
                         Acetate
-                    </TextBlock>
-                </Grid>
-            </ListViewItem>
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
 
-            <ListViewItem Width="60"
-                          Background="#FFF2FFF0">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               TextAlignment="Center">
+                <ListViewItem Width="60"
+                              Background="#FFC7FFBF">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
                         C11 <LineBreak />
                         PIB
-                    </TextBlock>
-                </Grid>
-            </ListViewItem>
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
 
-            <ListViewItem Width="60"
-                          Background="#FFFFCAFD">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               TextAlignment="Center">
+                <ListViewItem Width="60"
+                              Background="#FFFBB5F8">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
                         F18 <LineBreak />
                         FDOPA
-                    </TextBlock>
-                </Grid>
-            </ListViewItem>
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
 
-            <ListViewItem Width="60">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               TextAlignment="Center">
+                <ListViewItem Width="60">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
                         Ga68 <LineBreak />
                         Dotatate
-                    </TextBlock>
-                </Grid>
-            </ListViewItem>
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
 
-            <ListViewItem Width="60"
-                          Background="#FFD6CD91">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               TextAlignment="Center">
+                <ListViewItem Width="60"
+                              Background="#FFD6CD91">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
                         C11 <LineBreak />
                         methi- <LineBreak />
                         onine
-                    </TextBlock>
-                </Grid>
-            </ListViewItem>
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
 
-            <ListViewItem Width="60"
-                          Background="#FFFCFFC8">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               TextAlignment="Center">
+                <ListViewItem Width="60"
+                              Background="#FFFCFFC8">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
                         F18 <LineBreak />
                         F-L-Dopa
-                    </TextBlock>
-                </Grid>
-            </ListViewItem>
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
 
-            <ListViewItem Width="60"
-                          Background="#FFFFDEF9">
-                <Grid>
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               TextAlignment="Center">
+                <ListViewItem Width="60"
+                              Background="#FFFDA9EE">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
                         Ga68 <LineBreak />
                         PSMA
-                    </TextBlock>
-                </Grid>
-            </ListViewItem>
-        </ListView>
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
+            </ListView>
 
-    </StackPanel>
+            <TextBlock> Uptake Time:</TextBlock>
+            <ListView Height="60"
+                      HorizontalAlignment="Center"
+                      SelectedIndex="0">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListViewItem Width="60"
+                              Background="#FFFFE4E4">
+                    <TextBlock HorizontalAlignment="Center">
+                    1 Hour
+                    </TextBlock>
+                </ListViewItem>
+                <ListViewItem Width="60"
+                              Background="#FFFDFFDC">
+                    <TextBlock HorizontalAlignment="Center">
+                    1.5 Hour
+                    </TextBlock>
+                </ListViewItem>
+            </ListView>
+
+            <TextBlock>
+            Uptake Room:
+            </TextBlock>
+
+            <TextBlock>
+            Assigned Radiologist:
+            </TextBlock>
+            <ListView Height="60"
+                      HorizontalAlignment="Center"
+                      SelectedIndex="0"
+                      Margin="20 0 0 0 ">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListViewItem Width="60"
+                              Background="#FFA6D6FF">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
+                        Dr <LineBreak />
+                        KM Tse
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem Width="60"
+                              Background="#FFA6D6FF">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
+                        Dr <LineBreak />
+                        Donald <LineBreak />
+                        Tse
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem Width="60"
+                              Background="#FFA6D6FF">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
+                        Dr <LineBreak />
+                        Shu
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem Width="60"
+                              Background="#FFA6D6FF">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
+                        Dr <LineBreak />
+                        Shu
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem Width="60"
+                              Background="#FFA6D6FF">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
+                        Dr <LineBreak />
+                        Fan
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem Width="60"
+                              Background="#FFA6D6FF">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
+                        Dr <LineBreak />
+                        Antonio
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
+                <ListViewItem Width="60"
+                              Background="#FFA6D6FF">
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center">
+                        Dr <LineBreak />
+                        Cheng
+                        </TextBlock>
+                    </Grid>
+                </ListViewItem>
+            </ListView>
+
+            <!-- TODO: make the injection clock-->
+            <TextBlock> Injection Time:</TextBlock>
+
+        </StackPanel>
+
+        <Grid DockPanel.Dock="Bottom">
+            <Button DockPanel.Dock="Bottom"
+                    Height="50"
+                    Margin="372,163,31,28">
+                Confirm
+            </Button>
+
+            <Button DockPanel.Dock="Bottom"
+                    Height="50"
+                    Margin="27,163,376,28">
+                Cancel
+            </Button>
+        </Grid>
+        
+    </DockPanel>
 </Controls:MetroWindow>
