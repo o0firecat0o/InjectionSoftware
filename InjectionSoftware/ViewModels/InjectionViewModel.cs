@@ -1,4 +1,5 @@
 ﻿using InjectionSoftware.Class;
+using InjectionSoftware.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -60,7 +61,8 @@ namespace InjectionSoftware.ViewModels
 
         private void ExecuteCommand2()
         {
-            MessageBox.Show("Test");
+            Window newInjectionWindow = new NewInjection();
+            newInjectionWindow.ShowDialog();
         }
     }
 }

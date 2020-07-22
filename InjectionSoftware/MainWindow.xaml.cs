@@ -39,11 +39,6 @@ namespace InjectionSoftware
             leftControlBar.SelectedIndex = 0;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Hellowrold");
-        }
-
         // switching pages
         private void leftControlBar_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

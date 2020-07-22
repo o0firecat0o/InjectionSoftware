@@ -1,0 +1,143 @@
+﻿<Controls:MetroWindow x:Class="InjectionSoftware.Pages.NewInjection"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                      xmlns:local="clr-namespace:InjectionSoftware.Pages"
+                      mc:Ignorable="d"
+                      Title="NewInjection"
+                      Height="700"
+                      Width="600"
+                      ResizeMode="NoResize"
+                      GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+                      WindowStartupLocation="CenterScreen">
+    <StackPanel Margin="20 10 20 10">
+        <TextBlock> Patient Surname:</TextBlock>
+        <TextBox />
+        <TextBlock> Patient Lastame:</TextBlock>
+        <TextBox />
+        <TextBlock> Patient ID:</TextBlock>
+        <TextBox />
+        <ListView Height="60"
+                  Margin="5 20 5 0"
+                  SelectionMode="Multiple"
+                  Style="{DynamicResource MahApps.Styles.ListView}"
+                  HorizontalAlignment="Center">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListViewItem Width="60" Background="AliceBlue">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                        F18 <LineBreak />
+                        FDG
+                    </TextBlock>
+                </Grid>
+            </ListViewItem>
+
+            <ListViewItem Width="60"
+                          Background="#FFF8F0FF">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                        F18 <LineBreak />
+                        PSMA
+                    </TextBlock>
+                </Grid>
+            </ListViewItem>
+
+            <ListViewItem Width="60"
+                          Background="#FFFFE0CA">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                        C11 <LineBreak />
+                        Acetate
+                    </TextBlock>
+                </Grid>
+            </ListViewItem>
+
+            <ListViewItem Width="60"
+                          Background="#FFF2FFF0">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                        C11 <LineBreak />
+                        PIB
+                    </TextBlock>
+                </Grid>
+            </ListViewItem>
+
+            <ListViewItem Width="60"
+                          Background="#FFFFCAFD">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                        F18 <LineBreak />
+                        FDOPA
+                    </TextBlock>
+                </Grid>
+            </ListViewItem>
+
+            <ListViewItem Width="60">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                        Ga68 <LineBreak />
+                        Dotatate
+                    </TextBlock>
+                </Grid>
+            </ListViewItem>
+
+            <ListViewItem Width="60"
+                          Background="#FFD6CD91">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                        C11 <LineBreak />
+                        methi- <LineBreak />
+                        onine
+                    </TextBlock>
+                </Grid>
+            </ListViewItem>
+
+            <ListViewItem Width="60"
+                          Background="#FFFCFFC8">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                        F18 <LineBreak />
+                        F-L-Dopa
+                    </TextBlock>
+                </Grid>
+            </ListViewItem>
+
+            <ListViewItem Width="60"
+                          Background="#FFFFDEF9">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center">
+                        Ga68 <LineBreak />
+                        PSMA
+                    </TextBlock>
+                </Grid>
+            </ListViewItem>
+        </ListView>
+
+    </StackPanel>
+</Controls:MetroWindow>
