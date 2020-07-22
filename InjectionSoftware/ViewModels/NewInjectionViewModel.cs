@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace InjectionSoftware.ViewModels
 {
@@ -11,14 +12,21 @@ namespace InjectionSoftware.ViewModels
     {
         public Command Cancel { get; set; }
 
-        public NewInjectionViewModel()
-        {
+        public DateTime DateTime {get; set;}
 
+        private readonly Window window;
+
+        public NewInjectionViewModel(Window window)
+        {
+            this.window = window;
+            Cancel = new Command(closeWindow);
+            DateTime = DateTime.Now;
+            Console.Out.WriteLine(DateTime);
         }
 
-        private void cancel()
+        private void closeWindow()
         {
-
+            Console.Out.WriteLine(DateTime);
         }
     }
 }

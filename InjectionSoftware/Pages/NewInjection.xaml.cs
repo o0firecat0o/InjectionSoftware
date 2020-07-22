@@ -23,7 +23,7 @@ namespace InjectionSoftware.Pages
         public NewInjection()
         {
             InitializeComponent();
-            DataContext = new InjectionViewModel();
+            DataContext = new NewInjectionViewModel(this);
         }
     }
 }

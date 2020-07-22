@@ -6,6 +6,7 @@
                       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                       xmlns:local="clr-namespace:InjectionSoftware.Pages"
+                      xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       mc:Ignorable="d"
                       Title="NewInjection"
                       Height="700"
@@ -13,8 +14,8 @@
                       ResizeMode="NoResize"
                       GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
                       WindowStartupLocation="CenterScreen">
-    
-    <DockPanel >
+
+    <DockPanel>
         <StackPanel Margin="20 10 20 10"
                     DockPanel.Dock="Top">
             <TextBlock> Patient Surname:</TextBlock>
@@ -269,21 +270,28 @@
             <!-- TODO: make the injection clock-->
             <TextBlock> Injection Time:</TextBlock>
 
+            <mah:TimePicker SelectedDateTime="{Binding DateTime}"
+                            Focusable="False"
+                            Margin="0,0,434.6,0">
+
+            </mah:TimePicker>
+
         </StackPanel>
 
         <Grid DockPanel.Dock="Bottom">
             <Button DockPanel.Dock="Bottom"
                     Height="50"
-                    Margin="372,163,31,28">
+                    Margin="374,134,24,25.6">
                 Confirm
             </Button>
 
             <Button DockPanel.Dock="Bottom"
                     Height="50"
-                    Margin="27,163,376,28">
+                    Margin="24,134,374,25.6"
+                    Command="{Binding Cancel}">
                 Cancel
             </Button>
         </Grid>
-        
+
     </DockPanel>
 </Controls:MetroWindow>
