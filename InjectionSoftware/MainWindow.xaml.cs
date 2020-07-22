@@ -36,6 +36,9 @@ namespace InjectionSoftware
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = new MainWindowViewModel();
+
             //set the default selection to 1
             leftControlBar.SelectedIndex = 0;
 
@@ -49,7 +52,6 @@ namespace InjectionSoftware
                 time.Text = "" + DateTime.Now.Hour.ToString("D2") + ":"
                 + DateTime.Now.Minute.ToString("D2") + ":"
                 + DateTime.Now.Second.ToString("D2");
-                Console.Out.WriteLine(time.Text);
             });
         }
 

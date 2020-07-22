@@ -93,7 +93,7 @@
                 </ListViewItem>
             </ListView>
 
-            <Viewbox Stretch="Uniform">
+            <Viewbox Stretch="Uniform">                
                 <Grid>
                     <TextBlock x:Name="time"
                                FontFamily="Segoe WP Light"
@@ -107,7 +107,7 @@
                         </TextBlock.Effect>
                     </TextBlock>
 
-                    <xrpb:RadialProgressBar Value="36"
+                    <xrpb:RadialProgressBar Value="{Binding t}"
                                             Width="160"
                                             Height="160"
                                             ArcWidth="6"
@@ -144,8 +144,6 @@
                     </xrpb:RadialProgressBar>
                 </Grid>                
             </Viewbox>
-
-            
         </StackPanel>
 
         <Frame x:Name="Main"
