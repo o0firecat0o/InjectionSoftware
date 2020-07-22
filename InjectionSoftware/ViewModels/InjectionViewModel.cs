@@ -34,10 +34,17 @@ namespace InjectionSoftware.ViewModels
             Command2 = new Command(ExecuteCommand2);
 
             InjectionsManager.addInjection("A123456", "Hello", "World");
-
-            CollectionContainer injectionsCollection = new CollectionContainer() { Collection = InjectionsManager.injections };            
-            _CompositeCollection.Add(injectionsCollection);
-            _CompositeCollection.Add(new AddNewButton());
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
+            InjectionsManager.addInjection("A123456", "Hello", "World");
 
             InjectionsManager.addInjection("R123456", "Bad", "Temper");
             InjectionsManager.addInjection("R123456", "Bad", "Temper");
