@@ -28,11 +28,7 @@ namespace InjectionSoftware
     {
         private InjectionPage injectionPage = new InjectionPage();
         private RoomPage roomPage = new RoomPage();
-
-        private DispatcherTimer dT = new DispatcherTimer();
-        DispatcherTimer timer;
-
-        
+                
         public MainWindow()
         {
             InitializeComponent();
@@ -43,7 +39,7 @@ namespace InjectionSoftware
             leftControlBar.SelectedIndex = 0;
 
             //Sets the timer
-            timer = new DispatcherTimer();
+            DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1.00);
             timer.Start();
             timer.Tick += new EventHandler(delegate (object s, EventArgs a)

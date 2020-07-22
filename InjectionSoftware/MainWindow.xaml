@@ -107,7 +107,7 @@
                         </TextBlock.Effect>
                     </TextBlock>
 
-                    <xrpb:RadialProgressBar Value="{Binding t}"
+                    <xrpb:RadialProgressBar Value="{Binding Timer.H}"
                                             Width="160"
                                             Height="160"
                                             ArcWidth="6"
@@ -119,7 +119,7 @@
                         </xrpb:RadialProgressBar.Effect>
                     </xrpb:RadialProgressBar>
 
-                    <xrpb:RadialProgressBar Value="36"
+                    <xrpb:RadialProgressBar Value="{Binding Timer.M}"
                                             Width="140"
                                             Height="140"
                                             ArcWidth="6"
@@ -131,7 +131,7 @@
                         </xrpb:RadialProgressBar.Effect>
                     </xrpb:RadialProgressBar>
 
-                    <xrpb:RadialProgressBar Value="36"
+                    <xrpb:RadialProgressBar Value="{Binding Timer.S}"
                                             Width="120"
                                             Height="120"
                                             ArcWidth="6"
