@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InjectionSoftware.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace InjectionSoftware.Pages
         public NewInjection()
         {
             InitializeComponent();
+            DataContext = new InjectionViewModel();
         }
     }
 }

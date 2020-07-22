@@ -153,6 +153,7 @@
     </Compile>
     <Compile Include="ViewModels\InjectionViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\NewInjectionViewModel.cs" />
     <Page Include="Pages\InjectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
