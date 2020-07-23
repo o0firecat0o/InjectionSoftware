@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace InjectionSoftware.ViewModels
 {
@@ -26,6 +27,7 @@ namespace InjectionSoftware.ViewModels
 
         public DateTime DateTime {get; set;}
 
+        public ListView RP_injection { get; set; }
 
         public ObservableCollection<RP> ALLRP
         {
@@ -50,11 +52,20 @@ namespace InjectionSoftware.ViewModels
             window.Close();
         }
 
+        //TODO: add rps
+
         private void confirm()
         {
+            ObservableCollection<RP> RPs = new ObservableCollection<RP>();
+            foreach (RP rP in RP_injection.SelectedItems)
+            {
+                RPs.Add(rP);
+            }
+            
+            
             if(patientID!=null && patientID != "")
             {
-                InjectionsManager.addInjection(patientID, patientSurname, patientLastname);
+                InjectionsManager.addInjection(patientID, patientSurname, patientLastname, RPs);
             }
             else
             {

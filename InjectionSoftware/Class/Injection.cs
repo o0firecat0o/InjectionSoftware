@@ -1,5 +1,7 @@
-﻿using System;
+﻿using InjectionSoftware.Enums;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -56,12 +58,26 @@ namespace InjectionSoftware.Class
             get; set;
         }
 
+        private ObservableCollection<RP> _RPs;
 
+        public ObservableCollection<RP> RPs
+        {
+            get
+            {
+                return _RPs;
+            }
+            set
+            {
+                _RPs = value;
+                OnPropertyChanged("RP");
+            }
+        }
 
-        public Injection(Patient patient, int CaseNumber)
+        public Injection(Patient patient, int CaseNumber, ObservableCollection<RP> RPs)
         {
             _Patient = patient;
-            _CaseNumber = CaseNumber;
+            this.CaseNumber = CaseNumber;
+            this.RPs = RPs;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

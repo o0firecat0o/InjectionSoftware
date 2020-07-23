@@ -1,4 +1,5 @@
-﻿using InjectionSoftware.ViewModels;
+﻿using InjectionSoftware.Enums;
+using InjectionSoftware.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,18 @@ namespace InjectionSoftware.Pages
     /// </summary>
     public partial class NewInjection
     {
+        NewInjectionViewModel viewModel;
+
         public NewInjection()
         {
-            DataContext = new NewInjectionViewModel(this);
+            viewModel = new NewInjectionViewModel(this);
+            DataContext = viewModel;
             InitializeComponent();
-            RP_injection.Focus();
+
+            //selected item stuff
+            viewModel.RP_injection = RP_injection;
+
+            //make the focus
             RP_injection.SelectedIndex = 0;
         }
     }

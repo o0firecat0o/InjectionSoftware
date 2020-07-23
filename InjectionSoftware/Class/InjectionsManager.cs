@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InjectionSoftware.Enums;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,7 +39,7 @@ namespace InjectionSoftware.Class
             return false;
         }
 
-        public static bool addInjection(string patientID, string patientSurname, string patientLastname)
+        public static bool addInjection(string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs)
         {
             // find wether the patient is already registered and exist in the database
             Patient patient;
@@ -56,7 +57,7 @@ namespace InjectionSoftware.Class
             // TODO: avoid duplicated adding of patient
             // TODO: correct count after delete or adding <= sort by injection time
             // add the injection
-            Injection injection = new Injection(patient, injections.Count + 1);
+            Injection injection = new Injection(patient, injections.Count + 1, RPs);
             
             injections.Add(injection);
 
