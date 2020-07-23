@@ -24,7 +24,7 @@ namespace InjectionSoftware
         public InjectionPage()
         {
             InitializeComponent();
-            DataContext = new InjectionViewModel();
+            DataContext = new InjectionPageViewModel();
         }
     }
 }

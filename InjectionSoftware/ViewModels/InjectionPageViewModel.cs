@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace InjectionSoftware.ViewModels
 {
-    internal class InjectionViewModel
+    internal class InjectionPageViewModel
     {
         
         public CompositeCollection CompositeCollection
@@ -29,7 +29,7 @@ namespace InjectionSoftware.ViewModels
 
         public Command Command2 { get; set; }
 
-        public InjectionViewModel()
+        public InjectionPageViewModel()
         {
             Command1 = new Command<Injection>(ExecuteCommand1);
             Command2 = new Command(ExecuteCommand2);
@@ -40,6 +40,7 @@ namespace InjectionSoftware.ViewModels
             CollectionContainer injectionsCollection = new CollectionContainer() { Collection = InjectionsManager.injections };            
             _CompositeCollection.Add(injectionsCollection);
             _CompositeCollection.Add(new AddNewButton());
+            _CompositeCollection.Add(new Legend());
 
             InjectionsManager.addInjection("R123456", "Bad", "Temper", null);
         }

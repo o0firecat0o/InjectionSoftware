@@ -169,7 +169,37 @@
 
                     </Grid>
                 </DataTemplate>
+
+
+                <!-- Legend -->
+                <DataTemplate DataType="{x:Type localclass:Legend}">
+                    <Grid>
+                        <!-- Background panel -->
+                        <Border CornerRadius="4"
+                                Margin="3"
+                                Background="GhostWhite">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="2"
+                                                  Color="#FF666666"
+                                                  BlurRadius="3"
+                                                  Opacity="0.7" />
+                            </Border.Effect>
+                        </Border>
+
+                        <!-- Add + New -->
+                        <Viewbox Stretch="Uniform">
+                            <StackPanel Orientation="Horizontal">
+
+                            </StackPanel>
+                        </Viewbox>
+
+                    </Grid>
+                </DataTemplate>
+                
+                
             </ItemsControl.Resources>
+           
+
 
             <!-- Grid declartion-->
             <ItemsControl.ItemsPanel>

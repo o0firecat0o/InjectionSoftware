@@ -142,6 +142,7 @@
     <Compile Include="Class\Command.cs" />
     <Compile Include="Class\Injection.cs" />
     <Compile Include="Class\InjectionsManager.cs" />
+    <Compile Include="Class\Legend.cs" />
     <Compile Include="Class\Patient.cs" />
     <Compile Include="Class\PatientManager.cs" />
     <Compile Include="Class\Timer.cs" />
@@ -153,7 +154,7 @@
     <Compile Include="Pages\RoomPage.xaml.cs">
       <DependentUpon>RoomPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\InjectionViewModel.cs" />
+    <Compile Include="ViewModels\InjectionPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\NewInjectionViewModel.cs" />
     <Page Include="Pages\InjectionPage.xaml">
