@@ -59,6 +59,9 @@ namespace InjectionSoftware.Class
             get; set;
         }
 
+        /// <summary>
+        /// List of RP injected, can be more than two, but only the first two will be displayed
+        /// </summary>
         private ObservableCollection<RP> _RPs;
 
         public ObservableCollection<RP> RPs
@@ -75,6 +78,9 @@ namespace InjectionSoftware.Class
             }
         }
 
+        /// <summary>
+        /// The color of the first injected RP
+        /// </summary>
         public Brush RP1
         {
             get
@@ -90,6 +96,9 @@ namespace InjectionSoftware.Class
             }
         }
 
+        /// <summary>
+        /// The color of the second injected RP
+        /// </summary>
         public Brush RP2
         {
             get
@@ -112,11 +121,42 @@ namespace InjectionSoftware.Class
             }
         }
 
-        public Injection(Patient patient, int CaseNumber, ObservableCollection<RP> RPs)
+        /// <summary>
+        /// The assigned doctor for this injection
+        /// </summary>
+        private Doctor _Doctor;
+
+        public Doctor Doctor
+        {
+            get
+            {
+                return _Doctor;
+            }
+            set
+            {
+                _Doctor = value;
+                OnPropertyChanged("Doctor");
+                OnPropertyChanged("DoctorColor");
+            }
+        }
+
+        /// <summary>
+        /// The color representing the assigned doctor for this injection
+        /// </summary>
+        public Brush DoctorColor
+        {
+            get
+            {
+                return Doctor.Color;
+            }
+        }
+
+        public Injection(Patient patient, int CaseNumber, ObservableCollection<RP> RPs,Doctor Doctor)
         {
             _Patient = patient;
             this.CaseNumber = CaseNumber;
             this.RPs = RPs;
+            this.Doctor = Doctor;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

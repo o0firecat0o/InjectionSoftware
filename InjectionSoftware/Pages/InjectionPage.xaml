@@ -80,7 +80,7 @@
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <!-- the actual banner -->
-                                    <Grid Background="#FF5A95FF">
+                                    <Grid Background="{Binding DoctorColor}">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="*" />

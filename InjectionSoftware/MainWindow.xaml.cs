@@ -40,6 +40,7 @@ namespace InjectionSoftware
             leftControlBar.SelectedIndex = 0;
 
             RP.AddDefault();
+            Doctor.AddDefault();
         }
 
         // switching pages

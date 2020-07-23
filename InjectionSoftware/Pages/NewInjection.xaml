@@ -86,14 +86,36 @@
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 
-                <ListViewItem Width="60"
-                              Background="#FFFFE4E4">
+                <ListView.Resources>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <Binding Path="Color" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Width"
+                                Value="60" />
+                        <Setter Property="Height"
+                                Value="60" />
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                                             Color="Black" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                                             Color="White" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                             Color="Black" />
+                        </Style.Resources>
+                    </Style>
+                </ListView.Resources>
+
+                <ListViewItem Background="#FFFFE4E4">
                     <TextBlock HorizontalAlignment="Center">
                     1 Hour
                     </TextBlock>
                 </ListViewItem>
-                <ListViewItem Width="60"
-                              Background="#FFFDFFDC">
+                <ListViewItem Background="#FFFDFFDC">
                     <TextBlock HorizontalAlignment="Center">
                     1.5 Hour
                     </TextBlock>
@@ -107,93 +129,52 @@
             <TextBlock>
             Assigned Radiologist:
             </TextBlock>
-            <ListView Height="60"
+            <ListView x:Name="RadiologistList"
+                      Height="60"
                       HorizontalAlignment="Center"
-                      SelectedIndex="0"
-                      Margin="20 0 0 0 ">
+                      ItemsSource="{Binding ALLDoctor}"
+                      SelectedItem="{Binding SelectedDoctor}">
+
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
-                <ListViewItem Width="60"
-                              Background="#FFA6D6FF">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        Dr <LineBreak />
-                        KM Tse
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-                <ListViewItem Width="60"
-                              Background="#FFA6D6FF">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        Dr <LineBreak />
-                        Donald <LineBreak />
-                        Tse
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-                <ListViewItem Width="60"
-                              Background="#FFA6D6FF">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        Dr <LineBreak />
-                        Shu
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-                <ListViewItem Width="60"
-                              Background="#FFA6D6FF">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        Dr <LineBreak />
-                        Siu
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-                <ListViewItem Width="60"
-                              Background="#FFA6D6FF">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        Dr <LineBreak />
-                        Fan
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-                <ListViewItem Width="60"
-                              Background="#FFA6D6FF">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        Dr <LineBreak />
-                        Antonio
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-                <ListViewItem Width="60"
-                              Background="#FFA6D6FF">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        Dr <LineBreak />
-                        Cheng
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
+
+                <ListView.Resources>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <Binding Path="Color" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Width"
+                                Value="60" />
+                        <Setter Property="Height"
+                                Value="60" />
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                                             Color="Black" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                                             Color="White" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                             Color="Black" />
+                        </Style.Resources>
+                    </Style>
+                </ListView.Resources>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding SeperatedName}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
 
             <!-- TODO: make the injection clock-->

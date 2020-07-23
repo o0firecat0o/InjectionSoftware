@@ -29,11 +29,21 @@ namespace InjectionSoftware.ViewModels
 
         public ListView RPListView { get; set; }
 
+        public Doctor SelectedDoctor { get; set; }
+
         public ObservableCollection<RP> ALLRP
         {
             get
             {
                 return RP.RPs;
+            }
+        }
+
+        public ObservableCollection<Doctor> ALLDoctor
+        {
+            get
+            {
+                return Doctor.Doctors;
             }
         }
 
@@ -65,14 +75,14 @@ namespace InjectionSoftware.ViewModels
             
             if(patientID!=null && patientID != "")
             {
-                InjectionsManager.addInjection(patientID, patientSurname, patientLastname, RPs);
+                InjectionsManager.addInjection(patientID, patientSurname, patientLastname, RPs, SelectedDoctor);
+                Console.Out.WriteLine("adding injection with patient ID: " + patientID);
             }
             else
             {
                 //TODO: handle exception
                 throw new System.Exception("Patient ID is null");
             }
-            Console.Out.WriteLine("adding injection with patient ID: " + patientID);
             window.Close();
         }
     }

@@ -34,6 +34,7 @@ namespace InjectionSoftware.Pages
 
             //make the focus
             RP_injection.SelectedIndex = 0;
+            RadiologistList.SelectedIndex = 0;
         }
     }
 }
