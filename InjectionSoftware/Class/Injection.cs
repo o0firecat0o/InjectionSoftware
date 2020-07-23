@@ -143,12 +143,21 @@ namespace InjectionSoftware.Class
             }
         }
 
-        public Injection(Patient patient, int CaseNumber, ObservableCollection<RP> RPs,Doctor Doctor)
+        /// <summary>
+        /// The injection time for this injection
+        /// </summary>
+        public DateTime InjectionTime { get; set; }
+
+        public float UptakeTime { get; set; }
+
+        public Injection(Patient patient, int CaseNumber, ObservableCollection<RP> RPs,Doctor Doctor, float UptakeTime, DateTime InjectionTime)
         {
             Patient = patient;
             this.CaseNumber = CaseNumber;
             this.RPs = RPs;
             this.Doctor = Doctor;
+            this.UptakeTime = UptakeTime;
+            this.InjectionTime = InjectionTime;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

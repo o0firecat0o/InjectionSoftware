@@ -25,12 +25,24 @@ namespace InjectionSoftware.ViewModels
 
         public Command Confirm { get; set; }
 
+        /// <summary>
+        /// The injection time of the RP, adjustable by Mahapp time picker
+        /// </summary>
         public DateTime DateTime {get; set;}
 
+        /// <summary>
+        /// The control for ListView containing all the RPs
+        /// </summary>
         public ListView RPListView { get; set; }
 
         public Doctor SelectedDoctor { get; set; }
 
+        public int UptakeTimeIndex { get; set; }
+
+
+        /// <summary>
+        /// All the registered RP
+        /// </summary>
         public ObservableCollection<RP> ALLRP
         {
             get
@@ -55,6 +67,7 @@ namespace InjectionSoftware.ViewModels
             Cancel = new Command(closeWindow);
             Confirm = new Command(confirm);
             DateTime = DateTime.Now;
+            UptakeTimeIndex = 0;
         }
 
         private void closeWindow()
@@ -75,7 +88,20 @@ namespace InjectionSoftware.ViewModels
             
             if(patientID!=null && patientID != "")
             {
-                InjectionsManager.addInjection(patientID, patientSurname, patientLastname, RPs, SelectedDoctor);
+                float UptakeTime;
+                switch (UptakeTimeIndex)
+                {
+                    case 0:
+                        UptakeTime = 60f;
+                            break;
+                    case 1:
+                        UptakeTime = 90f;
+                            break;
+                    default:
+                        UptakeTime = 60f;
+                            break;
+                }
+                InjectionsManager.addInjection(patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime);
                 Console.Out.WriteLine("adding injection with patient ID: " + patientID);
             }
             else

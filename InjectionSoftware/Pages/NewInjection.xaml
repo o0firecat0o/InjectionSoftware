@@ -22,9 +22,9 @@
             <TextBlock> Patient Surname:</TextBlock>
             <TextBox Text="{Binding patientSurname}" />
             <TextBlock> Patient Lastame:</TextBlock>
-            <TextBox Text="{Binding patientLastname}"/>
+            <TextBox Text="{Binding patientLastname}" />
             <TextBlock> Patient ID:</TextBlock>
-            <TextBox Text="{Binding patientID}"/>
+            <TextBox Text="{Binding patientID}" />
 
             <TextBlock> Radiopharmaceutical:</TextBlock>
             <ListView x:Name="RP_injection"
@@ -35,7 +35,7 @@
 
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
+                        <StackPanel Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 
@@ -70,7 +70,7 @@
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        TextAlignment="Center" />
-                        </StackPanel>                   
+                        </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -79,7 +79,7 @@
             <TextBlock> Uptake Time:</TextBlock>
             <ListView Height="60"
                       HorizontalAlignment="Center"
-                      SelectedIndex="0">
+                      SelectedIndex="{Binding UptakeTimeIndex}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />
@@ -126,9 +126,9 @@
             Uptake Room:
             </TextBlock>
 
-            <TextBlock>
-            Assigned Radiologist:
+            <TextBlock>  Assigned Radiologist:
             </TextBlock>
+            <!--#region Assigned Radiologist-->
             <ListView x:Name="RadiologistList"
                       Height="60"
                       HorizontalAlignment="Center"
@@ -176,6 +176,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <!--#endregion-->
 
             <!-- TODO: make the injection clock-->
             <TextBlock> Injection Time:</TextBlock>
