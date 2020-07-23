@@ -20,8 +20,6 @@ namespace InjectionSoftware.Enums
         public Brush Color { get; }
         public float UptakeTime { get; }
 
-        public int S { get; set; }
-
         private static BrushConverter converter = new System.Windows.Media.BrushConverter();
 
         public static ObservableCollection<RP> RPs = new ObservableCollection<RP>();
@@ -33,22 +31,21 @@ namespace InjectionSoftware.Enums
             RPs.Add(this);
             this.UptakeTime = UptakeTime;
             this.SeperatedName = Name.Replace('-', '\n');
-            S = 0;
         }
 
 
         //TODO: load RP from txtfile
         public static void AddDefault()
         {
-            new RP("F18-FDG", (Brush)converter.ConvertFromString("#FFA6D6FF"));
-            new RP("F18-PSMA", (Brush)converter.ConvertFromString("#FFDBB1FF"));
-            new RP("C11-Acetate", (Brush)converter.ConvertFromString("#FFFFE0CA"));
-            new RP("C11-PIB", (Brush)converter.ConvertFromString("#FFA6D6FF"));
-            new RP("F18-FLDOPA", (Brush)converter.ConvertFromString("#FFFBB5F8"));
-            new RP("Ga68-Dotatate", (Brush)converter.ConvertFromString("#FFFFFFFF"));
-            new RP("C11-Methaio-nine", (Brush)converter.ConvertFromString("#FFD6CD91"));
-            new RP("Ga68-PSMA", (Brush)converter.ConvertFromString("#FFFCFFC8"));
-            new RP("Others", (Brush)converter.ConvertFromString("#FFFDA9EE"));
+            new RP("F18-FDG", (Brush)converter.ConvertFromString("#579BFF"));
+            new RP("F18-PSMA", (Brush)converter.ConvertFromString("#FF57C4"));
+            new RP("C11-Acetate", (Brush)converter.ConvertFromString("#FF5757"));
+            new RP("C11-PIB", (Brush)converter.ConvertFromString("#71FF57"));
+            new RP("F18-FLDOPA", (Brush)converter.ConvertFromString("#57FFF9"));
+            new RP("Ga68-Dotatate", (Brush)converter.ConvertFromString("#FFFC57"));
+            new RP("C11-Methaio-nine", (Brush)converter.ConvertFromString("#FFBA57"));
+            new RP("Ga68-PSMA", (Brush)converter.ConvertFromString("#FF57C4"));
+            new RP("Others", (Brush)converter.ConvertFromString("#858585"));
         }
     }
 }

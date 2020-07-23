@@ -54,9 +54,11 @@
                                 Value="Stretch" />
                         <Style.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
-                                             Color="#3399FF" />
+                                             Color="Black" />
                             <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
                                              Color="White" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                             Color="Black" />
                         </Style.Resources>
                     </Style>
                 </ListView.Resources>
