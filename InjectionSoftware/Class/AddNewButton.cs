@@ -8,12 +8,15 @@ using System.Web.UI.WebControls.WebParts;
 namespace InjectionSoftware.Class
 {
     public class AddNewButton
-    {
+    {   
+        //TODO: move the add new button to the bottom of all injections
+        //TODO: update the row and column everytime a new injection has been added/ removed
+
         public int Row
         {
             get
             {
-                return InjectionsManager.injections.Count % 10;
+                return 9;
             }
         }
 
@@ -21,7 +24,7 @@ namespace InjectionSoftware.Class
         {
             get
             {
-                return InjectionsManager.injections.Count / 10;
+                return 2;
             }
         }
     }

@@ -10,7 +10,17 @@ namespace InjectionSoftware.ViewModels
 {
     public class NewInjectionViewModel
     {
+        public Injection Injection { get; set; }
+
+        public string patientID { get; set; }
+
+        public string patientSurname { get; set; }
+
+        public string patientLastname { get; set; }
+        
         public Command Cancel { get; set; }
+
+        public Command Confirm { get; set; }
 
         public DateTime DateTime {get; set;}
 
@@ -20,13 +30,29 @@ namespace InjectionSoftware.ViewModels
         {
             this.window = window;
             Cancel = new Command(closeWindow);
+            Confirm = new Command(confirm);
             DateTime = DateTime.Now;
             Console.Out.WriteLine(DateTime);
         }
 
         private void closeWindow()
         {
-            Console.Out.WriteLine(DateTime);
+            window.Close();
+        }
+
+        private void confirm()
+        {
+            if(patientID!=null && patientID != "")
+            {
+                InjectionsManager.addInjection(patientID, patientSurname, patientLastname);
+            }
+            else
+            {
+                //TODO: handle exception
+                throw new System.Exception("Patient ID is null");
+            }
+            Console.Out.WriteLine("adding injection with patient ID: " + patientID);
+            window.Close();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace InjectionSoftware.Class
     public static class InjectionsManager
     {
         public static ObservableCollection<Injection> injections = new ObservableCollection<Injection>();
+
 
         public static Injection getInjection(string patientID)
         {

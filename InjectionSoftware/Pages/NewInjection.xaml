@@ -19,11 +19,11 @@
         <StackPanel Margin="20 10 20 10"
                     DockPanel.Dock="Top">
             <TextBlock> Patient Surname:</TextBlock>
-            <TextBox />
+            <TextBox Text="{Binding patientSurname}" />
             <TextBlock> Patient Lastame:</TextBlock>
-            <TextBox />
+            <TextBox Text="{Binding patientLastname}"/>
             <TextBlock> Patient ID:</TextBlock>
-            <TextBox />
+            <TextBox Text="{Binding patientID}"/>
 
             <TextBlock> Radiopharmaceutical:</TextBlock>
             <ListView Height="60"
@@ -281,7 +281,8 @@
         <Grid DockPanel.Dock="Bottom">
             <Button DockPanel.Dock="Bottom"
                     Height="50"
-                    Margin="374,134,24,25.6">
+                    Margin="374,134,24,25.6"
+                    Command="{Binding Confirm}">
                 Confirm
             </Button>
 
