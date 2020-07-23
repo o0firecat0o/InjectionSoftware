@@ -145,6 +145,8 @@
     <Compile Include="Class\Patient.cs" />
     <Compile Include="Class\PatientManager.cs" />
     <Compile Include="Class\Timer.cs" />
+    <Compile Include="Enums\Doctor.cs" />
+    <Compile Include="Enums\RP.cs" />
     <Compile Include="Pages\NewInjection.xaml.cs">
       <DependentUpon>NewInjection.xaml</DependentUpon>
     </Compile>
