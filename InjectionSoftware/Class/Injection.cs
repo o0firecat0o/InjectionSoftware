@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace InjectionSoftware.Class
 {
@@ -69,7 +70,45 @@ namespace InjectionSoftware.Class
             set
             {
                 _RPs = value;
-                OnPropertyChanged("RP");
+                OnPropertyChanged("RP1");
+                OnPropertyChanged("RP2");
+            }
+        }
+
+        public Brush RP1
+        {
+            get
+            {
+                if (RPs.Count>0)
+                {
+                    return RPs[0].Color;
+                }
+                else
+                {
+                    return Brushes.White;
+                }
+            }
+        }
+
+        public Brush RP2
+        {
+            get
+            {
+                if (RPs.Count > 0)
+                {
+                    if (RPs.Count > 1)
+                    {
+                        return RPs[1].Color;
+                    }
+                    else
+                    {
+                        return RPs[0].Color;
+                    }
+                }
+                else
+                {
+                    return Brushes.White;
+                }
             }
         }
 

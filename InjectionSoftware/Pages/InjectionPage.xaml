@@ -30,7 +30,7 @@
                                                        CommandParameter="{Binding}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        
+
                         <!-- outline of the injection case-->
                         <Border CornerRadius="4"
                                 Margin="3"
@@ -64,23 +64,23 @@
 
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="4*" />
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition MaxWidth="38"
+                                    <ColumnDefinition MaxWidth="36"
                                                       Width="*" />
-                                    <ColumnDefinition MaxWidth="38"
+                                    <ColumnDefinition MaxWidth="36"
                                                       Width="*" />
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Assigned doctor -->
-                                <Grid Grid.Column="3">
+                                <Grid Grid.Column="3"
+                                      Margin="3 0 3 0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="2*" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <!-- the actual banner -->
-                                    <Grid Margin="5 0 5 0"
-                                          Background="#FF5A95FF">
+                                    <Grid Background="#FF5A95FF">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="*" />
@@ -95,23 +95,29 @@
                                     </Grid>
                                 </Grid>
 
-                                <!-- FDG/ PSMA -->
-                                <Grid Grid.Column="2">
+                                <!-- RP Color -->
+                                <Grid Grid.Column="2"
+                                      Margin="3 0 3 0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="2*" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <!-- the actual banner -->
-                                    <Grid Margin="5 0 5 0"
-                                          Background="#FFAA6FFF">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0"
+                                              Background="{Binding RP1}" />
+                                        <Grid Grid.Column="1"
+                                              Background="{Binding RP2}" />
+                                    </Grid>
+                                    <Grid>
                                         <!-- the injection icon -->
-                                        <iconPacks:PackIconUnicons Kind="Syringe" Foreground="White" HorizontalAlignment="Center"/>
-
+                                        <iconPacks:PackIconUnicons Kind="Syringe"
+                                                                   Foreground="White"
+                                                                   HorizontalAlignment="Center" />
                                     </Grid>
                                 </Grid>
 
@@ -195,10 +201,10 @@
 
                     </Grid>
                 </DataTemplate>
-                
-                
+
+
             </ItemsControl.Resources>
-           
+
 
 
             <!-- Grid declartion-->

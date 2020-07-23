@@ -34,15 +34,12 @@ namespace InjectionSoftware.ViewModels
             Command1 = new Command<Injection>(ExecuteCommand1);
             Command2 = new Command(ExecuteCommand2);
 
-            InjectionsManager.addInjection("A123456", "Hello", "World", null);
 
 
             CollectionContainer injectionsCollection = new CollectionContainer() { Collection = InjectionsManager.injections };            
             _CompositeCollection.Add(injectionsCollection);
             _CompositeCollection.Add(new AddNewButton());
             _CompositeCollection.Add(new Legend());
-
-            InjectionsManager.addInjection("R123456", "Bad", "Temper", null);
         }
 
         private void ExecuteCommand1(Injection injection)
