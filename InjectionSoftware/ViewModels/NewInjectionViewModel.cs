@@ -42,7 +42,7 @@ namespace InjectionSoftware.ViewModels
             Cancel = new Command(closeWindow);
             Confirm = new Command(confirm);
             DateTime = DateTime.Now;
-            Console.Out.WriteLine(DateTime);
+
         }
 
         private void closeWindow()

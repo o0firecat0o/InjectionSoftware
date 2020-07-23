@@ -28,13 +28,14 @@
             <TextBlock> Radiopharmaceutical:</TextBlock>
             <ListView Height="60"
                       SelectionMode="Multiple"
-                      Style="{DynamicResource MahApps.Styles.ListView}"
                       HorizontalAlignment="Center"
                       ItemsSource="{Binding ALLRP}"
                       SelectedIndex="0">
+
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
+                        <StackPanel Orientation="
+                      Horizontal" />
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 
@@ -45,21 +46,23 @@
                                 <Binding Path="Color" />
                             </Setter.Value>
                         </Setter>
-                        <Setter Property="Width" Value="60"/>
+                        <Setter Property="Width"
+                                Value="60" />
+
+                        <Setter Property="Height"
+                                Value="60" />
                     </Style>
                 </ListView.Resources>
-                
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ListViewItem>
-                            <Grid>
-                                <TextBlock HorizontalAlignment="Center"
-                                           Text="{Binding Name}" />
-                            </Grid>                                                   
-                        </ListViewItem>
+                            <TextBlock Text="{Binding Name}"
+                                       HorizontalAlignment="Center" />
+                   
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
 
             <TextBlock> Uptake Time:</TextBlock>
             <ListView Height="60"
@@ -142,7 +145,7 @@
                                    VerticalAlignment="Center"
                                    TextAlignment="Center">
                         Dr <LineBreak />
-                        Shu
+                        Siu
                         </TextBlock>
                     </Grid>
                 </ListViewItem>
