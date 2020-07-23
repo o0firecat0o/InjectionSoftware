@@ -12,15 +12,7 @@ namespace InjectionSoftware.Class
 {
     public class Injection : INotifyPropertyChanged
     {
-        private readonly Patient _Patient;
-
-        public Patient Patient
-        {
-            get
-            {
-                return _Patient;
-            }
-        }
+        public Patient Patient { get; }
 
         private int _CaseNumber;
 
@@ -153,7 +145,7 @@ namespace InjectionSoftware.Class
 
         public Injection(Patient patient, int CaseNumber, ObservableCollection<RP> RPs,Doctor Doctor)
         {
-            _Patient = patient;
+            Patient = patient;
             this.CaseNumber = CaseNumber;
             this.RPs = RPs;
             this.Doctor = Doctor;
