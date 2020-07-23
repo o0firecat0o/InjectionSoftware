@@ -26,6 +26,7 @@ namespace InjectionSoftware.ViewModels
 
         public DateTime DateTime {get; set;}
 
+
         public ObservableCollection<RP> ALLRP
         {
             get
@@ -42,7 +43,6 @@ namespace InjectionSoftware.ViewModels
             Cancel = new Command(closeWindow);
             Confirm = new Command(confirm);
             DateTime = DateTime.Now;
-
         }
 
         private void closeWindow()

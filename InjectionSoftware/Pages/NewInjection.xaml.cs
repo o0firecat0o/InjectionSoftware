@@ -22,8 +22,10 @@ namespace InjectionSoftware.Pages
     {
         public NewInjection()
         {
-            InitializeComponent();
             DataContext = new NewInjectionViewModel(this);
+            InitializeComponent();
+            RP_injection.Focus();
+            RP_injection.SelectedIndex = 0;
         }
     }
 }
