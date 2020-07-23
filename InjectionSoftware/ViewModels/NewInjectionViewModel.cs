@@ -27,7 +27,7 @@ namespace InjectionSoftware.ViewModels
 
         public DateTime DateTime {get; set;}
 
-        public ListView RP_injection { get; set; }
+        public ListView RPListView { get; set; }
 
         public ObservableCollection<RP> ALLRP
         {
@@ -57,7 +57,7 @@ namespace InjectionSoftware.ViewModels
         private void confirm()
         {
             ObservableCollection<RP> RPs = new ObservableCollection<RP>();
-            foreach (RP rP in RP_injection.SelectedItems)
+            foreach (RP rP in RPListView.SelectedItems)
             {
                 RPs.Add(rP);
             }

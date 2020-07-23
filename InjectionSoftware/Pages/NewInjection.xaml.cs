@@ -30,7 +30,7 @@ namespace InjectionSoftware.Pages
             InitializeComponent();
 
             //selected item stuff
-            viewModel.RP_injection = RP_injection;
+            viewModel.RPListView = RP_injection;
 
             //make the focus
             RP_injection.SelectedIndex = 0;
