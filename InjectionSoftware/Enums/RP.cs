@@ -1,22 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+
 
 namespace InjectionSoftware.Enums
 {
-    [Flags]
-    public enum RP
+    public class RP
     {
-        Null = 0x00,
-        F18_FDG = 0x01,
-        F18_PSMA = 0x02,
-        F18_FLDopa = 0x04,
-        C11_Acetate = 0x08,
-        C11_PIB = 0x10,
-        C11_Methionine = 0x20,
-        Ga68_Dotatate = 0x40,
-        Ga68_PSMA = 0x80,
+        public string Name { get; }
+        public Brush Color { get; }
+        public float UptakeTime { get; }
+
+        private static BrushConverter converter = new System.Windows.Media.BrushConverter();
+
+        public static ObservableCollection<RP> RPs = new ObservableCollection<RP>();
+
+        public RP(string Name, Brush Color, float UptakeTime = 60)
+        {
+            this.Name = Name;
+            this.Color = Color;
+            RPs.Add(this);
+            this.UptakeTime = UptakeTime;
+        }
+
+
+        //TODO: load RP from txtfile
+        public static void AddDefault()
+        {
+            new RP("F18-FDG", (Brush)converter.ConvertFromString("#FFA6D6FF"));
+            new RP("F18-PSMA", (Brush)converter.ConvertFromString("#FFDBB1FF"));
+            new RP("C11-Acetate", (Brush)converter.ConvertFromString("#FFFFE0CA"));
+            new RP("C11-PIB", (Brush)converter.ConvertFromString("#FFA6D6FF"));
+            new RP("F18-FDOPA", (Brush)converter.ConvertFromString("#FFFBB5F8"));
+            new RP("Ga68-Dotatate", (Brush)converter.ConvertFromString("#FFFFFFFF"));
+            new RP("C11-Methaionine", (Brush)converter.ConvertFromString("#FFD6CD91"));
+            new RP("F18-FLDopa", (Brush)converter.ConvertFromString("#FFFCFFC8"));
+            new RP("Ga68-PSMA", (Brush)converter.ConvertFromString("#FFFDA9EE"));
+        }
     }
 }

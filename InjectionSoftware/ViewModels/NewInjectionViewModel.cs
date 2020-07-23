@@ -1,6 +1,8 @@
 ﻿using InjectionSoftware.Class;
+using InjectionSoftware.Enums;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,14 @@ namespace InjectionSoftware.ViewModels
         public Command Confirm { get; set; }
 
         public DateTime DateTime {get; set;}
+
+        public ObservableCollection<RP> ALLRP
+        {
+            get
+            {
+                return RP.RPs;
+            }
+        }
 
         private readonly Window window;
 

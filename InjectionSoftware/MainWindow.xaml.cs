@@ -1,4 +1,5 @@
 ﻿using InjectionSoftware.Class;
+using InjectionSoftware.Enums;
 using InjectionSoftware.ViewModels;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -37,6 +38,8 @@ namespace InjectionSoftware
 
             //set the default selection to 1
             leftControlBar.SelectedIndex = 0;
+
+            RP.AddDefault();
         }
 
         // switching pages

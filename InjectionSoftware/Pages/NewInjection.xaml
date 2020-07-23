@@ -27,10 +27,10 @@
 
             <TextBlock> Radiopharmaceutical:</TextBlock>
             <ListView Height="60"
-                      Margin="5 5 5 20"
                       SelectionMode="Multiple"
                       Style="{DynamicResource MahApps.Styles.ListView}"
                       HorizontalAlignment="Center"
+                      ItemsSource="{Binding ALLRP}"
                       SelectedIndex="0">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -38,113 +38,27 @@
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
 
-                <ListViewItem Width="60"
-                              Background="#FFA6D6FF">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        F18 <LineBreak />
-                        FDG
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-
-                <ListViewItem Width="60"
-                              Background="#FFDBB1FF">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        F18 <LineBreak />
-                        PSMA
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-
-                <ListViewItem Width="60"
-                              Background="#FFFFE0CA">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        C11 <LineBreak />
-                        Acetate
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-
-                <ListViewItem Width="60"
-                              Background="#FFC7FFBF">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        C11 <LineBreak />
-                        PIB
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-
-                <ListViewItem Width="60"
-                              Background="#FFFBB5F8">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        F18 <LineBreak />
-                        FDOPA
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-
-                <ListViewItem Width="60">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        Ga68 <LineBreak />
-                        Dotatate
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-
-                <ListViewItem Width="60"
-                              Background="#FFD6CD91">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        C11 <LineBreak />
-                        methi- <LineBreak />
-                        onine
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-
-                <ListViewItem Width="60"
-                              Background="#FFFCFFC8">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        F18 <LineBreak />
-                        F-L-Dopa
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
-
-                <ListViewItem Width="60"
-                              Background="#FFFDA9EE">
-                    <Grid>
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center">
-                        Ga68 <LineBreak />
-                        PSMA
-                        </TextBlock>
-                    </Grid>
-                </ListViewItem>
+                <ListView.Resources>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <Binding Path="Color" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Width" Value="60"/>
+                    </Style>
+                </ListView.Resources>
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ListViewItem>
+                            <Grid>
+                                <TextBlock HorizontalAlignment="Center"
+                                           Text="{Binding Name}" />
+                            </Grid>                                                   
+                        </ListViewItem>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
 
             <TextBlock> Uptake Time:</TextBlock>
