@@ -16,7 +16,7 @@ namespace InjectionSoftware.Class
 
         private int _CaseNumber;
 
-        public int CaseNumber 
+        public int CaseNumber
         {
             get
             {
@@ -34,7 +34,7 @@ namespace InjectionSoftware.Class
         {
             get
             {
-                return (CaseNumber - 1) % 10 ;
+                return (CaseNumber - 1) % 10;
             }
         }
 
@@ -77,7 +77,7 @@ namespace InjectionSoftware.Class
         {
             get
             {
-                if (RPs.Count>0)
+                if (RPs.Count > 0)
                 {
                     return RPs[0].Color;
                 }
@@ -111,6 +111,14 @@ namespace InjectionSoftware.Class
                     return Brushes.White;
                 }
             }
+        }
+
+        /// <summary>
+        /// The textblock of RP if there is only 1 RP injection
+        /// </summary>
+        public string RPsingleName
+        {
+            get { return RPs[0].SimplifiedName; }
         }
 
         /// <summary>
@@ -150,7 +158,7 @@ namespace InjectionSoftware.Class
 
         public float UptakeTime { get; set; }
 
-        public Injection(Patient patient, int CaseNumber, ObservableCollection<RP> RPs,Doctor Doctor, float UptakeTime, DateTime InjectionTime)
+        public Injection(Patient patient, int CaseNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime)
         {
             Patient = patient;
             this.CaseNumber = CaseNumber;

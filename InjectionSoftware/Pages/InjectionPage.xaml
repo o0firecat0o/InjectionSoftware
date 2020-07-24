@@ -102,22 +102,41 @@
                                 <!-- RP Color -->
                                 <Grid Grid.Column="2"
                                       Margin="3 0 3 0">
-                                    <!-- the actual banner -->
+                                    <!-- the RP banners -->
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
+                                        <!-- color of the first RP -->
                                         <Grid Grid.Column="0"
                                               Background="{Binding RP1}" />
+                                        <!-- color of the second RP -->
                                         <Grid Grid.Column="1"
                                               Background="{Binding RP2}" />
                                     </Grid>
                                     <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="2*" />
+                                        </Grid.RowDefinitions>
                                         <!-- the injection icon -->
                                         <iconPacks:PackIconUnicons Kind="Syringe"
                                                                    Foreground="White"
                                                                    HorizontalAlignment="Center" />
+                                        <!-- the RP's name in vertical view -->
+                                        <Grid Grid.Row="1" Margin="0 0 0 2">
+                                            <Viewbox Stretch="Uniform">
+                                                <ItemsControl ItemsSource="{Binding RPsingleName}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding}" HorizontalAlignment="Center" TextAlignment="Center" Foreground="White"/>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </Viewbox>
+                                        </Grid>
+                                        
                                     </Grid>
                                 </Grid>
 
