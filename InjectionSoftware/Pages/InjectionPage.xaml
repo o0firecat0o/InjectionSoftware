@@ -65,7 +65,7 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="4*" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="0" />
                                     <ColumnDefinition MaxWidth="36"
                                                       Width="*" />
                                     <ColumnDefinition MaxWidth="36"
@@ -185,11 +185,40 @@
 
                                 <!-- Patient information -->
                                 <Grid Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    
+                                    <!-- Patient information -->
                                     <Viewbox Stretch="Uniform">
                                         <TextBlock Text="{Binding Patient.PatientFullname}"
                                                    VerticalAlignment="Center"
                                                    Margin="2" />
                                     </Viewbox>
+
+                                    <!-- Progress bar-->
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="3*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Viewbox Stretch="Uniform" Margin="1">
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       Text="{Binding InjectionTimeString}" />
+                                        </Viewbox>
+
+                                        <Slider Grid.Column="1" Value="{Binding InjectionTimeSlider, Mode=OneWay}" Style="{DynamicResource MahApps.Styles.Slider}" IsHitTestVisible="False"/>
+
+                                        <Viewbox Stretch="Uniform"
+                                                 Margin="1"
+                                                 Grid.Column="2">
+                                            <TextBlock HorizontalAlignment="Center"
+                                                       Text="{Binding ImageTimeString}" />
+                                        </Viewbox>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </DockPanel>

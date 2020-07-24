@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace InjectionSoftware.Class
 {
@@ -194,12 +195,43 @@ namespace InjectionSoftware.Class
             }
         }
 
+
         /// <summary>
         /// The injection time for this injection
         /// </summary>
         public DateTime InjectionTime { get; set; }
 
         public float UptakeTime { get; set; }
+
+        /// <summary>
+        /// The string of the injection time in HH:mm form
+        /// </summary>
+        public string InjectionTimeString
+        {
+            get
+            {
+                return InjectionTime.ToString("HH:mm");
+            }
+        }
+
+        /// <summary>
+        /// The string of the image time in HH:mm form
+        /// </summary>
+        public string ImageTimeString
+        {
+            get
+            {
+                return InjectionTime.AddMinutes(UptakeTime).ToString("HH:mm");
+            }
+        }
+
+        public float InjectionTimeSlider
+        {
+            get
+            {
+                return (float)(DateTime.Now - InjectionTime).TotalMinutes/UptakeTime*100f;
+            }
+        }
 
         public Injection(Patient patient, int CaseNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime)
         {
@@ -209,6 +241,19 @@ namespace InjectionSoftware.Class
             this.Doctor = Doctor;
             this.UptakeTime = UptakeTime;
             this.InjectionTime = InjectionTime;
+
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Interval = TimeSpan.FromSeconds(30);
+            dispatcherTimer.Tick += new EventHandler(delegate (object s, EventArgs a)
+            {
+                OnPropertyChanged("InjectionTimeSlider");
+            });
+            dispatcherTimer.Start();
+        }
+
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

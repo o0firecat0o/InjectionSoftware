@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Threading;
 
 namespace InjectionSoftware.ViewModels
 {
@@ -36,6 +37,8 @@ namespace InjectionSoftware.ViewModels
             CompositeCollection.Add(injectionsCollection);
             CompositeCollection.Add(new AddNewButton());
             CompositeCollection.Add(new Legend());
+
+            
         }
 
         private void ExecuteCommand1(Injection injection)
@@ -49,5 +52,7 @@ namespace InjectionSoftware.ViewModels
             Window newInjectionWindow = new NewInjection();
             newInjectionWindow.ShowDialog();
         }
+
+
     }
 }
