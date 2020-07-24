@@ -15,11 +15,10 @@
       Title="InjectionPage"
       Background="#FFEBEBEB">
 
-
-
     <Grid>
         <ItemsControl ItemsSource="{Binding CompositeCollection}">
             <ItemsControl.Resources>
+
                 <!-- Template for each injection case-->
                 <DataTemplate DataType="{x:Type localclass:Injection}">
                     <Grid>
@@ -91,7 +90,7 @@
                                                                        VerticalAlignment="Center"
                                                                        Margin="3" />
                                         </Viewbox>
-                                        
+
                                         <Viewbox Grid.Row="1">
                                             <TextBlock Text="{Binding Doctor.SimplifiedName}"
                                                        HorizontalAlignment="Center"
@@ -132,13 +131,13 @@
                                                                        Foreground="White"
                                                                        HorizontalAlignment="Center"
                                                                        VerticalAlignment="Center"
-                                                                       Margin="3"/>
+                                                                       Margin="3" />
                                         </Viewbox>
-                                        
+
                                         <!-- the RP's name in vertical view -->
                                         <!-- only for single RP injection -->
                                         <Grid Grid.Row="1"
-                                              Margin="0 0 0 2">                                            
+                                              Margin="0 0 0 2">
                                             <Viewbox Stretch="Uniform">
                                                 <ItemsControl ItemsSource="{Binding RPsingleName}">
                                                     <ItemsControl.ItemTemplate>
@@ -154,7 +153,7 @@
                                         </Grid>
 
                                         <!-- only for multiple RP injections -->
-                                        <Grid Grid.Row="1">                                            
+                                        <Grid Grid.Row="1">
                                             <Viewbox Stretch="Uniform">
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -198,7 +197,7 @@
                                         <RowDefinition Height="2*" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    
+
                                     <!-- Patient information -->
                                     <Viewbox Stretch="Uniform">
                                         <TextBlock Text="{Binding Patient.PatientFullname}"
@@ -214,12 +213,16 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
 
-                                        <Viewbox Stretch="Uniform" Margin="1">
+                                        <Viewbox Stretch="Uniform"
+                                                 Margin="1">
                                             <TextBlock HorizontalAlignment="Center"
                                                        Text="{Binding InjectionTimeString}" />
                                         </Viewbox>
 
-                                        <Slider Grid.Column="1" Value="{Binding InjectionTimeSlider, Mode=OneWay}" Style="{DynamicResource MahApps.Styles.Slider}" IsHitTestVisible="False"/>
+                                        <Slider Grid.Column="1"
+                                                Value="{Binding InjectionTimeSlider, Mode=OneWay}"
+                                                Style="{DynamicResource MahApps.Styles.Slider}"
+                                                IsHitTestVisible="False" />
 
                                         <Viewbox Stretch="Uniform"
                                                  Margin="1"
@@ -231,6 +234,14 @@
                                 </Grid>
                             </Grid>
                         </DockPanel>
+
+                        <!-- border of the outline of the injection case-->
+                        <Border CornerRadius="4"
+                                Margin="3"
+                                Background="Transparent"
+                                Style="{StaticResource StackPanelLink}">
+                        </Border>
+
                     </Grid>
                 </DataTemplate>
 
