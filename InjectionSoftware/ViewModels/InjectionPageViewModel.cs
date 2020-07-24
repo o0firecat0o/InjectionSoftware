@@ -17,13 +17,9 @@ namespace InjectionSoftware.ViewModels
         
         public CompositeCollection CompositeCollection
         {
-            get
-            {
-                return _CompositeCollection;
-            }
+            get;
         }
 
-        private readonly CompositeCollection _CompositeCollection = new CompositeCollection();
 
         public Command<Injection> Command1 { get; set; }
 
@@ -37,9 +33,9 @@ namespace InjectionSoftware.ViewModels
 
 
             CollectionContainer injectionsCollection = new CollectionContainer() { Collection = InjectionsManager.injections };            
-            _CompositeCollection.Add(injectionsCollection);
-            _CompositeCollection.Add(new AddNewButton());
-            _CompositeCollection.Add(new Legend());
+            CompositeCollection.Add(injectionsCollection);
+            CompositeCollection.Add(new AddNewButton());
+            CompositeCollection.Add(new Legend());
         }
 
         private void ExecuteCommand1(Injection injection)
