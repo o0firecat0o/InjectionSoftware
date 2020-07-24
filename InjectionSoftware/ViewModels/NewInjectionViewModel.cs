@@ -1,5 +1,7 @@
 ﻿using InjectionSoftware.Class;
 using InjectionSoftware.Enums;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -59,9 +61,9 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
-        private readonly Window window;
+        private readonly MetroWindow window;
 
-        public NewInjectionViewModel(Window window)
+        public NewInjectionViewModel(MetroWindow window)
         {
             this.window = window;
             Cancel = new Command(closeWindow);
@@ -77,7 +79,7 @@ namespace InjectionSoftware.ViewModels
 
         //TODO: add rps
 
-        private void confirm()
+        private async void confirm()
         {
             ObservableCollection<RP> RPs = new ObservableCollection<RP>();
             foreach (RP rP in RPListView.SelectedItems)
@@ -103,13 +105,12 @@ namespace InjectionSoftware.ViewModels
                 }
                 InjectionsManager.addInjection(patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime);
                 Console.Out.WriteLine("adding injection with patient ID: " + patientID);
+                window.Close();
             }
             else
             {
-                //TODO: handle exception
-                throw new System.Exception("Patient ID is null");
+                await window.ShowMessageAsync("Error", "Please enter Patient ID");
             }
-            window.Close();
         }
     }
 }
