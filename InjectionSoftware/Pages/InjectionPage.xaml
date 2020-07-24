@@ -93,13 +93,13 @@
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Center"
                                                        Foreground="White"
-                                                       TextAlignment="Center"/>
+                                                       TextAlignment="Center" />
                                         </Viewbox>
-                                        
+
                                     </Grid>
                                 </Grid>
 
-                                <!-- RP Color -->
+                                <!-- Injected RP's banner and name -->
                                 <Grid Grid.Column="2"
                                       Margin="3 0 3 0">
                                     <!-- the RP banners -->
@@ -115,6 +115,8 @@
                                         <Grid Grid.Column="1"
                                               Background="{Binding RP2}" />
                                     </Grid>
+
+                                    <!-- the injection icon and the RP's name-->
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*" />
@@ -125,18 +127,59 @@
                                                                    Foreground="White"
                                                                    HorizontalAlignment="Center" />
                                         <!-- the RP's name in vertical view -->
-                                        <Grid Grid.Row="1" Margin="0 0 0 2">
+                                        <!-- only for single RP injection -->
+                                        <Grid Grid.Row="1"
+                                              Margin="0 0 0 2">                                            
                                             <Viewbox Stretch="Uniform">
                                                 <ItemsControl ItemsSource="{Binding RPsingleName}">
                                                     <ItemsControl.ItemTemplate>
                                                         <DataTemplate>
-                                                            <TextBlock Text="{Binding}" HorizontalAlignment="Center" TextAlignment="Center" Foreground="White"/>
+                                                            <TextBlock Text="{Binding}"
+                                                                       HorizontalAlignment="Center"
+                                                                       TextAlignment="Center"
+                                                                       Foreground="White" />
                                                         </DataTemplate>
                                                     </ItemsControl.ItemTemplate>
                                                 </ItemsControl>
                                             </Viewbox>
                                         </Grid>
-                                        
+
+                                        <!-- only for multiple RP injections -->
+                                        <Grid Grid.Row="1">                                            
+                                            <Viewbox Stretch="Uniform">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ItemsControl Grid.Column="0"
+                                                                  ItemsSource="{Binding RPmultipleName1}"
+                                                                  Margin="3 0 3 0">
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding}"
+                                                                           HorizontalAlignment="Center"
+                                                                           TextAlignment="Center"
+                                                                           Foreground="White" />
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                    <ItemsControl Grid.Column="1"
+                                                                  ItemsSource="{Binding RPmultipleName2}"
+                                                                  Margin="3 0 3 0">
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding}"
+                                                                           HorizontalAlignment="Center"
+                                                                           TextAlignment="Center"
+                                                                           Foreground="White" />
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </Grid>
+                                            </Viewbox>
+                                        </Grid>
+
                                     </Grid>
                                 </Grid>
 

@@ -67,6 +67,9 @@ namespace InjectionSoftware.Class
                 _RPs = value;
                 OnPropertyChanged("RP1");
                 OnPropertyChanged("RP2");
+                OnPropertyChanged("RPsingleName");
+                OnPropertyChanged("RPmultipleName1");
+                OnPropertyChanged("RPmultipleName2");
             }
         }
 
@@ -118,8 +121,48 @@ namespace InjectionSoftware.Class
         /// </summary>
         public string RPsingleName
         {
-            get { return RPs[0].SimplifiedName; }
+            get {
+                if (RPs.Count == 1)
+                    return RPs[0].SimplifiedName;
+                else
+                {
+                    return "";
+                }
+            }
         }
+
+        /// <summary>
+        /// The textblock of the 1st RP if there is 2 or more RP injection
+        /// </summary>
+        public string RPmultipleName1
+        {
+            get
+            {
+                if (RPs.Count > 1)
+                    return RPs[0].SimplifiedName;
+                else
+                {
+                    return "";
+                }
+            }
+        }
+
+        /// <summary>
+        /// The textblock of the 2nd RP if there is 2 or more RP injection
+        /// </summary>
+        public string RPmultipleName2
+        {
+            get
+            {
+                if (RPs.Count > 1)
+                    return RPs[1].SimplifiedName;
+                else
+                {
+                    return "";
+                }
+            }
+        }
+
 
         /// <summary>
         /// The assigned doctor for this injection
