@@ -84,10 +84,14 @@
                                         </Grid.RowDefinitions>
 
                                         <!-- the doctor icon -->
-                                        <iconPacks:PackIconUnicons Kind="UserMd"
-                                                                   HorizontalAlignment="Center"
-                                                                   Margin="2"
-                                                                   Foreground="White" />
+                                        <Viewbox Stretch="Uniform">
+                                            <iconPacks:PackIconUnicons Kind="UserMd"
+                                                                       Foreground="White"
+                                                                       HorizontalAlignment="Center"
+                                                                       VerticalAlignment="Center"
+                                                                       Margin="3" />
+                                        </Viewbox>
+                                        
                                         <Viewbox Grid.Row="1">
                                             <TextBlock Text="{Binding Doctor.SimplifiedName}"
                                                        HorizontalAlignment="Center"
@@ -123,9 +127,14 @@
                                             <RowDefinition Height="2*" />
                                         </Grid.RowDefinitions>
                                         <!-- the injection icon -->
-                                        <iconPacks:PackIconUnicons Kind="Syringe"
-                                                                   Foreground="White"
-                                                                   HorizontalAlignment="Center" />
+                                        <Viewbox Stretch="Uniform">
+                                            <iconPacks:PackIconUnicons Kind="Syringe"
+                                                                       Foreground="White"
+                                                                       HorizontalAlignment="Center"
+                                                                       VerticalAlignment="Center"
+                                                                       Margin="3"/>
+                                        </Viewbox>
+                                        
                                         <!-- the RP's name in vertical view -->
                                         <!-- only for single RP injection -->
                                         <Grid Grid.Row="1"
