@@ -75,13 +75,10 @@
                                 <!-- Assigned doctor -->
                                 <Grid Grid.Column="3"
                                       Margin="3 0 3 0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="2*" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
                                     <!-- the actual banner -->
                                     <Grid Background="{Binding DoctorColor}">
                                         <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
@@ -91,17 +88,20 @@
                                                                    HorizontalAlignment="Center"
                                                                    Margin="2"
                                                                    Foreground="White" />
-
+                                        <Viewbox Grid.Row="1">
+                                            <TextBlock Text="{Binding Doctor.SimplifiedName}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       Foreground="White"
+                                                       TextAlignment="Center"/>
+                                        </Viewbox>
+                                        
                                     </Grid>
                                 </Grid>
 
                                 <!-- RP Color -->
                                 <Grid Grid.Column="2"
                                       Margin="3 0 3 0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="2*" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
                                     <!-- the actual banner -->
                                     <Grid>
                                         <Grid.ColumnDefinitions>

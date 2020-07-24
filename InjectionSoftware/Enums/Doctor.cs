@@ -17,19 +17,25 @@ namespace InjectionSoftware.Enums
         /// Name without "-" , which is all converted to linebreak for better visuallization
         /// </summary>
         public string SeperatedName { get; }
+
+        /// <summary>
+        /// Name with max 5 chars
+        /// </summary>
+        public string SimplifiedName { get; }
         public Brush Color { get; }
         public float UptakeTime { get; }
-
+        
         private static BrushConverter converter = new System.Windows.Media.BrushConverter();
 
         public static ObservableCollection<Doctor> Doctors = new ObservableCollection<Doctor>();
 
-        public Doctor(string Name, Brush Color)
+        public Doctor(string Name, string SimplifiedName, Brush Color)
         {
             this.Name = Name;
-            this.Color = Color;
-            Doctors.Add(this);
             this.SeperatedName = Name.Replace('-', '\n');
+            this.SimplifiedName = SimplifiedName;
+            this.Color = Color;
+            Doctors.Add(this);            
         }
 
 
@@ -37,14 +43,14 @@ namespace InjectionSoftware.Enums
 
         public static void AddDefault()
         {
-            new Doctor("Dr-Kevin-Tse", (Brush)converter.ConvertFromString("#79CBFF"));
-            new Doctor("Dr-Cheng", (Brush)converter.ConvertFromString("#7EFF79"));
-            new Doctor("Dr-Antonio", (Brush)converter.ConvertFromString("#FFFF79"));
-            new Doctor("Dr-Shu", (Brush)converter.ConvertFromString("#C579FF"));
-            new Doctor("Dr-Fan", (Brush)converter.ConvertFromString("#83FFB9"));
-            new Doctor("Dr-Lo", (Brush)converter.ConvertFromString("#B6B6B6"));
-            new Doctor("Dr-Donald-Tse", (Brush)converter.ConvertFromString("#FF79E0"));
-            new Doctor("Dr-Siu", (Brush)converter.ConvertFromString("#FFCE79"));
+            new Doctor("Dr-Kevin-Tse", "KM\nTSE", (Brush)converter.ConvertFromString("#79CBFF"));
+            new Doctor("Dr-Cheng", "CHENG", (Brush)converter.ConvertFromString("#7EFF79"));
+            new Doctor("Dr-Antonio", "ON", (Brush)converter.ConvertFromString("#FFFF79"));
+            new Doctor("Dr-Shu", "SHU", (Brush)converter.ConvertFromString("#C579FF"));
+            new Doctor("Dr-Fan", "FAN", (Brush)converter.ConvertFromString("#83FFB9"));
+            new Doctor("Dr-Lo", "LO", (Brush)converter.ConvertFromString("#B6B6B6"));
+            new Doctor("Dr-Donald-Tse", "D\nTSE", (Brush)converter.ConvertFromString("#FF79E0"));
+            new Doctor("Dr-Siu", "SIU", (Brush)converter.ConvertFromString("#FFCE79"));
         }
     }
 }

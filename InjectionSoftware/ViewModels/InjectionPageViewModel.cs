@@ -14,11 +14,11 @@ namespace InjectionSoftware.ViewModels
 {
     internal class InjectionPageViewModel
     {
-        
+
         public CompositeCollection CompositeCollection
         {
             get;
-        }
+        } = new CompositeCollection();
 
 
         public Command<Injection> Command1 { get; set; }
