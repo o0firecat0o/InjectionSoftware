@@ -27,6 +27,8 @@
                                 Value="#4C9AA0DA" />
                         <Setter Property="Border.BorderThickness"
                                 Value="10" />
+                        <Setter Property="Cursor"
+                                Value="Hand" />
                     </Trigger>
                 </Style.Triggers>
             </Style>

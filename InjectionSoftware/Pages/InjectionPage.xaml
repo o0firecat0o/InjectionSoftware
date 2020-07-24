@@ -236,11 +236,10 @@
                         </DockPanel>
 
                         <!-- border of the outline of the injection case-->
-                        <Border CornerRadius="4"
-                                Margin="3"
+                        <Border CornerRadius="2"
+                                Margin="1"
                                 Background="Transparent"
-                                Style="{StaticResource StackPanelLink}">
-                        </Border>
+                                Style="{StaticResource StackPanelLink}" />
 
                     </Grid>
                 </DataTemplate>
@@ -284,6 +283,11 @@
                             </StackPanel>
                         </Viewbox>
 
+                        <Border CornerRadius="2"
+                                Margin="1"
+                                Background="Transparent"
+                                Style="{StaticResource StackPanelLink}">
+                        </Border>
                     </Grid>
                 </DataTemplate>
 
