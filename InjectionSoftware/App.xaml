@@ -32,6 +32,43 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+
+            <Style x:Key="ListViewItemOnSelectColor"
+                   TargetType="{x:Type ListView}">
+                <Setter Property="Height"
+                        Value="60" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                        Value="Hidden" />
+                <Setter Property="BorderThickness"
+                        Value="0" />
+                <Style.Resources>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <Binding Path="Color" />
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Width"
+                                Value="60" />
+                        <Setter Property="Height"
+                                Value="60" />
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                        <Setter Property="Margin"
+                                Value="0" />
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                                             Color="Black" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                                             Color="White" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                             Color="Black" />
+                        </Style.Resources>
+                    </Style>                    
+                </Style.Resources>
+
+                
+            </Style>
             
         </ResourceDictionary>
     </Application.Resources>
