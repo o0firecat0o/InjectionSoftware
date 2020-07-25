@@ -191,19 +191,41 @@
                                     </Grid>
                                 </Grid>
 
-                                <!-- Patient information -->
+                                <!-- Patient information + Room Number + Injection Time/ Image Time-->
                                 <Grid Grid.Column="0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="2*" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
 
-                                    <!-- Patient information -->
-                                    <Viewbox Stretch="Uniform">
+                                    <!-- Patient information + Room Number-->
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
                                         <TextBlock Text="{Binding Patient.PatientFullname}"
-                                                   VerticalAlignment="Center"
-                                                   Margin="2" />
-                                    </Viewbox>
+                                                    VerticalAlignment="Center"
+                                                    Margin="2" />
+                                        
+                                        <Grid Grid.Column="1">
+                                            <Viewbox Stretch="Uniform">
+                                                <iconPacks:PackIconPicolIcons Kind="Home"
+                                                                            HorizontalAlignment="Center"
+                                                                            VerticalAlignment="Center" 
+                                                                            Opacity="0.4"/>
+                                            </Viewbox>
+
+                                            <Viewbox Stretch="Uniform">
+                                                <TextBlock HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Text="{Binding SelectedRoom.Name}"
+                                                            Margin="6">
+                                                </TextBlock>
+                                            </Viewbox>                                                
+                                        </Grid>                                     
+                                    </Grid>
+                                    
 
                                     <!-- Progress bar-->
                                     <Grid Grid.Row="1">
