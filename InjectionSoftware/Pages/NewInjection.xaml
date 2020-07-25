@@ -10,7 +10,7 @@
                       xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       mc:Ignorable="d"
                       Title="NewInjection"
-                      Height="700"
+                      Height="900"
                       Width="600"
                       ResizeMode="NoResize"
                       GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
@@ -125,6 +125,9 @@
             <TextBlock>
             Uptake Room:
             </TextBlock>
+            <Grid Width="450" Height="200">
+                
+            </Grid>
 
             <TextBlock>  Assigned Radiologist:
             </TextBlock>
@@ -192,14 +195,14 @@
         <Grid DockPanel.Dock="Bottom">
             <Button DockPanel.Dock="Bottom"
                     Height="50"
-                    Margin="374,134,24,25.6"
+                    Margin="378,-10,20,0"
                     Command="{Binding Confirm}">
                 Confirm
             </Button>
 
             <Button DockPanel.Dock="Bottom"
                     Height="50"
-                    Margin="24,134,374,25.6"
+                    Margin="20,-10,378,20.0"
                     Command="{Binding Cancel}">
                 Cancel
             </Button>
