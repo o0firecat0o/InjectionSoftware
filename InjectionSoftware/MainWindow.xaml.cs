@@ -41,6 +41,7 @@ namespace InjectionSoftware
 
             RP.AddDefault();
             Doctor.AddDefault();
+            Room.AddDefault();
         }
 
         // switching pages

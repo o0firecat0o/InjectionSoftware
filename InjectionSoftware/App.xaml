@@ -64,10 +64,21 @@
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
                                              Color="Black" />
                         </Style.Resources>
-                    </Style>                    
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="true">
+                                <Setter Property="Background"
+                                        Value="GhostWhite" />
+                                <Setter Property="Border.BorderBrush"
+                                        Value="#4C9AA0DA" />
+                                <Setter Property="Border.BorderThickness"
+                                        Value="3" />
+                                <Setter Property="Cursor"
+                                        Value="Hand" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
                 </Style.Resources>
-
-                
             </Style>
             
         </ResourceDictionary>
