@@ -42,6 +42,9 @@ namespace InjectionSoftware.ViewModels
 
         public int UptakeTimeIndex { get; set; }
 
+        public Room SelectedRoom { get; set; }
+
+
 
         /// <summary>
         /// All the registered RP
@@ -95,24 +98,23 @@ namespace InjectionSoftware.ViewModels
             {
                 RPs.Add(rP);
             }
-            
-            
-            if(patientID!=null && patientID != "")
+
+            if (patientID != null && patientID != "")
             {
                 float UptakeTime;
                 switch (UptakeTimeIndex)
                 {
                     case 0:
                         UptakeTime = 60f;
-                            break;
+                        break;
                     case 1:
                         UptakeTime = 90f;
-                            break;
+                        break;
                     default:
                         UptakeTime = 60f;
-                            break;
+                        break;
                 }
-                InjectionsManager.addInjection(patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime);
+                InjectionsManager.addInjection(patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom);
                 Console.Out.WriteLine("adding injection with patient ID: " + patientID);
                 window.Close();
             }

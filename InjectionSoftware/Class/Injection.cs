@@ -233,7 +233,21 @@ namespace InjectionSoftware.Class
             }
         }
 
-        public Injection(Patient patient, int CaseNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime)
+        private Room _SelectedRoom;
+        public Room SelectedRoom
+        {
+            get
+            {
+                return _SelectedRoom;
+            }
+            set
+            {
+                _SelectedRoom = value;
+                OnPropertyChanged("SelectedRoom");
+            }
+        }
+
+        public Injection(Patient patient, int CaseNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
         {
             Patient = patient;
             this.CaseNumber = CaseNumber;
@@ -241,6 +255,7 @@ namespace InjectionSoftware.Class
             this.Doctor = Doctor;
             this.UptakeTime = UptakeTime;
             this.InjectionTime = InjectionTime;
+            this.SelectedRoom = SelectedRoom;
 
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Interval = TimeSpan.FromSeconds(30);

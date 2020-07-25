@@ -39,7 +39,7 @@ namespace InjectionSoftware.Class
             return false;
         }
 
-        public static bool addInjection(string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime)
+        public static bool addInjection(string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
         {
             // find wether the patient is already registered and exist in the database
             Patient patient;
@@ -57,7 +57,7 @@ namespace InjectionSoftware.Class
             // TODO: avoid duplicated adding of patient
             // TODO: correct count after delete or adding <= sort by injection time
             // add the injection
-            Injection injection = new Injection(patient, injections.Count + 1, RPs, Doctor, UptakeTime, InjectionTime);
+            Injection injection = new Injection(patient, injections.Count + 1, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom);
             
             injections.Add(injection);
 

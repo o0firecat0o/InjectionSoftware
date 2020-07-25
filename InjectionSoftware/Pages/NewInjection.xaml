@@ -81,7 +81,9 @@
             </TextBlock>
             <ListBox Height="250"
                      Background="LightYellow"
-                     ItemsSource="{Binding AllRoom}">
+                     ItemsSource="{Binding AllRoom}"
+                     SelectedItem="{Binding SelectedRoom}"
+                     SelectedIndex="0">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Grid>
