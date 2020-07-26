@@ -43,8 +43,8 @@ namespace InjectionSoftware.ViewModels
 
         private void ExecuteCommand1(Injection injection)
         {
-            MessageBox.Show("FUCK YOU");
-            Console.Out.WriteLine("fuck you" + injection.CaseNumber);
+            Window newInjectionWindow = new NewInjection(injection);
+            newInjectionWindow.ShowDialog();
         }
 
         private void ExecuteCommand2()

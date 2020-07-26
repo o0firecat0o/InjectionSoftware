@@ -1,32 +1,83 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace InjectionSoftware.Class
 {
-    //TODO: implement INotifyPropertyChanged to patient's property
-    public class Patient
+    public class Patient : INotifyPropertyChanged
     {
-        public string patientSurname { get; set; }
-        public string patientLastname { get; set; }
-        public string patientID { get; set; }
+        public string PatientSurname
+        {
+            get
+            {
+                return _PatientSurname;
+            }
+            set
+            {
+                _PatientSurname = value;
+                OnPropertyChanged("PatientSurname");
+                OnPropertyChanged("PatientFullname");
+            }
+        }
+        private string _PatientSurname;
+
+        public string PatientLastname
+        {
+            get
+            {
+                return _PatientLastname;
+            }
+            set
+            {
+                _PatientLastname = value;
+                OnPropertyChanged("PatientLastname");
+                OnPropertyChanged("PatientFullname");
+            }
+        }
+        private string _PatientLastname;
+
+        public string PatientID
+        {
+            get
+            {
+                return _PatientID;
+            }set
+            {
+                _PatientID = value;
+                OnPropertyChanged("PatientID");
+            }
+        }
+        private string _PatientID;
+
+        
 
         public string PatientFullname
         {
             get
             {
-                return patientSurname + " " + patientLastname;
+                return PatientSurname + " " + PatientLastname;
             }
         }
 
         public Patient(string patientID, string patientSurname, string patientLastname)
         {
-            this.patientID = patientID;
-            this.patientLastname = patientLastname;
-            this.patientSurname = patientSurname;
+            this.PatientID = patientID;
+            this.PatientLastname = patientLastname;
+            this.PatientSurname = patientSurname;
             PatientManager.AddPatient(this);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

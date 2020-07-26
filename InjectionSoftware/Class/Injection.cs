@@ -55,8 +55,6 @@ namespace InjectionSoftware.Class
         /// <summary>
         /// List of RP injected, can be more than two, but only the first two will be displayed
         /// </summary>
-        private ObservableCollection<RP> _RPs;
-
         public ObservableCollection<RP> RPs
         {
             get
@@ -73,6 +71,7 @@ namespace InjectionSoftware.Class
                 OnPropertyChanged("RPmultipleName2");
             }
         }
+        private ObservableCollection<RP> _RPs;
 
         /// <summary>
         /// The color of the first injected RP
@@ -122,7 +121,8 @@ namespace InjectionSoftware.Class
         /// </summary>
         public string RPsingleName
         {
-            get {
+            get
+            {
                 if (RPs.Count == 1)
                     return RPs[0].SimplifiedName;
                 else
@@ -168,8 +168,6 @@ namespace InjectionSoftware.Class
         /// <summary>
         /// The assigned doctor for this injection
         /// </summary>
-        private Doctor _Doctor;
-
         public Doctor Doctor
         {
             get
@@ -183,6 +181,7 @@ namespace InjectionSoftware.Class
                 OnPropertyChanged("DoctorColor");
             }
         }
+        private Doctor _Doctor;
 
         /// <summary>
         /// The color representing the assigned doctor for this injection
@@ -196,12 +195,44 @@ namespace InjectionSoftware.Class
         }
 
 
+
         /// <summary>
         /// The injection time for this injection
         /// </summary>
-        public DateTime InjectionTime { get; set; }
+        public DateTime InjectionTime
+        {
+            get
+            {
+                return _InjectionTime;
+            }
+            set
+            {
+                _InjectionTime = value;
+                OnPropertyChanged("InjectionTime");
+                OnPropertyChanged("InjectionTimeString");
+                OnPropertyChanged("ImageTimeString");
+                OnPropertyChanged("InjectionTimeSlider");
+            }
+        }
+        public DateTime _InjectionTime;
 
-        public float UptakeTime { get; set; }
+        public float UptakeTime
+        {
+            get
+            {
+                return _UptakeTime;
+            }
+            set
+            {
+                _UptakeTime = value;
+                OnPropertyChanged("UptakeTime");
+                OnPropertyChanged("InjectionTime");
+                OnPropertyChanged("InjectionTimeString");
+                OnPropertyChanged("ImageTimeString");
+                OnPropertyChanged("InjectionTimeSlider");
+            }
+        }
+        private float _UptakeTime;
 
         /// <summary>
         /// The string of the injection time in HH:mm form
@@ -229,7 +260,7 @@ namespace InjectionSoftware.Class
         {
             get
             {
-                return (float)(DateTime.Now - InjectionTime).TotalMinutes/UptakeTime*100f;
+                return (float)(DateTime.Now - InjectionTime).TotalMinutes / UptakeTime * 100f;
             }
         }
 

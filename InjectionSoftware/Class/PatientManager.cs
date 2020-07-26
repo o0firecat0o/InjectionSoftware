@@ -14,9 +14,9 @@ namespace InjectionSoftware.Class
 
         public static void AddPatient(Patient patient)
         {
-            if (HasPatient(patient.patientID))
+            if (HasPatient(patient.PatientID))
             {
-                Console.Out.WriteLine("Patient with patient ID:" + patient.patientID + " is already presented in database, fail to add patiet");
+                Console.Out.WriteLine("Patient with patient ID:" + patient.PatientID + " is already presented in database, fail to add patiet");
                 return;
             }
             patients.Add(patient);
@@ -36,7 +36,7 @@ namespace InjectionSoftware.Class
         {
             foreach (Patient patient in patients)
             {
-                if (patient.patientID.Equals(patientID))
+                if (patient.PatientID.Equals(patientID))
                 {
                     return patient;
                 }
@@ -49,7 +49,7 @@ namespace InjectionSoftware.Class
         {
             foreach (Patient patient in patients)
             {
-                if (patient.patientID.Equals(patientID)){
+                if (patient.PatientID.Equals(patientID)){
                     return true;
                 }
             }

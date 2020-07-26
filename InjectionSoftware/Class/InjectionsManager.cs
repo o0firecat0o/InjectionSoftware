@@ -19,7 +19,7 @@ namespace InjectionSoftware.Class
         {
             foreach (var injection in injections)
             {
-                if (injection.Patient.patientID.Equals(patientID))
+                if (injection.Patient.PatientID.Equals(patientID))
                 {
                     return injection;
                 }
@@ -31,7 +31,7 @@ namespace InjectionSoftware.Class
         {
             foreach (var injection in injections)
             {
-                if (injection.Patient.patientID.Equals(patientID))
+                if (injection.Patient.PatientID.Equals(patientID))
                 {
                     return true;
                 }

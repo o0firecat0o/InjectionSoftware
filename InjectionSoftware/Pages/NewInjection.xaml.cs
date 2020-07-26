@@ -1,4 +1,5 @@
-﻿using InjectionSoftware.Enums;
+﻿using InjectionSoftware.Class;
+using InjectionSoftware.Enums;
 using InjectionSoftware.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -23,9 +24,9 @@ namespace InjectionSoftware.Pages
     {
         NewInjectionViewModel viewModel;
 
-        public NewInjection()
+        public NewInjection(Injection Injection = null)
         {
-            viewModel = new NewInjectionViewModel(this);
+            viewModel = new NewInjectionViewModel(this, Injection);
             DataContext = viewModel;
             InitializeComponent();
 
@@ -35,6 +36,12 @@ namespace InjectionSoftware.Pages
             //make the focus
             RP_injection.SelectedIndex = 0;
             RadiologistList.SelectedIndex = 0;
+
+            //select the previous selected RPs if the client is trying to modify instead of adding a new injection
+            viewModel.reselectRPs();
+            viewModel.reselectRadiologist();
+            
+           
         }
     }
 }
