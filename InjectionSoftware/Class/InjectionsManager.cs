@@ -86,14 +86,16 @@ namespace InjectionSoftware.Class
         /// </summary>
         public static void reassignCaseNumberOfDoctor()
         {
+            List<Injection> tempinjections = returnSortedInjectionByTime();
+
             for (int i = 0; i < Doctor.Doctors.Count; i++)
             {
                 int counter = 1;
-                for (int j = 0; j < injections.Count; j++)
+                for (int j = 0; j < tempinjections.Count; j++)
                 {
-                    if(injections[j].Doctor == Doctor.Doctors[i])
+                    if(tempinjections[j].Doctor == Doctor.Doctors[i])
                     {
-                        injections[j].CaseNumberOfDoctor = counter;
+                        tempinjections[j].CaseNumberOfDoctor = counter;
                         counter++;
                     }
                 }
@@ -102,7 +104,23 @@ namespace InjectionSoftware.Class
 
         public static void reassignCaseNumber()
         {
-            //Clone a Observable collection and convert it to list;
+            List<Injection> tempinjections = returnSortedInjectionByTime();
+
+            for (int i = 0; i < tempinjections.Count; i++)
+            {
+                tempinjections[i].CaseNumber = i + 1;
+            }
+        }
+
+        /// <summary>
+        /// clone the ObservableCollection(Injection) and convert it to list
+        /// sort the list and return it as result
+        /// </summary>
+        /// <returns></returns>
+        public static List<Injection> returnSortedInjectionByTime()
+        {
+
+            //Clone a Observable collection and convert it to list
             List<Injection> tempinjections = new List<Injection>();
             foreach (var injection in injections)
             {
@@ -112,10 +130,7 @@ namespace InjectionSoftware.Class
             //sort the list according to the injection time
             tempinjections.Sort((x, y) => (DateTime.Compare(x.InjectionTime, y.InjectionTime)));
 
-            for (int i = 0; i < tempinjections.Count; i++)
-            {
-                tempinjections[i].CaseNumber = i + 1;
-            }
+            return tempinjections;
         }
 
         public static void loadAllInjections()
