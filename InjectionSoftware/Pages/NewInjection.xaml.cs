@@ -1,4 +1,5 @@
-﻿using InjectionSoftware.Class;
+﻿using ControlzEx.Theming;
+using InjectionSoftware.Class;
 using InjectionSoftware.Enums;
 using InjectionSoftware.ViewModels;
 using System;
@@ -40,8 +41,16 @@ namespace InjectionSoftware.Pages
             //select the previous selected RPs if the client is trying to modify instead of adding a new injection
             viewModel.reselectRPs();
             viewModel.reselectRadiologist();
-            
-           
+
+            if(Injection == null)
+            {
+                ThemeManager.Current.ChangeTheme(this, "Light.Green");
+            }
+            else
+            {
+                ThemeManager.Current.ChangeTheme(this, "Light.Red");
+                this.Title = "Modify Injection";
+            }
         }
     }
 }
