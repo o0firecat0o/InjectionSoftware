@@ -47,11 +47,11 @@ namespace InjectionSoftware.Enums
 
             new Room("9", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 4, 7);
             new Room("3", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 5, 7);
-            new Room("5", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 6, 7); 
+            new Room("6", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 6, 7); 
 
             new Room("1", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 4, 8);
             new Room("4", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 5, 8);
-            new Room("6", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 6, 8);
+            new Room("5", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 6, 8);
 
             new Room("11", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 2, 3, 3);
             new Room("10", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 1, 3, 5);
