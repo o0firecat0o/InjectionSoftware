@@ -196,14 +196,8 @@ namespace InjectionSoftware.ViewModels
                 //modify existing injection
                 else
                 {
-                    Injection.Patient.PatientID = patientID;
-                    Injection.Patient.PatientSurname = patientSurname;
-                    Injection.Patient.PatientLastname = patientLastname;
-                    Injection.RPs = RPs;
-                    Injection.Doctor = SelectedDoctor;
-                    Injection.UptakeTime = UptakeTime;
-                    Injection.InjectionTime = DateTime;
-                    Injection.SelectedRoom = SelectedRoom;
+                    InjectionsManager.modInjection(Injection, patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom);
+                    
                     Console.Out.WriteLine("modifying injection with patient ID:" + patientID);
                 }
 

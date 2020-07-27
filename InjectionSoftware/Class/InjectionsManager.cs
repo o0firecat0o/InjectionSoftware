@@ -39,7 +39,7 @@ namespace InjectionSoftware.Class
             return false;
         }
 
-        public static bool addInjection(string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
+        public static void addInjection(string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
         {
             // find wether the patient is already registered and exist in the database
             Patient patient;
@@ -61,7 +61,41 @@ namespace InjectionSoftware.Class
             
             injections.Add(injection);
 
-            return true;
+            reassignCaseNumberOfDoctor();
+        }
+
+        public static void modInjection(Injection Injection, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
+        {
+            Injection.Patient.PatientID = patientID;
+            Injection.Patient.PatientSurname = patientSurname;
+            Injection.Patient.PatientLastname = patientLastname;
+            Injection.RPs = RPs;
+            Injection.Doctor = Doctor;
+            Injection.UptakeTime = UptakeTime;
+            Injection.InjectionTime = InjectionTime;
+            Injection.SelectedRoom = SelectedRoom;
+
+            reassignCaseNumberOfDoctor();
+        }
+
+        /// <summary>
+        /// Rassign case number of doctor
+        /// Used when case injection time changed, case assigned doctor changed etc
+        /// </summary>
+        public static void reassignCaseNumberOfDoctor()
+        {
+            for (int i = 0; i < Doctor.Doctors.Count; i++)
+            {
+                int counter = 1;
+                for (int j = 0; j < injections.Count; j++)
+                {
+                    if(injections[j].Doctor == Doctor.Doctors[i])
+                    {
+                        injections[j].CaseNumberOfDoctor = counter;
+                        counter++;
+                    }
+                }
+            }
         }
 
         public static void loadAllInjections()

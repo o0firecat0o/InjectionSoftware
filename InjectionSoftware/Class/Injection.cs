@@ -47,6 +47,21 @@ namespace InjectionSoftware.Class
             }
         }
 
+        private int _CaseNumberOfDoctor;
+
+        public int CaseNumberOfDoctor
+        {
+            get
+            {
+                return _CaseNumberOfDoctor;
+            }
+            set
+            {
+                _CaseNumberOfDoctor = value;
+                OnPropertyChanged("CaseNumberOfDoctor");
+            }
+        }
+
         public string AccessionNumber
         {
             get; set;
