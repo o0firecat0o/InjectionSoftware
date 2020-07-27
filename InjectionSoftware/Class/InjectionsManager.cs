@@ -57,11 +57,12 @@ namespace InjectionSoftware.Class
             // TODO: avoid duplicated adding of patient
             // TODO: correct count after delete or adding <= sort by injection time
             // add the injection
-            Injection injection = new Injection(patient, injections.Count + 1, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom);
+            Injection injection = new Injection(patient, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom);
             
             injections.Add(injection);
 
             reassignCaseNumberOfDoctor();
+            reassignCaseNumber();
         }
 
         public static void modInjection(Injection Injection, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
@@ -76,6 +77,7 @@ namespace InjectionSoftware.Class
             Injection.SelectedRoom = SelectedRoom;
 
             reassignCaseNumberOfDoctor();
+            reassignCaseNumber();
         }
 
         /// <summary>
@@ -95,6 +97,24 @@ namespace InjectionSoftware.Class
                         counter++;
                     }
                 }
+            }
+        }
+
+        public static void reassignCaseNumber()
+        {
+            //Clone a Observable collection and convert it to list;
+            List<Injection> tempinjections = new List<Injection>();
+            foreach (var injection in injections)
+            {
+                tempinjections.Add(injection);
+            }
+
+            //sort the list according to the injection time
+            tempinjections.Sort((x, y) => (DateTime.Compare(x.InjectionTime, y.InjectionTime)));
+
+            for (int i = 0; i < tempinjections.Count; i++)
+            {
+                tempinjections[i].CaseNumber = i + 1;
             }
         }
 

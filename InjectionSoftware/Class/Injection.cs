@@ -15,7 +15,7 @@ namespace InjectionSoftware.Class
     {
         public Patient Patient { get; }
 
-        private int _CaseNumber;
+        private int _CaseNumber = 1;
 
         public int CaseNumber
         {
@@ -293,10 +293,9 @@ namespace InjectionSoftware.Class
             }
         }
 
-        public Injection(Patient patient, int CaseNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
+        public Injection(Patient patient, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
         {
             Patient = patient;
-            this.CaseNumber = CaseNumber;
             this.RPs = RPs;
             this.Doctor = Doctor;
             this.UptakeTime = UptakeTime;

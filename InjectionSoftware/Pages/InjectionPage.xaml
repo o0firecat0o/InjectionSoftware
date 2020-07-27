@@ -99,6 +99,14 @@
                                                        TextAlignment="Center" />
                                         </Viewbox>
 
+                                        <Viewbox Grid.Row="2">
+                                            <TextBlock Text="{Binding CaseNumberOfDoctor}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       Foreground="White"
+                                                       TextAlignment="Center" />
+                                        </Viewbox>
+
                                     </Grid>
                                 </Grid>
 
