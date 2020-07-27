@@ -1,4 +1,5 @@
 ﻿using InjectionSoftware.Class;
+using InjectionSoftware.Dialogs;
 using InjectionSoftware.Enums;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -32,6 +33,8 @@ namespace InjectionSoftware.ViewModels
         public Command Cancel { get; set; }
 
         public Command Confirm { get; set; }
+
+        public Command Delete { get; set; }
 
         /// <summary>
         /// The injection time of the RP, adjustable by Mahapp time picker
@@ -105,6 +108,7 @@ namespace InjectionSoftware.ViewModels
 
             Cancel = new Command(closeWindow);
             Confirm = new Command(confirm);
+            Delete = new Command(delete);
             DateTime = DateTime.Now;
 
             if (Injection != null)
@@ -209,6 +213,26 @@ namespace InjectionSoftware.ViewModels
             {
                 await window.ShowMessageAsync("Error", "Please enter Patient ID");
             }
+        }
+
+        SelectionDialog selectionDialog = new SelectionDialog();
+
+        public async void delete()
+        {
+            selectionDialog.Cancel.Click += Dialog_OnCloseDown;
+            selectionDialog.Delete.Click += Dialog_OnDeleteDown;
+            await window.ShowMetroDialogAsync(selectionDialog);
+        }
+
+        private async void Dialog_OnCloseDown(object sender, RoutedEventArgs e)
+        {
+            await window.HideMetroDialogAsync(selectionDialog);
+        }
+
+        private async void Dialog_OnDeleteDown(object sender, RoutedEventArgs e)
+        {
+            await window.HideMetroDialogAsync(selectionDialog);
+            window.Close();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

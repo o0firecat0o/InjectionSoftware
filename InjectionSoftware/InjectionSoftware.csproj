@@ -146,6 +146,9 @@
     <Compile Include="Class\Patient.cs" />
     <Compile Include="Class\PatientManager.cs" />
     <Compile Include="Class\Timer.cs" />
+    <Compile Include="Dialogs\SelectionDialog.xaml.cs">
+      <DependentUpon>SelectionDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Enums\Doctor.cs" />
     <Compile Include="Enums\Room.cs" />
     <Compile Include="Enums\RP.cs" />
@@ -158,6 +161,10 @@
     <Compile Include="ViewModels\InjectionPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\NewInjectionViewModel.cs" />
+    <Page Include="Dialogs\SelectionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\InjectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

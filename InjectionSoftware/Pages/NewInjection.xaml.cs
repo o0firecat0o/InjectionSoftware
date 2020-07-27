@@ -45,6 +45,7 @@ namespace InjectionSoftware.Pages
             if(Injection == null)
             {
                 ThemeManager.Current.ChangeTheme(this, "Light.Green");
+                DeleteButton.Visibility = Visibility.Collapsed;
             }
             else
             {
