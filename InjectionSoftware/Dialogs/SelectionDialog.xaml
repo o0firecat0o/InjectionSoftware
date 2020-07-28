@@ -12,10 +12,12 @@
                 VerticalAlignment="Center">
 
         <Label HorizontalAlignment="Left"
+               x:Name="TitleText"
                Content="Warning"
                FontSize="36" />
 
         <Label HorizontalAlignment="Left"
+               x:Name="MessageText"
                Content="Are you sure you want to delete the case?" />
 
 
@@ -24,7 +26,7 @@
                     HorizontalAlignment="Center"
                     Margin="100 30 20 30">
 
-            <Button x:Name="Delete"
+            <Button x:Name="Confirm"
                     Content="Delete"
                     Width="80"
                     Margin="10,0"

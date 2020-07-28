@@ -33,7 +33,7 @@
                         <!-- outline of the injection case-->
                         <Border CornerRadius="4"
                                 Margin="3"
-                                Background="White">
+                                Background="{Binding BackgroundBrush}">
                             <Border.Effect>
                                 <DropShadowEffect ShadowDepth="2"
                                                   Color="#FF666666"
@@ -264,6 +264,25 @@
                                 </Grid>
                             </Grid>
                         </DockPanel>
+
+                        <!-- +C or +D -->
+                        <Viewbox>
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Foreground="Red"
+                                       Text="{Binding ContrastDelayString}"
+                                       
+                                       Opacity="0.3"
+                                       FontFamily="Stencil">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect  BlurRadius="10"
+                                                       ShadowDepth="1"
+                                                       Direction="0"
+                                                       Color="Red" />
+                                </TextBlock.Effect>
+                            </TextBlock>
+                        </Viewbox>
+
 
                         <!-- border of the outline of the injection case-->
                         <Border CornerRadius="2"

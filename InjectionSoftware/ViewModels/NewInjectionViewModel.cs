@@ -36,6 +36,8 @@ namespace InjectionSoftware.ViewModels
 
         public Command Delete { get; set; }
 
+        public Command Discharge { get; set; }
+
         /// <summary>
         /// The injection time of the RP, adjustable by Mahapp time picker
         /// </summary>
@@ -113,6 +115,7 @@ namespace InjectionSoftware.ViewModels
             Cancel = new Command(closeWindow);
             Confirm = new Command(confirm);
             Delete = new Command(delete);
+            Discharge = new Command(discharge);
             DateTime = DateTime.Now;
 
             if (Injection != null)
@@ -135,6 +138,9 @@ namespace InjectionSoftware.ViewModels
                         break;
                 }
                 SelectedRoom = Injection.SelectedRoom;
+                isContrast = Injection.isContrast;
+                isDelay = Injection.isDelay;
+                isDischarge = Injection.isDischarge;
             }
             else
             {
@@ -228,24 +234,46 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
-        SelectionDialog selectionDialog = new SelectionDialog();
+        SelectionDialog deleteConfirmDialog = new SelectionDialog();
+        SelectionDialog dischargeConfirmDialog = new SelectionDialog();
 
         public async void delete()
         {
-            selectionDialog.Cancel.Click += Dialog_OnCloseDown;
-            selectionDialog.Delete.Click += Dialog_OnDeleteDown;
-            await window.ShowMetroDialogAsync(selectionDialog);
+            deleteConfirmDialog.Cancel.Click += deleteDialog_OnCloseDown;
+            deleteConfirmDialog.Confirm.Click += deleteDialog_OnDeleteDown;
+            await window.ShowMetroDialogAsync(deleteConfirmDialog);
         }
 
-        private async void Dialog_OnCloseDown(object sender, RoutedEventArgs e)
+        private async void deleteDialog_OnCloseDown(object sender, RoutedEventArgs e)
         {
-            await window.HideMetroDialogAsync(selectionDialog);
+            await window.HideMetroDialogAsync(deleteConfirmDialog);
         }
 
-        private async void Dialog_OnDeleteDown(object sender, RoutedEventArgs e)
+        private async void deleteDialog_OnDeleteDown(object sender, RoutedEventArgs e)
         {
             InjectionsManager.delInjection(Injection);
-            await window.HideMetroDialogAsync(selectionDialog);
+            await window.HideMetroDialogAsync(deleteConfirmDialog);
+            window.Close();
+        }
+
+        private async void discharge()
+        {
+            dischargeConfirmDialog.MessageText.Content = "Are you sure you want to discharge the case?";
+            dischargeConfirmDialog.Confirm.Content = "discharge";
+            dischargeConfirmDialog.Cancel.Click += dischargeDialog_OnCloseDown;
+            dischargeConfirmDialog.Confirm.Click += dischargeDialog_OnConfirmDown;
+            await window.ShowMetroDialogAsync(dischargeConfirmDialog);
+        }
+
+        private async void dischargeDialog_OnCloseDown(object sender, RoutedEventArgs e)
+        {
+            await window.HideMetroDialogAsync(dischargeConfirmDialog);
+        }
+
+        private async void dischargeDialog_OnConfirmDown(object sender, RoutedEventArgs e)
+        {
+            Injection.isDischarge = true;
+            await window.HideMetroDialogAsync(dischargeConfirmDialog);
             window.Close();
         }
 

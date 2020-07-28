@@ -303,6 +303,7 @@ namespace InjectionSoftware.Class
             {
                 _isContrast = value;
                 OnPropertyChanged("isContrast");
+                OnPropertyChanged("ContrastDelayString");
             }
         }
         private bool _isContrast = false;
@@ -317,6 +318,7 @@ namespace InjectionSoftware.Class
             {
                 _isDelay = value;
                 OnPropertyChanged("isDelay");
+                OnPropertyChanged("ContrastDelayString");
             }
         }
         private bool _isDelay = false;
@@ -331,9 +333,45 @@ namespace InjectionSoftware.Class
             {
                 _isDischarge = value;
                 OnPropertyChanged("isDischarge");
+                OnPropertyChanged("BackgroundBrush");
             }
         }
         private bool _isDischarge = false;
+
+        public string ContrastDelayString
+        {
+            get
+            {
+                string returnstring = "";
+                if (isContrast)
+                {
+                    returnstring += "+C";
+                }
+                if (isDelay)
+                {
+                    returnstring += "+D";
+                }
+                return returnstring;
+            }
+        }
+
+        /// <summary>
+        /// the background brush of the injection panel for each injection, affected by whether the patient is discharged or not
+        /// </summary>
+        public Brush BackgroundBrush
+        {
+            get
+            {
+                if (isDischarge)
+                {
+                    return Brushes.DarkGray;
+                }
+                else
+                {
+                    return Brushes.White;
+                }
+            }
+        }
 
         public Injection(Patient patient, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
         {
