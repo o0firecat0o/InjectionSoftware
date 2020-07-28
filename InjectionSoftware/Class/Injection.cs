@@ -292,6 +292,48 @@ namespace InjectionSoftware.Class
                 OnPropertyChanged("SelectedRoom");
             }
         }
+                
+        public bool isContrast
+        {
+            get
+            {
+                return _isContrast;
+            }
+            set
+            {
+                _isContrast = value;
+                OnPropertyChanged("isContrast");
+            }
+        }
+        private bool _isContrast = false;
+
+        public bool isDelay
+        {
+            get
+            {
+                return _isDelay;
+            }
+            set
+            {
+                _isDelay = value;
+                OnPropertyChanged("isDelay");
+            }
+        }
+        private bool _isDelay = false;
+
+        public bool isDischarge
+        {
+            get
+            {
+                return _isDischarge;
+            }
+            set
+            {
+                _isDischarge = value;
+                OnPropertyChanged("isDischarge");
+            }
+        }
+        private bool _isDischarge = false;
 
         public Injection(Patient patient, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
         {

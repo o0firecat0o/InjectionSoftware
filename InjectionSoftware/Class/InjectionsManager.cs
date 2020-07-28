@@ -39,7 +39,7 @@ namespace InjectionSoftware.Class
             return false;
         }
 
-        public static void addInjection(string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
+        public static Injection addInjection(string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
         {
             // find wether the patient is already registered and exist in the database
             Patient patient;
@@ -63,6 +63,8 @@ namespace InjectionSoftware.Class
 
             reassignCaseNumberOfDoctor();
             reassignCaseNumber();
+
+            return injection;
         }
 
         public static void modInjection(Injection Injection, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)

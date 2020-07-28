@@ -33,6 +33,19 @@
                     <TextBlock> Patient ID:</TextBlock>
                     <TextBox Text="{Binding patientID}" />
                 </StackPanel>
+
+                <DockPanel Grid.Column="1" Margin="20">
+                    <mah:ToggleSwitch Header="Need Contrast?"
+                                      Width="114"
+                                      OffContent="No"
+                                      OnContent="Yes"
+                                      IsOn="{Binding isContrast}"/>
+                    <mah:ToggleSwitch Header="Need Delay?"
+                                      Width="114"
+                                      OffContent="No"
+                                      OnContent="Yes"
+                                      IsOn="{Binding isDelay}"/>
+                </DockPanel>
             </Grid>
             
 
@@ -222,8 +235,18 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+
                 <Button Grid.Column="2"
+                        Height="50"
+                        Margin="10"
+                        Background="#FFF8FF66"
+                        Command="{Binding Confirm}">
+                    Discharge
+                </Button>
+
+                <Button Grid.Column="3"
                         Height="50"
                         Margin="10"
                         Background="#FF98F485"

@@ -68,6 +68,10 @@ namespace InjectionSoftware.ViewModels
 
         public Room SelectedRoom { get; set; }
 
+        public bool isContrast { get; set; }
+        public bool isDelay { get; set; }
+        public bool isDischarge { get; set; }
+
 
 
         /// <summary>
@@ -194,7 +198,12 @@ namespace InjectionSoftware.ViewModels
                 //add new injection
                 if(Injection == null)
                 {
-                    InjectionsManager.addInjection(patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom);
+                    Injection temp = InjectionsManager.addInjection(patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom);
+                    
+                    temp.isContrast = isContrast;
+                    temp.isDelay = isDelay;
+                    temp.isDischarge = isDischarge;
+
                     Console.Out.WriteLine("adding injection with patient ID: " + patientID);
                 }
                 //modify existing injection
@@ -202,6 +211,10 @@ namespace InjectionSoftware.ViewModels
                 {
                     InjectionsManager.modInjection(Injection, patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom);
                     
+                    Injection.isContrast = isContrast;
+                    Injection.isDelay = isDelay;
+                    Injection.isDischarge = isDischarge;
+
                     Console.Out.WriteLine("modifying injection with patient ID:" + patientID);
                 }
 
