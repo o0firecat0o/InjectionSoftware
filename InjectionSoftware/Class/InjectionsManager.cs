@@ -80,6 +80,14 @@ namespace InjectionSoftware.Class
             reassignCaseNumber();
         }
 
+        public static void delInjection(Injection Injection)
+        {
+            injections.Remove(Injection);
+
+            reassignCaseNumberOfDoctor();
+            reassignCaseNumber();
+        }
+
         /// <summary>
         /// Rassign case number of doctor
         /// Used when case injection time changed, case assigned doctor changed etc

@@ -231,6 +231,7 @@ namespace InjectionSoftware.ViewModels
 
         private async void Dialog_OnDeleteDown(object sender, RoutedEventArgs e)
         {
+            InjectionsManager.delInjection(Injection);
             await window.HideMetroDialogAsync(selectionDialog);
             window.Close();
         }
