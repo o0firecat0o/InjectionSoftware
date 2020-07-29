@@ -14,45 +14,7 @@ namespace InjectionSoftware.Network
     {
         WatsonTcpServer tcpServer;
 
-
-        private readonly UdpClient udp = new UdpClient(15000);
-        IAsyncResult ar_ = null;
-
-        /// <summary>
-        /// start listening for any client broadcast
-        /// </summary>
-        private void UDPStartListening()
-        {
-            ar_ = udp.BeginReceive(UDPReceive, new object());
-        }
-
-        /// <summary>
-        /// if recieved client broadcast, re-send the selfip to the client
-        /// </summary>
-        /// <param name="ar"></param>
-        private void UDPReceive(IAsyncResult ar)
-        {
-            IPEndPoint ip = new IPEndPoint(IPAddress.Any, 15000);
-            byte[] bytes = udp.EndReceive(ar, ref ip);
-            string message = Encoding.ASCII.GetString(bytes);
-            Console.WriteLine("[UDP] From {0} received: {1} ", ip.Address.ToString(), message);
-            if (message == "connectionrequest")
-            {
-
-                UDPSend(ip.Address, "connectionaccepted");
-            }
-            UDPStartListening();
-        }
-
-        public void UDPSend(IPAddress address, string message)
-        {
-            UdpClient client = new UdpClient();
-            IPEndPoint ip = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 14999);
-            byte[] bytes = Encoding.ASCII.GetBytes(message);
-            client.Send(bytes, bytes.Length, ip);
-            client.Close();
-            Console.WriteLine("[UDP] Sent: {0} ", message);
-        }
+        UDPNetworking uDPNetworking = new UDPNetworking(15000);
 
         public static string GetLocalIPAddress()
         {
@@ -77,7 +39,16 @@ namespace InjectionSoftware.Network
 
             tcpServer.Start();
 
-            UDPStartListening();
+            uDPNetworking.UDPStartListening();
+            uDPNetworking.MessageRecieved += UDPMessageReceived;
+        }
+
+        private void UDPMessageReceived(object sender, UDPNetworking.MessageRecievedEventArgs e)
+        {
+            if(e.message == "connectionrequest")
+            {
+                uDPNetworking.UDPSend(e.ipAddress, 14999, "connectionaccepted");
+            }
         }
 
         private void MessageReceived(object sender, MessageReceivedFromClientEventArgs args)

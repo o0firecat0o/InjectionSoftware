@@ -16,56 +16,29 @@ namespace InjectionSoftware.Network
 
         string serverip;
 
-        private readonly UdpClient udp = new UdpClient(14999);
-        IAsyncResult ar_ = null;
-
-
-        private void UDPStartListening()
-        {
-            ar_ = udp.BeginReceive(UDPReceive, new object());
-        }
-        private void UDPStopListening()
-        {
-            udp.Close();
-        }
-
-        // start listening for server message that will send the server ip back to client
-        private void UDPReceive(IAsyncResult ar)
-        {
-            IPEndPoint ip = new IPEndPoint(IPAddress.Any, 14999);
-            byte[] bytes = udp.EndReceive(ar, ref ip);
-            string message = Encoding.ASCII.GetString(bytes);
-            Console.WriteLine("[UDP] From {0} received: {1} ", ip.Address.ToString(), message);
-
-            Console.WriteLine("[Client] Now adding ip address: " + ip.Address.ToString() + " as server.");
-            serverip = ip.Address.ToString();
-            ConnectToServer();
-
-            UDPStartListening();
-        }
-
-        public void UDPSend(string message)
-        {
-            UdpClient client = new UdpClient();
-            IPEndPoint ip = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 15000);
-            byte[] bytes = Encoding.ASCII.GetBytes(message);
-            client.Send(bytes, bytes.Length, ip);
-            client.Close();
-            Console.WriteLine("[UDP] Sent: {0} ", message);
-        }
-
+        UDPNetworking uDPNetworking = new UDPNetworking(14999);
 
         public Client()
         {
             // start listening from server message
-            UDPStartListening();
+            uDPNetworking.UDPStartListening();
             // broadcast to all ip, finding server
-            UDPSend("connectionrequest");
+            uDPNetworking.UDPBroadCast(15000,"connectionrequest");
+            uDPNetworking.MessageRecieved += UDPMessageReceived;
+        }
+
+        private void UDPMessageReceived(object sender, UDPNetworking.MessageRecievedEventArgs e)
+        {
+            if(e.message == "connectionaccepted")
+            {
+                serverip = e.ipAddress;
+                Console.Out.WriteLine("[Client] Setting IPAddress: " + e.ipAddress + " as Server Address");
+                ConnectToServer();
+            }
         }
 
         public void ConnectToServer()
         {
-            Console.Out.WriteLine(serverip);
             tcpClient = new WatsonTcpClient(serverip, 8901);
             tcpClient.MessageReceived += MessageReceived;
 

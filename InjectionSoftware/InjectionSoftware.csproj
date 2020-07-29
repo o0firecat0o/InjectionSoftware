@@ -160,6 +160,7 @@
     <Compile Include="Enums\RP.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\Server.cs" />
+    <Compile Include="Network\UDPNetworking.cs" />
     <Compile Include="Pages\NewInjection.xaml.cs">
       <DependentUpon>NewInjection.xaml</DependentUpon>
     </Compile>
