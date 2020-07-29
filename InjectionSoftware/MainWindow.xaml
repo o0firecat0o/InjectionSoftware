@@ -29,69 +29,83 @@
         <StackPanel Grid.Column="0"
                     Background="#2E333A">
 
-            <!-- Menu text -->
-            <TextBlock  Grid.Row="1"
-                        Grid.Column="0"
-                        Margin="20,20,0,0"
-                        Text="M E N U"
-                        Foreground="White"
-                        FontSize="22"
-                        Background="Transparent"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
+            <StackPanel>
+                <!-- Menu text -->
+                <TextBlock  Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="20,20,0,0"
+                            Text="M E N U"
+                            Foreground="White"
+                            FontSize="22"
+                            Background="Transparent"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
                             
                 <!--// Shadow Effect //-->
-                <TextBlock.Effect>
-                    <DropShadowEffect  BlurRadius="10"
-                                       ShadowDepth="1"
-                                       Direction="-90"
-                                       Color="White" />
-                </TextBlock.Effect>
-            </TextBlock>
+                    <TextBlock.Effect>
+                        <DropShadowEffect  BlurRadius="10"
+                                           ShadowDepth="1"
+                                           Direction="-90"
+                                           Color="White" />
+                    </TextBlock.Effect>
+                </TextBlock>
 
-            <!-- Listview -->
-            <ListView x:Name="leftControlBar"
-                      Background="Transparent"
-                      BorderBrush="Transparent"
-                      Style="{DynamicResource MahApps.Styles.ListView}"
-                      Padding="0 30 0 0"
-                      SelectionChanged="leftControlBar_SelectionChanged">
+                <!-- Listview -->
+                <ListView x:Name="leftControlBar"
+                          Background="Transparent"
+                          BorderBrush="Transparent"
+                          Style="{DynamicResource MahApps.Styles.ListView}"
+                          Padding="0 30 0 0"
+                          SelectionChanged="leftControlBar_SelectionChanged">
 
-                <!-- Injection -->
-                <ListViewItem x:Name="InjectionPanelButton"
-                              MinHeight="60">
-                    <StackPanel Orientation="Horizontal"
-                                Margin="5">
-                        <iconPacks:PackIconMaterial Kind="Needle" />
-                        <TextBlock Text="Sort by Injection"
-                                   Margin="5,0,0,0"
-                                   Style="{DynamicResource MahApps.Styles.TextBlock.Watermark}" />
+                    <!-- Injection -->
+                    <ListViewItem x:Name="InjectionPanelButton"
+                                  MinHeight="60">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="5">
+                            <iconPacks:PackIconMaterial Kind="Needle" />
+                            <TextBlock Text="Sort by Injection"
+                                       Margin="5,0,0,0"
+                                       Style="{DynamicResource MahApps.Styles.TextBlock.Watermark}" />
 
-                    </StackPanel>
-                </ListViewItem>
+                        </StackPanel>
+                    </ListViewItem>
 
-                <!-- Room -->
-                <ListViewItem MinHeight="60">
-                    <StackPanel Orientation="Horizontal"
-                                Margin="5">
-                        <iconPacks:PackIconMaterial Kind="HomeFloor3" />
-                        <TextBlock Text="Sort by Room"
-                                   Margin="5,0,0,0"
-                                   Style="{DynamicResource MahApps.Styles.TextBlock.Watermark}" />
-                    </StackPanel>
-                </ListViewItem>
+                    <!-- Room -->
+                    <ListViewItem MinHeight="60">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="5">
+                            <iconPacks:PackIconMaterial Kind="HomeFloor3" />
+                            <TextBlock Text="Sort by Room"
+                                       Margin="5,0,0,0"
+                                       Style="{DynamicResource MahApps.Styles.TextBlock.Watermark}" />
+                        </StackPanel>
+                    </ListViewItem>
 
-                <!-- Assigned Doctor -->
-                <ListViewItem MinHeight="60">
-                    <StackPanel Orientation="Horizontal"
-                                Margin="5">
-                        <iconPacks:PackIconMaterial Kind="Doctor" />
-                        <TextBlock Text="Sort by Assigned Doctor"
-                                   Margin="5,0,0,0"
-                                   Style="{DynamicResource MahApps.Styles.TextBlock.Watermark}" />
-                    </StackPanel>
-                </ListViewItem>
-            </ListView>
+                    <!-- Assigned Doctor -->
+                    <ListViewItem MinHeight="60">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="5">
+                            <iconPacks:PackIconMaterial Kind="Doctor" />
+                            <TextBlock Text="Sort by Assigned Doctor"
+                                       Margin="5,0,0,0"
+                                       Style="{DynamicResource MahApps.Styles.TextBlock.Watermark}" />
+                        </StackPanel>
+                    </ListViewItem>
+
+                    <!-- Connection Status -->
+                    <ListViewItem MinHeight="60">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="5">
+                            <iconPacks:PackIconUnicons Kind="ServerNetwork" />
+                            <TextBlock Text="Connection Status"
+                                       Margin="5,0,0,0"
+                                       Style="{DynamicResource MahApps.Styles.TextBlock.Watermark}" />
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+
+            </StackPanel>
 
             <Viewbox Stretch="Uniform">
                 <Grid>
@@ -99,46 +113,45 @@
                     <StackPanel VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
                         <!-- Time -->
-                        <TextBlock Text="{Binding Timer.Time}" 
-                               FontFamily="Segoe WP Light"
-                               Foreground="#FF1DD4F7"
+                        <TextBlock Text="{Binding Timer.Time}"
+                                   FontFamily="Segoe WP Light"
+                                   Foreground="#FF1DD4F7"
                                    VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               >
+                                   HorizontalAlignment="Center">
                             <TextBlock.Effect>
                                 <DropShadowEffect BlurRadius="2"
-                                              Color="#FF1DD4F7"
-                                              ShadowDepth="0" />
+                                                  Color="#FF1DD4F7"
+                                                  ShadowDepth="0" />
                             </TextBlock.Effect>
                         </TextBlock>
 
                         <!-- Date -->
-                        <TextBlock Text="{Binding Timer.Date}" 
-                               FontFamily="Segoe WP Light"
-                               Foreground="#FF1DD4F7"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding Timer.Date}"
+                                   FontFamily="Segoe WP Light"
+                                   Foreground="#FF1DD4F7"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center">
                             <TextBlock.Effect>
                                 <DropShadowEffect BlurRadius="2"
-                                              Color="#FF1DD4F7"
-                                              ShadowDepth="0" />
+                                                  Color="#FF1DD4F7"
+                                                  ShadowDepth="0" />
                             </TextBlock.Effect>
                         </TextBlock>
 
                         <!-- Date -->
-                        <TextBlock Text="{Binding Timer.Day}" 
-                               FontFamily="Segoe WP Light"
-                               Foreground="#FF1DD4F7"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center">
+                        <TextBlock Text="{Binding Timer.Day}"
+                                   FontFamily="Segoe WP Light"
+                                   Foreground="#FF1DD4F7"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center">
                             <TextBlock.Effect>
                                 <DropShadowEffect BlurRadius="2"
-                                              Color="#FF1DD4F7"
-                                              ShadowDepth="0" />
+                                                  Color="#FF1DD4F7"
+                                                  ShadowDepth="0" />
                             </TextBlock.Effect>
                         </TextBlock>
                     </StackPanel>
-                    
+
 
                     <xrpb:RadialProgressBar Value="{Binding Timer.H}"
                                             Width="160"
@@ -177,6 +190,7 @@
                     </xrpb:RadialProgressBar>
                 </Grid>
             </Viewbox>
+
         </StackPanel>
 
         <Frame x:Name="Main"

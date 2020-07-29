@@ -35,7 +35,6 @@ namespace InjectionSoftware
         {
             new Server();
             new Client();
-            //"192.168.17.62"
 
             InitializeComponent();
 
