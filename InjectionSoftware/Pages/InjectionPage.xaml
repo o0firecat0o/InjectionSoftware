@@ -212,9 +212,13 @@
                                             <ColumnDefinition Width="3*" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="{Binding Patient.PatientFullname}"
-                                                    VerticalAlignment="Center"
-                                                    Margin="2" />
+                                        <Viewbox Stretch="Uniform" HorizontalAlignment="Left">
+                                            <TextBlock Text="{Binding Patient.PatientFullname}"
+                                                       VerticalAlignment="Center"
+                                                       HorizontalAlignment="Left"
+                                                       Margin="2" />
+                                        </Viewbox>
+                                        
                                         
                                         <Grid Grid.Column="1">
                                             <Viewbox Stretch="Uniform">

@@ -1,55 +1,98 @@
-﻿using SimpleTCP;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using WatsonTcp;
 
 namespace InjectionSoftware.Network
 {
     public class Client
     {
-        SimpleTcpClient client = new SimpleTcpClient();
-        string serverIP;
+        WatsonTcpClient tcpClient;
 
-        public Client(string serverIP)
+        string serverip;
+
+        private readonly UdpClient udp = new UdpClient(14999);
+        IAsyncResult ar_ = null;
+
+
+        private void UDPStartListening()
         {
-            this.serverIP = serverIP;
-            Connect();
-            client.Delimiter = 0x13;
-            client.DelimiterDataReceived += DataReceived;
+            ar_ = udp.BeginReceive(UDPReceive, new object());
+        }
+        private void UDPStopListening()
+        {
+            udp.Close();
         }
 
-        public async void Connect()
+        // start listening for server message that will send the server ip back to client
+        private void UDPReceive(IAsyncResult ar)
         {
+            IPEndPoint ip = new IPEndPoint(IPAddress.Any, 14999);
+            byte[] bytes = udp.EndReceive(ar, ref ip);
+            string message = Encoding.ASCII.GetString(bytes);
+            Console.WriteLine("[UDP] From {0} received: {1} ", ip.Address.ToString(), message);
+
+            Console.WriteLine("[Client] Now adding ip address: " + ip.Address.ToString() + " as server.");
+            serverip = ip.Address.ToString();
+            ConnectToServer();
+
+            UDPStartListening();
+        }
+
+        public void UDPSend(string message)
+        {
+            UdpClient client = new UdpClient();
+            IPEndPoint ip = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 15000);
+            byte[] bytes = Encoding.ASCII.GetBytes(message);
+            client.Send(bytes, bytes.Length, ip);
+            client.Close();
+            Console.WriteLine("[UDP] Sent: {0} ", message);
+        }
+
+
+        public Client()
+        {
+            // start listening from server message
+            UDPStartListening();
+            // broadcast to all ip, finding server
+            UDPSend("connectionrequest");
+        }
+
+        public void ConnectToServer()
+        {
+            Console.Out.WriteLine(serverip);
+            tcpClient = new WatsonTcpClient(serverip, 8901);
+            tcpClient.MessageReceived += MessageReceived;
+
+
             try
             {
-
-                client.Connect(serverIP, 8910);
-                Console.Out.WriteLine("[Client] Trying to connect");                
-
-                if (client.TcpClient.Connected)
-                {
-                    Console.Out.WriteLine("[Client] Client is initialized, connection successful");
-                }
-                else
-                {
-                    Console.Out.WriteLine("[Client] Client initialization failed, connection unsuccessful");
-                    await Task.Delay(2000);
-                }
+                Console.Out.WriteLine("[Client] Trying to connect to server with ip: " +serverip);
+                tcpClient.Start();
             }
-            catch (System.Exception)
+            catch (SocketException e)
             {
-                Console.Out.WriteLine("[Client] Client initialization failed");
+                Console.Out.WriteLine(e);
+            }
+
+            if (tcpClient.Connected)
+            {
+                Console.Out.WriteLine("[Client] Connection sucessful");
+            }
+            else
+            {
+                Console.Out.WriteLine("[Client] Connection failed");
             }
         }
 
-        public void DataReceived(object e, Message message)
+        private void MessageReceived(object sender, MessageReceivedFromServerEventArgs args)
         {
-            Console.Out.WriteLine("[Client] the following message is recived: ");
-            Console.Out.WriteLine(message.MessageString);
+
         }
     }
 }

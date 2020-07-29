@@ -34,8 +34,9 @@ namespace InjectionSoftware
         public MainWindow()
         {
             new Server();
-            new Client("192.168.17.62");
-            
+            new Client();
+            //"192.168.17.62"
+
             InitializeComponent();
 
             DataContext = new MainWindowViewModel();
