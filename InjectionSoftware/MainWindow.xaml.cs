@@ -1,5 +1,6 @@
 ﻿using InjectionSoftware.Class;
 using InjectionSoftware.Enums;
+using InjectionSoftware.Network;
 using InjectionSoftware.ViewModels;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -32,6 +33,9 @@ namespace InjectionSoftware
                 
         public MainWindow()
         {
+            new Server();
+            new Client("192.168.17.62");
+            
             InitializeComponent();
 
             DataContext = new MainWindowViewModel();
