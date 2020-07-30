@@ -15,6 +15,8 @@ namespace InjectionSoftware.Network
         private readonly UdpClient udp;
         IAsyncResult ar_ = null;
 
+        private bool isClosed = false;
+
         public UDPNetworking(int PORT_NUMBER)
         {
             this.PORT_NUMBER = PORT_NUMBER;
@@ -25,6 +27,7 @@ namespace InjectionSoftware.Network
         public void UDPStartListening()
         {
             Console.WriteLine("[UDP] start listening on port:" + PORT_NUMBER);
+            isClosed = false;
             ar_ = udp.BeginReceive(UDPReceive, new object());
         }
         public void UDPStopListening()
@@ -32,7 +35,7 @@ namespace InjectionSoftware.Network
             try
             {
                 Console.Out.WriteLine("[UDP] stop listening on port:" + PORT_NUMBER);
-                udp.Dispose();
+                isClosed = true;
                 udp.Close();
             }
             catch
@@ -57,7 +60,10 @@ namespace InjectionSoftware.Network
                 args.message = message;
                 OnMessageRecieved(args);
 
-                UDPStartListening();
+                if (!isClosed)
+                {
+                    UDPStartListening();
+                }
             }
             catch(ObjectDisposedException e)
             {
