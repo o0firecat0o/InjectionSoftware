@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using WatsonTcp;
 
 namespace InjectionSoftware.Network
@@ -14,34 +15,68 @@ namespace InjectionSoftware.Network
     {
         WatsonTcpClient tcpClient;
 
-        string serverip;
+        public string serverip;
+        public string servername;
+
+        DispatcherTimer timer;
 
         UDPNetworking uDPNetworking = new UDPNetworking(14999);
+
+        public event EventHandler<EventArgs> ServerFound;
+
+        public event EventHandler<EventArgs> ServerDisconnected;
 
         public Client()
         {
             // start listening from server message
             uDPNetworking.UDPStartListening();
-            // broadcast to all ip, finding server
-            uDPNetworking.UDPBroadCast(15000,"connectionrequest");
+
             uDPNetworking.MessageRecieved += UDPMessageReceived;
+
+            FindServer();
+        }
+
+        public void FindServer()
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(5000);
+            timer.Start();
+            timer.Tick += new EventHandler(delegate (object s, EventArgs a)
+            {
+                // broadcast to all ip, finding server
+                uDPNetworking.UDPBroadCast(15000, "connectionrequest");
+            });
         }
 
         private void UDPMessageReceived(object sender, UDPNetworking.MessageRecievedEventArgs e)
         {
-            if(e.message.Contains("connectionaccepted"))
+            if (e.message.Contains("connectionaccepted"))
             {
+                string[] messages = e.message.Split('_');
+
+                servername = messages[1];
                 serverip = e.ipAddress;
+
+                Console.Out.WriteLine("[Client] ServerFound!");
                 Console.Out.WriteLine("[Client] Setting IPAddress: " + e.ipAddress + " as Server Address");
-                ConnectToServer();
+                Console.Out.WriteLine("[Client] Name of the server is: " + servername);
+
+                ServerFound(this, new EventArgs());
             }
+        }
+
+        public void StopUDP()
+        {
+            Console.Out.WriteLine("[Client] terminating UDP client");
+            timer.Stop();
+            uDPNetworking.UDPStopListening();
         }
 
         public void ConnectToServer()
         {
             tcpClient = new WatsonTcpClient(serverip, 8901);
             tcpClient.MessageReceived += MessageReceived;
-
+            tcpClient.ServerDisconnected += _ServerDisconnected;
 
             try
             {
@@ -56,11 +91,17 @@ namespace InjectionSoftware.Network
             if (tcpClient.Connected)
             {
                 Console.Out.WriteLine("[Client] Connection sucessful");
+                StopUDP();
             }
             else
             {
                 Console.Out.WriteLine("[Client] Connection failed");
             }
+        }
+
+        private void _ServerDisconnected(object sender, EventArgs e)
+        {
+            ServerDisconnected(this, e);
         }
 
         private void MessageReceived(object sender, MessageReceivedFromServerEventArgs args)

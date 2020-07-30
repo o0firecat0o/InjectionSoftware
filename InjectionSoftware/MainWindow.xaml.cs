@@ -34,7 +34,7 @@ namespace InjectionSoftware
         private InjectionPage injectionPage = new InjectionPage();
         private RoomPage roomPage = new RoomPage();
 
-        private TwoChoiceDialog twoChoiceDialog = new TwoChoiceDialog();
+       
                 
         public MainWindow()
         {
@@ -52,36 +52,12 @@ namespace InjectionSoftware
             Doctor.AddDefault();
             Room.AddDefault();
 
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(10);
-            timer.Start();
-            timer.Tick += new EventHandler(delegate (object s, EventArgs a)
-            {
-                server_client_Selection();
-                timer.Stop();
-            });
+            
+
+            NetworkManager.Init(this);
         }
 
-        private async void server_client_Selection()
-        {
-            twoChoiceDialog.Choice1.Click += createServer;
-            twoChoiceDialog.Choice1.Content = "Start as Server";
-            twoChoiceDialog.Choice2.Click += createClient;
-            twoChoiceDialog.Choice2.Content = "Start as Client";
-            await this.ShowMetroDialogAsync(twoChoiceDialog);
-        }
-
-        private async void createServer(object sender, RoutedEventArgs e)
-        {
-            new Server();
-            await this.HideMetroDialogAsync(twoChoiceDialog);
-        }
-
-        private async void createClient(object sender, RoutedEventArgs e)
-        {
-            new Client();
-            await this.HideMetroDialogAsync(twoChoiceDialog);
-        }
+        
 
         // switching pages
         private void leftControlBar_SelectionChanged(object sender, SelectionChangedEventArgs e)

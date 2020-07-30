@@ -24,27 +24,46 @@ namespace InjectionSoftware.Network
 
         public void UDPStartListening()
         {
+            Console.WriteLine("[UDP] start listening on port:" + PORT_NUMBER);
             ar_ = udp.BeginReceive(UDPReceive, new object());
         }
         public void UDPStopListening()
         {
-            udp.Close();
+            try
+            {
+                Console.Out.WriteLine("[UDP] stop listening on port:" + PORT_NUMBER);
+                udp.Dispose();
+                udp.Close();
+            }
+            catch
+            {
+
+            }
+            
         }
 
         // start listening for server message that will send the server ip back to client
         private void UDPReceive(IAsyncResult ar)
         {
-            IPEndPoint ip = new IPEndPoint(IPAddress.Any, PORT_NUMBER);
-            byte[] bytes = udp.EndReceive(ar, ref ip);
-            string message = Encoding.ASCII.GetString(bytes);
-            Console.WriteLine("[UDP] From {0} received: {1} ", ip.Address.ToString(), message);
+            try
+            {
+                IPEndPoint ip = new IPEndPoint(IPAddress.Any, PORT_NUMBER);
+                byte[] bytes = udp.EndReceive(ar, ref ip);
+                string message = Encoding.ASCII.GetString(bytes);
+                Console.WriteLine("[UDP] From {0} received: {1} ", ip.Address.ToString(), message);
 
-            MessageRecievedEventArgs args = new MessageRecievedEventArgs();
-            args.ipAddress = ip.Address.ToString();
-            args.message = message;
-            OnMessageRecieved(args);
+                MessageRecievedEventArgs args = new MessageRecievedEventArgs();
+                args.ipAddress = ip.Address.ToString();
+                args.message = message;
+                OnMessageRecieved(args);
 
-            UDPStartListening();
+                UDPStartListening();
+            }
+            catch(ObjectDisposedException e)
+            {
+                Console.Out.WriteLine(e);
+            }
+            
         }
 
         public void UDPBroadCast(int targetPort, string message)

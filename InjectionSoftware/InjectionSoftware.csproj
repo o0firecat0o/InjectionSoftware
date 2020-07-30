@@ -155,6 +155,9 @@
     <Compile Include="Dialogs\SelectionDialog.xaml.cs">
       <DependentUpon>SelectionDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ProgressingDialog.xaml.cs">
+      <DependentUpon>ProgressingDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\TwoChoiceDialog.xaml.cs">
       <DependentUpon>TwoChoiceDialog.xaml</DependentUpon>
     </Compile>
@@ -162,6 +165,7 @@
     <Compile Include="Enums\Room.cs" />
     <Compile Include="Enums\RP.cs" />
     <Compile Include="Network\Client.cs" />
+    <Compile Include="Network\NetworkManager.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Network\UDPNetworking.cs" />
     <Compile Include="Pages\NewInjection.xaml.cs">
@@ -176,6 +180,10 @@
     <Page Include="Dialogs\SelectionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ProgressingDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Dialogs\TwoChoiceDialog.xaml">
       <SubType>Designer</SubType>
