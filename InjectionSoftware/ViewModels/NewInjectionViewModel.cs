@@ -125,12 +125,12 @@ namespace InjectionSoftware.ViewModels
                 patientSurname = Injection.Patient.PatientSurname;
                 patientLastname = Injection.Patient.PatientLastname;
                 DateTime = Injection.InjectionTime;
-                switch (Injection.UptakeTime)
+                switch ((int)Injection.UptakeTime)
                 {
-                    case 60f:
+                    case 60:
                         UptakeTimeIndex = 0;
                         break;
-                    case 90f:
+                    case 90:
                         UptakeTimeIndex = 1;
                         break;
                     default:
