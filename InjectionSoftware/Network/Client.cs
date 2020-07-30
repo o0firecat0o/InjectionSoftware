@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using WatsonTcp;
@@ -80,10 +81,11 @@ namespace InjectionSoftware.Network
             tcpClient.MessageReceived += MessageReceived;
             tcpClient.ServerDisconnected += _ServerDisconnected;
 
+            Thread.Sleep(3000);
+
             try
             {
-                Console.Out.WriteLine("[Client] Trying to connect to server with ip: " +serverip);
-                ServerConnected(this, new EventArgs());
+                Console.Out.WriteLine("[Client] Trying to connect to server with ip: " +serverip);                
                 tcpClient.Start();
             }
             catch (SocketException e)
@@ -94,6 +96,7 @@ namespace InjectionSoftware.Network
             if (tcpClient.Connected)
             {
                 Console.Out.WriteLine("[Client] Connection sucessful");
+                ServerConnected(this, new EventArgs());
                 StopUDP();
             }
             else
