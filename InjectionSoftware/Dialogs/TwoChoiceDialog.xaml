@@ -1,0 +1,46 @@
+﻿<Dialogs:BaseMetroDialog  xmlns:Dialogs="http://metro.mahapps.com/winfx/xaml/controls"
+                          x:Class="InjectionSoftware.Dialogs.TwoChoiceDialog"
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                          xmlns:local="clr-namespace:InjectionSoftware.Dialogs"
+                          mc:Ignorable="d"
+                          Style="{DynamicResource MahApps.Styles.BaseMetroDialog}">
+    <StackPanel Orientation="Vertical"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+
+        <Label HorizontalAlignment="Left"
+               x:Name="TitleText"
+               Content="Please choose"
+               FontSize="36" />
+
+        <Label HorizontalAlignment="Left"
+               x:Name="MessageText"
+               Content="" />
+
+
+
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0 30 00 30">
+
+            <Button x:Name="Choice1"
+                    Content="Choice1"
+                    Width="160"
+                    Height="60"
+                    Margin="10,0"
+                    HorizontalAlignment="Center"
+                    Style="{DynamicResource MahApps.Styles.Button.Dialogs.AccentHighlight}" />
+
+            <Button x:Name="Choice2"
+                    Content="Choice2"
+                    Width="160"
+                    Height="60"
+                    Margin="10,0"
+                    HorizontalAlignment="Center"
+                    Style="{DynamicResource MahApps.Styles.Button.Dialogs.Accent}" />
+        </StackPanel>
+    </StackPanel>
+</Dialogs:BaseMetroDialog>

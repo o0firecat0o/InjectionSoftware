@@ -29,7 +29,7 @@ namespace InjectionSoftware.Network
 
         private void UDPMessageReceived(object sender, UDPNetworking.MessageRecievedEventArgs e)
         {
-            if(e.message == "connectionaccepted")
+            if(e.message.Contains("connectionaccepted"))
             {
                 serverip = e.ipAddress;
                 Console.Out.WriteLine("[Client] Setting IPAddress: " + e.ipAddress + " as Server Address");

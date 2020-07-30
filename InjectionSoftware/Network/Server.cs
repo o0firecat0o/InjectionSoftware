@@ -29,6 +29,12 @@ namespace InjectionSoftware.Network
             throw new Exception("No network adapters with an IPv4 address in the system!");
         }
 
+        public static string GetMachineName()
+        {
+            Console.WriteLine(System.Environment.MachineName);
+            return System.Environment.MachineName;
+        }
+
         public Server()
         {
             tcpServer = new WatsonTcpServer(GetLocalIPAddress(), 8901);
@@ -47,7 +53,7 @@ namespace InjectionSoftware.Network
         {
             if(e.message == "connectionrequest")
             {
-                uDPNetworking.UDPSend(e.ipAddress, 14999, "connectionaccepted");
+                uDPNetworking.UDPSend(e.ipAddress, 14999, "connectionaccepted"+"_"+GetMachineName());
             }
         }
 

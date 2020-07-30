@@ -17,11 +17,11 @@ using System.Windows.Shapes;
 namespace InjectionSoftware.Dialogs
 {
     /// <summary>
-    /// Interaction logic for SelectionDialog.xaml
+    /// Interaction logic for TwoChoiceDialog.xaml
     /// </summary>
-    public partial class SelectionDialog : BaseMetroDialog
+    public partial class TwoChoiceDialog : BaseMetroDialog
     {
-        public SelectionDialog()
+        public TwoChoiceDialog()
         {
             InitializeComponent();
         }
