@@ -58,6 +58,7 @@ namespace InjectionSoftware.Network
         {
             client = new Client();
             client.ServerFound += ServerFound;
+            client.ServerConnected += ServerConnected;
             client.ServerDisconnected += ServerDisconnected;
             try
             {
@@ -81,12 +82,20 @@ namespace InjectionSoftware.Network
 
         public static void ServerFound(object sender, EventArgs e)
         {
-            client.ConnectToServer();            
-            window.Dispatcher.Invoke(async() =>
+            client.ConnectToServer();
+            window.Dispatcher.Invoke(() =>
+            {
+                progressingDialog.MessageText.Content = "Server Found \n Server Name: " + client.servername + "\nServer IP:" + client.serverip;
+            });
+        }
+
+        public static void ServerConnected(object sender, EventArgs e)
+        {
+            window.Dispatcher.Invoke(async () =>
             {
                 await window.HideMetroDialogAsync(progressingDialog);
                 await window.ShowMessageAsync("Connection to server succesful", "Server Name: " + client.servername + "\nServer IP:" + client.serverip);
-            });            
+            });
         }
 
         public static void CloseWindow(object sender, RoutedEventArgs e)
@@ -104,6 +113,7 @@ namespace InjectionSoftware.Network
         {
             client.StopUDP();
             client.ServerFound -= ServerFound;
+            client.ServerConnected -= ServerConnected;
             client.ServerDisconnected -= ServerDisconnected;
             window.Dispatcher.Invoke(() =>
             {

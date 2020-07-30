@@ -24,6 +24,8 @@ namespace InjectionSoftware.Network
 
         public event EventHandler<EventArgs> ServerFound;
 
+        public event EventHandler<EventArgs> ServerConnected;
+
         public event EventHandler<EventArgs> ServerDisconnected;
 
         public Client()
@@ -81,6 +83,7 @@ namespace InjectionSoftware.Network
             try
             {
                 Console.Out.WriteLine("[Client] Trying to connect to server with ip: " +serverip);
+                ServerConnected(this, new EventArgs());
                 tcpClient.Start();
             }
             catch (SocketException e)
