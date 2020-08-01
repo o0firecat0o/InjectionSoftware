@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace InjectionSoftware.Class
 {
@@ -14,6 +15,19 @@ namespace InjectionSoftware.Class
     {
         public static ObservableCollection<Injection> injections = new ObservableCollection<Injection>();
 
+        public static void Init()
+        {
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Interval = TimeSpan.FromSeconds(30);
+            dispatcherTimer.Tick += new EventHandler(delegate (object s, EventArgs a)
+            {
+                foreach (Injection injection in injections)
+                {
+                    injection.Update();
+                }
+            });
+            dispatcherTimer.Start();
+        }
 
         public static Injection getInjection(string patientID)
         {

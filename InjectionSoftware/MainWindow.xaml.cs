@@ -52,7 +52,7 @@ namespace InjectionSoftware
             Doctor.AddDefault();
             Room.AddDefault();
 
-            
+            InjectionsManager.Init();
 
             NetworkManager.Init(this);
         }

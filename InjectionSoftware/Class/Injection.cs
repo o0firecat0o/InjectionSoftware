@@ -389,21 +389,12 @@ namespace InjectionSoftware.Class
             this.isDelay = isDelay;
             this.isDischarge = isDischarge;
 
-            // TODO: remove the dispatcher Timer when Injection deleted
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Interval = TimeSpan.FromSeconds(30);
-            dispatcherTimer.Tick += new EventHandler(delegate (object s, EventArgs a)
-            {
-                OnPropertyChanged("InjectionTimeSlider");
-            });
-            dispatcherTimer.Start();
-
             toXML();
         }
 
-        private Injection()
+        public void Update()
         {
-
+            OnPropertyChanged("InjectionTimeSlider");
         }
 
         public void toXML()
