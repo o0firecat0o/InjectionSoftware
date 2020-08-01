@@ -39,7 +39,7 @@ namespace InjectionSoftware.Class
             return false;
         }
 
-        public static Injection addInjection(string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
+        public static Injection addInjection(string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
         {
             // find wether the patient is already registered and exist in the database
             Patient patient;
@@ -57,7 +57,7 @@ namespace InjectionSoftware.Class
             // TODO: avoid duplicated adding of patient
             // TODO: correct count after delete or adding <= sort by injection time
             // add the injection
-            Injection injection = new Injection(patient, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom);
+            Injection injection = new Injection(patient, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
             
             injections.Add(injection);
 
@@ -67,7 +67,7 @@ namespace InjectionSoftware.Class
             return injection;
         }
 
-        public static void modInjection(Injection Injection, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
+        public static void modInjection(Injection Injection, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
         {
             Injection.Patient.PatientID = patientID;
             Injection.Patient.PatientSurname = patientSurname;
@@ -77,6 +77,10 @@ namespace InjectionSoftware.Class
             Injection.UptakeTime = UptakeTime;
             Injection.InjectionTime = InjectionTime;
             Injection.SelectedRoom = SelectedRoom;
+            Injection.isContrast = isContrast;
+            Injection.isDelay = isDelay;
+            Injection.isDischarge = isDischarge;
+
 
             reassignCaseNumberOfDoctor();
             reassignCaseNumber();

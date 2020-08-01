@@ -103,11 +103,11 @@
             <TextBlock>
             Uptake Room:
             </TextBlock>
-            <ListBox Height="250"
+            <ListBox x:Name="SelectedRoom"
+                     Height="250"
                      Background="LightYellow"
                      ItemsSource="{Binding AllRoom}"
-                     SelectedItem="{Binding SelectedRoom}"
-                     SelectedIndex="0">
+                     SelectedItem="{Binding SelectedRoom}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Grid>

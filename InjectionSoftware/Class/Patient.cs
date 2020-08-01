@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace InjectionSoftware.Class
 {
@@ -62,12 +65,14 @@ namespace InjectionSoftware.Class
             }
         }
 
+
         public Patient(string patientID, string patientSurname, string patientLastname)
         {
             this.PatientID = patientID;
             this.PatientLastname = patientLastname;
             this.PatientSurname = patientSurname;
             PatientManager.AddPatient(this);
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

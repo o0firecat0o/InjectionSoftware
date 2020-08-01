@@ -204,23 +204,13 @@ namespace InjectionSoftware.ViewModels
                 //add new injection
                 if(Injection == null)
                 {
-                    Injection temp = InjectionsManager.addInjection(patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom);
-                    
-                    temp.isContrast = isContrast;
-                    temp.isDelay = isDelay;
-                    temp.isDischarge = isDischarge;
-
+                    Injection temp = InjectionsManager.addInjection(patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
                     Console.Out.WriteLine("adding injection with patient ID: " + patientID);
                 }
                 //modify existing injection
                 else
                 {
-                    InjectionsManager.modInjection(Injection, patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom);
-                    
-                    Injection.isContrast = isContrast;
-                    Injection.isDelay = isDelay;
-                    Injection.isDischarge = isDischarge;
-
+                    InjectionsManager.modInjection(Injection, patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
                     Console.Out.WriteLine("modifying injection with patient ID:" + patientID);
                 }
 

@@ -22,6 +22,7 @@ namespace InjectionSoftware.Enums
 
         public static ObservableCollection<Room> Rooms = new ObservableCollection<Room>();
 
+
         public Room(string Name, Brush Color, float RowSpan, float ColumnSpan, float Row, float Column)
         {
             this.Name = Name;

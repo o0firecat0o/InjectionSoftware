@@ -29,6 +29,7 @@ namespace InjectionSoftware.Enums
 
         public static ObservableCollection<RP> RPs = new ObservableCollection<RP>();
 
+
         public RP(string Name, string SimplifiedName,Brush Color, float UptakeTime = 60)
         {
             this.Name = Name;

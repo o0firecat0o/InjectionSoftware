@@ -29,6 +29,7 @@ namespace InjectionSoftware.Enums
 
         public static ObservableCollection<Doctor> Doctors = new ObservableCollection<Doctor>();
 
+
         public Doctor(string Name, string SimplifiedName, Brush Color)
         {
             this.Name = Name;

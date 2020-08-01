@@ -3,11 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Threading;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace InjectionSoftware.Class
 {
@@ -373,7 +377,7 @@ namespace InjectionSoftware.Class
             }
         }
 
-        public Injection(Patient patient, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom)
+        public Injection(Patient patient, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
         {
             Patient = patient;
             this.RPs = RPs;
@@ -381,7 +385,11 @@ namespace InjectionSoftware.Class
             this.UptakeTime = UptakeTime;
             this.InjectionTime = InjectionTime;
             this.SelectedRoom = SelectedRoom;
+            this.isContrast = isContrast;
+            this.isDelay = isDelay;
+            this.isDischarge = isDischarge;
 
+            // TODO: remove the dispatcher Timer when Injection deleted
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Interval = TimeSpan.FromSeconds(30);
             dispatcherTimer.Tick += new EventHandler(delegate (object s, EventArgs a)
@@ -389,11 +397,68 @@ namespace InjectionSoftware.Class
                 OnPropertyChanged("InjectionTimeSlider");
             });
             dispatcherTimer.Start();
+
+            toXML();
         }
 
-        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        private Injection()
         {
-            throw new NotImplementedException();
+
+        }
+
+        public void toXML()
+        {
+            XElement injection = new XElement("injection");
+
+            XElement patientID = new XElement("patientID", Patient.PatientID);
+            XElement patientSurname = new XElement("patientSurname", Patient.PatientSurname);
+            XElement patientLastname = new XElement("patientLastname", Patient.PatientLastname);
+
+            XElement rp1 = new XElement("rp1");
+            XElement rp2 = new XElement("rp2");
+            if(RPs.Count >= 1)
+            {
+                rp1.Value = RPs[0].Name;
+                if(RPs.Count >= 2)
+                {
+                    rp2.Value = RPs[1].Name;
+                }
+                else
+                {
+                    rp2.Value = "";
+                }
+            }
+            else
+            {
+                rp1.Value = "";
+                rp2.Value = "";
+            }
+
+            XElement doctor = new XElement("doctor", Doctor.Name);
+            XElement uptakeTime = new XElement("uptakeTime", UptakeTime.ToString());
+            XElement injectionTime = new XElement("injectionTime", InjectionTime.ToString());
+            XElement selectedRoom = new XElement("selectedRoom", SelectedRoom.Name);           
+
+            XElement isContrast = new XElement("isContrast", this.isContrast.ToString());
+            XElement isDelay = new XElement("isDelay", this.isDelay.ToString());
+            XElement isDischarge = new XElement("isDischarge", this.isDischarge.ToString());
+
+            injection.Add(patientID);
+            injection.Add(patientSurname);
+            injection.Add(patientLastname);
+            injection.Add(rp1);
+            injection.Add(rp2);
+            injection.Add(doctor);
+            injection.Add(uptakeTime);
+            injection.Add(injectionTime);
+            injection.Add(selectedRoom);
+            injection.Add(isContrast);
+            injection.Add(isDelay);
+            injection.Add(isDischarge);
+
+            string output = injection.ToString();
+
+            Console.Write(output);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
