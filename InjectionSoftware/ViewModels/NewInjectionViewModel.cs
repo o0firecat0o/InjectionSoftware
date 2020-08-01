@@ -175,8 +175,6 @@ namespace InjectionSoftware.ViewModels
             window.Close();
         }
 
-        //TODO: add rps
-
         private async void confirm()
         {
             ObservableCollection<RP> RPs = new ObservableCollection<RP>();
