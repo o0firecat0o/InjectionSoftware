@@ -450,6 +450,19 @@ namespace InjectionSoftware.Class
             string output = injection.ToString();
 
             Console.Write(output);
+
+            string date = DateTime.Now.ToString("ddMMyyyy");
+            Console.Out.WriteLine(date);
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"InjectionSoftware", date);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\"+ date+ @"\Hello.xml";
+
+            injection.Save(fullpath);
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
