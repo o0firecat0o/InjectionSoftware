@@ -260,7 +260,7 @@ namespace InjectionSoftware.ViewModels
 
         private async void dischargeDialog_OnConfirmDown(object sender, RoutedEventArgs e)
         {
-            Injection.isDischarge = true;
+            InjectionsManager.dischargeInjection(Injection, true);
             await window.HideMetroDialogAsync(dischargeConfirmDialog);
             window.Close();
         }

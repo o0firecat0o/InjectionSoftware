@@ -100,6 +100,11 @@ namespace InjectionSoftware.Class
             reassignCaseNumber();
         }
 
+        public static void dischargeInjection(Injection Injection, bool isDischarge)
+        {
+            Injection.isDischarge = isDischarge;
+        }
+
         public static void delInjection(Injection Injection)
         {
             injections.Remove(Injection);
