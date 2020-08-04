@@ -182,8 +182,12 @@ namespace InjectionSoftware.Class
             Console.WriteLine("Loading previous injection");
 
             string date = DateTime.Now.ToString("ddMMyyyy");
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "InjectionSoftware", date);
             string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date;
+
+            if (!Directory.Exists(fullpath))
+            {
+                Directory.CreateDirectory(fullpath);
+            }
 
             foreach (var file in
                 Directory.EnumerateFiles(fullpath, "*.xml"))
@@ -191,7 +195,32 @@ namespace InjectionSoftware.Class
                 Console.Out.WriteLine(file);
                 XElement xElement = XElement.Load(file);
                 XNamespace df = xElement.Name.Namespace;
-                Console.Out.WriteLine(xElement.Element(df + "patientID").Value);
+                string patientID = xElement.Element(df + "patientID").Value;
+                string patientSurname = xElement.Element(df + "patientSurname").Value;
+                string patientLastname = xElement.Element(df + "patientLastname").Value;
+
+                ObservableCollection<RP> rPs = new ObservableCollection<RP>();
+                if (xElement.Element(df + "rp1").Value != "")
+                {
+                    rPs.Add(RP.getRP(xElement.Element(df + "rp1").Value));
+                }
+                if (xElement.Element(df + "rp2").Value != "")
+                {
+                    rPs.Add(RP.getRP(xElement.Element(df + "rp2").Value));
+                }
+
+                Doctor doctor = Doctor.getDoctor(xElement.Element(df + "doctor").Value);
+
+                float uptakeTime = float.Parse(xElement.Element(df + "uptakeTime").Value);
+                DateTime injectionTime = Convert.ToDateTime(xElement.Element(df + "injectionTime").Value);
+
+                Room room = Room.getRoom(xElement.Element(df + "selectedRoom").Value);
+
+                bool isContrast = bool.Parse(xElement.Element(df + "isContrast").Value);
+                bool isDelay = bool.Parse(xElement.Element(df + "isDelay").Value);
+                bool isDischarge = bool.Parse(xElement.Element(df + "isDischarge").Value);
+
+                addInjection(patientID, patientSurname, patientLastname, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
             }
         }
 

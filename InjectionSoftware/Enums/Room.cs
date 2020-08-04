@@ -22,6 +22,17 @@ namespace InjectionSoftware.Enums
 
         public static ObservableCollection<Room> Rooms = new ObservableCollection<Room>();
 
+        public static Room getRoom(string Name)
+        {
+            foreach (Room room in Rooms)
+            {
+                if (room.Name == Name)
+                {
+                    return room;
+                }
+            }
+            return Rooms[0];
+        }
 
         public Room(string Name, Brush Color, float RowSpan, float ColumnSpan, float Row, float Column)
         {

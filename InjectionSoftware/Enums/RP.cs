@@ -29,6 +29,17 @@ namespace InjectionSoftware.Enums
 
         public static ObservableCollection<RP> RPs = new ObservableCollection<RP>();
 
+        public static RP getRP(string Name)
+        {
+            foreach (RP rp in RPs)
+            {
+                if (rp.Name == Name)
+                {
+                    return rp;
+                }
+            }
+            return getRP("Others");
+        }
 
         public RP(string Name, string SimplifiedName,Brush Color, float UptakeTime = 60)
         {

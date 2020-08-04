@@ -29,6 +29,18 @@ namespace InjectionSoftware.Enums
 
         public static ObservableCollection<Doctor> Doctors = new ObservableCollection<Doctor>();
 
+        public static Doctor getDoctor(string Name)
+        {
+            foreach (Doctor doctor in Doctors)
+            {
+                if(doctor.Name == Name)
+                {
+                    return doctor;
+                }
+            }
+            return Doctors[0];
+        }
+
 
         public Doctor(string Name, string SimplifiedName, Brush Color)
         {
