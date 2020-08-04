@@ -179,7 +179,20 @@ namespace InjectionSoftware.Class
 
         public static void loadAllInjections()
         {
+            Console.WriteLine("Loading previous injection");
 
+            string date = DateTime.Now.ToString("ddMMyyyy");
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "InjectionSoftware", date);
+            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date;
+
+            foreach (var file in
+                Directory.EnumerateFiles(fullpath, "*.xml"))
+            {
+                Console.Out.WriteLine(file);
+                XElement xElement = XElement.Load(file);
+                XNamespace df = xElement.Name.Namespace;
+                Console.Out.WriteLine(xElement.Element(df + "patientID").Value);
+            }
         }
 
         public static void saveInjection(string patientID)
@@ -198,7 +211,6 @@ namespace InjectionSoftware.Class
             XElement xmlFile = injection.toXML();
 
             string date = DateTime.Now.ToString("ddMMyyyy");
-            Console.Out.WriteLine(date);
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "InjectionSoftware", date);
             if (!Directory.Exists(path))
             {

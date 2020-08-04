@@ -40,7 +40,7 @@ namespace InjectionSoftware.Enums
             new Room("Treadmill", (Brush)converter.ConvertFromString("#C4F9FF"), 2, 2, 1, 0);
             new Room("Clothes\nChange", (Brush)converter.ConvertFromString("#C4F9FF"), 3, 2, 3, 0);
             new Room("Lobby", (Brush)converter.ConvertFromString("#F0C4FF"), 1, 2, 6, 0);
-            new Room("Tof", (Brush)converter.ConvertFromString("#FFE4C4"), 1, 2, 0, 2);
+            new Room("Mct", (Brush)converter.ConvertFromString("#FFE4C4"), 1, 2, 0, 2);
             new Room("7", (Brush)converter.ConvertFromString("#C4FFCE"), 2, 3, 0, 4);
             new Room("Bio", (Brush)converter.ConvertFromString("#FFE4C4"), 1, 2, 0, 7);
 
