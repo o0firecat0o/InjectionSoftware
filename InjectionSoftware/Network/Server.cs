@@ -16,28 +16,11 @@ namespace InjectionSoftware.Network
 
         UDPNetworking uDPNetworking = new UDPNetworking(15000);
 
-        public static string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            throw new Exception("No network adapters with an IPv4 address in the system!");
-        }
-
-        public static string GetMachineName()
-        {
-            Console.WriteLine(System.Environment.MachineName);
-            return System.Environment.MachineName;
-        }
+        
 
         public Server()
         {
-            tcpServer = new WatsonTcpServer(GetLocalIPAddress(), 8901);
+            tcpServer = new WatsonTcpServer(NetworkUtil.GetLocalIPAddress(), 8901);
 
             tcpServer.MessageReceived += MessageReceived;
             tcpServer.ClientConnected += ClientConnected;
@@ -53,7 +36,7 @@ namespace InjectionSoftware.Network
         {
             if(e.message == "connectionrequest")
             {
-                uDPNetworking.UDPSend(e.ipAddress, 14999, "connectionaccepted"+"_"+GetMachineName());
+                uDPNetworking.UDPSend(e.ipAddress, 14999, "connectionaccepted"+"_"+ NetworkUtil.GetMachineName());
             }
         }
 
