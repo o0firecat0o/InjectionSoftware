@@ -4,12 +4,14 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using WatsonTcp;
 
 namespace InjectionSoftware.Network
 {
@@ -25,6 +27,8 @@ namespace InjectionSoftware.Network
         private static ProgressingDialog progressingDialog = new ProgressingDialog();
 
         private static MetroWindow window;
+
+        
 
         public static void Init(MetroWindow w)
         {
@@ -87,6 +91,12 @@ namespace InjectionSoftware.Network
         {
             isServer = true;
             server = new Server();
+
+            //TODO: add -= when server shut down?
+            server.MessageReceivedFromClientEvent += MessageReceivedFromClient;
+            server.ClientConnectedEvent += ClientConnected;
+            server.ClientDisconnectedEvent += ClientDisconnected;
+
             //load all the injection after starting server, the client will load the injection via contacting with server
             InjectionsManager.loadAllInjections();
             await window.HideMetroDialogAsync(twoChoiceDialog);
@@ -125,18 +135,14 @@ namespace InjectionSoftware.Network
         /// <param name="e"></param>
         public static void ServerConnected(object sender, EventArgs e)
         {
+            client.TCPSendMessageToServer("ConnectionSucessful", NetworkUtil.GetMachineName());
+
             window.Dispatcher.Invoke(async () =>
             {
                 await window.HideMetroDialogAsync(progressingDialog);
                 await window.ShowMessageAsync("Connection to server succesful", "Server Name: " + client.servername + "\nServer IP:" + client.serverip);
             });
-        }
-
-        public static void CloseWindow(object sender, RoutedEventArgs e)
-        {
-            window.Close();
-            Environment.Exit(0);
-        }
+        }       
 
         /// <summary>
         /// Event enabled if lost connection to server, Automatically restart connection if server disconnected
@@ -157,5 +163,57 @@ namespace InjectionSoftware.Network
             });
         }
 
+        public static void ClientConnected(object sender, ClientConnectedEventArgs args)
+        {
+        }
+
+        public static void ClientDisconnected(object sender, ClientDisconnectedEventArgs args)
+        {
+            ClientViewObject.Delete(args.IpPort);
+            Console.Out.WriteLine(ClientViewObject.clientViewObjects.Count);
+        }
+
+
+        /// <summary>
+        /// Handle message if client send anything to the server
+        /// 
+        /// The message contain two part,
+        /// first part is a identifier (string) to distinguish what type of message is it
+        /// second part is the message content
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public static void MessageReceivedFromClient(object sender, MessageReceivedFromClientEventArgs args)
+        {
+            string[] messages = Encoding.UTF8.GetString(args.Data).Split(new char[] { '_' }, 2);
+            try
+            {
+                Console.Out.WriteLine("[NetworkManager-Server] Recieved message type: " + messages[0]);
+                Console.Out.WriteLine("[NetworkManager-Server] The message is: " + messages[1]);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e);
+            }
+
+            switch (messages[0])
+            {
+                case "ConnectionSucessful":
+                    Console.Out.WriteLine("[NetworkManager-Server] New connection established with client IP: {0}, Name: {1}", args.IpPort, messages[1]);
+                    new ClientViewObject(args.IpPort, messages[1]);
+                    Console.Out.WriteLine(ClientViewObject.clientViewObjects.Count);
+                    break;
+
+                default:
+                    Console.Error.WriteLine("Unhandled message type: " + messages[0]);
+                    break;
+            }
+        }
+
+        public static void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            window.Close();
+            Environment.Exit(0);
+        }
     }
 }

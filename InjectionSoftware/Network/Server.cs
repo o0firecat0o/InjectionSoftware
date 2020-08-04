@@ -16,7 +16,11 @@ namespace InjectionSoftware.Network
 
         UDPNetworking uDPNetworking = new UDPNetworking(15000);
 
-        
+        public event EventHandler<MessageReceivedFromClientEventArgs> MessageReceivedFromClientEvent;
+
+        public event EventHandler<ClientConnectedEventArgs> ClientConnectedEvent;
+
+        public event EventHandler<ClientDisconnectedEventArgs> ClientDisconnectedEvent;
 
         public Server()
         {
@@ -42,17 +46,19 @@ namespace InjectionSoftware.Network
 
         private void MessageReceived(object sender, MessageReceivedFromClientEventArgs args)
         {
-
+            MessageReceivedFromClientEvent(sender, args);
         }
 
         void ClientConnected(object sender, ClientConnectedEventArgs args)
         {
             Console.WriteLine("[Server] Client connected: " + args.IpPort);
+            ClientConnectedEvent(sender, args);
         }
 
         void ClientDisconnected(object sender, ClientDisconnectedEventArgs args)
         {
             Console.WriteLine("[Server] Client disconnected: " + args.IpPort + ": " + args.Reason.ToString());
+            ClientDisconnectedEvent(sender, args);
         }
     }
 }

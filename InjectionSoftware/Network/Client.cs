@@ -68,6 +68,7 @@ namespace InjectionSoftware.Network
             }
         }
 
+
         public void StopUDP()
         {
             Console.Out.WriteLine("[Client] terminating UDP client");
@@ -103,6 +104,11 @@ namespace InjectionSoftware.Network
             {
                 Console.Out.WriteLine("[Client] Connection failed");
             }
+        }
+
+        public void TCPSendMessageToServer(string messageType, string message)
+        {
+            tcpClient.Send(messageType + "_" +message);
         }
 
         private void _ServerDisconnected(object sender, EventArgs e)

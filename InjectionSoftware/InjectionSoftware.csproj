@@ -165,6 +165,7 @@
     <Compile Include="Enums\Room.cs" />
     <Compile Include="Enums\RP.cs" />
     <Compile Include="Network\Client.cs" />
+    <Compile Include="Network\ViewObject\ClientViewObject.cs" />
     <Compile Include="Network\NetworkManager.cs" />
     <Compile Include="Network\NetworkUtil.cs" />
     <Compile Include="Network\Server.cs" />
