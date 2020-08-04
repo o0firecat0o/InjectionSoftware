@@ -170,6 +170,9 @@
     <Compile Include="Network\NetworkUtil.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Network\UDPNetworking.cs" />
+    <Compile Include="Pages\NetworkPage.xaml.cs">
+      <DependentUpon>NetworkPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\NewInjection.xaml.cs">
       <DependentUpon>NewInjection.xaml</DependentUpon>
     </Compile>
@@ -210,6 +213,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\NetworkPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\NewInjection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

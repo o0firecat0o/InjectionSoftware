@@ -2,6 +2,7 @@
 using InjectionSoftware.Dialogs;
 using InjectionSoftware.Enums;
 using InjectionSoftware.Network;
+using InjectionSoftware.Pages;
 using InjectionSoftware.ViewModels;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -33,7 +34,7 @@ namespace InjectionSoftware
     {
         private InjectionPage injectionPage = new InjectionPage();
         private RoomPage roomPage = new RoomPage();
-
+        private NetworkPage networkPage = new NetworkPage();
        
                 
         public MainWindow()
@@ -73,6 +74,9 @@ namespace InjectionSoftware
                     break;
                 case 2:
 
+                    break;
+                case 3:
+                    Main.Content = networkPage;
                     break;
             }            
         }
