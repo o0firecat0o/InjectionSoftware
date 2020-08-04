@@ -74,7 +74,6 @@ namespace InjectionSoftware.Class
             Console.Out.WriteLine(patientSurname);
 
             // TODO: avoid duplicated adding of patient
-            // TODO: correct count after delete or adding <= sort by injection time
             // add the injection
             Injection injection = new Injection(patient, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
             
@@ -121,7 +120,7 @@ namespace InjectionSoftware.Class
             reassignCaseNumberOfDoctor();
             reassignCaseNumber();
 
-            //TODO: del file
+            delInjection(Injection.Patient.PatientID);
         }
 
         /// <summary>
@@ -250,6 +249,26 @@ namespace InjectionSoftware.Class
 
             Console.WriteLine("[InjectionManager] saving injection of patientID: " + patientID +",to: "+fullpath);
             xmlFile.Save(fullpath);
+        }
+
+        public static void delInjection(string patientID)
+        {
+            try
+            {
+                string date = DateTime.Now.ToString("ddMMyyyy");
+                string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date + @"\" + patientID + ".xml";
+                if (File.Exists(fullpath))
+                {
+                    // If file found, delete it    
+                    File.Delete(fullpath);
+                    Console.WriteLine("Injection with patient ID: "+patientID +" has been deleted.");
+                }
+                else Console.WriteLine("Injection with patient ID: " + patientID + " has not been found.");
+            }
+            catch (IOException ioExp)
+            {
+                Console.WriteLine(ioExp.Message);
+            }
         }
     }
 }
