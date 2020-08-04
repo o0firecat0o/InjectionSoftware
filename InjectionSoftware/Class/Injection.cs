@@ -388,8 +388,6 @@ namespace InjectionSoftware.Class
             this.isContrast = isContrast;
             this.isDelay = isDelay;
             this.isDischarge = isDischarge;
-
-            toXML();
         }
 
         public void Update()
@@ -397,7 +395,7 @@ namespace InjectionSoftware.Class
             OnPropertyChanged("InjectionTimeSlider");
         }
 
-        public void toXML()
+        public XElement toXML()
         {
             XElement injection = new XElement("injection");
 
@@ -447,21 +445,7 @@ namespace InjectionSoftware.Class
             injection.Add(isDelay);
             injection.Add(isDischarge);
 
-            string output = injection.ToString();
-
-            string date = DateTime.Now.ToString("ddMMyyyy");
-            Console.Out.WriteLine(date);
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"InjectionSoftware", date);
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-
-            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\"+ date+ @"\" + Patient.PatientID + ".xml";
-
-            Console.WriteLine(fullpath);
-            injection.Save(fullpath);
-
+            return injection;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

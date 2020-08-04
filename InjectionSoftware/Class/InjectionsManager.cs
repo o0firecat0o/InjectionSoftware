@@ -8,6 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using System.IO;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+
 
 namespace InjectionSoftware.Class
 {
@@ -78,6 +83,8 @@ namespace InjectionSoftware.Class
             reassignCaseNumberOfDoctor();
             reassignCaseNumber();
 
+            saveInjection(patientID);
+
             return injection;
         }
 
@@ -98,6 +105,8 @@ namespace InjectionSoftware.Class
 
             reassignCaseNumberOfDoctor();
             reassignCaseNumber();
+
+            saveInjection(patientID);
         }
 
         public static void dischargeInjection(Injection Injection, bool isDischarge)
@@ -111,6 +120,8 @@ namespace InjectionSoftware.Class
 
             reassignCaseNumberOfDoctor();
             reassignCaseNumber();
+
+            //TODO: del file
         }
 
         /// <summary>
@@ -169,6 +180,35 @@ namespace InjectionSoftware.Class
         public static void loadAllInjections()
         {
 
+        }
+
+        public static void saveInjection(string patientID)
+        {
+            Injection injection;
+            if (InjectionsManager.hasInjection(patientID))
+            {
+                injection = InjectionsManager.getInjection(patientID);
+            }
+            else
+            {
+                Console.Error.WriteLine("Injection with patientID does not exist, @saveInjection()/InjectionManager");
+                return;
+            }
+
+            XElement xmlFile = injection.toXML();
+
+            string date = DateTime.Now.ToString("ddMMyyyy");
+            Console.Out.WriteLine(date);
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "InjectionSoftware", date);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date + @"\" + patientID + ".xml";
+
+            Console.WriteLine("[InjectionManager] saving injection of patientID: " + patientID +",to: "+fullpath);
+            xmlFile.Save(fullpath);
         }
     }
 }
