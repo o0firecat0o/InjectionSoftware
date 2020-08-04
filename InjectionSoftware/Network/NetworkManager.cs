@@ -55,6 +55,11 @@ namespace InjectionSoftware.Network
             await window.ShowMetroDialogAsync(twoChoiceDialog);
         }
 
+        /// <summary>
+        /// Click event that start the client
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public static async void StartClient(object sender, RoutedEventArgs e)
         {
             client = new Client();
@@ -69,11 +74,15 @@ namespace InjectionSoftware.Network
             {
 
             }
-            
+
             await window.ShowMetroDialogAsync(progressingDialog);
         }
 
-
+        /// <summary>
+        /// Click event that start the server
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public static async void StartServer(object sender, RoutedEventArgs e)
         {
             isServer = true;
@@ -83,6 +92,23 @@ namespace InjectionSoftware.Network
             await window.HideMetroDialogAsync(twoChoiceDialog);
         }
 
+        /// <summary>
+        /// click event that stop the client finding server
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static async void GiveUpFindingServer(object sender, RoutedEventArgs e)
+        {
+            await window.HideMetroDialogAsync(progressingDialog);
+            client.StopUDP();
+            server_client_Selection();
+        }
+
+        /// <summary>
+        /// Event enabled if client found a server via UDP
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public static void ServerFound(object sender, EventArgs e)
         {
             client.ConnectToServer();
@@ -92,6 +118,11 @@ namespace InjectionSoftware.Network
             });
         }
 
+        /// <summary>
+        /// Event enabled if client connect to server via TCP
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public static void ServerConnected(object sender, EventArgs e)
         {
             window.Dispatcher.Invoke(async () =>
@@ -108,7 +139,7 @@ namespace InjectionSoftware.Network
         }
 
         /// <summary>
-        /// Automatically restart connection if server disconnected
+        /// Event enabled if lost connection to server, Automatically restart connection if server disconnected
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -122,15 +153,9 @@ namespace InjectionSoftware.Network
             {
                 progressingDialog.TitleText.Content = "Lost Connection to Server";
                 progressingDialog.MessageText.Content = "Trying to re-establish connection";
-                StartClient(null,null);
+                StartClient(null, null);
             });
         }
 
-        public static async void GiveUpFindingServer(object sender, RoutedEventArgs e)
-        {
-            await window.HideMetroDialogAsync(progressingDialog);
-            client.StopUDP();
-            server_client_Selection();
-        }
     }
 }
