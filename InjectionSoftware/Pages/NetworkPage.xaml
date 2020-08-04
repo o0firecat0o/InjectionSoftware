@@ -15,9 +15,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.7*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="0.25*" />
-            <RowDefinition Height="4*" />
+            <RowDefinition Height="6*" />
         </Grid.RowDefinitions>
         
         <!-- title bar-->
@@ -41,24 +39,12 @@
             </TextBlock>
             
         </StackPanel>
-
-        <!-- server -->
-        <StackPanel Grid.Row="1"
-                    Margin="10"
-                    Background="LightGray">
-            
-            <TextBlock Text="Server"
-                       FontSize="25"
-                       Margin="10" />
-        </StackPanel>
+       
 
         <!-- client -->
-        <StackPanel Grid.Row="3"
+        <StackPanel Grid.Row="1"
                     Background="LightGray"
                     Margin="10">
-            <TextBlock Text="Client"
-                       FontSize="25"
-                       Margin="10" />
         </StackPanel>
     </Grid>
     
