@@ -1,4 +1,5 @@
-﻿using InjectionSoftware.Dialogs;
+﻿using InjectionSoftware.Class;
+using InjectionSoftware.Dialogs;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -77,6 +78,8 @@ namespace InjectionSoftware.Network
         {
             isServer = true;
             server = new Server();
+            //load all the injection after starting server, the client will load the injection via contacting with server
+            InjectionsManager.loadAllInjections();
             await window.HideMetroDialogAsync(twoChoiceDialog);
         }
 

@@ -449,8 +449,6 @@ namespace InjectionSoftware.Class
 
             string output = injection.ToString();
 
-            Console.Write(output);
-
             string date = DateTime.Now.ToString("ddMMyyyy");
             Console.Out.WriteLine(date);
             string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"InjectionSoftware", date);
@@ -459,8 +457,9 @@ namespace InjectionSoftware.Class
                 Directory.CreateDirectory(path);
             }
 
-            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\"+ date+ @"\Hello.xml";
+            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\"+ date+ @"\" + Patient.PatientID + ".xml";
 
+            Console.WriteLine(fullpath);
             injection.Save(fullpath);
 
         }
