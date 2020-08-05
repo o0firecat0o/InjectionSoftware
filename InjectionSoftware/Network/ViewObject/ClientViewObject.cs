@@ -14,7 +14,9 @@ namespace InjectionSoftware.Network
         public static ObservableCollection<ClientViewObject> clientViewObjects = new ObservableCollection<ClientViewObject>();
 
         private string _IP;
-        public string IP { get
+        public string IP
+        {
+            get
             {
                 return _IP;
             }
@@ -24,6 +26,21 @@ namespace InjectionSoftware.Network
                 OnPropertyChanged("IP");
             }
         }
+
+        private string _Port;
+        public string Port
+        {
+            get
+            {
+                return _Port;
+            }
+            set
+            {
+                _Port = value;
+                OnPropertyChanged("Port");
+            }
+        }
+
 
         public string MachineName { get; set; }
 
@@ -58,24 +75,33 @@ namespace InjectionSoftware.Network
         public int Row { get; set; }
         public int Column { get; set; }
 
-        private ClientViewObject(string MachineName, string IP)
+        private ClientViewObject(string MachineName, string IP, string Port)
         {
             this.MachineName = MachineName;
             this.IP = IP;
-            Row = clientViewObjects.Count / 5 ;
+            this.Port = Port;
+            Row = clientViewObjects.Count / 5;
             Column = clientViewObjects.Count % 5;
             clientViewObjects.Add(this);
         }
 
-        public static void Add(string MachineName, string IP)
+        public static void Add(string MachineName, string fullIP)
         {
+            string IP = fullIP.Split(':')[0];
+            string Port = "00000";
+            if (fullIP.Split(':').Length >= 2)
+            {
+                Port = fullIP.Split(':')[1];
+            }
+
             if (HasClient(MachineName))
             {
                 GetClient(MachineName).IP = IP;
+                GetClient(MachineName).Port = Port;
             }
             else
             {
-                new ClientViewObject(MachineName, IP);
+                new ClientViewObject(MachineName, IP, Port);
             }
         }
 

@@ -15,12 +15,15 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.7*" />
+            <RowDefinition Height="0.7*"
+                           MaxHeight="60" />
             <RowDefinition Height="6*" />
         </Grid.RowDefinitions>
-        
+
         <!-- title bar-->
-        <StackPanel Grid.Row="0" Background="SlateGray" Orientation="Horizontal">
+        <StackPanel Grid.Row="0"
+                    Background="SlateGray"
+                    Orientation="Horizontal">
             <Viewbox>
                 <iconPacks:PackIconModern Kind="NetworkServer"
                                           Margin="6"
@@ -34,23 +37,74 @@
                 </iconPacks:PackIconModern>
             </Viewbox>
             <TextBlock Padding="5"
-                        Text="Network Status:"
+                       Text="Network Status:"
                        FontSize="40"
-                       Foreground="GhostWhite">
+                       Foreground="GhostWhite"
+                       VerticalAlignment="Bottom">
             </TextBlock>
-            
+
         </StackPanel>
-       
+
         <!-- client -->
         <Grid Grid.Row="1"
-              Background="#FFE5E5E5" Margin="20">
+              Background="#FFE5E5E5"
+              Margin="20">
             <ItemsControl ItemsSource="{Binding CompositeCollection}">
                 <ItemsControl.Resources>
                     <DataTemplate DataType="{x:Type localclass:ClientViewObject}">
                         <Grid>
-                            <StackPanel Background="White" Margin="5">
-                                
-                            </StackPanel>
+                            <Border Background="Gray"
+                                    Margin="5">
+                                <Grid Background="White"
+                                      Margin="0.7">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="5" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.Resources>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground"
+                                                    Value="#FF6B6B6B" />
+                                        </Style>
+                                    </Grid.Resources>
+
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Center">
+                                        <iconPacks:PackIconBoxIcons Kind="RegularServer"
+                                                                    Foreground="#FF6B6B6B"
+                                                                    VerticalAlignment="Center"/>
+                                        <TextBlock Margin="4"
+                                                   Text="{Binding MachineName}"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="19" />
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Vertical" Grid.Row="1">
+                                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Vertical"
+                                                VerticalAlignment="Stretch"
+                                                HorizontalAlignment="Left"
+                                                Grid.Row="2">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Padding="6"> IP Address:</TextBlock>
+                                            <TextBlock Padding="6"
+                                                       Text="{Binding IP}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Padding="6"> Port:</TextBlock>
+                                            <TextBlock Padding="6"
+                                                       Text="{Binding Port}" />
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                </Grid>
+
+                            </Border>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.Resources>
@@ -87,5 +141,5 @@
             </ItemsControl>
         </Grid>
     </Grid>
-    
+
 </Page>
