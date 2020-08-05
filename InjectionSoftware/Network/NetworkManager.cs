@@ -200,7 +200,7 @@ namespace InjectionSoftware.Network
             {
                 case "ConnectionSucessful":
                     Console.Out.WriteLine("[NetworkManager-Server] New connection established with client IP: {0}, Name: {1}", args.IpPort, messages[1]);
-                    new ClientViewObject(args.IpPort, messages[1]);
+                    ClientViewObject.Add(messages[1], args.IpPort);
                     Console.Out.WriteLine(ClientViewObject.clientViewObjects.Count);
                     break;
 
