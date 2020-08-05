@@ -4,12 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:InjectionSoftware.Pages"
+      xmlns:localclass="clr-namespace:InjectionSoftware.Network"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d"
       Title="NetworkPage"
       d:DesignHeight="600"
       d:DesignWidth="800"
-      Background="#FFEBEBEB">
+      Background="#FFE5E5E5">
 
 
     <Grid>
@@ -40,12 +41,51 @@
             
         </StackPanel>
        
-
         <!-- client -->
-        <StackPanel Grid.Row="1"
-                    Background="LightGray"
-                    Margin="10">
-        </StackPanel>
+        <Grid Grid.Row="1"
+              Background="#FFE5E5E5" Margin="20">
+            <ItemsControl ItemsSource="{Binding CompositeCollection}">
+                <ItemsControl.Resources>
+                    <DataTemplate DataType="{x:Type localclass:ClientViewObject}">
+                        <Grid>
+                            <StackPanel Background="White" Margin="5">
+                                
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.Resources>
+
+                <!-- Grid declartion-->
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <!-- Grid row, coloumn location declaration-->
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Grid.Row"
+                                Value="{Binding Row}" />
+                        <Setter Property="Grid.Column"
+                                Value="{Binding Column}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+
+            </ItemsControl>
+        </Grid>
     </Grid>
     
 </Page>

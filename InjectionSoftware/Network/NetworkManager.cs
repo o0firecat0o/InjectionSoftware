@@ -99,6 +99,17 @@ namespace InjectionSoftware.Network
 
             //load all the injection after starting server, the client will load the injection via contacting with server
             InjectionsManager.loadAllInjections();
+
+            //update the graphic of networkpage
+            ClientViewObject.Add(NetworkUtil.GetMachineName(), NetworkUtil.GetLocalIPAddress());
+            ClientViewObject.Add("Ab", "b");
+            ClientViewObject.Add("Ac", "b");
+            ClientViewObject.Add("Ad", "b");
+            ClientViewObject.Add("Ae", "b");
+            ClientViewObject.Add("Af", "b");
+            ClientViewObject.Add("Ag", "b");
+            ClientViewObject.Add("Ah", "b");
+
             await window.HideMetroDialogAsync(twoChoiceDialog);
         }
 
@@ -170,7 +181,6 @@ namespace InjectionSoftware.Network
         public static void ClientDisconnected(object sender, ClientDisconnectedEventArgs args)
         {
             ClientViewObject.Delete(args.IpPort);
-            Console.Out.WriteLine(ClientViewObject.clientViewObjects.Count);
         }
 
 

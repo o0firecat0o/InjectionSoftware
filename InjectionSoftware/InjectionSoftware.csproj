@@ -181,6 +181,7 @@
     </Compile>
     <Compile Include="ViewModels\InjectionPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\NetworkPageViewModel.cs" />
     <Compile Include="ViewModels\NewInjectionViewModel.cs" />
     <Page Include="Dialogs\SelectionDialog.xaml">
       <SubType>Designer</SubType>

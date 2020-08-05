@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls.WebParts;
 
 namespace InjectionSoftware.Network
 {
@@ -54,10 +55,15 @@ namespace InjectionSoftware.Network
             }
         }
 
+        public int Row { get; set; }
+        public int Column { get; set; }
+
         private ClientViewObject(string MachineName, string IP)
         {
             this.MachineName = MachineName;
             this.IP = IP;
+            Row = clientViewObjects.Count / 5 ;
+            Column = clientViewObjects.Count % 5;
             clientViewObjects.Add(this);
         }
 
