@@ -68,7 +68,8 @@ namespace InjectionSoftware.Class
 
         public string AccessionNumber
         {
-            get; set;
+            get;
+            set;
         }
 
         /// <summary>
@@ -388,6 +389,7 @@ namespace InjectionSoftware.Class
             this.isContrast = isContrast;
             this.isDelay = isDelay;
             this.isDischarge = isDischarge;
+            this.AccessionNumber = Guid.NewGuid().ToString();
         }
 
         public void Update()
@@ -398,6 +400,8 @@ namespace InjectionSoftware.Class
         public XElement toXML()
         {
             XElement injection = new XElement("injection");
+
+            XElement accessionNumber = new XElement("accessionNumber", AccessionNumber);
 
             XElement patientID = new XElement("patientID", Patient.PatientID);
             XElement patientSurname = new XElement("patientSurname", Patient.PatientSurname);
@@ -432,6 +436,7 @@ namespace InjectionSoftware.Class
             XElement isDelay = new XElement("isDelay", this.isDelay.ToString());
             XElement isDischarge = new XElement("isDischarge", this.isDischarge.ToString());
 
+            injection.Add(accessionNumber);
             injection.Add(patientID);
             injection.Add(patientSurname);
             injection.Add(patientLastname);

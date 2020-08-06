@@ -13,6 +13,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using InjectionSoftware.Network;
+using System.Runtime.CompilerServices;
 
 namespace InjectionSoftware.Class
 {
@@ -34,23 +35,11 @@ namespace InjectionSoftware.Class
             dispatcherTimer.Start();
         }
 
-        public static Injection getInjection(string patientID)
+        public static bool hasInjection(string accessionNumber)
         {
             foreach (var injection in injections)
             {
-                if (injection.Patient.PatientID.Equals(patientID))
-                {
-                    return injection;
-                }
-            }
-            throw new System.Exception("No patient with patient ID: " + patientID+", is registered. @InjectionManagers/getInjection()");
-        }
-
-        public static bool hasInjection(string patientID)
-        {
-            foreach (var injection in injections)
-            {
-                if (injection.Patient.PatientID.Equals(patientID))
+                if (injection.AccessionNumber.Equals(accessionNumber))
                 {
                     return true;
                 }
@@ -58,7 +47,36 @@ namespace InjectionSoftware.Class
             return false;
         }
 
-        public static Injection addInjection(string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
+        public static Injection getInjection(string accessionNumber)
+        {
+            foreach (var injection in injections)
+            {
+                if (injection.AccessionNumber.Equals(accessionNumber))
+                {
+                    return injection;
+                }
+            }
+            Console.Error.WriteLine();
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accessionNumber">leave accessionNumber as empty to generate new injection</param>
+        /// <param name="patientID"></param>
+        /// <param name="patientSurname"></param>
+        /// <param name="patientLastname"></param>
+        /// <param name="RPs"></param>
+        /// <param name="Doctor"></param>
+        /// <param name="UptakeTime"></param>
+        /// <param name="InjectionTime"></param>
+        /// <param name="SelectedRoom"></param>
+        /// <param name="isContrast"></param>
+        /// <param name="isDelay"></param>
+        /// <param name="isDischarge"></param>
+        /// <returns></returns>
+        public static Injection modInjection(string accessionNumber, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
         {
             // find wether the patient is already registered and exist in the database
             Patient patient;
@@ -71,53 +89,36 @@ namespace InjectionSoftware.Class
                 patient = new Patient(patientID, patientSurname, patientLastname);
             }
 
-            Console.Out.WriteLine(patientSurname);
+            // find whether the injection is already registered and exist in the database
+            Injection injection;
+            if (hasInjection(accessionNumber))
+            {
+                injection = getInjection(accessionNumber);
 
-            // TODO: avoid duplicated adding of patient
-            // add the injection
-            Injection injection = new Injection(patient, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
-            
-            injections.Add(injection);
+                injection.Patient.PatientID = patientID;
+                injection.Patient.PatientSurname = patientSurname;
+                injection.Patient.PatientLastname = patientLastname;
+                injection.RPs = RPs;
+                injection.Doctor = Doctor;
+                injection.UptakeTime = UptakeTime;
+                injection.InjectionTime = InjectionTime;
+                injection.SelectedRoom = SelectedRoom;
+                injection.isContrast = isContrast;
+                injection.isDelay = isDelay;
+                injection.isDischarge = isDischarge;
+            }
+            else
+            {
+                injection = new Injection(patient, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                injections.Add(injection);
+            }
 
             reassignCaseNumberOfDoctor();
             reassignCaseNumber();
 
-            saveInjection(patientID);
-
-            if (!NetworkManager.isServer)
-            {
-                // for client, send add message to server after adding new injection
-                NetworkManager.client.TCPSendMessageToServer("AddInjection", injection.toXML().ToString());
-            }
+            saveInjection(injection.AccessionNumber);
 
             return injection;
-        }
-
-        public static void modInjection(Injection Injection, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
-        {
-            Injection.Patient.PatientID = patientID;
-            Injection.Patient.PatientSurname = patientSurname;
-            Injection.Patient.PatientLastname = patientLastname;
-            Injection.RPs = RPs;
-            Injection.Doctor = Doctor;
-            Injection.UptakeTime = UptakeTime;
-            Injection.InjectionTime = InjectionTime;
-            Injection.SelectedRoom = SelectedRoom;
-            Injection.isContrast = isContrast;
-            Injection.isDelay = isDelay;
-            Injection.isDischarge = isDischarge;
-
-
-            reassignCaseNumberOfDoctor();
-            reassignCaseNumber();
-
-            saveInjection(patientID);
-
-            if (!NetworkManager.isServer)
-            {
-                // for client, send add message to server after adding new injection
-                NetworkManager.client.TCPSendMessageToServer("ModInjection", Injection.toXML().ToString());
-            }
         }
 
         public static void dischargeInjection(Injection Injection, bool isDischarge)
@@ -132,7 +133,7 @@ namespace InjectionSoftware.Class
             reassignCaseNumberOfDoctor();
             reassignCaseNumber();
 
-            delInjection(Injection.Patient.PatientID);
+            delInjection(Injection.AccessionNumber);
         }
 
         /// <summary>
@@ -148,7 +149,7 @@ namespace InjectionSoftware.Class
                 int counter = 1;
                 for (int j = 0; j < tempinjections.Count; j++)
                 {
-                    if(tempinjections[j].Doctor == Doctor.Doctors[i])
+                    if (tempinjections[j].Doctor == Doctor.Doctors[i])
                     {
                         tempinjections[j].CaseNumberOfDoctor = counter;
                         counter++;
@@ -190,7 +191,7 @@ namespace InjectionSoftware.Class
 
         public static void loadAllInjections()
         {
-            Console.WriteLine("Loading previous injection");
+            Console.WriteLine("[InjectionManager] Loading previous injection");
 
             string date = DateTime.Now.ToString("ddMMyyyy");
             string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date;
@@ -203,9 +204,12 @@ namespace InjectionSoftware.Class
             foreach (var file in
                 Directory.EnumerateFiles(fullpath, "*.xml"))
             {
-                Console.Out.WriteLine(file);
+                Console.Out.WriteLine("[InjectionManager] loading injection from location: {0}",file);
                 XElement xElement = XElement.Load(file);
                 XNamespace df = xElement.Name.Namespace;
+
+                string accessionNumber = xElement.Element(df + "accessionNumber").Value;
+
                 string patientID = xElement.Element(df + "patientID").Value;
                 string patientSurname = xElement.Element(df + "patientSurname").Value;
                 string patientLastname = xElement.Element(df + "patientLastname").Value;
@@ -231,20 +235,20 @@ namespace InjectionSoftware.Class
                 bool isDelay = bool.Parse(xElement.Element(df + "isDelay").Value);
                 bool isDischarge = bool.Parse(xElement.Element(df + "isDischarge").Value);
 
-                addInjection(patientID, patientSurname, patientLastname, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
+                modInjection(accessionNumber, patientID, patientSurname, patientLastname, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
             }
         }
 
-        public static void saveInjection(string patientID)
+        public static void saveInjection(string accessionNumber)
         {
             Injection injection;
-            if (InjectionsManager.hasInjection(patientID))
+            if (InjectionsManager.hasInjection(accessionNumber))
             {
-                injection = InjectionsManager.getInjection(patientID);
+                injection = InjectionsManager.getInjection(accessionNumber);
             }
             else
             {
-                Console.Error.WriteLine("Injection with patientID does not exist, @saveInjection()/InjectionManager");
+                Console.Error.WriteLine("Injection with accessionNumber: {0} does not exist, @saveInjection()/InjectionManager", accessionNumber);
                 return;
             }
 
@@ -257,25 +261,25 @@ namespace InjectionSoftware.Class
                 Directory.CreateDirectory(path);
             }
 
-            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date + @"\" + patientID + ".xml";
+            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date + @"\" + accessionNumber + ".xml";
 
-            Console.WriteLine("[InjectionManager] saving injection of patientID: " + patientID +",to: "+fullpath);
+            Console.WriteLine("[InjectionManager] saving injection of accessionNumber: {0}, to: {1}", accessionNumber, fullpath);
             xmlFile.Save(fullpath);
         }
 
-        public static void delInjection(string patientID)
+        public static void delInjection(string accessionNumber)
         {
             try
             {
                 string date = DateTime.Now.ToString("ddMMyyyy");
-                string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date + @"\" + patientID + ".xml";
+                string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date + @"\" + accessionNumber + ".xml";
                 if (File.Exists(fullpath))
                 {
                     // If file found, delete it    
                     File.Delete(fullpath);
-                    Console.WriteLine("Injection with patient ID: "+patientID +" has been deleted.");
+                    Console.WriteLine("Injection with accessionNumber: " + accessionNumber + " has been deleted.");
                 }
-                else Console.WriteLine("Injection with patient ID: " + patientID + " has not been found.");
+                else Console.WriteLine("Injection with accessionNumber: " + accessionNumber + " has not been found.");
             }
             catch (IOException ioExp)
             {
