@@ -55,22 +55,15 @@
                         <Grid>
                             <Border Background="Gray"
                                     Margin="5">
-                                <Grid Background="White"
+                                <StackPanel Background="White"
                                       Margin="0.7">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="40" />
-                                        <RowDefinition Height="5" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
 
-                                    <Grid.Resources>
+                                    <StackPanel.Resources>
                                         <Style TargetType="TextBlock">
                                             <Setter Property="Foreground"
                                                     Value="#FF6B6B6B" />
                                         </Style>
-                                    </Grid.Resources>
+                                    </StackPanel.Resources>
 
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Center">
                                         <iconPacks:PackIconBoxIcons Kind="RegularServer"
@@ -102,7 +95,24 @@
                                         </StackPanel>
                                     </StackPanel>
 
-                                </Grid>
+                                    <StackPanel Orientation="Vertical"
+                                                Grid.Row="3">
+                                        <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Vertical"
+                                                VerticalAlignment="Stretch"
+                                                HorizontalAlignment="Left"
+                                                Grid.Row="4">
+                                        <TextBlock Padding="6"> MessageType:</TextBlock>
+                                        <TextBlock Padding="6"
+                                                    Text="{Binding PreviousMessageType}" />
+                                        <TextBlock Padding="6"> Message:</TextBlock>
+                                        <TextBlock Padding="6"
+                                                    Text="{Binding PreviousMessage}" />
+                                    </StackPanel>
+
+                                </StackPanel>
 
                             </Border>
                         </Grid>
