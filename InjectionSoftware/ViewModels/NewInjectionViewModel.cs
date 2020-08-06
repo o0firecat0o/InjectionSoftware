@@ -103,7 +103,7 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
-        private readonly MetroWindow window;
+        private MetroWindow window;
 
         
 
@@ -173,6 +173,20 @@ namespace InjectionSoftware.ViewModels
         private void closeWindow()
         {
             window.Close();
+            //release all the resources            
+            deleteConfirmDialog.Cancel.Click -= deleteDialog_OnCloseDown;
+            deleteConfirmDialog.Confirm.Click -= deleteDialog_OnDeleteDown;
+            dischargeConfirmDialog.Cancel.Click -= dischargeDialog_OnCloseDown;
+            dischargeConfirmDialog.Confirm.Click -= dischargeDialog_OnConfirmDown;
+            Cancel = null;
+            Confirm = null;
+            Delete = null;
+            Discharge = null;
+            Injection = null;
+            deleteConfirmDialog = null;
+            dischargeConfirmDialog = null;
+            window.DataContext = null;
+            window = null;
         }
 
         private async void confirm()

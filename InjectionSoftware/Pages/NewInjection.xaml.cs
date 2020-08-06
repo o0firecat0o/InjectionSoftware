@@ -23,11 +23,9 @@ namespace InjectionSoftware.Pages
     /// </summary>
     public partial class NewInjection
     {
-        NewInjectionViewModel viewModel;
-
         public NewInjection(Injection Injection = null)
         {
-            viewModel = new NewInjectionViewModel(this, Injection);
+            NewInjectionViewModel viewModel = new NewInjectionViewModel(this, Injection);
             DataContext = viewModel;
             InitializeComponent();
 
