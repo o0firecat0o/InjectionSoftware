@@ -102,13 +102,6 @@ namespace InjectionSoftware.Network
 
             //update the graphic of networkpage
             ClientViewObject.Add(NetworkUtil.GetMachineName(), NetworkUtil.GetLocalIPAddress());
-            ClientViewObject.Add("Ab", "b");
-            ClientViewObject.Add("Ac", "b");
-            ClientViewObject.Add("Ad", "b");
-            ClientViewObject.Add("Ae", "b");
-            ClientViewObject.Add("Af", "b");
-            ClientViewObject.Add("Ag", "b");
-            ClientViewObject.Add("Ah", "b");
 
             await window.HideMetroDialogAsync(twoChoiceDialog);
         }
@@ -217,6 +210,16 @@ namespace InjectionSoftware.Network
                     Console.Error.WriteLine("Unhandled message type: " + messages[0]);
                     break;
             }
+
+            try
+            {
+                ClientViewObject.GetClientViaIP(args.IpPort).UpdateMessage(messages[0], messages[1]);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e);
+            }
+            
         }
 
         public static void CloseWindow(object sender, RoutedEventArgs e)

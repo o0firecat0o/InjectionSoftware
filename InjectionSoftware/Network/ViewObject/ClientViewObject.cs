@@ -27,6 +27,8 @@ namespace InjectionSoftware.Network
             }
         }
 
+        public string fullIP { get; set; }
+
         private string _Port;
         public string Port
         {
@@ -75,14 +77,16 @@ namespace InjectionSoftware.Network
         public int Row { get; set; }
         public int Column { get; set; }
 
-        private ClientViewObject(string MachineName, string IP, string Port)
+        private ClientViewObject(string MachineName, string fullIP, string IP, string Port)
         {
             this.MachineName = MachineName;
+            this.fullIP = fullIP;
             this.IP = IP;
             this.Port = Port;
             Row = clientViewObjects.Count / 5;
             Column = clientViewObjects.Count % 5;
             clientViewObjects.Add(this);
+            Console.Out.WriteLine(fullIP);
         }
 
         public static void Add(string MachineName, string fullIP)
@@ -96,26 +100,33 @@ namespace InjectionSoftware.Network
 
             if (HasClient(MachineName))
             {
+                GetClient(MachineName).fullIP = fullIP;
                 GetClient(MachineName).IP = IP;
                 GetClient(MachineName).Port = Port;
             }
             else
             {
-                new ClientViewObject(MachineName, IP, Port);
+                new ClientViewObject(MachineName, fullIP, IP, Port);
             }
         }
 
-        public static void Delete(string IP)
+        public static void Delete(string fullIP)
         {
             foreach (ClientViewObject clientViewObject in clientViewObjects)
             {
-                if (clientViewObject.IP == IP)
+                if (clientViewObject.fullIP == fullIP)
                 {
                     clientViewObjects.Remove(clientViewObject);
                     return;
                 }
             }
-            Console.Error.WriteLine("Could not found clientviewobject with IP: {0}", IP);
+            Console.Error.WriteLine("Could not found clientviewobject with IP: {0}", fullIP);
+        }
+
+        public void UpdateMessage(string messageType, string message)
+        {
+            PreviousMessageType = messageType;
+            PreviousMessage = message;
         }
 
         public static bool HasClient(string MachineName)
@@ -140,6 +151,19 @@ namespace InjectionSoftware.Network
                 }
             }
             Console.Error.WriteLine("Could not found clientviewobject with MachineName: {0}", MachineName);
+            return null;
+        }
+
+        public static ClientViewObject GetClientViaIP(string fullIP)
+        {
+            foreach (ClientViewObject clientViewObject in clientViewObjects)
+            {
+                if (clientViewObject.fullIP == fullIP)
+                {
+                    return clientViewObject;
+                }
+            }
+            Console.Error.WriteLine("Could not found clientviewobject with MachineName: {0}", fullIP);
             return null;
         }
 
