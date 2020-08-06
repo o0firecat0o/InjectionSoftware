@@ -107,6 +107,14 @@ namespace InjectionSoftware.Class
                 injection.isDelay = isDelay;
                 injection.isDischarge = isDischarge;
             }
+            // loading previous injection from elsewhere
+            else if(accessionNumber != "")
+            {
+                injection = new Injection(patient, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                injection.AccessionNumber = accessionNumber;
+                injections.Add(injection);
+            }
+            // adding completely new injection
             else
             {
                 injection = new Injection(patient, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
