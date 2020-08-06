@@ -12,7 +12,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-
+using InjectionSoftware.Network;
 
 namespace InjectionSoftware.Class
 {
@@ -84,6 +84,12 @@ namespace InjectionSoftware.Class
 
             saveInjection(patientID);
 
+            if (!NetworkManager.isServer)
+            {
+                // for client, send add message to server after adding new injection
+                NetworkManager.client.TCPSendMessageToServer("AddInjection", injection.toXML().ToString());
+            }
+
             return injection;
         }
 
@@ -106,6 +112,12 @@ namespace InjectionSoftware.Class
             reassignCaseNumber();
 
             saveInjection(patientID);
+
+            if (!NetworkManager.isServer)
+            {
+                // for client, send add message to server after adding new injection
+                NetworkManager.client.TCPSendMessageToServer("ModInjection", Injection.toXML().ToString());
+            }
         }
 
         public static void dischargeInjection(Injection Injection, bool isDischarge)
