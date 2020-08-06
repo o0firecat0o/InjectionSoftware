@@ -17,7 +17,7 @@ namespace InjectionSoftware.Class
 {
     public class Injection : INotifyPropertyChanged
     {
-        public Patient Patient { get; }
+        public Patient Patient { get; set; }
 
         private int _CaseNumber = 1;
 
@@ -376,20 +376,6 @@ namespace InjectionSoftware.Class
                     return Brushes.White;
                 }
             }
-        }
-
-        public Injection(Patient patient, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
-        {
-            Patient = patient;
-            this.RPs = RPs;
-            this.Doctor = Doctor;
-            this.UptakeTime = UptakeTime;
-            this.InjectionTime = InjectionTime;
-            this.SelectedRoom = SelectedRoom;
-            this.isContrast = isContrast;
-            this.isDelay = isDelay;
-            this.isDischarge = isDischarge;
-            this.AccessionNumber = Guid.NewGuid().ToString();
         }
 
         public void Update()

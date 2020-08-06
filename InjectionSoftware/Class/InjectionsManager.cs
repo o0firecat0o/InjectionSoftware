@@ -94,32 +94,35 @@ namespace InjectionSoftware.Class
             if (hasInjection(accessionNumber))
             {
                 injection = getInjection(accessionNumber);
-
-                injection.Patient.PatientID = patientID;
-                injection.Patient.PatientSurname = patientSurname;
-                injection.Patient.PatientLastname = patientLastname;
-                injection.RPs = RPs;
-                injection.Doctor = Doctor;
-                injection.UptakeTime = UptakeTime;
-                injection.InjectionTime = InjectionTime;
-                injection.SelectedRoom = SelectedRoom;
-                injection.isContrast = isContrast;
-                injection.isDelay = isDelay;
-                injection.isDischarge = isDischarge;
             }
             // loading previous injection from elsewhere
             else if(accessionNumber != "")
             {
-                injection = new Injection(patient, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                injection = new Injection();
                 injection.AccessionNumber = accessionNumber;
+                injection.Patient = patient;
                 injections.Add(injection);
             }
             // adding completely new injection
             else
             {
-                injection = new Injection(patient, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                injection = new Injection();
+                injection.AccessionNumber = Guid.NewGuid().ToString();
+                injection.Patient = patient;
                 injections.Add(injection);
             }
+
+            injection.Patient.PatientID = patientID;
+            injection.Patient.PatientSurname = patientSurname;
+            injection.Patient.PatientLastname = patientLastname;
+            injection.RPs = RPs;
+            injection.Doctor = Doctor;
+            injection.UptakeTime = UptakeTime;
+            injection.InjectionTime = InjectionTime;
+            injection.SelectedRoom = SelectedRoom;
+            injection.isContrast = isContrast;
+            injection.isDelay = isDelay;
+            injection.isDischarge = isDischarge;
 
             reassignCaseNumberOfDoctor();
             reassignCaseNumber();
