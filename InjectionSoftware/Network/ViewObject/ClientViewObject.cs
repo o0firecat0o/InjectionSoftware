@@ -77,6 +77,8 @@ namespace InjectionSoftware.Network
         public int Row { get; set; }
         public int Column { get; set; }
 
+        //TODO: add previlages, admin right
+
         private ClientViewObject(string MachineName, string fullIP, string IP, string Port)
         {
             this.MachineName = MachineName;
