@@ -25,12 +25,26 @@ namespace InjectionSoftware.ViewModels
         /// </summary>
         public Injection Injection { get; set; }
 
-        public string patientID { get; set; }
+        private string _patientID;
+        public string patientID
+        {
+            get
+            {
+                return _patientID;
+            }
+            set
+            {
+                _patientID = value;
+                OnPropertyChanged("patientID");
+            }
+        }
 
-        public string patientSurname { get; set; }
+        private string _patientSurname;
+        public string patientSurname { get { return _patientSurname; } set { _patientSurname = value; OnPropertyChanged("patientSurname"); } }
 
-        public string patientLastname { get; set; }
-        
+        private string _patientLastname;
+        public string patientLastname { get { return _patientLastname; } set { _patientLastname = value; OnPropertyChanged("patientLastname"); } }
+
         public Command Cancel { get; set; }
 
         public Command Confirm { get; set; }
@@ -42,7 +56,7 @@ namespace InjectionSoftware.ViewModels
         /// <summary>
         /// The injection time of the RP, adjustable by Mahapp time picker
         /// </summary>
-        public DateTime DateTime {get; set;}
+        public DateTime DateTime { get; set; }
 
         /// <summary>
         /// The control for ListView containing all the RPs
@@ -64,16 +78,22 @@ namespace InjectionSoftware.ViewModels
                 _SelectedDoctor = value;
                 OnPropertyChanged("SelectedDoctor");
             }
-
         }
 
-        public int UptakeTimeIndex { get; set; }
+        private int _UptakeTimeIndex;
+        public int UptakeTimeIndex { get { return _UptakeTimeIndex; } set { _UptakeTimeIndex = value; OnPropertyChanged("UptakeTimeIndex"); } }
 
-        public Room SelectedRoom { get; set; }
+        private Room _SelectedRoom;
+        public Room SelectedRoom { get { return _SelectedRoom; } set { _SelectedRoom = value; OnPropertyChanged("SelectedRoom"); } }
 
-        public bool isContrast { get; set; }
-        public bool isDelay { get; set; }
-        public bool isDischarge { get; set; }
+        private bool _isContrast;
+        public bool isContrast { get { return _isContrast; } set { _isContrast = value; OnPropertyChanged("isContrast"); } }
+
+        private bool _isDelay;
+        public bool isDelay { get { return _isDelay; } set { _isDelay = value; OnPropertyChanged("isDelay"); } }
+
+        private bool _isDischarge;
+        public bool isDischarge { get { return _isDischarge; } set { _isDischarge = value; OnPropertyChanged("isDischarge"); } }
 
 
 
@@ -102,7 +122,7 @@ namespace InjectionSoftware.ViewModels
             {
                 return Room.Rooms;
             }
-        }        
+        }
 
         public NewInjectionViewModel(Injection Injection = null)
         {
@@ -145,24 +165,24 @@ namespace InjectionSoftware.ViewModels
                 UptakeTimeIndex = 0;
             }
 
-            
+
         }
 
         public void reselectRPs()
         {
-            if(Injection != null)
+            if (Injection != null)
             {
                 RPListView.SelectedItems.Clear();
                 foreach (RP rP in Injection.RPs)
                 {
                     RPListView.SelectedItems.Add(rP);
                 }
-            }            
+            }
         }
 
         public void reselectRadiologist()
         {
-            if(Injection != null)
+            if (Injection != null)
             {
                 SelectedDoctor = Injection.Doctor;
             }
@@ -211,9 +231,9 @@ namespace InjectionSoftware.ViewModels
                 }
 
                 //add new injection
-                if(Injection == null)
+                if (Injection == null)
                 {
-                    InjectionsManager.SendAndModInjection("",patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                    InjectionsManager.SendAndModInjection("", patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
                     Console.Out.WriteLine("adding injection with patient ID: " + patientID);
                 }
                 //modify existing injection
