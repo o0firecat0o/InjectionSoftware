@@ -208,8 +208,12 @@ namespace InjectionSoftware.Network
                     break;
 
                 case "modInjection":
-                    Console.Out.WriteLine("[NetworkManager-Server] Receiving Mod Injection Request from client");
-                    InjectionsManager.modInjection(XElement.Parse(messages[1]));
+                    Console.Out.WriteLine("[NetworkManager-Server] Receiving Mod Injection Request from client, proceed to modify injection");
+                    window.Dispatcher.Invoke(() =>
+                    {
+                        InjectionsManager.modInjection(XElement.Parse(messages[1]));
+                    });
+                    
 
                     break;
 
