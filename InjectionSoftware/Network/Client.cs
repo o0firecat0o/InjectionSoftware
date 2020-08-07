@@ -29,6 +29,8 @@ namespace InjectionSoftware.Network
 
         public event EventHandler<EventArgs> ServerDisconnected;
 
+        public event EventHandler<MessageReceivedFromServerEventArgs> MessageReceivedFromServer;
+
         public Client()
         {
             // start listening from server message
@@ -118,7 +120,7 @@ namespace InjectionSoftware.Network
 
         private void MessageReceived(object sender, MessageReceivedFromServerEventArgs args)
         {
-
+            MessageReceivedFromServer(sender, args);
         }
     }
 }

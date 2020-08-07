@@ -169,6 +169,11 @@ namespace InjectionSoftware.Class
             bool isDischarge = bool.Parse(xElement.Element(df + "isDischarge").Value);
 
             modInjection(accessionNumber, patientID, patientSurname, patientLastname, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
+
+            if (NetworkManager.isServer)
+            {
+                NetworkManager.server.TCPBroadcastMessage("modInjection", xElement.ToString());
+            }
         }
 
         public static void dischargeInjection(Injection Injection, bool isDischarge)

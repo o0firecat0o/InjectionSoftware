@@ -87,7 +87,10 @@ namespace InjectionSoftware.Network
             this.Port = Port;
             Row = clientViewObjects.Count / 5;
             Column = clientViewObjects.Count % 5;
-            clientViewObjects.Add(this);
+            MainWindow.window.Dispatcher.Invoke(() =>
+            {
+                clientViewObjects.Add(this);
+            });
             Console.Out.WriteLine(fullIP);
         }
 
@@ -114,15 +117,20 @@ namespace InjectionSoftware.Network
 
         public static void Delete(string fullIP)
         {
+
             foreach (ClientViewObject clientViewObject in clientViewObjects)
             {
                 if (clientViewObject.fullIP == fullIP)
                 {
-                    clientViewObjects.Remove(clientViewObject);
+                    MainWindow.window.Dispatcher.Invoke(() =>
+                    {
+                        clientViewObjects.Remove(clientViewObject);
+                    });
                     return;
                 }
             }
             Console.Error.WriteLine("Could not found clientviewobject with IP: {0}", fullIP);
+
         }
 
         public void UpdateMessage(string messageType, string message)

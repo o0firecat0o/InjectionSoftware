@@ -35,12 +35,14 @@ namespace InjectionSoftware
         private InjectionPage injectionPage = new InjectionPage();
         private RoomPage roomPage = new RoomPage();
         private NetworkPage networkPage = new NetworkPage();
-       
+
+        public static MetroWindow window;
                 
         public MainWindow()
         {
             //new Server();
             //new Client();
+            window = this;
 
             InitializeComponent();
 

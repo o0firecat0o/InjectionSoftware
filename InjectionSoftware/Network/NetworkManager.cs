@@ -29,8 +29,6 @@ namespace InjectionSoftware.Network
 
         private static MetroWindow window;
 
-        
-
         public static void Init(MetroWindow w)
         {
             window = w;
@@ -71,6 +69,7 @@ namespace InjectionSoftware.Network
             client.ServerFound += ServerFound;
             client.ServerConnected += ServerConnected;
             client.ServerDisconnected += ServerDisconnected;
+            client.MessageReceivedFromServer += MessageReceivedFromServer;
             try
             {
                 await window.HideMetroDialogAsync(twoChoiceDialog);
@@ -100,9 +99,6 @@ namespace InjectionSoftware.Network
 
             //load all the injection after starting server, the client will load the injection via contacting with server
             InjectionsManager.loadAllInjections();
-
-            //update the graphic of networkpage
-            ClientViewObject.Add(NetworkUtil.GetMachineName(), NetworkUtil.GetLocalIPAddress());
 
             await window.HideMetroDialogAsync(twoChoiceDialog);
         }
@@ -160,6 +156,7 @@ namespace InjectionSoftware.Network
             client.ServerFound -= ServerFound;
             client.ServerConnected -= ServerConnected;
             client.ServerDisconnected -= ServerDisconnected;
+            client.MessageReceivedFromServer -= MessageReceivedFromServer;
             window.Dispatcher.Invoke(() =>
             {
                 progressingDialog.TitleText.Content = "Lost Connection to Server";
@@ -213,8 +210,6 @@ namespace InjectionSoftware.Network
                     {
                         InjectionsManager.modInjection(XElement.Parse(messages[1]));
                     });
-                    
-
                     break;
 
                 default:
@@ -231,6 +226,45 @@ namespace InjectionSoftware.Network
                 Console.Error.WriteLine(e);
             }
             
+        }
+
+        /// <summary>
+        /// Handle message if client recieved anything from server
+        /// 
+        /// The message contain two part,
+        /// first part is a identifier (string) to distinguish what type of message is it
+        /// second part is the message content
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public static void MessageReceivedFromServer(object sender, MessageReceivedFromServerEventArgs args)
+        {
+            Console.WriteLine("[NetworkManager] Recieved message from server");
+            string[] messages = Encoding.UTF8.GetString(args.Data).Split(new char[] { '_' }, 2);
+            try
+            {
+                Console.Out.WriteLine("[NetworkManager-Server] Recieved message type: " + messages[0]);
+                Console.Out.WriteLine("[NetworkManager-Server] The message is: " + messages[1]);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e);
+            }
+
+            switch (messages[0])
+            {
+                case "modInjection":
+                    Console.Out.WriteLine("[NetworkManager-Server] Receiving Mod Injection Request from client, proceed to modify injection");
+                    window.Dispatcher.Invoke(() =>
+                    {
+                        InjectionsManager.modInjection(XElement.Parse(messages[1]));
+                    });
+                    break;
+
+                default:
+                    Console.Error.WriteLine("Unhandled message type: " + messages[0]);
+                    break;
+            }
         }
 
         public static void CloseWindow(object sender, RoutedEventArgs e)
