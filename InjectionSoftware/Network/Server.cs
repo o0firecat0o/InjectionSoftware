@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InjectionSoftware.Class;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,10 +52,16 @@ namespace InjectionSoftware.Network
         {
             //TODO: stop referencing clientviewobjects? maybe move it to a seperate dataclass?
             Console.Out.WriteLine("[Server] broadcasting message of Type: {0}", messageType);
-            foreach (ClientViewObject clientViewObject in ClientViewObject.clientViewObjects)
+            foreach (string clientIPPort in clientIPs)
             {
-                tcpServer.Send(clientViewObject.fullIP, messageType + "_" + message);
+                tcpServer.Send(clientIPPort, messageType + "_" + message);
             }
+        }
+
+        public void TCPSendMessage(string ipPort, string messageType, string message)
+        {
+            Console.Out.WriteLine("[Server] sending message of Type: {0} to client: {1}", messageType, ipPort);
+            tcpServer.Send(ipPort, messageType + "_" + message);
         }
 
         private void MessageReceived(object sender, MessageReceivedFromClientEventArgs args)

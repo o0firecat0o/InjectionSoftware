@@ -140,6 +140,8 @@ namespace InjectionSoftware.Network
 
             window.Dispatcher.Invoke(async () =>
             {
+                // clear all previous injection
+                client.TCPSendMessageToServer("requestInitialInjection", "");   
                 await window.HideMetroDialogAsync(progressingDialog);
                 await window.ShowMessageAsync("Connection to server succesful", "Server Name: " + client.servername + "\nServer IP:" + client.serverip);
             });
@@ -210,6 +212,13 @@ namespace InjectionSoftware.Network
                     {
                         InjectionsManager.RecieveAndModInjection(XElement.Parse(messages[1]));
                     });
+                    break;
+                case "requestInitialInjection":
+                    Console.Out.WriteLine("[NetworkManager-Server] Receiving Initial Injection Request from client, proceed to send all injection to client with ip: {0}", args.IpPort);
+                    foreach (Injection injection in InjectionsManager.injections)
+                    {
+                        server.TCPSendMessage(args.IpPort, "modInjection", injection.toXML().ToString());
+                    }
                     break;
 
                 default:

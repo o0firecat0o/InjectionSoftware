@@ -91,7 +91,6 @@ namespace InjectionSoftware.Network
             {
                 clientViewObjects.Add(this);
             });
-            Console.Out.WriteLine(fullIP);
         }
 
         public static void Add(string MachineName, string fullIP)
