@@ -127,9 +127,48 @@ namespace InjectionSoftware.Class
             reassignCaseNumberOfDoctor();
             reassignCaseNumber();
 
+            if (!NetworkManager.isServer)
+            {
+                NetworkManager.client.TCPSendMessageToServer("modInjection", injection.toXML().ToString());
+            }
+
             saveInjection(injection.AccessionNumber);
 
             return injection;
+        }
+
+        public static void modInjection(XElement xElement)
+        {
+            XNamespace df = xElement.Name.Namespace;
+
+            string accessionNumber = xElement.Element(df + "accessionNumber").Value;
+
+            string patientID = xElement.Element(df + "patientID").Value;
+            string patientSurname = xElement.Element(df + "patientSurname").Value;
+            string patientLastname = xElement.Element(df + "patientLastname").Value;
+
+            ObservableCollection<RP> rPs = new ObservableCollection<RP>();
+            if (xElement.Element(df + "rp1").Value != "")
+            {
+                rPs.Add(RP.getRP(xElement.Element(df + "rp1").Value));
+            }
+            if (xElement.Element(df + "rp2").Value != "")
+            {
+                rPs.Add(RP.getRP(xElement.Element(df + "rp2").Value));
+            }
+
+            Doctor doctor = Doctor.getDoctor(xElement.Element(df + "doctor").Value);
+
+            float uptakeTime = float.Parse(xElement.Element(df + "uptakeTime").Value);
+            DateTime injectionTime = Convert.ToDateTime(xElement.Element(df + "injectionTime").Value);
+
+            Room room = Room.getRoom(xElement.Element(df + "selectedRoom").Value);
+
+            bool isContrast = bool.Parse(xElement.Element(df + "isContrast").Value);
+            bool isDelay = bool.Parse(xElement.Element(df + "isDelay").Value);
+            bool isDischarge = bool.Parse(xElement.Element(df + "isDischarge").Value);
+
+            modInjection(accessionNumber, patientID, patientSurname, patientLastname, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
         }
 
         public static void dischargeInjection(Injection Injection, bool isDischarge)
@@ -217,36 +256,8 @@ namespace InjectionSoftware.Class
             {
                 Console.Out.WriteLine("[InjectionManager] loading injection from location: {0}",file);
                 XElement xElement = XElement.Load(file);
-                XNamespace df = xElement.Name.Namespace;
 
-                string accessionNumber = xElement.Element(df + "accessionNumber").Value;
-
-                string patientID = xElement.Element(df + "patientID").Value;
-                string patientSurname = xElement.Element(df + "patientSurname").Value;
-                string patientLastname = xElement.Element(df + "patientLastname").Value;
-
-                ObservableCollection<RP> rPs = new ObservableCollection<RP>();
-                if (xElement.Element(df + "rp1").Value != "")
-                {
-                    rPs.Add(RP.getRP(xElement.Element(df + "rp1").Value));
-                }
-                if (xElement.Element(df + "rp2").Value != "")
-                {
-                    rPs.Add(RP.getRP(xElement.Element(df + "rp2").Value));
-                }
-
-                Doctor doctor = Doctor.getDoctor(xElement.Element(df + "doctor").Value);
-
-                float uptakeTime = float.Parse(xElement.Element(df + "uptakeTime").Value);
-                DateTime injectionTime = Convert.ToDateTime(xElement.Element(df + "injectionTime").Value);
-
-                Room room = Room.getRoom(xElement.Element(df + "selectedRoom").Value);
-
-                bool isContrast = bool.Parse(xElement.Element(df + "isContrast").Value);
-                bool isDelay = bool.Parse(xElement.Element(df + "isDelay").Value);
-                bool isDischarge = bool.Parse(xElement.Element(df + "isDischarge").Value);
-
-                modInjection(accessionNumber, patientID, patientSurname, patientLastname, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
+                modInjection(xElement);
             }
         }
 

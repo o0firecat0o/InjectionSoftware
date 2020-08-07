@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using System.Xml.Linq;
 using WatsonTcp;
 
 namespace InjectionSoftware.Network
@@ -204,6 +205,12 @@ namespace InjectionSoftware.Network
                 case "ConnectionSucessful":
                     Console.Out.WriteLine("[NetworkManager-Server] New connection established with client IP: {0}, Name: {1}", args.IpPort, messages[1]);
                     ClientViewObject.Add(messages[1], args.IpPort);
+                    break;
+
+                case "modInjection":
+                    Console.Out.WriteLine("[NetworkManager-Server] Receiving Mod Injection Request from client");
+                    InjectionsManager.modInjection(XElement.Parse(messages[1]));
+
                     break;
 
                 default:
