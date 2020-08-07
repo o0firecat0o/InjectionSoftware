@@ -45,6 +45,8 @@ namespace InjectionSoftware.Pages
             //select the previous selected RPs if the client is trying to modify instead of adding a new injection
             viewModel.reselectRPs();
             viewModel.reselectRadiologist();
+            viewModel.reselectRoom();
+
 
             if(Injection == null)
             {

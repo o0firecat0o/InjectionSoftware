@@ -188,6 +188,14 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
+        public void reselectRoom()
+        {
+            if (Injection != null)
+            {
+                SelectedRoom = Injection.SelectedRoom;
+            }
+        }
+
         private void Window_Closed(object sender, EventArgs e)
         {
             NewInjection.window.Closed -= Window_Closed;
