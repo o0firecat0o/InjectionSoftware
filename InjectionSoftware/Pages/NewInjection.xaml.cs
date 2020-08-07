@@ -2,6 +2,7 @@
 using InjectionSoftware.Class;
 using InjectionSoftware.Enums;
 using InjectionSoftware.ViewModels;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,13 @@ namespace InjectionSoftware.Pages
     /// </summary>
     public partial class NewInjection
     {
+        public static MetroWindow window;
+
         public NewInjection(Injection Injection = null)
         {
-            NewInjectionViewModel viewModel = new NewInjectionViewModel(this, Injection);
+            window = this;
+
+            NewInjectionViewModel viewModel = new NewInjectionViewModel(Injection);
             DataContext = viewModel;
             InitializeComponent();
 

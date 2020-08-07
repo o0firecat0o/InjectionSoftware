@@ -141,6 +141,7 @@ namespace InjectionSoftware.Network
             window.Dispatcher.Invoke(async () =>
             {
                 // clear all previous injection
+                InjectionsManager.injections.Clear();
                 client.TCPSendMessageToServer("requestInitialInjection", "");   
                 await window.HideMetroDialogAsync(progressingDialog);
                 await window.ShowMessageAsync("Connection to server succesful", "Server Name: " + client.servername + "\nServer IP:" + client.serverip);

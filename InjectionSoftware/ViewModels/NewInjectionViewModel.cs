@@ -1,6 +1,7 @@
 ﻿using InjectionSoftware.Class;
 using InjectionSoftware.Dialogs;
 using InjectionSoftware.Enums;
+using InjectionSoftware.Pages;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -101,15 +102,10 @@ namespace InjectionSoftware.ViewModels
             {
                 return Room.Rooms;
             }
-        }
+        }        
 
-        private MetroWindow window;
-
-        
-
-        public NewInjectionViewModel(MetroWindow window, Injection Injection = null)
+        public NewInjectionViewModel(Injection Injection = null)
         {
-            this.window = window;
             this.Injection = Injection;
 
             Cancel = new Command(closeWindow);
@@ -117,6 +113,8 @@ namespace InjectionSoftware.ViewModels
             Delete = new Command(delete);
             Discharge = new Command(discharge);
             DateTime = DateTime.Now;
+
+            NewInjection.window.Closed += Window_Closed;
 
             if (Injection != null)
             {
@@ -170,23 +168,22 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            NewInjection.window.Closed -= Window_Closed;
+            closeWindow();
+        }
+
         private void closeWindow()
         {
-            window.Close();
+            Console.Out.WriteLine("[NewInjectionViewModel] Closing New Injection Window now, begin to unregister events");
             //release all the resources            
             deleteConfirmDialog.Cancel.Click -= deleteDialog_OnCloseDown;
             deleteConfirmDialog.Confirm.Click -= deleteDialog_OnDeleteDown;
             dischargeConfirmDialog.Cancel.Click -= dischargeDialog_OnCloseDown;
             dischargeConfirmDialog.Confirm.Click -= dischargeDialog_OnConfirmDown;
-            Cancel = null;
-            Confirm = null;
-            Delete = null;
-            Discharge = null;
             Injection = null;
-            deleteConfirmDialog = null;
-            dischargeConfirmDialog = null;
-            window.DataContext = null;
-            window = null;
+            NewInjection.window = null;
         }
 
         private async void confirm()
@@ -226,13 +223,13 @@ namespace InjectionSoftware.ViewModels
                     Console.Out.WriteLine("modifying injection with patient ID:" + patientID);
                 }
 
-                
-                
-                window.Close();
+
+
+                NewInjection.window.Close();
             }
             else
             {
-                await window.ShowMessageAsync("Error", "Please enter Patient ID");
+                await NewInjection.window.ShowMessageAsync("Error", "Please enter Patient ID");
             }
         }
 
@@ -243,19 +240,19 @@ namespace InjectionSoftware.ViewModels
         {
             deleteConfirmDialog.Cancel.Click += deleteDialog_OnCloseDown;
             deleteConfirmDialog.Confirm.Click += deleteDialog_OnDeleteDown;
-            await window.ShowMetroDialogAsync(deleteConfirmDialog);
+            await NewInjection.window.ShowMetroDialogAsync(deleteConfirmDialog);
         }
 
         private async void deleteDialog_OnCloseDown(object sender, RoutedEventArgs e)
         {
-            await window.HideMetroDialogAsync(deleteConfirmDialog);
+            await NewInjection.window.HideMetroDialogAsync(deleteConfirmDialog);
         }
 
         private async void deleteDialog_OnDeleteDown(object sender, RoutedEventArgs e)
         {
             InjectionsManager.delInjection(Injection);
-            await window.HideMetroDialogAsync(deleteConfirmDialog);
-            window.Close();
+            await NewInjection.window.HideMetroDialogAsync(deleteConfirmDialog);
+            NewInjection.window.Close();
         }
 
         private async void discharge()
@@ -264,19 +261,19 @@ namespace InjectionSoftware.ViewModels
             dischargeConfirmDialog.Confirm.Content = "discharge";
             dischargeConfirmDialog.Cancel.Click += dischargeDialog_OnCloseDown;
             dischargeConfirmDialog.Confirm.Click += dischargeDialog_OnConfirmDown;
-            await window.ShowMetroDialogAsync(dischargeConfirmDialog);
+            await NewInjection.window.ShowMetroDialogAsync(dischargeConfirmDialog);
         }
 
         private async void dischargeDialog_OnCloseDown(object sender, RoutedEventArgs e)
         {
-            await window.HideMetroDialogAsync(dischargeConfirmDialog);
+            await NewInjection.window.HideMetroDialogAsync(dischargeConfirmDialog);
         }
 
         private async void dischargeDialog_OnConfirmDown(object sender, RoutedEventArgs e)
         {
             InjectionsManager.dischargeInjection(Injection, true);
-            await window.HideMetroDialogAsync(dischargeConfirmDialog);
-            window.Close();
+            await NewInjection.window.HideMetroDialogAsync(dischargeConfirmDialog);
+            NewInjection.window.Close();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
