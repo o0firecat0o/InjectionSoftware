@@ -208,12 +208,12 @@ namespace InjectionSoftware.Network
                     Console.Out.WriteLine("[NetworkManager-Server] Receiving Mod Injection Request from client, proceed to modify injection");
                     window.Dispatcher.Invoke(() =>
                     {
-                        InjectionsManager.modInjection(XElement.Parse(messages[1]));
+                        InjectionsManager.RecieveAndModInjection(XElement.Parse(messages[1]));
                     });
                     break;
 
                 default:
-                    Console.Error.WriteLine("Unhandled message type: " + messages[0]);
+                    Console.Error.WriteLine("[NetworkManager-Server] Unhandled message type: " + messages[0]);
                     break;
             }
 
@@ -239,12 +239,12 @@ namespace InjectionSoftware.Network
         /// <param name="args"></param>
         public static void MessageReceivedFromServer(object sender, MessageReceivedFromServerEventArgs args)
         {
-            Console.WriteLine("[NetworkManager] Recieved message from server");
+            Console.WriteLine("[NetworkManager-Client] Recieved message from server");
             string[] messages = Encoding.UTF8.GetString(args.Data).Split(new char[] { '_' }, 2);
             try
             {
-                Console.Out.WriteLine("[NetworkManager-Server] Recieved message type: " + messages[0]);
-                Console.Out.WriteLine("[NetworkManager-Server] The message is: " + messages[1]);
+                Console.Out.WriteLine("[NetworkManager-Client] Recieved message type: " + messages[0]);
+                Console.Out.WriteLine("[NetworkManager-Client] The message is: " + messages[1]);
             }
             catch (Exception e)
             {
@@ -254,15 +254,15 @@ namespace InjectionSoftware.Network
             switch (messages[0])
             {
                 case "modInjection":
-                    Console.Out.WriteLine("[NetworkManager-Server] Receiving Mod Injection Request from client, proceed to modify injection");
+                    Console.Out.WriteLine("[NetworkManager-Client] Receiving Mod Injection Request from server, proceed to modify injection");
                     window.Dispatcher.Invoke(() =>
                     {
-                        InjectionsManager.modInjection(XElement.Parse(messages[1]));
+                        InjectionsManager.RecieveAndModInjection(XElement.Parse(messages[1]));
                     });
                     break;
 
                 default:
-                    Console.Error.WriteLine("Unhandled message type: " + messages[0]);
+                    Console.Error.WriteLine("[NetworkManager-Client] Unhandled message type: " + messages[0]);
                     break;
             }
         }
