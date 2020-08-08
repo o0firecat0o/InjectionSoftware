@@ -1,5 +1,6 @@
 ﻿using InjectionSoftware.Class;
 using InjectionSoftware.Dialogs;
+using InjectionSoftware.Pages;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -70,6 +71,8 @@ namespace InjectionSoftware.Network
             client.ServerConnected += ServerConnected;
             client.ServerDisconnected += ServerDisconnected;
             client.MessageReceivedFromServer += MessageReceivedFromServer;
+
+            //TODO: hide all dialog
             try
             {
                 await window.HideMetroDialogAsync(twoChoiceDialog);
@@ -162,6 +165,11 @@ namespace InjectionSoftware.Network
             client.MessageReceivedFromServer -= MessageReceivedFromServer;
             window.Dispatcher.Invoke(() =>
             {
+                // close the new injection window when lost connection to server
+                if(NewInjection.window != null)
+                {
+                    NewInjection.window.Close();
+                }
                 progressingDialog.TitleText.Content = "Lost Connection to Server";
                 progressingDialog.MessageText.Content = "Trying to re-establish connection";
                 StartClient(null, null);
