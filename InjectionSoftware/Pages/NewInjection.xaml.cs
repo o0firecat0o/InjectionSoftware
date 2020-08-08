@@ -28,6 +28,11 @@ namespace InjectionSoftware.Pages
 
         public NewInjection(Injection Injection = null)
         {
+            if(window != null)
+            {
+                window.Close();
+            }
+            
             window = this;
 
             NewInjectionViewModel viewModel = new NewInjectionViewModel(Injection);

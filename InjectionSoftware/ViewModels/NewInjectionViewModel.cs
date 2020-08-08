@@ -199,10 +199,10 @@ namespace InjectionSoftware.ViewModels
         private void Window_Closed(object sender, EventArgs e)
         {
             NewInjection.window.Closed -= Window_Closed;
-            closeWindow();
+            dispose();
         }
 
-        private void closeWindow()
+        private void dispose()
         {
             Console.Out.WriteLine("[NewInjectionViewModel] Closing New Injection Window now, begin to unregister events");
             //release all the resources            
@@ -216,6 +216,11 @@ namespace InjectionSoftware.ViewModels
             Discharge = null;
             Injection = null;
             NewInjection.window = null;
+        }
+
+        private void closeWindow()
+        {
+            NewInjection.window.Close();
         }
 
         private async void confirm()
