@@ -41,12 +41,6 @@ namespace InjectionSoftware.Pages
             NewInjectionViewModel viewModel = new NewInjectionViewModel(Injection);
             DataContext = viewModel;
 
-
-            //make the focus
-            //RP_injection.SelectedIndex = 0;
-            //RadiologistList.SelectedIndex = 0;
-            //SelectedRoom.SelectedIndex = 0;
-
             //select the previous selected RPs if the client is trying to modify instead of adding a new injection
             viewModel.reselectRPs();
             viewModel.reselectRadiologist();

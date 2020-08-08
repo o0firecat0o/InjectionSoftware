@@ -56,7 +56,17 @@ namespace InjectionSoftware.ViewModels
         /// <summary>
         /// The injection time of the RP, adjustable by Mahapp time picker
         /// </summary>
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get
+            {
+                return _DateTime;
+            }
+            set
+            {
+                _DateTime = value;
+                OnPropertyChanged("DateTime");
+            }
+        }
+        private DateTime _DateTime;
 
         /// <summary>
         /// The selected radiologist who will dictate the case
@@ -178,6 +188,10 @@ namespace InjectionSoftware.ViewModels
                     ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Add(rP);
                 }
             }
+            else
+            {
+                ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 0;
+            }
         }
 
         public void reselectRadiologist()
@@ -186,6 +200,10 @@ namespace InjectionSoftware.ViewModels
             {
                 SelectedDoctor = Injection.Doctor;
             }
+            else
+            {
+                SelectedDoctor = Doctor.Doctors[0];
+            }
         }
 
         public void reselectRoom()
@@ -193,6 +211,10 @@ namespace InjectionSoftware.ViewModels
             if (Injection != null)
             {
                 SelectedRoom = Injection.SelectedRoom;
+            }
+            else
+            {
+                SelectedRoom = Room.Rooms[0];
             }
         }
 
