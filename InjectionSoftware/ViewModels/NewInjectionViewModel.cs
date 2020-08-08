@@ -59,11 +59,6 @@ namespace InjectionSoftware.ViewModels
         public DateTime DateTime { get; set; }
 
         /// <summary>
-        /// The control for ListView containing all the RPs
-        /// </summary>
-        public ListView RPListView { get; set; }
-
-        /// <summary>
         /// The selected radiologist who will dictate the case
         /// </summary>
         private Doctor _SelectedDoctor;
@@ -124,6 +119,11 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
+        /// <summary>
+        /// for better user input, automatically change uptake hour if the user select RP
+        /// </summary>
+        private bool hasUptaketimeChanged = false;
+
         public NewInjectionViewModel(Injection Injection = null)
         {
             this.Injection = Injection;
@@ -172,10 +172,10 @@ namespace InjectionSoftware.ViewModels
         {
             if (Injection != null)
             {
-                RPListView.SelectedItems.Clear();
+                ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Clear();
                 foreach (RP rP in Injection.RPs)
                 {
-                    RPListView.SelectedItems.Add(rP);
+                    ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Add(rP);
                 }
             }
         }
@@ -194,6 +194,11 @@ namespace InjectionSoftware.ViewModels
             {
                 SelectedRoom = Injection.SelectedRoom;
             }
+        }
+
+        public void reselectUptakeTime()
+        {
+
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -226,7 +231,7 @@ namespace InjectionSoftware.ViewModels
         private async void confirm()
         {
             ObservableCollection<RP> RPs = new ObservableCollection<RP>();
-            foreach (RP rP in RPListView.SelectedItems)
+            foreach (RP rP in ((NewInjection)NewInjection.window).RP_injection.SelectedItems)
             {
                 RPs.Add(rP);
             }
