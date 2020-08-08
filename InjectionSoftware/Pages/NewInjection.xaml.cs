@@ -37,14 +37,7 @@ namespace InjectionSoftware.Pages
 
 
             InitializeComponent();
-
-            NewInjectionViewModel viewModel = new NewInjectionViewModel(Injection);
-            DataContext = viewModel;
-
-            //select the previous selected RPs if the client is trying to modify instead of adding a new injection
-            viewModel.reselectRPs();
-            viewModel.reselectRadiologist();
-            viewModel.reselectRoom();
+            DataContext = new NewInjectionViewModel(Injection);
 
 
             if(Injection == null)

@@ -132,7 +132,7 @@ namespace InjectionSoftware.ViewModels
         /// <summary>
         /// for better user input, automatically change uptake hour if the user select RP
         /// </summary>
-        private bool hasUptaketimeChanged = false;
+        private float hasUptaketimeChanged = 2;
 
         public NewInjectionViewModel(Injection Injection = null)
         {
@@ -145,6 +145,7 @@ namespace InjectionSoftware.ViewModels
             DateTime = DateTime.Now;
 
             NewInjection.window.Closed += Window_Closed;
+            ((NewInjection)NewInjection.window).RP_injection.SelectionChanged += reselectUptakeTime;
 
             if (Injection != null)
             {
@@ -175,10 +176,12 @@ namespace InjectionSoftware.ViewModels
                 UptakeTimeIndex = 0;
             }
 
-
+            reselectRPs();
+            reselectRadiologist();
+            reselectRoom();
         }
 
-        public void reselectRPs()
+        private void reselectRPs()
         {
             if (Injection != null)
             {
@@ -194,7 +197,7 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
-        public void reselectRadiologist()
+        private void reselectRadiologist()
         {
             if (Injection != null)
             {
@@ -206,7 +209,7 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
-        public void reselectRoom()
+        private void reselectRoom()
         {
             if (Injection != null)
             {
@@ -218,9 +221,25 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
-        public void reselectUptakeTime()
+        public void reselectUptakeTime(object sender, SelectionChangedEventArgs args)
         {
-
+            if (hasUptaketimeChanged>0)
+            {
+                if (Injection == null && ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Count >= 2)
+                {
+                    ((NewInjection)NewInjection.window).RP_injection.SelectedItems.RemoveAt(0);
+                    float UptakeTime = ((RP)((NewInjection)NewInjection.window).RP_injection.SelectedItems[0]).UptakeTime;
+                    if(UptakeTime == 60f)
+                    {
+                        UptakeTimeIndex = 0;
+                    }
+                    else
+                    {
+                        UptakeTimeIndex = 1;
+                    }
+                }
+                hasUptaketimeChanged -= 1;
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -237,6 +256,9 @@ namespace InjectionSoftware.ViewModels
             deleteConfirmDialog.Confirm.Click -= deleteDialog_OnDeleteDown;
             dischargeConfirmDialog.Cancel.Click -= dischargeDialog_OnCloseDown;
             dischargeConfirmDialog.Confirm.Click -= dischargeDialog_OnConfirmDown;
+
+            ((NewInjection)NewInjection.window).RP_injection.SelectionChanged -= reselectUptakeTime;
+
             Cancel = null;
             Confirm = null;
             Delete = null;
