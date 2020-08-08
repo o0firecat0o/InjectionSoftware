@@ -210,6 +210,10 @@ namespace InjectionSoftware.ViewModels
             deleteConfirmDialog.Confirm.Click -= deleteDialog_OnDeleteDown;
             dischargeConfirmDialog.Cancel.Click -= dischargeDialog_OnCloseDown;
             dischargeConfirmDialog.Confirm.Click -= dischargeDialog_OnConfirmDown;
+            Cancel = null;
+            Confirm = null;
+            Delete = null;
+            Discharge = null;
             Injection = null;
             NewInjection.window = null;
         }
