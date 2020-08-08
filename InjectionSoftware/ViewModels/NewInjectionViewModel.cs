@@ -134,6 +134,10 @@ namespace InjectionSoftware.ViewModels
         /// </summary>
         private float hasUptaketimeChanged = 2;
 
+
+        SelectionDialog deleteConfirmDialog = new SelectionDialog();
+        SelectionDialog dischargeConfirmDialog = new SelectionDialog();
+
         public NewInjectionViewModel(Injection Injection = null)
         {
             this.Injection = Injection;
@@ -259,6 +263,9 @@ namespace InjectionSoftware.ViewModels
 
             ((NewInjection)NewInjection.window).RP_injection.SelectionChanged -= reselectUptakeTime;
 
+            deleteConfirmDialog = null;
+            dischargeConfirmDialog = null;
+
             Cancel = null;
             Confirm = null;
             Delete = null;
@@ -319,8 +326,6 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
-        SelectionDialog deleteConfirmDialog = new SelectionDialog();
-        SelectionDialog dischargeConfirmDialog = new SelectionDialog();
 
         public async void delete()
         {
