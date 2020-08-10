@@ -217,32 +217,33 @@
                                             <ColumnDefinition Width="3*" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <Viewbox Stretch="Uniform" HorizontalAlignment="Left">
+                                        <Viewbox Stretch="Uniform"
+                                                 HorizontalAlignment="Left">
                                             <TextBlock Text="{Binding Patient.PatientFullname}"
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Left"
                                                        Margin="2" />
                                         </Viewbox>
-                                        
-                                        
+
+
                                         <Grid Grid.Column="1">
                                             <Viewbox Stretch="Uniform">
                                                 <iconPacks:PackIconPicolIcons Kind="Home"
-                                                                            HorizontalAlignment="Center"
-                                                                            VerticalAlignment="Center" 
-                                                                            Opacity="0.4"/>
+                                                                              HorizontalAlignment="Center"
+                                                                              VerticalAlignment="Center"
+                                                                              Opacity="0.4" />
                                             </Viewbox>
 
                                             <Viewbox Stretch="Uniform">
                                                 <TextBlock HorizontalAlignment="Center"
-                                                            VerticalAlignment="Center"
-                                                            Text="{Binding SelectedRoom.Name}"
-                                                            Margin="6">
+                                                           VerticalAlignment="Center"
+                                                           Text="{Binding SelectedRoom.Name}"
+                                                           Margin="6">
                                                 </TextBlock>
-                                            </Viewbox>                                                
-                                        </Grid>                                     
+                                            </Viewbox>
+                                        </Grid>
                                     </Grid>
-                                    
+
 
                                     <!-- Progress bar-->
                                     <Grid Grid.Row="1">
@@ -280,7 +281,6 @@
                                        VerticalAlignment="Center"
                                        Foreground="Red"
                                        Text="{Binding ContrastDelayString}"
-                                       
                                        Opacity="0.3"
                                        FontFamily="Stencil">
                                 <TextBlock.Effect>
@@ -355,7 +355,7 @@
                         <!-- Background panel -->
                         <Border CornerRadius="4"
                                 Margin="3"
-                                Background="GhostWhite">
+                                Background="DarkBlue">
                             <Border.Effect>
                                 <DropShadowEffect ShadowDepth="2"
                                                   Color="#FF666666"
@@ -364,26 +364,37 @@
                             </Border.Effect>
                         </Border>
 
-                        <!-- Search bar -->
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                            <TextBox x:Name="searchBox"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     Width="160"
-                                     FontSize="22"
-                                     Text="{Binding DataContext.SearchString, RelativeSource={RelativeSource AncestorType=Page}, Mode=TwoWay}">
+                        <TextBox x:Name="searchBox"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 Margin="12 10 12 10"
+                                 FontSize="25"
+                                 Padding="0"
+                                 VerticalContentAlignment="Center"
+                                 TextAlignment="Center"
+                                 Background="#FFF1FFFF"
+                                 Foreground="#FF6A9AC3"
+                                 Text="{Binding DataContext.SearchString, RelativeSource={RelativeSource AncestorType=Page}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{DynamicResource MahApps.Styles.TextBox.PasswordBox.Revealed}">
+                            <!--
+                                
                                 <TextBox.InputBindings>
                                     <KeyBinding Command="{Binding DataContext.SearchCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                                 CommandParameter="{Binding Text, ElementName=searchBox}"
                                                 Key="Return" />
                                 </TextBox.InputBindings>
-                            </TextBox>
-                            <iconPacks:PackIconBoxIcons Kind="RegularPlusCircle"
-                                                        HorizontalAlignment="Center"
-                                                        VerticalAlignment="Center"
-                                                        Margin="10"
-                                                        Foreground="GreenYellow" />
-                        </StackPanel>
+                                
+                                 -->
+                        </TextBox>
+
+
+                        <Viewbox Stretch="Uniform"
+                                 Margin="21"
+                                 HorizontalAlignment="Right">
+                            <iconPacks:PackIconMaterial Kind="TextSearch"
+                                                        Foreground="#FF385EFF" />
+                        </Viewbox>
+
 
                     </Grid>
                 </DataTemplate>

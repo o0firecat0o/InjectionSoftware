@@ -26,16 +26,20 @@ namespace InjectionSoftware.ViewModels
 
         public Command Command2 { get; set; }
 
-        public Command<string> SearchCommand { get; set; }
+        private string _SearchString;
+        public string SearchString
+        {
+            get { return _SearchString; }
+            set { _SearchString = value; Search(); }
+        }
 
         public InjectionPageViewModel()
         {
             Command1 = new Command<Injection>(ExecuteCommand1);
             Command2 = new Command(ExecuteCommand2);
 
-            SearchCommand = new Command<string>(Search);
 
-            CollectionContainer injectionsCollection = new CollectionContainer() { Collection = InjectionsManager.injections };            
+            CollectionContainer injectionsCollection = new CollectionContainer() { Collection = InjectionsManager.injections };
             CompositeCollection.Add(injectionsCollection);
             CompositeCollection.Add(new AddNewButton());
             CompositeCollection.Add(new Legend());
@@ -54,17 +58,20 @@ namespace InjectionSoftware.ViewModels
         }
 
         //used for highlighting the injection result after searching
-        private void Search(string search)
+        private void Search()
         {
             //TODO: maybe use update trigger instead of enter to search?
             //caused more CPU power, but better user enjoyment
             foreach (Injection injection in InjectionsManager.injections)
             {
                 injection.isVisible = false;
-                if (injection.SearchString.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0){
+                if (injection.SearchString.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
                     injection.isVisible = true;
                 }
             }
         }
+
+
     }
 }
