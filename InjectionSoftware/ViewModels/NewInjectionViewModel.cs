@@ -306,13 +306,13 @@ namespace InjectionSoftware.ViewModels
                 //add new injection
                 if (Injection == null)
                 {
-                    InjectionsManager.SendAndModInjection("", patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                    InjectionsManager.modInjectionNetWork("", patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
                     Console.Out.WriteLine("adding injection with patient ID: " + patientID);
                 }
                 //modify existing injection
                 else
                 {
-                    InjectionsManager.SendAndModInjection(Injection.AccessionNumber, patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                    InjectionsManager.modInjectionNetWork(Injection.AccessionNumber, patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
                     Console.Out.WriteLine("modifying injection with patient ID:" + patientID);
                 }
 
@@ -341,7 +341,7 @@ namespace InjectionSoftware.ViewModels
 
         private async void deleteDialog_OnDeleteDown(object sender, RoutedEventArgs e)
         {
-            InjectionsManager.delInjection(Injection);
+            InjectionsManager.removeInjectionNetwork(Injection.AccessionNumber);
             await NewInjection.window.HideMetroDialogAsync(deleteConfirmDialog);
             NewInjection.window.Close();
         }
@@ -362,7 +362,7 @@ namespace InjectionSoftware.ViewModels
 
         private async void dischargeDialog_OnConfirmDown(object sender, RoutedEventArgs e)
         {
-            InjectionsManager.sendAndDischargeInjection(Injection.AccessionNumber) ;
+            InjectionsManager.dischargeInjectionNetwork(Injection.AccessionNumber) ;
             await NewInjection.window.HideMetroDialogAsync(dischargeConfirmDialog);
             NewInjection.window.Close();
         }

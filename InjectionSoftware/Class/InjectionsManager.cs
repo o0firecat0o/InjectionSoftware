@@ -60,7 +60,7 @@ namespace InjectionSoftware.Class
             return null;
         }
 
-        public static void SendAndModInjection(string accessionNumber, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
+        public static void modInjectionNetWork(string accessionNumber, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
         {
             Injection injection = modInjection(accessionNumber, patientID, patientSurname, patientLastname, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
             if (!NetworkManager.isServer)
@@ -186,7 +186,7 @@ namespace InjectionSoftware.Class
             modInjection(accessionNumber, patientID, patientSurname, patientLastname, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
         }
 
-        public static void sendAndDischargeInjection(string AccessionNumber)
+        public static void dischargeInjectionNetwork(string AccessionNumber)
         {
             if (hasInjection(AccessionNumber))
             {
@@ -218,14 +218,48 @@ namespace InjectionSoftware.Class
             }
         }
 
-        public static void delInjection(Injection Injection)
+        public static void removeInjectionNetwork(string AccessionNumber)
         {
-            injections.Remove(Injection);
+            if (hasInjection(AccessionNumber))
+            {
+                if (NetworkManager.isServer)
+                {
+                    removeInjection(AccessionNumber);
+                    NetworkManager.server.TCPBroadcastMessage("removeInjection", AccessionNumber);
+                }
+                else
+                {
+                    NetworkManager.client.TCPSendMessageToServer("removeInjection", AccessionNumber);
+                }
+            }
+            else
+            {
+                Console.Error.WriteLine("[InjectionManager] Error executing remove injection command, reason: patient with accessionNumber does not exist");
+            }
+        }
 
-            reassignCaseNumberOfDoctor();
-            reassignCaseNumber();
+        public static void removeInjection(string accessionNumber)
+        {
+            if (hasInjection(accessionNumber))
+            {
+                foreach (Injection injection in injections)
+                {
+                    if(injection.AccessionNumber == accessionNumber)
+                    {
+                        injections.Remove(injection);
+                        break;
+                    }
+                }
 
-            delInjection(Injection.AccessionNumber);
+                reassignCaseNumberOfDoctor();
+                reassignCaseNumber();
+
+                delInjection(accessionNumber);
+            }
+            else
+            {
+                Console.Error.WriteLine("[InjectionManager] Error executing remove injection command, reason: patient with accessionNumber does not exist");
+            }
         }
 
         /// <summary>
@@ -331,7 +365,7 @@ namespace InjectionSoftware.Class
             xmlFile.Save(fullpath);
         }
 
-        public static void delInjection(string accessionNumber)
+        private static void delInjection(string accessionNumber)
         {
             try
             {

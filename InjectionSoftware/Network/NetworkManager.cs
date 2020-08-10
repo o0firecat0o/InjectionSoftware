@@ -240,6 +240,15 @@ namespace InjectionSoftware.Network
                     });
                     break;
 
+                case "removeInjection":
+                    Console.Out.WriteLine("[NetworkManager-Server] Receiving remove Injection Request from client, proceed to remove injection");
+                    window.Dispatcher.Invoke(() =>
+                    {
+                        server.TCPBroadcastMessage("removeInjection", messages[1]);
+                        InjectionsManager.removeInjection(messages[1]);
+                    });
+                    break;
+
                 default:
                     Console.Error.WriteLine("[NetworkManager-Server] Unhandled message type: " + messages[0]);
                     break;
@@ -293,6 +302,13 @@ namespace InjectionSoftware.Network
                     window.Dispatcher.Invoke(() =>
                     {
                         InjectionsManager.dischargeInjection(messages[1]);
+                    });
+                    break;
+                case "removeInjection":
+                    Console.Out.WriteLine("[NetworkManager-Client] Receiving remove Injection Request from server, proceed to remove injection");
+                    window.Dispatcher.Invoke(() =>
+                    {
+                        InjectionsManager.removeInjection(messages[1]);
                     });
                     break;
 
