@@ -314,7 +314,7 @@
                         <!-- Background panel -->
                         <Border CornerRadius="4"
                                 Margin="3"
-                                Background="GhostWhite">
+                                Background="#FFACFFB0">
                             <Border.Effect>
                                 <DropShadowEffect ShadowDepth="2"
                                                   Color="#FF666666"
@@ -328,15 +328,15 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="ADD"
                                            VerticalAlignment="Center"
-                                           Foreground="GreenYellow" />
+                                           Foreground="#FF147C19" />
                                 <iconPacks:PackIconBoxIcons Kind="RegularPlusCircle"
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Center"
                                                             Margin="10"
-                                                            Foreground="GreenYellow" />
+                                                            Foreground="#FF147C19" />
                                 <TextBlock Text="NEW"
                                            VerticalAlignment="Center"
-                                           Foreground="GreenYellow" />
+                                           Foreground="#FF147C19" />
                             </StackPanel>
                         </Viewbox>
 
