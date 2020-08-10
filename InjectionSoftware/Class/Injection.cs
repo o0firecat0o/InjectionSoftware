@@ -378,6 +378,23 @@ namespace InjectionSoftware.Class
             }
         }
 
+        /// <summary>
+        /// the string used for quick searching in injection page
+        /// </summary>
+        public string SearchString = "";
+        public void updateSearchString()
+        {
+            SearchString = "";
+            SearchString += Patient.PatientFullname + "_";
+            SearchString += Patient.PatientID + "_";
+            SearchString += AccessionNumber + "_";
+            foreach (RP rP in RPs)
+            {
+                SearchString += rP.Name + "_";
+            }
+            SearchString += Doctor.Name + "_";
+        }
+
         public void Update()
         {
             OnPropertyChanged("InjectionTimeSlider");

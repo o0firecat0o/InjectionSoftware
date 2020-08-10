@@ -53,9 +53,15 @@ namespace InjectionSoftware.ViewModels
             newInjectionWindow.ShowDialog();
         }
 
+        //used for highlighting the injection result after searching
         private void Search(string search)
         {
-            Console.Out.WriteLine(search);
+            //TODO: maybe use update trigger instead of enter to search?
+            //caused more CPU power, but better user enjoyment
+            foreach (Injection injection in InjectionsManager.injections)
+            {
+                Console.Out.WriteLine(injection.SearchString);
+            }
         }
     }
 }

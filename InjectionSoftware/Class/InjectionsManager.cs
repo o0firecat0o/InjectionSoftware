@@ -146,9 +146,16 @@ namespace InjectionSoftware.Class
             injection.isDelay = isDelay;
             injection.isDischarge = isDischarge;
 
+            // update the search string used for searching injection in InjectionPage
+            // search string contained all information of the injection compressed in string format
+            injection.updateSearchString();
+
+            // recalculate the case number,
+            // it is useful when the injection time is changed, since some injection may swap
             reassignCaseNumberOfDoctor();
             reassignCaseNumber();
 
+            // save the injection in xml format
             saveInjection(injection.AccessionNumber);
 
             return injection;
