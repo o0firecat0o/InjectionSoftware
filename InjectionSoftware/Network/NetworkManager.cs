@@ -219,7 +219,8 @@ namespace InjectionSoftware.Network
                     Console.Out.WriteLine("[NetworkManager-Server] Receiving Mod Injection Request from client, proceed to modify injection");
                     window.Dispatcher.Invoke(() =>
                     {
-                        InjectionsManager.RecieveAndModInjection(XElement.Parse(messages[1]));
+                        server.TCPBroadcastMessage("modInjection", messages[1]);
+                        InjectionsManager.modInjection(XElement.Parse(messages[1]));
                     });
                     break;
                 case "requestInitialInjection":
@@ -275,7 +276,7 @@ namespace InjectionSoftware.Network
                     Console.Out.WriteLine("[NetworkManager-Client] Receiving Mod Injection Request from server, proceed to modify injection");
                     window.Dispatcher.Invoke(() =>
                     {
-                        InjectionsManager.RecieveAndModInjection(XElement.Parse(messages[1]));
+                        InjectionsManager.modInjection(XElement.Parse(messages[1]));
                     });
                     break;
 

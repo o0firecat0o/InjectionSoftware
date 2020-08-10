@@ -73,15 +73,6 @@ namespace InjectionSoftware.Class
             }
         }
 
-        public static void RecieveAndModInjection(XElement xElement)
-        {
-            modInjection(xElement);
-            if (NetworkManager.isServer)
-            {
-                NetworkManager.server.TCPBroadcastMessage("modInjection", xElement.ToString());
-            }
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -161,7 +152,7 @@ namespace InjectionSoftware.Class
             return injection;
         }
 
-        private static void modInjection(XElement xElement)
+        public static void modInjection(XElement xElement)
         {
             XNamespace df = xElement.Name.Namespace;
 
