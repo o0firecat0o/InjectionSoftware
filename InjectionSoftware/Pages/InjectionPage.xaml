@@ -15,13 +15,18 @@
       Title="InjectionPage"
       Background="#FFEBEBEB">
 
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+    </Page.Resources>
+
     <Grid>
         <ItemsControl ItemsSource="{Binding CompositeCollection}">
             <ItemsControl.Resources>
 
                 <!-- Template for each injection case-->
                 <DataTemplate DataType="{x:Type localclass:Injection}">
-                    <Grid>
+                    <Grid x:Name="injectionGrid"
+                          Visibility="{Binding isVisible, Converter={StaticResource VisibleIfTrueConverter}}">
                         <!-- Button Press Event Trigger -->
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDown">
@@ -286,7 +291,6 @@
                                 </TextBlock.Effect>
                             </TextBlock>
                         </Viewbox>
-
 
                         <!-- border of the outline of the injection case-->
                         <Border CornerRadius="2"

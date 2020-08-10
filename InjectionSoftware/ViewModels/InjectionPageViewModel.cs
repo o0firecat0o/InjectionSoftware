@@ -60,7 +60,10 @@ namespace InjectionSoftware.ViewModels
             //caused more CPU power, but better user enjoyment
             foreach (Injection injection in InjectionsManager.injections)
             {
-                Console.Out.WriteLine(injection.SearchString);
+                injection.isVisible = false;
+                if (injection.SearchString.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0){
+                    injection.isVisible = true;
+                }
             }
         }
     }

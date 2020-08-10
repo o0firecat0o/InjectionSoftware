@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
@@ -297,7 +298,7 @@ namespace InjectionSoftware.Class
                 OnPropertyChanged("SelectedRoom");
             }
         }
-                
+
         public bool isContrast
         {
             get
@@ -378,6 +379,26 @@ namespace InjectionSoftware.Class
             }
         }
 
+
+        public Brush SearchBackground
+        {
+            get; set;
+        }
+
+        private bool _isVisible = true;
+        public bool isVisible
+        {
+            get
+            {
+                return _isVisible;
+            }
+            set
+            {
+                _isVisible = value;
+                OnPropertyChanged("isVisible");
+            }
+        }
+
         /// <summary>
         /// the string used for quick searching in injection page
         /// </summary>
@@ -412,10 +433,10 @@ namespace InjectionSoftware.Class
 
             XElement rp1 = new XElement("rp1");
             XElement rp2 = new XElement("rp2");
-            if(RPs.Count >= 1)
+            if (RPs.Count >= 1)
             {
                 rp1.Value = RPs[0].Name;
-                if(RPs.Count >= 2)
+                if (RPs.Count >= 2)
                 {
                     rp2.Value = RPs[1].Name;
                 }
@@ -433,7 +454,7 @@ namespace InjectionSoftware.Class
             XElement doctor = new XElement("doctor", Doctor.Name);
             XElement uptakeTime = new XElement("uptakeTime", UptakeTime.ToString());
             XElement injectionTime = new XElement("injectionTime", InjectionTime.ToString());
-            XElement selectedRoom = new XElement("selectedRoom", SelectedRoom.Name);           
+            XElement selectedRoom = new XElement("selectedRoom", SelectedRoom.Name);
 
             XElement isContrast = new XElement("isContrast", this.isContrast.ToString());
             XElement isDelay = new XElement("isDelay", this.isDelay.ToString());
