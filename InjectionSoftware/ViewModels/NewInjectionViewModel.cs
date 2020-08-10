@@ -362,7 +362,7 @@ namespace InjectionSoftware.ViewModels
 
         private async void dischargeDialog_OnConfirmDown(object sender, RoutedEventArgs e)
         {
-            InjectionsManager.dischargeInjection(Injection, true);
+            InjectionsManager.sendAndDischargeInjection(Injection.AccessionNumber) ;
             await NewInjection.window.HideMetroDialogAsync(dischargeConfirmDialog);
             NewInjection.window.Close();
         }

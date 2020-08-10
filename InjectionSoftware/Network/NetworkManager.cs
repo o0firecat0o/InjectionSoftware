@@ -231,6 +231,15 @@ namespace InjectionSoftware.Network
                     }
                     break;
 
+                case "dischargeInjection":
+                    Console.Out.WriteLine("[NetworkManager-Server] Receiving discharge Injection Request from client, proceed to discharge injection");
+                    window.Dispatcher.Invoke(() =>
+                    {
+                        server.TCPBroadcastMessage("dischargeInjection", messages[1]);
+                        InjectionsManager.dischargeInjection(messages[1]);
+                    });
+                    break;
+
                 default:
                     Console.Error.WriteLine("[NetworkManager-Server] Unhandled message type: " + messages[0]);
                     break;
@@ -277,6 +286,13 @@ namespace InjectionSoftware.Network
                     window.Dispatcher.Invoke(() =>
                     {
                         InjectionsManager.modInjection(XElement.Parse(messages[1]));
+                    });
+                    break;
+                case "dischargeInjection":
+                    Console.Out.WriteLine("[NetworkManager-Client] Receiving Discharge Injection Request from server, proceed to discharge injection");
+                    window.Dispatcher.Invoke(() =>
+                    {
+                        InjectionsManager.dischargeInjection(messages[1]);
                     });
                     break;
 

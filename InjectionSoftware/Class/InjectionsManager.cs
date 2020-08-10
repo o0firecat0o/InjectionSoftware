@@ -186,9 +186,36 @@ namespace InjectionSoftware.Class
             modInjection(accessionNumber, patientID, patientSurname, patientLastname, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
         }
 
-        public static void dischargeInjection(Injection Injection, bool isDischarge)
+        public static void sendAndDischargeInjection(string AccessionNumber)
         {
-            Injection.isDischarge = isDischarge;
+            if (hasInjection(AccessionNumber))
+            {
+                if (NetworkManager.isServer)
+                {
+                    dischargeInjection(AccessionNumber);
+                    NetworkManager.server.TCPBroadcastMessage("dischargeInjection", AccessionNumber);
+                }
+                else
+                {
+                    NetworkManager.client.TCPSendMessageToServer("dischargeInjection", AccessionNumber);
+                }
+            }
+            else
+            {
+                Console.Error.WriteLine("[InjectionManager] Error executing discharge injection command, reason: patient with accessionNumber does not exist");
+            }
+        }
+
+        public static void dischargeInjection(string AccessionNumber)
+        {
+            if (hasInjection(AccessionNumber))
+            {
+                getInjection(AccessionNumber).isDischarge = true;
+            }
+            else
+            {
+                Console.Error.WriteLine("[InjectionManager] Error executing discharge injection command, reason: patient with accessionNumber does not exist");
+            }
         }
 
         public static void delInjection(Injection Injection)
