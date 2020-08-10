@@ -360,12 +360,26 @@
                             </Border.Effect>
                         </Border>
 
-                        <!-- Add + New -->
-                        <Viewbox Stretch="Uniform">
-                            <StackPanel Orientation="Horizontal">
-
-                            </StackPanel>
-                        </Viewbox>
+                        <!-- Search bar -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                            <TextBox x:Name="searchBox"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     Width="160"
+                                     FontSize="22"
+                                     Text="{Binding DataContext.SearchString, RelativeSource={RelativeSource AncestorType=Page}, Mode=TwoWay}">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Command="{Binding DataContext.SearchCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding Text, ElementName=searchBox}"
+                                                Key="Return" />
+                                </TextBox.InputBindings>
+                            </TextBox>
+                            <iconPacks:PackIconBoxIcons Kind="RegularPlusCircle"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Margin="10"
+                                                        Foreground="GreenYellow" />
+                        </StackPanel>
 
                     </Grid>
                 </DataTemplate>

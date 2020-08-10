@@ -26,19 +26,19 @@ namespace InjectionSoftware.ViewModels
 
         public Command Command2 { get; set; }
 
+        public Command<string> SearchCommand { get; set; }
+
         public InjectionPageViewModel()
         {
             Command1 = new Command<Injection>(ExecuteCommand1);
             Command2 = new Command(ExecuteCommand2);
 
-
+            SearchCommand = new Command<string>(Search);
 
             CollectionContainer injectionsCollection = new CollectionContainer() { Collection = InjectionsManager.injections };            
             CompositeCollection.Add(injectionsCollection);
             CompositeCollection.Add(new AddNewButton());
             CompositeCollection.Add(new Legend());
-
-            
         }
 
         private void ExecuteCommand1(Injection injection)
@@ -53,6 +53,9 @@ namespace InjectionSoftware.ViewModels
             newInjectionWindow.ShowDialog();
         }
 
-
+        private void Search(string search)
+        {
+            Console.Out.WriteLine(search);
+        }
     }
 }
