@@ -11,7 +11,7 @@
                       mc:Ignorable="d"
                       Title="NewInjection"
                       Height="800"
-                      Width="600"
+                      Width="800"
                       ResizeMode="NoResize"
                       GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
                       WindowStartupLocation="CenterScreen">
@@ -19,33 +19,56 @@
     <DockPanel>
         <StackPanel Margin="20 10 20 10"
                     DockPanel.Dock="Top">
+
+            <TextBlock> Patient:</TextBlock>
+            <ListBox x:Name="Patient"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                     HorizontalAlignment="Center"
+                     ItemsSource="{Binding ALLRP}">
+
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="14" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding SeperatedName}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel>
+                <StackPanel Grid.Column="1" Margin="3">
                     <TextBlock> Patient Surname:</TextBlock>
                     <TextBox Text="{Binding patientSurname}" />
+                </StackPanel>
+                <StackPanel Grid.Column="2"
+                            Margin="3">
                     <TextBlock> Patient Lastame:</TextBlock>
                     <TextBox Text="{Binding patientLastname}" />
+                </StackPanel>
+                <StackPanel Margin="3">
                     <TextBlock> Patient ID:</TextBlock>
                     <TextBox Text="{Binding patientID}" />
                 </StackPanel>
 
-                <DockPanel Grid.Column="1"
+                <DockPanel Grid.Column="2"
                            Margin="20">
-                    <mah:ToggleSwitch Header="Need Contrast?"
-                                      Width="114"
-                                      OffContent="No"
-                                      OnContent="Yes"
-                                      IsOn="{Binding isContrast}" />
-                    <mah:ToggleSwitch Header="Need Delay?"
-                                      Width="114"
-                                      OffContent="No"
-                                      OnContent="Yes"
-                                      IsOn="{Binding isDelay}" />
+
                 </DockPanel>
             </Grid>
 
@@ -76,29 +99,63 @@
                 </ListView.ItemTemplate>
             </ListView>
 
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock> Uptake Time:</TextBlock>
+                    <ListView Height="60"
+                              HorizontalAlignment="Center"
+                              SelectedIndex="{Binding UptakeTimeIndex}"
+                              Style="{StaticResource ListViewItemOnSelectColor}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
 
-            <TextBlock> Uptake Time:</TextBlock>
-            <ListView Height="60"
-                      HorizontalAlignment="Center"
-                      SelectedIndex="{Binding UptakeTimeIndex}"
-                      Style="{StaticResource ListViewItemOnSelectColor}">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-
-                <ListViewItem Background="#FFFFE4E4">
-                    <TextBlock HorizontalAlignment="Center">
+                        <ListViewItem Background="#FFFFE4E4">
+                            <TextBlock HorizontalAlignment="Center">
                     1 Hour
-                    </TextBlock>
-                </ListViewItem>
-                <ListViewItem Background="#FFFDFFDC">
-                    <TextBlock HorizontalAlignment="Center">
+                            </TextBlock>
+                        </ListViewItem>
+                        <ListViewItem Background="#FFFDFFDC">
+                            <TextBlock HorizontalAlignment="Center">
                     1.5 Hour
-                    </TextBlock>
-                </ListViewItem>
-            </ListView>
+                            </TextBlock>
+                        </ListViewItem>
+                    </ListView>
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Center"
+                            Grid.Column="3">
+                    <TextBlock> Need Contrast?</TextBlock>
+                    <mah:ToggleSwitch Width="114"
+                                      OffContent="No"
+                                      OnContent="Yes"
+                                      IsOn="{Binding isContrast}"
+                                      Margin="5"
+                                      VerticalAlignment="Top" />
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Center"
+                            Grid.Column="4">
+                    <TextBlock> Need Delay?</TextBlock>
+                    <mah:ToggleSwitch Width="114"
+                                      OffContent="No"
+                                      OnContent="Yes"
+                                      IsOn="{Binding isDelay}"
+                                      Margin="5"
+                                      VerticalAlignment="Top" />
+                </StackPanel>
+            </Grid>
+
+
 
             <TextBlock>
             Uptake Room:
