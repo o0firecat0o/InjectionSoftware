@@ -23,16 +23,6 @@ namespace InjectionSoftware.Class
             }
             patients.Add(patient);
         }
-        public static void AddPatient(string patientID, string patientSurname, string patientLastname)
-        {
-            if (HasPatient(patientID))
-            {
-                Console.Out.WriteLine("Patient with patient ID:" + patientID + " is already presented in database, fail to add patiet");
-                return;
-            }
-            Patient patient = new Patient(patientID, patientSurname, patientLastname);
-            patients.Add(patient);
-        }
 
         public static Patient GetPatient(string patientID)
         {
@@ -75,7 +65,7 @@ namespace InjectionSoftware.Class
             {
                 string text = System.IO.File.ReadAllText(file);
                 Hl7file ff =  Hl7file.load(text);
-                Console.Out.WriteLine(ff.getSegment("OBR").getString(3));
+                Console.Out.WriteLine(new Patient(ff).toXml());
             }
         }
     }

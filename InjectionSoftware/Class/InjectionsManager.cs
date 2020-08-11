@@ -99,7 +99,11 @@ namespace InjectionSoftware.Class
             }
             else
             {
-                patient = new Patient(patientID, patientSurname, patientLastname);
+                patient = new Patient();
+                patient.PatientID = patientID;
+                patient.PatientSurname = patientSurname;
+                patient.PatientLastname = patientLastname;
+                PatientManager.AddPatient(patient);
             }
 
             // find whether the injection is already registered and exist in the database
