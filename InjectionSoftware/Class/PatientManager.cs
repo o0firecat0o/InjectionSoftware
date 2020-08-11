@@ -1,6 +1,7 @@
 ﻿using MahApps.Metro.IconPacks;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -56,6 +57,24 @@ namespace InjectionSoftware.Class
             return false;
         }
 
-       
+        // TODO: change to listening folder
+        // TODO: network capability
+        // TODO: add page to show patient info only
+        public static void LoadAllPatient()
+        {
+            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + @"\Schedular";
+
+            if (!Directory.Exists(fullpath))
+            {
+                Directory.CreateDirectory(fullpath);
+            }
+
+            foreach (var file in
+                Directory.EnumerateFiles(fullpath, "*.hl7"))
+            {
+                string text = System.IO.File.ReadAllText(file);
+                Console.Out.WriteLine(text);
+            }
+        }
     }
 }

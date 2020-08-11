@@ -55,8 +55,6 @@ namespace InjectionSoftware.Class
         }
         private string _PatientID;
 
-        
-
         public string PatientFullname
         {
             get
@@ -64,6 +62,17 @@ namespace InjectionSoftware.Class
                 return PatientSurname + " " + PatientLastname;
             }
         }
+
+        public string DateOfBirth { get; set; }
+        public bool isMale { get; set; }
+        public string PhoneNumber { get; set; }
+        public bool isInpatient { get; set; }
+        public string ReferralName { get; set; }
+        public float ReferralNo { get; set; }
+        public string UniqueExamIdentifier { get; set; }
+        public string ExamCode { get; set; }
+        public string ExamName { get; set; }
+
 
 
         public Patient(string patientID, string patientSurname, string patientLastname)
