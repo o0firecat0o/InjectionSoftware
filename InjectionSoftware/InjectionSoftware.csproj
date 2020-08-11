@@ -179,6 +179,8 @@
     <Compile Include="Pages\RoomPage.xaml.cs">
       <DependentUpon>RoomPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\Scheduler\Hl7file.cs" />
+    <Compile Include="Util\Scheduler\Hl7segment.cs" />
     <Compile Include="ViewModels\InjectionPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\NetworkPageViewModel.cs" />

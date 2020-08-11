@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.IconPacks;
+﻿using InjectionSoftware.Util.Scheduler;
+using MahApps.Metro.IconPacks;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -73,7 +74,8 @@ namespace InjectionSoftware.Class
                 Directory.EnumerateFiles(fullpath, "*.hl7"))
             {
                 string text = System.IO.File.ReadAllText(file);
-                Console.Out.WriteLine(text);
+                Hl7file ff =  Hl7file.load(text);
+                Console.Out.WriteLine(ff.getSegment("OBR").getString(3));
             }
         }
     }
