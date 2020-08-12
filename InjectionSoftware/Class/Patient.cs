@@ -105,9 +105,9 @@ namespace InjectionSoftware.Class
                 PhoneNumber = hl7File.getSegment("PID").getString(13);
                 IsInpatient = hl7File.getSegment("PV1").getString(2) == "I" ? true : false;
                 Referral = hl7File.getSegment("PV1").getString(7).Replace('^', ' ');
-                UniqueExamIdentifier = hl7File.getSegment("OBR").getString(2);
-                ExamCode = hl7File.getSegment("OBR").getString(3).Split('-')[0];
-                ExamName = hl7File.getSegment("OBR").getString(4);
+                //UniqueExamIdentifier = hl7File.getSegment("OBR").getString(2);
+                //ExamCode = hl7File.getSegment("OBR").getString(3).Split('-')[0];
+                //ExamName = hl7File.getSegment("OBR").getString(4);
             }
             catch (System.Exception e)
             {
@@ -117,10 +117,24 @@ namespace InjectionSoftware.Class
 
         public Patient(XElement xElement)
         {
+            XNamespace df = xElement.Name.Namespace;
 
+            PatientID = xElement.Element(df + "patientID").Value;
+
+            PatientSurname = xElement.Element(df + "patientSurname").Value;
+            PatientLastname = xElement.Element(df + "patientLastname").Value;
+
+            DateOfBirth = xElement.Element(df + "dateOfBirth").Value;
+            IsMale = bool.Parse(xElement.Element(df + "isMale").Value);
+            PhoneNumber = xElement.Element(df + "phoneNumber").Value;
+            IsInpatient = bool.Parse(xElement.Element(df + "isInpatient").Value);
+            Referral = xElement.Element(df + "referral").Value;
+            UniqueExamIdentifier = xElement.Element(df + "uniqueExamIdentifier").Value;
+            ExamCode = xElement.Element(df + "examCode").Value;
+            ExamName = xElement.Element(df + "examName").Value;
         }
 
-        public XElement toXml()
+        public XElement toXML()
         {
             XElement patient = new XElement("patient");
 

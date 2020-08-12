@@ -100,6 +100,10 @@ namespace InjectionSoftware.Network
             server.ClientConnectedEvent += ClientConnected;
             server.ClientDisconnectedEvent += ClientDisconnected;
 
+
+            //load all patient in registered patient after starting server, the client will load the patient via requesting
+            PatientManager.LoadAllPatient();
+
             //load all the injection after starting server, the client will load the injection via contacting with server
             InjectionsManager.loadAllInjections();
 
@@ -143,9 +147,15 @@ namespace InjectionSoftware.Network
 
             window.Dispatcher.Invoke(async () =>
             {
+                // request all the registered patient, exp from scheduler
+                client.TCPSendMessageToServer("requestInitialPatient", "");
+
+                // Injection Syncing...
                 // clear all previous injection
                 InjectionsManager.injections.Clear();
-                client.TCPSendMessageToServer("requestInitialInjection", "");   
+                // request all the injection
+                client.TCPSendMessageToServer("requestInitialInjection", "");  
+                
                 await window.HideMetroDialogAsync(progressingDialog);
                 await window.ShowMessageAsync("Connection to server succesful", "Server Name: " + client.servername + "\nServer IP:" + client.serverip);
             });
@@ -231,6 +241,14 @@ namespace InjectionSoftware.Network
                     }
                     break;
 
+                case "requestInitialPatient":
+                    Console.Out.WriteLine("[NetworkManager-Server] Receiving Initial Patient Request from client, proceed to send all patient to client with ip: {0}", args.IpPort);
+                    foreach (Patient patient in PatientManager.Patients)
+                    {
+                        server.TCPSendMessage(args.IpPort, "addPatient", patient.toXML().ToString());
+                    }
+                    break;
+
                 case "dischargeInjection":
                     Console.Out.WriteLine("[NetworkManager-Server] Receiving discharge Injection Request from client, proceed to discharge injection");
                     window.Dispatcher.Invoke(() =>
@@ -309,6 +327,14 @@ namespace InjectionSoftware.Network
                     window.Dispatcher.Invoke(() =>
                     {
                         InjectionsManager.removeInjection(messages[1]);
+                    });
+                    break;
+
+                case "addPatient":
+                    Console.Out.WriteLine("[NetworkManager-Client] Receiving Add Patient Request from server, proceed to add Patient");
+                    window.Dispatcher.Invoke(() =>
+                    {
+                        PatientManager.AddPatient(new Patient(XElement.Parse(messages[1])));
                     });
                     break;
 

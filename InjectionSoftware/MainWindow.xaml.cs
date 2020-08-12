@@ -55,9 +55,6 @@ namespace InjectionSoftware
             Doctor.AddDefault();
             Room.AddDefault();
 
-            //move this to server/ client
-            PatientManager.LoadAllPatient();
-
             InjectionsManager.Init();
 
             NetworkManager.Init(this);
