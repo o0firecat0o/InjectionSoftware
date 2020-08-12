@@ -21,7 +21,7 @@
                     DockPanel.Dock="Top">
 
             <TextBlock> Patient:</TextBlock>
-            <ListBox x:Name="Patient"
+            <ListBox x:Name="PatientSelection"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      HorizontalAlignment="Center"
                      ItemsSource="{Binding ALLPatient}">

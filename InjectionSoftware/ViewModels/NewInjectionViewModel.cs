@@ -156,6 +156,7 @@ namespace InjectionSoftware.ViewModels
 
             NewInjection.window.Closed += Window_Closed;
             ((NewInjection)NewInjection.window).RP_injection.SelectionChanged += reselectUptakeTime;
+            ((NewInjection)NewInjection.window).PatientSelection.SelectionChanged += patientSelectionChanged;
 
             if (Injection != null)
             {
@@ -252,6 +253,14 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
+        public void patientSelectionChanged(object sender, SelectionChangedEventArgs args)
+        {
+            Patient patient = (Patient)(((NewInjection)NewInjection.window).PatientSelection.SelectedItem);
+            patientID = patient.PatientID;
+            patientLastname = patient.PatientLastname;
+            patientSurname = patient.PatientSurname;
+        }
+
         private void Window_Closed(object sender, EventArgs e)
         {
             NewInjection.window.Closed -= Window_Closed;
@@ -268,6 +277,7 @@ namespace InjectionSoftware.ViewModels
             dischargeConfirmDialog.Confirm.Click -= dischargeDialog_OnConfirmDown;
 
             ((NewInjection)NewInjection.window).RP_injection.SelectionChanged -= reselectUptakeTime;
+            ((NewInjection)NewInjection.window).PatientSelection.SelectionChanged -= patientSelectionChanged;
 
             deleteConfirmDialog = null;
             dischargeConfirmDialog = null;
