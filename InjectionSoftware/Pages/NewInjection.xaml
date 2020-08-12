@@ -11,7 +11,7 @@
                       mc:Ignorable="d"
                       Title="NewInjection"
                       Height="1000"
-                      Width="800"
+                      Width="700"
                       ResizeMode="NoResize"
                       GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
                       WindowStartupLocation="CenterScreen">
@@ -35,7 +35,6 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding PatientFullSeperatedName}"
-                                   HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    TextAlignment="Center"
                                    Width="60"
@@ -64,7 +63,8 @@
                 </StackPanel>
                 <StackPanel Margin="3">
                     <TextBlock> Patient ID:</TextBlock>
-                    <TextBox Text="{Binding patientID}" />
+                    <TextBox x:Name="patientIDTextBox"
+                             Text="{Binding patientID}" />
                 </StackPanel>
 
                 <DockPanel Grid.Column="2"

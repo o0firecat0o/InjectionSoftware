@@ -91,21 +91,21 @@ namespace InjectionSoftware.Class
             try
             {
                 PatientID = hl7File.getSegment("PID").getString(3).Split('^')[0];
-                PatientLastname = hl7File.getSegment("PID").getString(5).Split(' ')[0].Replace('^', ' ');
-                if (hl7File.getSegment("PID").getString(5).Split(' ').Length > 1)
+                PatientSurname = hl7File.getSegment("PID").getString(5).Split('^')[0];
+                if (hl7File.getSegment("PID").getString(5).Split('^').Length > 1)
                 {
-                    PatientSurname = hl7File.getSegment("PID").getString(5).Split(' ')[1];
+                    PatientLastname = hl7File.getSegment("PID").getString(5).Split('^')[1];
                 }
                 else
                 {
-                    PatientSurname = "";
+                    PatientLastname = "";
                 }
                 DateOfBirth = hl7File.getSegment("PID").getString(7);
                 IsMale = hl7File.getSegment("PID").getString(8) == "M" ? true : false;
                 PhoneNumber = hl7File.getSegment("PID").getString(13);
                 IsInpatient = hl7File.getSegment("PV1").getString(2) == "I" ? true : false;
                 Referral = hl7File.getSegment("PV1").getString(7).Replace('^', ' ');
-               UniqueExamIdentifier = hl7File.getSegment("OBR").getString(2);
+                UniqueExamIdentifier = hl7File.getSegment("OBR").getString(2);
                 ExamCode = hl7File.getSegment("OBR").getString(3).Split('-')[0];
                 ExamName = hl7File.getSegment("OBR").getString(4);
             }

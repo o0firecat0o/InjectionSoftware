@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace InjectionSoftware.ViewModels
 {
@@ -259,6 +260,8 @@ namespace InjectionSoftware.ViewModels
             patientID = patient.PatientID;
             patientLastname = patient.PatientLastname;
             patientSurname = patient.PatientSurname;
+            ((NewInjection)NewInjection.window).patientIDTextBox.IsReadOnly = true;
+            ((NewInjection)NewInjection.window).patientIDTextBox.Background = Brushes.LightGray;
         }
 
         private void Window_Closed(object sender, EventArgs e)
