@@ -2,6 +2,7 @@
 using MahApps.Metro.IconPacks;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -12,7 +13,7 @@ namespace InjectionSoftware.Class
 {
     public static class PatientManager
     {
-        private static List<Patient> patients = new List<Patient>();
+        public static ObservableCollection<Patient> Patients = new ObservableCollection<Patient>();
 
         public static void AddPatient(Patient patient)
         {
@@ -21,12 +22,12 @@ namespace InjectionSoftware.Class
                 Console.Out.WriteLine("Patient with patient ID:" + patient.PatientID + " is already presented in database, fail to add patiet");
                 return;
             }
-            patients.Add(patient);
+            Patients.Add(patient);
         }
 
         public static Patient GetPatient(string patientID)
         {
-            foreach (Patient patient in patients)
+            foreach (Patient patient in Patients)
             {
                 if (patient.PatientID.Equals(patientID))
                 {
@@ -39,7 +40,7 @@ namespace InjectionSoftware.Class
 
         public static bool HasPatient(string patientID)
         {
-            foreach (Patient patient in patients)
+            foreach (Patient patient in Patients)
             {
                 if (patient.PatientID.Equals(patientID)){
                     return true;
@@ -63,9 +64,16 @@ namespace InjectionSoftware.Class
             foreach (var file in
                 Directory.EnumerateFiles(fullpath, "*.hl7"))
             {
-                string text = System.IO.File.ReadAllText(file);
-                Hl7file ff =  Hl7file.load(text);
-                Console.Out.WriteLine(new Patient(ff).toXml());
+                try
+                {
+                    string text = System.IO.File.ReadAllText(file);
+                    Hl7file ff = Hl7file.load(text);
+                    Patients.Add(new Patient(ff));
+                }
+                catch(System.Exception e)
+                {
+                    Console.Error.WriteLine(e);
+                }
             }
         }
     }

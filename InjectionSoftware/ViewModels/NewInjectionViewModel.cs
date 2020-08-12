@@ -100,7 +100,13 @@ namespace InjectionSoftware.ViewModels
         private bool _isDischarge;
         public bool isDischarge { get { return _isDischarge; } set { _isDischarge = value; OnPropertyChanged("isDischarge"); } }
 
-
+        public ObservableCollection<Patient> ALLPatient
+        {
+            get
+            {
+                return PatientManager.Patients;
+            }
+        }
 
         /// <summary>
         /// All the registered RP

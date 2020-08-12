@@ -10,7 +10,7 @@
                       xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       mc:Ignorable="d"
                       Title="NewInjection"
-                      Height="800"
+                      Height="1000"
                       Width="800"
                       ResizeMode="NoResize"
                       GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
@@ -24,22 +24,22 @@
             <ListBox x:Name="Patient"
                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
                      HorizontalAlignment="Center"
-                     ItemsSource="{Binding ALLRP}">
+                     ItemsSource="{Binding ALLPatient}">
 
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="14" />
+                        <UniformGrid Columns="10" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel HorizontalAlignment="Center">
-                            <TextBlock Text="{Binding SeperatedName}"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       TextAlignment="Center" />
-                        </StackPanel>
+                        <TextBlock Text="{Binding PatientFullSeperatedName}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Width="60"
+                                   Height="60" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -52,7 +52,8 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="1" Margin="3">
+                <StackPanel Grid.Column="1"
+                            Margin="3">
                     <TextBlock> Patient Surname:</TextBlock>
                     <TextBox Text="{Binding patientSurname}" />
                 </StackPanel>

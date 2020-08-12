@@ -65,6 +65,14 @@ namespace InjectionSoftware.Class
             }
         }
 
+        public string PatientFullSeperatedName
+        {
+            get
+            {
+                return PatientFullname.Replace(' ', '\n');
+            }
+        }
+
         public string DateOfBirth { get; set; }
         public bool IsMale { get; set; }
         public string PhoneNumber { get; set; }
