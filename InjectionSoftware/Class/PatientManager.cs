@@ -42,7 +42,7 @@ namespace InjectionSoftware.Class
         {
             foreach (Patient patient in Patients)
             {
-                if (patient.PatientID.Equals(patientID)){
+                if (patient.PatientID == patientID){
                     return true;
                 }
             }
@@ -68,7 +68,8 @@ namespace InjectionSoftware.Class
                 {
                     string text = System.IO.File.ReadAllText(file);
                     Hl7file ff = Hl7file.load(text);
-                    Patients.Add(new Patient(ff));
+                    Patient patient = new Patient(ff);
+                    AddPatient(patient);
                 }
                 catch(System.Exception e)
                 {
