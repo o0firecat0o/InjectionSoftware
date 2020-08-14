@@ -18,7 +18,17 @@ namespace InjectionSoftware.Class
 {
     public class Injection : INotifyPropertyChanged
     {
-        public Patient Patient { get; set; }
+        private Patient _Patient;
+        public Patient Patient { get
+            {
+                return _Patient;
+            }
+            set
+            {
+                _Patient = value;
+                OnPropertyChanged("Patient");
+            }
+        }
 
         private int _CaseNumber = 1;
 

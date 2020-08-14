@@ -101,8 +101,6 @@ namespace InjectionSoftware.Class
             {
                 patient = new Patient();
                 patient.PatientID = patientID;
-                patient.PatientSurname = patientSurname;
-                patient.PatientLastname = patientLastname;
                 PatientManager.AddPatient(patient);
             }
 
@@ -117,7 +115,6 @@ namespace InjectionSoftware.Class
             {
                 injection = new Injection();
                 injection.AccessionNumber = accessionNumber;
-                injection.Patient = patient;
                 injections.Add(injection);
             }
             // adding completely new injection
@@ -125,13 +122,15 @@ namespace InjectionSoftware.Class
             {
                 injection = new Injection();
                 injection.AccessionNumber = Guid.NewGuid().ToString();
-                injection.Patient = patient;
                 injections.Add(injection);
             }
 
-            injection.Patient.PatientID = patientID;
-            injection.Patient.PatientSurname = patientSurname;
-            injection.Patient.PatientLastname = patientLastname;
+
+            // modify the patient information
+            injection.Patient = patient;
+            patient.PatientSurname = patientSurname;
+            patient.PatientLastname = patientLastname;
+
             injection.RPs = RPs;
             injection.Doctor = Doctor;
             injection.UptakeTime = UptakeTime;

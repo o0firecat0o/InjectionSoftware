@@ -162,6 +162,11 @@ namespace InjectionSoftware.ViewModels
             if (Injection != null)
             {
                 Console.Out.WriteLine("loading previous injection with patientID: " + Injection.Patient.PatientID);
+                // make it impossible to change the patient ID if loading from previous injection
+                ((NewInjection)NewInjection.window).patientIDTextBox.IsReadOnly = true;
+                ((NewInjection)NewInjection.window).patientIDTextBox.Background = Brushes.LightGray;
+
+                // copy all the injection information to this VM.
                 patientID = Injection.Patient.PatientID;
                 patientSurname = Injection.Patient.PatientSurname;
                 patientLastname = Injection.Patient.PatientLastname;
