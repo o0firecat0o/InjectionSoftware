@@ -23,7 +23,6 @@ namespace InjectionSoftware.Enums
         /// </summary>
         public string SimplifiedName { get; }
         public Brush Color { get; }
-        public float UptakeTime { get; }
         
         private static BrushConverter converter = new System.Windows.Media.BrushConverter();
 

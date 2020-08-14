@@ -51,6 +51,7 @@ namespace InjectionSoftware
             //set the default selection to 1
             leftControlBar.SelectedIndex = 0;
 
+            Modality.AddDefault();
             RP.AddDefault();
             Doctor.AddDefault();
             Room.AddDefault();

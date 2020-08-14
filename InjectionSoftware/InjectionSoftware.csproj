@@ -162,6 +162,7 @@
       <DependentUpon>TwoChoiceDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Enums\Doctor.cs" />
+    <Compile Include="Enums\Modality.cs" />
     <Compile Include="Enums\Room.cs" />
     <Compile Include="Enums\RP.cs" />
     <Compile Include="Network\Client.cs" />

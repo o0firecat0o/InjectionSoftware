@@ -46,13 +46,7 @@ namespace InjectionSoftware.ViewModels
         private string _patientLastname;
         public string patientLastname { get { return _patientLastname; } set { _patientLastname = value; OnPropertyChanged("patientLastname"); } }
 
-        public Command Cancel { get; set; }
 
-        public Command Confirm { get; set; }
-
-        public Command Delete { get; set; }
-
-        public Command Discharge { get; set; }
 
         /// <summary>
         /// The injection time of the RP, adjustable by Mahapp time picker
@@ -141,6 +135,11 @@ namespace InjectionSoftware.ViewModels
         /// </summary>
         private float hasUptaketimeChanged = 2;
 
+
+        public Command Cancel { get; set; }
+        public Command Confirm { get; set; }
+        public Command Delete { get; set; }
+        public Command Discharge { get; set; }
 
         SelectionDialog deleteConfirmDialog = new SelectionDialog();
         SelectionDialog dischargeConfirmDialog = new SelectionDialog();
