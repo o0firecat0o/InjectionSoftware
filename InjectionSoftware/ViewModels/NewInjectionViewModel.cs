@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -62,6 +63,20 @@ namespace InjectionSoftware.ViewModels
             }
         }
         private DateTime _DateTime;
+
+        private Modality _SelectedModality;
+        public Modality SelectedModality
+        {
+            get
+            {
+                return _SelectedModality;
+            }
+            set
+            {
+                _SelectedModality = value;
+                OnPropertyChanged("SelectedModality");
+            }
+        }
 
         /// <summary>
         /// The selected radiologist who will dictate the case
@@ -130,6 +145,14 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
+        public ObservableCollection<Modality> ALLModality
+        {
+            get
+            {
+                return Modality.Modalities;
+            }
+        }
+
         /// <summary>
         /// for better user input, automatically change uptake hour if the user select RP
         /// </summary>
@@ -192,9 +215,23 @@ namespace InjectionSoftware.ViewModels
                 UptakeTimeIndex = 0;
             }
 
+            
+            reselectModality();
             reselectRPs();
             reselectRadiologist();
             reselectRoom();
+        }
+
+        private void reselectModality()
+        {
+            if (Injection != null)
+            {
+                SelectedModality = Injection.Modality;
+            }
+            else
+            {
+                SelectedModality = Modality.Modalities[0];
+            }
         }
 
         private void reselectRPs()
@@ -329,13 +366,13 @@ namespace InjectionSoftware.ViewModels
                 //add new injection
                 if (Injection == null)
                 {
-                    InjectionsManager.modInjectionNetWork("", patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                    InjectionsManager.modInjectionNetWork("", SelectedModality, patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
                     Console.Out.WriteLine("adding injection with patient ID: " + patientID);
                 }
                 //modify existing injection
                 else
                 {
-                    InjectionsManager.modInjectionNetWork(Injection.AccessionNumber, patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                    InjectionsManager.modInjectionNetWork(Injection.AccessionNumber, SelectedModality, patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
                     Console.Out.WriteLine("modifying injection with patient ID:" + patientID);
                 }
 

@@ -100,6 +100,32 @@
                 </ListView.ItemTemplate>
             </ListView>
 
+            <TextBlock> Modality:</TextBlock>
+            <ListView x:Name="Modality"
+                      Height="60"
+                      HorizontalAlignment="Center"
+                      ItemsSource="{Binding ALLModality}"
+                      SelectedItem="{Binding SelectedModality}"
+                      Style="{StaticResource ListViewItemOnSelectColor}">
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding Name}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

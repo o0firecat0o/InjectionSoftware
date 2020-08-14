@@ -60,9 +60,9 @@ namespace InjectionSoftware.Class
             return null;
         }
 
-        public static void modInjectionNetWork(string accessionNumber, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
+        public static void modInjectionNetWork(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
         {
-            Injection injection = modInjection(accessionNumber, patientID, patientSurname, patientLastname, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
+            Injection injection = modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
             if (!NetworkManager.isServer)
             {
                 NetworkManager.client.TCPSendMessageToServer("modInjection", injection.toXML().ToString());
@@ -89,7 +89,7 @@ namespace InjectionSoftware.Class
         /// <param name="isDelay"></param>
         /// <param name="isDischarge"></param>
         /// <returns></returns>
-        private static Injection modInjection(string accessionNumber, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
+        private static Injection modInjection(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
         {
             // find wether the patient is already registered and exist in the database
             Patient patient;
@@ -131,6 +131,7 @@ namespace InjectionSoftware.Class
             patient.PatientSurname = patientSurname;
             patient.PatientLastname = patientLastname;
 
+            injection.Modality = modality;
             injection.RPs = RPs;
             injection.Doctor = Doctor;
             injection.UptakeTime = UptakeTime;
@@ -159,6 +160,8 @@ namespace InjectionSoftware.Class
         {
             XNamespace df = xElement.Name.Namespace;
 
+            Modality modality = Modality.getModality(xElement.Element(df + "modality").Value);
+
             string accessionNumber = xElement.Element(df + "accessionNumber").Value;
 
             string patientID = xElement.Element(df + "patientID").Value;
@@ -186,7 +189,7 @@ namespace InjectionSoftware.Class
             bool isDelay = bool.Parse(xElement.Element(df + "isDelay").Value);
             bool isDischarge = bool.Parse(xElement.Element(df + "isDischarge").Value);
 
-            modInjection(accessionNumber, patientID, patientSurname, patientLastname, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
+            modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
         }
 
         public static void dischargeInjectionNetwork(string AccessionNumber)

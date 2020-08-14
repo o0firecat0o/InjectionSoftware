@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 using System.Xml;
@@ -81,6 +82,20 @@ namespace InjectionSoftware.Class
         {
             get;
             set;
+        }
+
+        private Modality _Modality;
+        public Modality Modality
+        {
+            get
+            {
+                return _Modality;
+            }
+            set
+            {
+                _Modality = value;
+                OnPropertyChanged("Modality");
+            }
         }
 
         /// <summary>
@@ -389,12 +404,9 @@ namespace InjectionSoftware.Class
             }
         }
 
-
-        public Brush SearchBackground
-        {
-            get; set;
-        }
-
+        /// <summary>
+        /// Used for searching, when the search is performed, the injection with the matching searchstring will be visible
+        /// </summary>
         private bool _isVisible = true;
         public bool isVisible
         {
@@ -408,6 +420,8 @@ namespace InjectionSoftware.Class
                 OnPropertyChanged("isVisible");
             }
         }
+
+        //TODO: modify the search string to include other stuff, eg doctor name
 
         /// <summary>
         /// the string used for quick searching in injection page
@@ -423,7 +437,6 @@ namespace InjectionSoftware.Class
             {
                 SearchString += rP.Name + "_";
             }
-            SearchString += Doctor.Name + "_";
         }
 
         public void Update()
@@ -436,6 +449,8 @@ namespace InjectionSoftware.Class
             XElement injection = new XElement("injection");
 
             XElement accessionNumber = new XElement("accessionNumber", AccessionNumber);
+
+            XElement modality = new XElement("modality", Modality.Name);
 
             XElement patientID = new XElement("patientID", Patient.PatientID);
             XElement patientSurname = new XElement("patientSurname", Patient.PatientSurname);
@@ -471,6 +486,7 @@ namespace InjectionSoftware.Class
             XElement isDischarge = new XElement("isDischarge", this.isDischarge.ToString());
 
             injection.Add(accessionNumber);
+            injection.Add(modality);
             injection.Add(patientID);
             injection.Add(patientSurname);
             injection.Add(patientLastname);
