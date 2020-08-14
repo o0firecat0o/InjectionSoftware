@@ -400,7 +400,29 @@
                     </Grid>
                 </DataTemplate>
 
-
+                <DataTemplate DataType="{x:Type localclass:PETMRBorder}">
+                    <Grid IsHitTestVisible="False">
+                        <!-- Background panel -->
+                        <Border CornerRadius="4"
+                                Margin="3"
+                                Background="#0C21FFFF">
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="2"
+                                                  Color="#FF666666"
+                                                  BlurRadius="3"
+                                                  Opacity="0.2" />
+                            </Border.Effect>
+                        </Border>
+                        <Viewbox Stretch="Uniform">
+                            <TextBlock Margin="20"
+                                       Text="PET&#10;MR"
+                                       Foreground="#FF5FA1A5"
+                                       Opacity="0.1"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                        </Viewbox>
+                    </Grid>
+                </DataTemplate>
             </ItemsControl.Resources>
 
 
@@ -437,6 +459,8 @@
                             Value="{Binding Row}" />
                     <Setter Property="Grid.Column"
                             Value="{Binding Column}" />
+                    <Setter Property="Grid.RowSpan"
+                            Value="{Binding RowSpan}" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
 

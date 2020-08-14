@@ -144,11 +144,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Class\AddNewButton.cs" />
+    <Compile Include="Class\ItemControlResources\AddNewButton.cs" />
     <Compile Include="Class\Command.cs" />
     <Compile Include="Class\Injection.cs" />
     <Compile Include="Class\InjectionsManager.cs" />
-    <Compile Include="Class\Legend.cs" />
+    <Compile Include="Class\ItemControlResources\Legend.cs" />
+    <Compile Include="Class\ItemControlResources\PETMRBorder.cs" />
     <Compile Include="Class\Patient.cs" />
     <Compile Include="Class\PatientManager.cs" />
     <Compile Include="Class\Timer.cs" />

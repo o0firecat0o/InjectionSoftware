@@ -43,6 +43,7 @@ namespace InjectionSoftware.ViewModels
             CompositeCollection.Add(injectionsCollection);
             CompositeCollection.Add(new AddNewButton());
             CompositeCollection.Add(new Legend());
+            CompositeCollection.Add(new PETMRBorder());
         }
 
         private void ExecuteCommand1(Injection injection)
