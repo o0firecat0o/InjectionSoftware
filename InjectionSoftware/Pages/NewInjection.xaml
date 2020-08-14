@@ -10,7 +10,7 @@
                       xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       mc:Ignorable="d"
                       Title="NewInjection"
-                      Height="1000"
+                      Height="900"
                       Width="700"
                       ResizeMode="NoResize"
                       GlowBrush="{DynamicResource MahApps.Brushes.Accent}"

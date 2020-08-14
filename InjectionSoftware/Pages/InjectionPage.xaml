@@ -60,7 +60,8 @@
                                 <Viewbox Stretch="Uniform">
                                     <TextBlock HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
-                                               Text="{Binding CaseNumber}"
+                                               TextAlignment="Center"
+                                               Text="{Binding CaseNumberText}"
                                                Style="{DynamicResource MahApps.Styles.TextBlock.HamburgerMenuHeader}">
                                     </TextBlock>
                                 </Viewbox>

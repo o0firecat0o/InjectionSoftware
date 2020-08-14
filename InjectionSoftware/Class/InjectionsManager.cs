@@ -292,11 +292,18 @@ namespace InjectionSoftware.Class
 
         public static void reassignCaseNumber()
         {
-            List<Injection> tempinjections = returnSortedInjectionByTime();
+            List<Injection> tempPETCTinjections = returnSortedInjectionByTime(Modality.getModality("PETCT"));
 
-            for (int i = 0; i < tempinjections.Count; i++)
+            for (int i = 0; i < tempPETCTinjections.Count; i++)
             {
-                tempinjections[i].CaseNumber = i + 1;
+                tempPETCTinjections[i].CaseNumber = i + 1;
+            }
+
+            List<Injection> tempPETMRinjections = returnSortedInjectionByTime(Modality.getModality("PETMR"));
+
+            for (int i = 0; i < tempPETMRinjections.Count; i++)
+            {
+                tempPETMRinjections[i].CaseNumber = i + 1;
             }
         }
 
@@ -313,6 +320,23 @@ namespace InjectionSoftware.Class
             foreach (var injection in injections)
             {
                 tempinjections.Add(injection);
+            }
+
+            //sort the list according to the injection time
+            tempinjections.Sort((x, y) => (DateTime.Compare(x.InjectionTime, y.InjectionTime)));
+
+            return tempinjections;
+        }
+
+        public static List<Injection> returnSortedInjectionByTime(Modality modality)
+        {
+            List<Injection> tempinjections = new List<Injection>();
+            foreach (var injection in injections)
+            {
+                if(injection.Modality == modality)
+                {
+                    tempinjections.Add(injection);
+                }
             }
 
             //sort the list according to the injection time

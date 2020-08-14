@@ -41,8 +41,9 @@ namespace InjectionSoftware.Enums
         {
             new Modality("PETCT", (Brush)converter.ConvertFromString("#83FFB9"));
             new Modality("PETMR", (Brush)converter.ConvertFromString("#FF79E0"));
-            new Modality("NM", (Brush)converter.ConvertFromString("#79CBFF"));
-            new Modality("OTHER", (Brush)converter.ConvertFromString("#FFCE79"));
+            //TODO: handle NM and other
+            //new Modality("NM", (Brush)converter.ConvertFromString("#79CBFF"));
+            //new Modality("OTHER", (Brush)converter.ConvertFromString("#FFCE79"));
         }
     }
 }

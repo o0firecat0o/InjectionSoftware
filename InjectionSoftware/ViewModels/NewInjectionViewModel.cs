@@ -403,7 +403,10 @@ namespace InjectionSoftware.ViewModels
         {
             InjectionsManager.removeInjectionNetwork(Injection.AccessionNumber);
             await NewInjection.window.HideMetroDialogAsync(deleteConfirmDialog);
-            NewInjection.window.Close();
+            if(NewInjection.window != null)
+            {
+                NewInjection.window.Close();
+            }
         }
 
         private async void discharge()

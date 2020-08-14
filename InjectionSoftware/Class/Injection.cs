@@ -47,11 +47,40 @@ namespace InjectionSoftware.Class
                 OnPropertyChanged("Column");
             }
         }
+
+        public string CaseNumberText
+        {
+            get
+            {
+                if (Modality == Modality.getModality("PETCT"))
+                {
+                    return CaseNumber.ToString();
+                }
+                else if (Modality == Modality.getModality("PETMR"))
+                {
+                    return "PETMR\n"+CaseNumber.ToString();
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
         public int Row
         {
             get
             {
-                return (CaseNumber - 1) % 10;
+                if(Modality == Modality.getModality("PETCT"))
+                {
+                    return (CaseNumber - 1) % 10;
+                }else if(Modality == Modality.getModality("PETMR"))
+                {
+                    return (5 + CaseNumber - 1) % 10;
+                }
+                else
+                {
+                    return 1000;
+                }                
             }
         }
 
@@ -59,7 +88,20 @@ namespace InjectionSoftware.Class
         {
             get
             {
-                return (CaseNumber - 1) / 10;
+                
+                if (Modality == Modality.getModality("PETCT"))
+                {
+                    return (CaseNumber - 1) / 10;
+                }
+                else if (Modality == Modality.getModality("PETMR"))
+                {
+                    return (CaseNumber - 1) / 10 + 2;
+                }
+                else
+                {
+                    return 1000;
+                }
+
             }
         }
 
