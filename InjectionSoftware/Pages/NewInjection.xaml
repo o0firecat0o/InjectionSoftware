@@ -10,312 +10,341 @@
                       xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       mc:Ignorable="d"
                       Title="NewInjection"
-                      Height="900"
-                      Width="700"
+                      Height="800"
+                      Width="1100"
                       ResizeMode="NoResize"
                       GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
                       WindowStartupLocation="CenterScreen">
 
     <DockPanel>
-        <StackPanel Margin="20 10 20 10"
-                    DockPanel.Dock="Top">
-
-            <TextBlock> Patient:</TextBlock>
-            <ListBox x:Name="PatientSelection"
-                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                     HorizontalAlignment="Center"
-                     ItemsSource="{Binding ALLPatient}">
-
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="10" />
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding PatientFullSeperatedName}"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center"
-                                   Width="60"
-                                   Height="60" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-
-
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="80" />
+            </Grid.RowDefinitions>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="1"
-                            Margin="3">
-                    <TextBlock> Patient Surname:</TextBlock>
-                    <TextBox Text="{Binding patientSurname}" />
-                </StackPanel>
-                <StackPanel Grid.Column="2"
-                            Margin="3">
-                    <TextBlock> Patient Lastame:</TextBlock>
-                    <TextBox Text="{Binding patientLastname}" />
-                </StackPanel>
-                <StackPanel Margin="3">
-                    <TextBlock> Patient ID:</TextBlock>
-                    <TextBox x:Name="patientIDTextBox"
-                             Text="{Binding patientID}" />
-                </StackPanel>
+                <Border Margin="3"
+                        Grid.Column="0"
+                        Background="#FFF0FFF6"
+                        BorderBrush="Green"
+                        BorderThickness="2">
 
-                <DockPanel Grid.Column="2"
-                           Margin="20">
+                    <StackPanel Margin="3">
+                        <TextBlock> Patient:</TextBlock>
+                        <!-- Select a patient from a grid box-->
+                        <ListBox x:Name="PatientSelection"
+                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                 HorizontalAlignment="Center"
+                                 ItemsSource="{Binding ALLPatient}">
 
-                </DockPanel>
-            </Grid>
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="10" />
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
 
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding PatientFullSeperatedName}"
+                                               VerticalAlignment="Center"
+                                               TextAlignment="Center"
+                                               Width="60"
+                                               Height="60" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
 
-            <TextBlock> Radiopharmaceutical:</TextBlock>
-            <ListView x:Name="RP_injection"
-                      Height="60"
-                      SelectionMode="Multiple"
-                      HorizontalAlignment="Center"
-                      ItemsSource="{Binding ALLRP}"
-                      Style="{StaticResource ListViewItemOnSelectColor}">
-
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel HorizontalAlignment="Center">
-                            <TextBlock Text="{Binding SeperatedName}"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       TextAlignment="Center" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-            <TextBlock> Modality:</TextBlock>
-            <ListView x:Name="Modality"
-                      Height="60"
-                      HorizontalAlignment="Center"
-                      ItemsSource="{Binding ALLModality}"
-                      SelectedItem="{Binding SelectedModality}"
-                      Style="{StaticResource ListViewItemOnSelectColor}">
-
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel HorizontalAlignment="Center">
-                            <TextBlock Text="{Binding Name}"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       TextAlignment="Center" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <StackPanel>
-                    <TextBlock> Uptake Time:</TextBlock>
-                    <ListView Height="60"
-                              HorizontalAlignment="Center"
-                              SelectedIndex="{Binding UptakeTimeIndex}"
-                              Style="{StaticResource ListViewItemOnSelectColor}">
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-
-                        <ListViewItem Background="#FFFFE4E4">
-                            <TextBlock HorizontalAlignment="Center">
-                    1 Hour
-                            </TextBlock>
-                        </ListViewItem>
-                        <ListViewItem Background="#FFFDFFDC">
-                            <TextBlock HorizontalAlignment="Center">
-                    1.5 Hour
-                            </TextBlock>
-                        </ListViewItem>
-                    </ListView>
-                </StackPanel>
-
-                <StackPanel VerticalAlignment="Center"
-                            Grid.Column="3">
-                    <TextBlock> Need Contrast?</TextBlock>
-                    <mah:ToggleSwitch Width="114"
-                                      OffContent="No"
-                                      OnContent="Yes"
-                                      IsOn="{Binding isContrast}"
-                                      Margin="5"
-                                      VerticalAlignment="Top" />
-                </StackPanel>
-
-                <StackPanel VerticalAlignment="Center"
-                            Grid.Column="4">
-                    <TextBlock> Need Delay?</TextBlock>
-                    <mah:ToggleSwitch Width="114"
-                                      OffContent="No"
-                                      OnContent="Yes"
-                                      IsOn="{Binding isDelay}"
-                                      Margin="5"
-                                      VerticalAlignment="Top" />
-                </StackPanel>
-            </Grid>
-
-
-
-            <TextBlock>
-            Uptake Room:
-            </TextBlock>
-            <ListBox x:Name="SelectedRoom"
-                     Height="250"
-                     Background="LightYellow"
-                     ItemsSource="{Binding AllRoom}"
-                     SelectedItem="{Binding SelectedRoom}">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
+                        <!-- Contain all patient information -->
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2.3*" />
-                                <ColumnDefinition Width="2.3*" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="2.3*" />
-                                <ColumnDefinition Width="2.3*" />
-                                <ColumnDefinition Width="2.3*" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="2.3*" />
-                                <ColumnDefinition Width="2.3*" />
-
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="2*" />
-                                <RowDefinition Height="2*" />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition Height="2*" />
-                                <RowDefinition Height="2*" />
-                                <RowDefinition Height="2*" />
-                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Column="1"
+                                        Margin="3">
+                                <TextBlock> Patient Surname:</TextBlock>
+                                <TextBox Text="{Binding patientSurname}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2"
+                                        Margin="3">
+                                <TextBlock> Patient Lastame:</TextBlock>
+                                <TextBox Text="{Binding patientLastname}" />
+                            </StackPanel>
+                            <StackPanel Margin="3">
+                                <TextBlock> Patient ID:</TextBlock>
+                                <TextBox x:Name="patientIDTextBox"
+                                         Text="{Binding patientID}" />
+                            </StackPanel>
+
+                            <DockPanel Grid.Column="2"
+                                       Margin="20">
+
+                            </DockPanel>
                         </Grid>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
+                    </StackPanel>
+                </Border>
 
-                <ListBox.Resources>
-                    <Style TargetType="ListBoxItem">
-                        <Style.Resources>
-                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
-                                             Color="Black" />
-                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
-                                             Color="White" />
-                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
-                                             Color="Black" />
-                        </Style.Resources>
-                        <Setter Property="Grid.RowSpan"
-                                Value="{Binding RowSpan}" />
-                        <Setter Property="Grid.ColumnSpan"
-                                Value="{Binding ColumnSpan}" />
-                        <Setter Property="Grid.Row"
-                                Value="{Binding Row}" />
-                        <Setter Property="Grid.Column"
-                                Value="{Binding Column}" />
-                        <Setter Property="Background"
-                                Value="{Binding Color}" />
-                        <Setter Property="BorderBrush"
-                                Value="Black" />
-                        <Setter Property="BorderThickness"
-                                Value="0.2" />
+                <Border Grid.Column="1"
+                        Margin="3"
+                        Background="AliceBlue"
+                        BorderBrush="Blue"
+                        BorderThickness="2">
+                    <StackPanel Margin="3"
+                                Background="AliceBlue">
 
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver"
-                                     Value="true">
-                                <Setter Property="Background"
-                                        Value="GhostWhite" />
-                                <Setter Property="Border.BorderBrush"
-                                        Value="#4C9AA0DA" />
-                                <Setter Property="Border.BorderThickness"
-                                        Value="3" />
-                                <Setter Property="Cursor"
-                                        Value="Hand" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListBox.Resources>
+                        <TextBlock> Radiopharmaceutical:</TextBlock>
+                        <ListView x:Name="RP_injection"
+                                  SelectionMode="Multiple"
+                                  HorizontalAlignment="Center"
+                                  ItemsSource="{Binding ALLRP}"
+                                  Style="{StaticResource ListViewItemOnSelectColor}">
 
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
 
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   TextAlignment="Center"
-                                   FontSize="20"
-                                   Text="{Binding Name}" />
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding SeperatedName}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   TextAlignment="Center" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
 
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
+                        <TextBlock> Modality:</TextBlock>
+                        <ListView x:Name="Modality"
+                                  HorizontalAlignment="Center"
+                                  ItemsSource="{Binding ALLModality}"
+                                  SelectedItem="{Binding SelectedModality}"
+                                  Style="{StaticResource ListViewItemOnSelectColor}">
+
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   TextAlignment="Center" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock> Uptake Time:</TextBlock>
+                                <ListView HorizontalAlignment="Center"
+                                          SelectedIndex="{Binding UptakeTimeIndex}"
+                                          Style="{StaticResource ListViewItemOnSelectColor}">
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+
+                                    <ListViewItem Background="#FFFFE4E4">
+                                        <TextBlock HorizontalAlignment="Center">
+                    1 Hour
+                                        </TextBlock>
+                                    </ListViewItem>
+                                    <ListViewItem Background="#FFFDFFDC">
+                                        <TextBlock HorizontalAlignment="Center">
+                    1.5 Hour
+                                        </TextBlock>
+                                    </ListViewItem>
+                                </ListView>
+                            </StackPanel>
+
+                            <StackPanel VerticalAlignment="Center"
+                                        Grid.Column="3">
+                                <TextBlock> Need Contrast?</TextBlock>
+                                <mah:ToggleSwitch Width="114"
+                                                  OffContent="No"
+                                                  OnContent="Yes"
+                                                  IsOn="{Binding isContrast}"
+                                                  Margin="5"
+                                                  VerticalAlignment="Top" />
+                            </StackPanel>
+
+                            <StackPanel VerticalAlignment="Center"
+                                        Grid.Column="4">
+                                <TextBlock> Need Delay?</TextBlock>
+                                <mah:ToggleSwitch Width="114"
+                                                  OffContent="No"
+                                                  OnContent="Yes"
+                                                  IsOn="{Binding isDelay}"
+                                                  Margin="5"
+                                                  VerticalAlignment="Top" />
+                            </StackPanel>
+                        </Grid>
 
 
 
-            </ListBox>
+                        <TextBlock>
+                    Uptake Room:
+                        </TextBlock>
+                        <ListBox x:Name="SelectedRoom"
+                                 Height="250"
+                                 Background="LightYellow"
+                                 ItemsSource="{Binding AllRoom}"
+                                 SelectedItem="{Binding SelectedRoom}">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2.3*" />
+                                            <ColumnDefinition Width="2.3*" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="2.3*" />
+                                            <ColumnDefinition Width="2.3*" />
+                                            <ColumnDefinition Width="2.3*" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="2.3*" />
+                                            <ColumnDefinition Width="2.3*" />
 
-            <TextBlock>  Assigned Radiologist:
-            </TextBlock>
-            <!--#region Assigned Radiologist-->
-            <ListView x:Name="RadiologistList"
-                      Height="60"
-                      HorizontalAlignment="Center"
-                      ItemsSource="{Binding ALLDoctor}"
-                      SelectedItem="{Binding SelectedDoctor}"
-                      Style="{StaticResource ListViewItemOnSelectColor}">
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*" />
+                                            <RowDefinition Height="2*" />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition Height="2*" />
+                                            <RowDefinition Height="2*" />
+                                            <RowDefinition Height="2*" />
+                                        </Grid.RowDefinitions>
+                                    </Grid>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
 
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
+                            <ListBox.Resources>
+                                <Style TargetType="ListBoxItem">
+                                    <Style.Resources>
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                                                         Color="Black" />
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                                                         Color="White" />
+                                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                                         Color="Black" />
+                                    </Style.Resources>
+                                    <Setter Property="Grid.RowSpan"
+                                            Value="{Binding RowSpan}" />
+                                    <Setter Property="Grid.ColumnSpan"
+                                            Value="{Binding ColumnSpan}" />
+                                    <Setter Property="Grid.Row"
+                                            Value="{Binding Row}" />
+                                    <Setter Property="Grid.Column"
+                                            Value="{Binding Column}" />
+                                    <Setter Property="Background"
+                                            Value="{Binding Color}" />
+                                    <Setter Property="BorderBrush"
+                                            Value="Black" />
+                                    <Setter Property="BorderThickness"
+                                            Value="0.2" />
 
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel HorizontalAlignment="Center">
-                            <TextBlock Text="{Binding SeperatedName}"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       TextAlignment="Center" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <!--#endregion-->
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="true">
+                                            <Setter Property="Background"
+                                                    Value="GhostWhite" />
+                                            <Setter Property="Border.BorderBrush"
+                                                    Value="#4C9AA0DA" />
+                                            <Setter Property="Border.BorderThickness"
+                                                    Value="3" />
+                                            <Setter Property="Cursor"
+                                                    Value="Hand" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListBox.Resources>
 
-            <!-- TODO: make the injection clock-->
-            <TextBlock> Injection Time:</TextBlock>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
 
-            <mah:TimePicker SelectedDateTime="{Binding DateTime}"
-                            Focusable="False"
-                            Margin="0,0,434.6,0">
+                                    <TextBlock HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               TextAlignment="Center"
+                                               FontSize="20"
+                                               Text="{Binding Name}" />
 
-            </mah:TimePicker>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
 
-            <Grid Margin="0 10 0 0 ">
+
+
+                        </ListBox>
+
+                        <TextBlock>  
+                    Assigned Radiologist:
+                        </TextBlock>
+                        <!--#region Assigned Radiologist-->
+                        <ListView x:Name="RadiologistList"
+                                  HorizontalAlignment="Center"
+                                  ItemsSource="{Binding ALLDoctor}"
+                                  SelectedItem="{Binding SelectedDoctor}"
+                                  Style="{StaticResource ListViewItemOnSelectColor}">
+
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding SeperatedName}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   TextAlignment="Center" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <!--#endregion-->
+
+                        <!-- TODO: make the injection clock-->
+                        <TextBlock> Injection Time:</TextBlock>
+
+                        <mah:TimePicker SelectedDateTime="{Binding DateTime}"
+                                        Focusable="False"
+                                        Margin="0,0,434.6,0">
+
+                        </mah:TimePicker>
+                    </StackPanel>
+                </Border>
+                
+            </Grid>
+
+            <!-- Grid that contain all the button below-->
+            <Grid Margin="3"
+                  Grid.Row="1"
+                  Background="Ivory">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -359,7 +388,6 @@
                 </Button>
             </Grid>
 
-
-        </StackPanel>
+        </Grid>
     </DockPanel>
 </Controls:MetroWindow>
