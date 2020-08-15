@@ -61,7 +61,7 @@
                                          HorizontalAlignment="Center"
                                          ItemsSource="{Binding ALLPatient}"
                                          Background="#FFA0FFAB"
-                                         Margin="5">
+                                         Margin="5 5 5 0">
 
                                     <ListBox.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -82,9 +82,20 @@
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
+                                <Button Width="50"
+                                        Height="50"
+                                        Style="{DynamicResource MahApps.Styles.Button.MetroSquare.Accent}"
+                                        HorizontalAlignment="Left"
+                                        Margin="5 0 0 5"
+                                        Background="White"
+                                        Command="{Binding ClearPatient}">
+                                    <Viewbox>
+                                        <iconPacks:PackIconZondicons Kind="AddOutline" Foreground="CadetBlue"/>
+                                    </Viewbox>
+                                    
+                                </Button>
                             </StackPanel>
                         </Border>
-
 
                         <!-- Reuired Information -->
                         <Border Background="#FFFFF2F0"
@@ -151,21 +162,58 @@
                                     </TextBlock>
                                 </StackPanel>
                                 <!-- Content -->
-                                <TextBlock>
+                                <StackPanel Margin="3">
+                                    <TextBlock>
+                                    AccessionNumber:
+                                    </TextBlock>
+                                    <TextBox Text="{Binding SelectedPatient.UniqueExamIdentifier}" />
+                                    <TextBlock>
+                                    ExamCode:
+                                    </TextBlock>
+                                    <TextBox Text="{Binding SelectedPatient.ExamCode}" />
+                                    <TextBlock>
+                                    ExamName:
+                                    </TextBlock>
+                                    <TextBox Text="{Binding SelectedPatient.ExamName}"
+                                             IsReadOnly="True"
+                                             Background="LightGray" />
+                                    <TextBlock>
                                     Patient Date Of Birth:
-                                </TextBlock>
-                                <TextBlock>
+                                    </TextBlock>
+                                    <TextBox Text="{Binding DateOfBirth, Mode=OneWay}" />
+                                    <TextBlock>
                                     Patient Age:
-                                </TextBlock>
-                                <TextBlock>
+                                    </TextBlock>
+                                    <TextBox Text="{Binding SelectedPatient.Age, Mode=OneWay}"
+                                             IsReadOnly="True"
+                                             Background="LightGray" />
+                                    <TextBlock>
                                     Patient Gender:
-                                </TextBlock>
-                                <TextBlock>
+                                    </TextBlock>
+                                    <TextBox Text="{Binding SelectedPatient.Gender, Mode=OneWay}"
+                                             IsReadOnly="True"
+                                             Background="LightGray" />
+                                    <TextBlock>
                                     PhoneNumber:
-                                </TextBlock>
-                                <TextBlock>
-                                    PhoneNumber:
-                                </TextBlock>
+                                    </TextBlock>
+                                    <TextBox Text="{Binding SelectedPatient.PhoneNumber}"
+                                             IsReadOnly="True"
+                                             Background="LightGray" />
+                                    <TextBlock>
+                                    Referral:
+                                    </TextBlock>
+                                    <TextBox Text="{Binding SelectedPatient.Referral}"
+                                             IsReadOnly="True"
+                                             Background="LightGray" />
+                                    <TextBlock>
+                                    Inpatient:
+                                    </TextBlock>
+                                    <TextBox Text="{Binding SelectedPatient.IsInpatient}"
+                                             IsReadOnly="True"
+                                             Background="LightGray" />
+                                </StackPanel>
+
+
                             </StackPanel>
                         </Border>
 

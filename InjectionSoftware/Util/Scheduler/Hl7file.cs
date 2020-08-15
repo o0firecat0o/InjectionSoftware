@@ -28,6 +28,18 @@ namespace InjectionSoftware.Util.Scheduler
             return null;
         }
 
+        public bool hasSegment(string header)
+        {
+            foreach (var item in hl7Segments)
+            {
+                if (item.header == header)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static Hl7file load(string fullString)
         {
             try

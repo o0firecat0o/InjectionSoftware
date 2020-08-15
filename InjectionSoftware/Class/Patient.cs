@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -49,7 +51,8 @@ namespace InjectionSoftware.Class
             get
             {
                 return _PatientID;
-            }set
+            }
+            set
             {
                 _PatientID = value;
                 OnPropertyChanged("PatientID");
@@ -74,20 +77,53 @@ namespace InjectionSoftware.Class
         }
 
         public string DateOfBirth { get; set; }
-        public bool IsMale { get; set; }
-        public string PhoneNumber { get; set; }
-        public bool IsInpatient { get; set; }
-        public string Referral { get; set; }
-        public string UniqueExamIdentifier { get; set; }
-        public string ExamCode { get; set; }
-        public string ExamName { get; set; }
+        public bool IsMale { get; set; } = true;
+        public string PhoneNumber { get; set; } = "";
+        public bool IsInpatient { get; set; } = false;
+        public string Referral { get; set; } = "";
+        public string UniqueExamIdentifier { get; set; } = "";
+        public string ExamCode { get; set; } = "";
+        public string ExamName { get; set; } = "";
+
+        public int Age
+        {
+            get
+            {
+                if(DateOfBirth != null && DateOfBirth.Length == 8)
+                {
+                    return (int)((DateTime.Now-DateTime.ParseExact(DateOfBirth, "yyyyMMdd",
+                CultureInfo.InvariantCulture)).TotalDays/365);
+                }
+                else
+                {
+                    return 0;
+                }
+                
+            }
+        }
+
+        public string Gender
+        {
+            get
+            {
+                if (IsMale)
+                {
+                    return "Male";
+                }
+                else
+                {
+                    return "Female";
+                }
+            }
+        }
 
         public Patient()
         {
 
         }
 
-        public Patient(Hl7file hl7File) {
+        public Patient(Hl7file hl7File)
+        {
             try
             {
                 PatientID = hl7File.getSegment("PID").getString(3).Split('^')[0];
@@ -105,9 +141,12 @@ namespace InjectionSoftware.Class
                 PhoneNumber = hl7File.getSegment("PID").getString(13);
                 IsInpatient = hl7File.getSegment("PV1").getString(2) == "I" ? true : false;
                 Referral = hl7File.getSegment("PV1").getString(7).Replace('^', ' ');
-                //UniqueExamIdentifier = hl7File.getSegment("OBR").getString(2);
-                //ExamCode = hl7File.getSegment("OBR").getString(3).Split('-')[0];
-                //ExamName = hl7File.getSegment("OBR").getString(4);
+                if (hl7File.hasSegment("OBR"))
+                {
+                    UniqueExamIdentifier = hl7File.getSegment("OBR").getString(2);
+                    ExamCode = hl7File.getSegment("OBR").getString(3).Split('-')[0];
+                    ExamName = hl7File.getSegment("OBR").getString(4);
+                }
             }
             catch (System.Exception e)
             {
@@ -138,7 +177,7 @@ namespace InjectionSoftware.Class
         {
             XElement patient = new XElement("patient");
 
-            XElement patientID = new XElement("patientID",PatientID);
+            XElement patientID = new XElement("patientID", PatientID);
             XElement patientLastname = new XElement("patientLastname", PatientLastname);
             XElement patientSurname = new XElement("patientSurname", PatientSurname);
             XElement dateOfBirth = new XElement("dateOfBirth", DateOfBirth);

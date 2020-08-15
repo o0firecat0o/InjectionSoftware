@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -52,7 +53,9 @@ namespace InjectionSoftware.ViewModels
         /// <summary>
         /// The injection time of the RP, adjustable by Mahapp time picker
         /// </summary>
-        public DateTime DateTime { get
+        public DateTime DateTime
+        {
+            get
             {
                 return _DateTime;
             }
@@ -153,12 +156,41 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
+        private Patient _SelectedPatient;
+        public Patient SelectedPatient
+        {
+            get
+            {
+                return _SelectedPatient;
+            }
+            set
+            {
+                _SelectedPatient = value;
+                OnPropertyChanged("SelectedPatient");
+                OnPropertyChanged("DateOfBirth");
+            }
+        }
+
+        public string DateOfBirth
+        {
+            get
+            {
+                if (SelectedPatient != null && SelectedPatient.DateOfBirth != null && SelectedPatient.DateOfBirth.Length == 8)
+                {
+                    return SelectedPatient.DateOfBirth.Substring(0, 4) + "-" + SelectedPatient.DateOfBirth.Substring(4, 2) + "-" + SelectedPatient.DateOfBirth.Substring(6, 2);
+                }
+                else
+                {
+                    return "Not Registered";
+                }
+            }
+        }
+
         /// <summary>
         /// for better user input, automatically change uptake hour if the user select RP
         /// </summary>
         private float hasUptaketimeChanged = 2;
-
-
+        public Command ClearPatient { get; set; }
         public Command Cancel { get; set; }
         public Command Confirm { get; set; }
         public Command Delete { get; set; }
@@ -175,6 +207,7 @@ namespace InjectionSoftware.ViewModels
             Confirm = new Command(confirm);
             Delete = new Command(delete);
             Discharge = new Command(discharge);
+            ClearPatient = new Command(clearPatient);
             DateTime = DateTime.Now;
 
             NewInjection.window.Closed += Window_Closed;
@@ -215,7 +248,7 @@ namespace InjectionSoftware.ViewModels
                 UptakeTimeIndex = 0;
             }
 
-            
+
             reselectModality();
             reselectRPs();
             reselectRadiologist();
@@ -276,13 +309,13 @@ namespace InjectionSoftware.ViewModels
 
         public void reselectUptakeTime(object sender, SelectionChangedEventArgs args)
         {
-            if (hasUptaketimeChanged>0)
+            if (hasUptaketimeChanged > 0)
             {
                 if (Injection == null && ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Count >= 2)
                 {
                     ((NewInjection)NewInjection.window).RP_injection.SelectedItems.RemoveAt(0);
                     float UptakeTime = ((RP)((NewInjection)NewInjection.window).RP_injection.SelectedItems[0]).UptakeTime;
-                    if(UptakeTime == 60f)
+                    if (UptakeTime == 60f)
                     {
                         UptakeTimeIndex = 0;
                     }
@@ -303,12 +336,24 @@ namespace InjectionSoftware.ViewModels
             patientSurname = patient.PatientSurname;
             ((NewInjection)NewInjection.window).patientIDTextBox.IsReadOnly = true;
             ((NewInjection)NewInjection.window).patientIDTextBox.Background = Brushes.LightGray;
+            //optional information
+            SelectedPatient = patient;
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             NewInjection.window.Closed -= Window_Closed;
             dispose();
+        }
+
+        private void clearPatient()
+        {
+            SelectedPatient = null;
+            patientID = null;
+            patientLastname = null;
+            patientSurname = null;
+            ((NewInjection)NewInjection.window).patientIDTextBox.IsReadOnly = false;
+            ((NewInjection)NewInjection.window).patientIDTextBox.Background = Brushes.White;            
         }
 
         private void dispose()
@@ -330,6 +375,8 @@ namespace InjectionSoftware.ViewModels
             Confirm = null;
             Delete = null;
             Discharge = null;
+            ClearPatient = null;
+
             Injection = null;
             NewInjection.window = null;
         }
@@ -403,7 +450,7 @@ namespace InjectionSoftware.ViewModels
         {
             InjectionsManager.removeInjectionNetwork(Injection.AccessionNumber);
             await NewInjection.window.HideMetroDialogAsync(deleteConfirmDialog);
-            if(NewInjection.window != null)
+            if (NewInjection.window != null)
             {
                 NewInjection.window.Close();
             }
@@ -425,7 +472,7 @@ namespace InjectionSoftware.ViewModels
 
         private async void dischargeDialog_OnConfirmDown(object sender, RoutedEventArgs e)
         {
-            InjectionsManager.dischargeInjectionNetwork(Injection.AccessionNumber) ;
+            InjectionsManager.dischargeInjectionNetwork(Injection.AccessionNumber);
             await NewInjection.window.HideMetroDialogAsync(dischargeConfirmDialog);
             NewInjection.window.Close();
         }
