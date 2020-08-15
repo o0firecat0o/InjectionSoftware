@@ -28,6 +28,8 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
+
+                <!-- Contain all patient information -->
                 <Border Margin="3"
                         Grid.Column="0"
                         Background="#FFF0FFF6"
@@ -35,62 +37,144 @@
                         BorderThickness="2">
 
                     <StackPanel Margin="3">
-                        <TextBlock> Patient:</TextBlock>
-                        <!-- Select a patient from a grid box-->
-                        <ListBox x:Name="PatientSelection"
-                                 ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                 HorizontalAlignment="Center"
-                                 ItemsSource="{Binding ALLPatient}">
+                        <!-- Select patient information -->
+                        <Border Margin="4"
+                                Background="#FFA0FFAB">
+                            <StackPanel>
+                                <!-- Title -->
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="2">
+                                    <iconPacks:PackIconEvaIcons Kind="AlertCircleOutline"
+                                                                Foreground="Green"
+                                                                VerticalAlignment="Center"
+                                                                Padding="2" />
+                                    <TextBlock FontSize="20"
+                                               Foreground="Green">
+                                    Select Patient:
+                                    </TextBlock>
+                                </StackPanel>
+                                <!-- Content -->
+                                <!-- Select a patient from a grid box-->
+                                <ListBox x:Name="PatientSelection"
+                                         ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         HorizontalAlignment="Center"
+                                         ItemsSource="{Binding ALLPatient}"
+                                         Background="#FFA0FFAB"
+                                         Margin="5">
 
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Columns="10" />
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="10" />
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
 
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding PatientFullSeperatedName}"
-                                               VerticalAlignment="Center"
-                                               TextAlignment="Center"
-                                               Width="60"
-                                               Height="60" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Width="50"
+                                                  Height="50"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding PatientFullSeperatedName}"
+                                                           TextAlignment="Center" />
+                                            </Grid>
 
-                        <!-- Contain all patient information -->
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Grid.Column="1"
-                                        Margin="3">
-                                <TextBlock> Patient Surname:</TextBlock>
-                                <TextBox Text="{Binding patientSurname}" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
                             </StackPanel>
-                            <StackPanel Grid.Column="2"
-                                        Margin="3">
-                                <TextBlock> Patient Lastame:</TextBlock>
-                                <TextBox Text="{Binding patientLastname}" />
-                            </StackPanel>
-                            <StackPanel Margin="3">
-                                <TextBlock> Patient ID:</TextBlock>
-                                <TextBox x:Name="patientIDTextBox"
-                                         Text="{Binding patientID}" />
-                            </StackPanel>
+                        </Border>
 
-                            <DockPanel Grid.Column="2"
-                                       Margin="20">
 
-                            </DockPanel>
-                        </Grid>
+                        <!-- Reuired Information -->
+                        <Border Background="#FFFFF2F0"
+                                Margin="4">
+                            <StackPanel>
+                                <!-- Title -->
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="2">
+                                    <iconPacks:PackIconEvaIcons Kind="AlertCircleOutline"
+                                                                Foreground="Red"
+                                                                VerticalAlignment="Center"
+                                                                Padding="2" />
+                                    <TextBlock FontSize="20"
+                                               Foreground="PaleVioletRed">
+                                    Required Information:
+                                    </TextBlock>
+                                </StackPanel>
+                                <!-- Content -->
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="1"
+                                                Margin="3">
+                                        <TextBlock> Patient Surname:</TextBlock>
+                                        <TextBox Text="{Binding patientSurname}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2"
+                                                Margin="3">
+                                        <TextBlock> Patient Lastame:</TextBlock>
+                                        <TextBox Text="{Binding patientLastname}" />
+                                    </StackPanel>
+                                    <StackPanel Margin="3">
+                                        <TextBlock> Patient ID:</TextBlock>
+                                        <TextBox x:Name="patientIDTextBox"
+                                                 Text="{Binding patientID}" />
+                                    </StackPanel>
+
+                                    <DockPanel Grid.Column="2"
+                                               Margin="20">
+
+                                    </DockPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Optional information-->
+                        <Border Background="#FFFCFFF0"
+                                Margin="4">
+                            <StackPanel>
+                                <!-- Title -->
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="2">
+                                    <iconPacks:PackIconFontAwesome Kind="QuestionCircleRegular"
+                                                                   Foreground="Orange"
+                                                                   VerticalAlignment="Center"
+                                                                   Padding="2" />
+                                    <TextBlock FontSize="20"
+                                               Foreground="Orange">
+                                    Optional Information:
+                                    </TextBlock>
+                                </StackPanel>
+                                <!-- Content -->
+                                <TextBlock>
+                                    Patient Date Of Birth:
+                                </TextBlock>
+                                <TextBlock>
+                                    Patient Age:
+                                </TextBlock>
+                                <TextBlock>
+                                    Patient Gender:
+                                </TextBlock>
+                                <TextBlock>
+                                    PhoneNumber:
+                                </TextBlock>
+                                <TextBlock>
+                                    PhoneNumber:
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+
                     </StackPanel>
+
+
                 </Border>
 
+                <!-- Contain all injection information-->
                 <Border Grid.Column="1"
                         Margin="3"
                         Background="AliceBlue"
@@ -338,7 +422,7 @@
                         </mah:TimePicker>
                     </StackPanel>
                 </Border>
-                
+
             </Grid>
 
             <!-- Grid that contain all the button below-->
