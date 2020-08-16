@@ -45,6 +45,8 @@
                         Value="Hidden" />
                 <Setter Property="BorderThickness"
                         Value="0" />
+                <Setter Property="Background"
+                        Value="Transparent" />
                 <Style.Resources>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="Background">
@@ -93,6 +95,8 @@
                         Value="Hidden" />
                 <Setter Property="BorderThickness"
                         Value="0" />
+                <Setter Property="Background"
+                        Value="Transparent" />
                 <Style.Resources>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="Width"
