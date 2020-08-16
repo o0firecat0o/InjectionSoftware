@@ -28,6 +28,21 @@ namespace InjectionSoftware.ViewModels
         /// </summary>
         public Injection Injection { get; set; }
 
+        private Patient _SelectedPatient;
+        public Patient SelectedPatient
+        {
+            get
+            {
+                return _SelectedPatient;
+            }
+            set
+            {
+                _SelectedPatient = value;
+                OnPropertyChanged("SelectedPatient");
+            }
+        }
+
+        #region The following are the patient information which will be modified and updated        
         private string _patientID;
         public string patientID
         {
@@ -48,7 +63,21 @@ namespace InjectionSoftware.ViewModels
         private string _patientLastname;
         public string patientLastname { get { return _patientLastname; } set { _patientLastname = value; OnPropertyChanged("patientLastname"); } }
 
+        private string _UniqueExamIdentifier;
+        public string UniqueExamIdentifier { get { return _UniqueExamIdentifier; } set { _UniqueExamIdentifier = value; OnPropertyChanged("UniqueExamIdentifier"); } }
 
+        private string _ExamCode;
+        public string ExamCode { get { return _ExamCode; } set { _ExamCode = value;OnPropertyChanged("ExamCode"); } }
+
+        private string _DateOfBirth;
+        public string DateOfBirth { get { return _DateOfBirth;} set { _DateOfBirth = value;OnPropertyChanged("DateOfBirth");} }
+
+        private int _GenderIndex;
+        public int GenderIndex { get { return _GenderIndex; } set { _GenderIndex = value; OnPropertyChanged("GenderIndex"); } }
+
+        private int _InpatientIndex;
+        public int InpatientIndex { get { return _InpatientIndex; } set { _InpatientIndex = value;OnPropertyChanged("InpatientIndex"); } }
+        #endregion
 
         /// <summary>
         /// The injection time of the RP, adjustable by Mahapp time picker
@@ -156,36 +185,6 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
-        private Patient _SelectedPatient;
-        public Patient SelectedPatient
-        {
-            get
-            {
-                return _SelectedPatient;
-            }
-            set
-            {
-                _SelectedPatient = value;
-                OnPropertyChanged("SelectedPatient");
-                OnPropertyChanged("DateOfBirth");
-            }
-        }
-
-        public string DateOfBirth
-        {
-            get
-            {
-                if (SelectedPatient != null && SelectedPatient.DateOfBirth != null && SelectedPatient.DateOfBirth.Length == 8)
-                {
-                    return SelectedPatient.DateOfBirth.Substring(0, 4) + "-" + SelectedPatient.DateOfBirth.Substring(4, 2) + "-" + SelectedPatient.DateOfBirth.Substring(6, 2);
-                }
-                else
-                {
-                    return "Not Registered";
-                }
-            }
-        }
-
         /// <summary>
         /// for better user input, automatically change uptake hour if the user select RP
         /// </summary>
@@ -222,9 +221,19 @@ namespace InjectionSoftware.ViewModels
                 ((NewInjection)NewInjection.window).patientIDTextBox.Background = Brushes.LightGray;
 
                 // copy all the injection information to this VM.
+                if (PatientManager.HasPatient(Injection.Patient.PatientID))
+                {
+                    SelectedPatient = PatientManager.GetPatient(Injection.Patient.PatientID);
+                    ((NewInjection)NewInjection.window).PatientSelection.SelectedItem = SelectedPatient;
+                }                
                 patientID = Injection.Patient.PatientID;
                 patientSurname = Injection.Patient.PatientSurname;
                 patientLastname = Injection.Patient.PatientLastname;
+                UniqueExamIdentifier = Injection.Patient.UniqueExamIdentifier;
+                ExamCode = Injection.Patient.ExamCode;
+                DateOfBirth = Injection.Patient.DateOfBirth;
+                GenderIndex = Injection.Patient.IsMale == true ? 0 : 1;
+                InpatientIndex = Injection.Patient.IsInpatient == true ? 0 : 1;
                 DateTime = Injection.InjectionTime;
                 switch ((int)Injection.UptakeTime)
                 {
@@ -246,6 +255,8 @@ namespace InjectionSoftware.ViewModels
             else
             {
                 UptakeTimeIndex = 0;
+                GenderIndex = 0;
+                InpatientIndex = 1;
             }
 
 
@@ -331,9 +342,19 @@ namespace InjectionSoftware.ViewModels
         public void patientSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             Patient patient = (Patient)(((NewInjection)NewInjection.window).PatientSelection.SelectedItem);
+            if(patient == null)
+            {
+                return;
+            }
             patientID = patient.PatientID;
             patientLastname = patient.PatientLastname;
             patientSurname = patient.PatientSurname;
+            UniqueExamIdentifier = patient.UniqueExamIdentifier;
+            ExamCode = patient.ExamCode;
+            DateOfBirth = patient.DateOfBirth;
+            GenderIndex = patient.IsMale == true ? 0 : 1;
+            InpatientIndex = patient.IsInpatient == true ? 0 : 1;
+
             ((NewInjection)NewInjection.window).patientIDTextBox.IsReadOnly = true;
             ((NewInjection)NewInjection.window).patientIDTextBox.Background = Brushes.LightGray;
             //optional information
@@ -352,6 +373,12 @@ namespace InjectionSoftware.ViewModels
             patientID = null;
             patientLastname = null;
             patientSurname = null;
+            UniqueExamIdentifier = "";
+            ExamCode = "";
+            DateOfBirth = "";
+            GenderIndex = 0;
+            InpatientIndex = 0;
+            ((NewInjection)NewInjection.window).PatientSelection.SelectedIndex = -1;
             ((NewInjection)NewInjection.window).patientIDTextBox.IsReadOnly = false;
             ((NewInjection)NewInjection.window).patientIDTextBox.Background = Brushes.White;            
         }
@@ -378,6 +405,7 @@ namespace InjectionSoftware.ViewModels
             ClearPatient = null;
 
             Injection = null;
+            SelectedPatient = null;
             NewInjection.window = null;
         }
 
@@ -413,13 +441,13 @@ namespace InjectionSoftware.ViewModels
                 //add new injection
                 if (Injection == null)
                 {
-                    InjectionsManager.modInjectionNetWork("", SelectedModality, patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                    InjectionsManager.modInjectionNetWork("", SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
                     Console.Out.WriteLine("adding injection with patient ID: " + patientID);
                 }
                 //modify existing injection
                 else
                 {
-                    InjectionsManager.modInjectionNetWork(Injection.AccessionNumber, SelectedModality, patientID, patientSurname, patientLastname, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                    InjectionsManager.modInjectionNetWork(Injection.AccessionNumber, SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
                     Console.Out.WriteLine("modifying injection with patient ID:" + patientID);
                 }
 

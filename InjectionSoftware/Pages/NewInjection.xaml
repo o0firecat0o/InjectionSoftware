@@ -90,9 +90,10 @@
                                         Background="White"
                                         Command="{Binding ClearPatient}">
                                     <Viewbox>
-                                        <iconPacks:PackIconZondicons Kind="AddOutline" Foreground="CadetBlue"/>
+                                        <iconPacks:PackIconZondicons Kind="AddOutline"
+                                                                     Foreground="CadetBlue" />
                                     </Viewbox>
-                                    
+
                                 </Button>
                             </StackPanel>
                         </Border>
@@ -166,33 +167,98 @@
                                     <TextBlock>
                                     AccessionNumber:
                                     </TextBlock>
-                                    <TextBox Text="{Binding SelectedPatient.UniqueExamIdentifier}" />
-                                    <TextBlock>
-                                    ExamCode:
-                                    </TextBlock>
-                                    <TextBox Text="{Binding SelectedPatient.ExamCode}" />
-                                    <TextBlock>
-                                    ExamName:
-                                    </TextBlock>
-                                    <TextBox Text="{Binding SelectedPatient.ExamName}"
-                                             IsReadOnly="True"
-                                             Background="LightGray" />
+                                    <TextBox Text="{Binding UniqueExamIdentifier}" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="3*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel>
+                                            <TextBlock>
+                                                ExamCode:
+                                            </TextBlock>
+                                            <TextBox Text="{Binding ExamCode}" />
+
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1"
+                                                    Margin="5 0 0 0">
+                                            <TextBlock>  
+                                                ExamName:
+                                            </TextBlock>
+                                            <TextBox Text="{Binding SelectedPatient.ExamName}"
+                                                     IsReadOnly="True"
+                                                     Background="LightGray" />
+                                        </StackPanel>
+                                    </Grid>
                                     <TextBlock>
                                     Patient Date Of Birth:
                                     </TextBlock>
-                                    <TextBox Text="{Binding DateOfBirth, Mode=OneWay}" />
+                                    <TextBox Text="{Binding DateOfBirth}" />
                                     <TextBlock>
                                     Patient Age:
                                     </TextBlock>
                                     <TextBox Text="{Binding SelectedPatient.Age, Mode=OneWay}"
                                              IsReadOnly="True"
                                              Background="LightGray" />
-                                    <TextBlock>
-                                    Patient Gender:
-                                    </TextBlock>
-                                    <TextBox Text="{Binding SelectedPatient.Gender, Mode=OneWay}"
-                                             IsReadOnly="True"
-                                             Background="LightGray" />
+
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Center">
+                                        <!-- Select patient Gender-->
+                                        <StackPanel Margin="30 0 30 0">
+                                            <TextBlock HorizontalAlignment="Center"> Patient Gender:</TextBlock>
+                                            <ListView HorizontalAlignment="Left"
+                                                      SelectedIndex="{Binding GenderIndex}"
+                                                      Style="{StaticResource ListViewItemOnSelectColor}">
+                                                <ListView.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Horizontal" />
+                                                    </ItemsPanelTemplate>
+                                                </ListView.ItemsPanel>
+                                                <!--Male-->
+                                                <ListViewItem Background="#FFE4FFFF">
+                                                    <Viewbox Stretch="Uniform"
+                                                             Margin="6">
+                                                        <iconPacks:PackIconIonicons Kind="ManMD"
+                                                                                    HorizontalAlignment="Center" />
+                                                    </Viewbox>
+                                                </ListViewItem>
+                                                <!--Female-->
+                                                <ListViewItem Background="#FFFFDCDC">
+                                                    <Viewbox Stretch="Uniform"
+                                                             Margin="6">
+                                                        <iconPacks:PackIconIonicons Kind="WomanMD"
+                                                                                    HorizontalAlignment="Center" />
+                                                    </Viewbox>
+                                                </ListViewItem>
+                                            </ListView>
+                                        </StackPanel>
+
+                                        <!-- Select patient Gender-->
+                                        <StackPanel  Margin="30 0 30 0">
+                                            <TextBlock HorizontalAlignment="Center"> Inpatient:</TextBlock>
+                                            <ListView HorizontalAlignment="Left"
+                                                      SelectedIndex="{Binding InpatientIndex}"
+                                                      Style="{StaticResource ListViewItemOnSelectColor}">
+                                                <ListView.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Horizontal" />
+                                                    </ItemsPanelTemplate>
+                                                </ListView.ItemsPanel>
+                                                <!--Male-->
+                                                <ListViewItem Background="#FFE4FFEA">
+                                                    <TextBlock HorizontalAlignment="Center"
+                                                               Text="IN" />
+                                                </ListViewItem>
+                                                <!--Female-->
+                                                <ListViewItem Background="#FFFFF4DC">
+                                                    <TextBlock HorizontalAlignment="Center"
+                                                               Text="OUT" />
+                                                </ListViewItem>
+                                            </ListView>
+                                        </StackPanel>
+                                    </StackPanel>
+
+
                                     <TextBlock>
                                     PhoneNumber:
                                     </TextBlock>
@@ -204,13 +270,7 @@
                                     </TextBlock>
                                     <TextBox Text="{Binding SelectedPatient.Referral}"
                                              IsReadOnly="True"
-                                             Background="LightGray" />
-                                    <TextBlock>
-                                    Inpatient:
-                                    </TextBlock>
-                                    <TextBox Text="{Binding SelectedPatient.IsInpatient}"
-                                             IsReadOnly="True"
-                                             Background="LightGray" />
+                                             Background="LightGray" />                                    
                                 </StackPanel>
 
 

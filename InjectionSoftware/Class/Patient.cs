@@ -91,8 +91,15 @@ namespace InjectionSoftware.Class
             {
                 if(DateOfBirth != null && DateOfBirth.Length == 8)
                 {
-                    return (int)((DateTime.Now-DateTime.ParseExact(DateOfBirth, "yyyyMMdd",
-                CultureInfo.InvariantCulture)).TotalDays/365);
+                    try
+                    {
+                        return (int)((DateTime.Now - DateTime.ParseExact(DateOfBirth, "yyyyMMdd",
+                CultureInfo.InvariantCulture)).TotalDays / 365);
+                    }catch(System.Exception e)
+                    {
+                        Console.Error.WriteLine(e);
+                        return 0;
+                    }                    
                 }
                 else
                 {

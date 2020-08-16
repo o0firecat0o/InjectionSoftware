@@ -20,7 +20,9 @@ namespace InjectionSoftware.Class
     public class Injection : INotifyPropertyChanged
     {
         private Patient _Patient;
-        public Patient Patient { get
+        public Patient Patient
+        {
+            get
             {
                 return _Patient;
             }
@@ -58,7 +60,7 @@ namespace InjectionSoftware.Class
                 }
                 else if (Modality == Modality.getModality("PETMR"))
                 {
-                    return "PETMR\n"+CaseNumber.ToString();
+                    return "PETMR\n" + CaseNumber.ToString();
                 }
                 else
                 {
@@ -70,17 +72,18 @@ namespace InjectionSoftware.Class
         {
             get
             {
-                if(Modality == Modality.getModality("PETCT"))
+                if (Modality == Modality.getModality("PETCT"))
                 {
                     return (CaseNumber - 1) % 10;
-                }else if(Modality == Modality.getModality("PETMR"))
+                }
+                else if (Modality == Modality.getModality("PETMR"))
                 {
                     return (5 + CaseNumber - 1) % 10;
                 }
                 else
                 {
                     return 1000;
-                }                
+                }
             }
         }
 
@@ -88,7 +91,7 @@ namespace InjectionSoftware.Class
         {
             get
             {
-                
+
                 if (Modality == Modality.getModality("PETCT"))
                 {
                     return (CaseNumber - 1) / 10;
@@ -498,6 +501,12 @@ namespace InjectionSoftware.Class
             XElement patientSurname = new XElement("patientSurname", Patient.PatientSurname);
             XElement patientLastname = new XElement("patientLastname", Patient.PatientLastname);
 
+            XElement uniqueExamIdentifier = new XElement("uniqueExamIdentifier", Patient.UniqueExamIdentifier);
+            XElement examCode = new XElement("examCode", Patient.ExamCode);
+            XElement dateOfBirth = new XElement("dateOfBirth", Patient.DateOfBirth);
+            XElement gender = new XElement("gender", Patient.IsMale.ToString());
+            XElement inpatient = new XElement("inpatient", Patient.IsInpatient.ToString());
+
             XElement rp1 = new XElement("rp1");
             XElement rp2 = new XElement("rp2");
             if (RPs.Count >= 1)
@@ -532,6 +541,13 @@ namespace InjectionSoftware.Class
             injection.Add(patientID);
             injection.Add(patientSurname);
             injection.Add(patientLastname);
+
+            injection.Add(uniqueExamIdentifier);
+            injection.Add(examCode);
+            injection.Add(dateOfBirth);
+            injection.Add(gender);
+            injection.Add(inpatient);
+
             injection.Add(rp1);
             injection.Add(rp2);
             injection.Add(doctor);

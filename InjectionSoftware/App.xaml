@@ -84,7 +84,50 @@
                     </Style>
                 </Style.Resources>
             </Style>
-            
+
+            <Style x:Key="ListViewItemOnSelectColorDefault"
+                   TargetType="{x:Type ListView}">
+                <Setter Property="Height"
+                        Value="50" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                        Value="Hidden" />
+                <Setter Property="BorderThickness"
+                        Value="0" />
+                <Style.Resources>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Width"
+                                Value="49" />
+                        <Setter Property="Height"
+                                Value="49" />
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                        <Setter Property="Margin"
+                                Value="0" />
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                                             Color="Black" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                                             Color="White" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                             Color="Black" />
+                        </Style.Resources>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="true">
+                                <Setter Property="Background"
+                                        Value="GhostWhite" />
+                                <Setter Property="Border.BorderBrush"
+                                        Value="#4C9AA0DA" />
+                                <Setter Property="Border.BorderThickness"
+                                        Value="3" />
+                                <Setter Property="Cursor"
+                                        Value="Hand" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Style.Resources>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

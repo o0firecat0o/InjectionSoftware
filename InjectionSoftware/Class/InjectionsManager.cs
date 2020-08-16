@@ -14,6 +14,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using InjectionSoftware.Network;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace InjectionSoftware.Class
 {
@@ -60,9 +61,9 @@ namespace InjectionSoftware.Class
             return null;
         }
 
-        public static void modInjectionNetWork(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
+        public static void modInjectionNetWork(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
         {
-            Injection injection = modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
+            Injection injection = modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, Gender, Inpatient, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
             if (!NetworkManager.isServer)
             {
                 NetworkManager.client.TCPSendMessageToServer("modInjection", injection.toXML().ToString());
@@ -89,7 +90,7 @@ namespace InjectionSoftware.Class
         /// <param name="isDelay"></param>
         /// <param name="isDischarge"></param>
         /// <returns></returns>
-        private static Injection modInjection(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
+        private static Injection modInjection(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
         {
             // find wether the patient is already registered and exist in the database
             Patient patient;
@@ -111,7 +112,7 @@ namespace InjectionSoftware.Class
                 injection = getInjection(accessionNumber);
             }
             // loading previous injection from elsewhere
-            else if(accessionNumber != "")
+            else if (accessionNumber != "")
             {
                 injection = new Injection();
                 injection.AccessionNumber = accessionNumber;
@@ -131,6 +132,15 @@ namespace InjectionSoftware.Class
             patient.PatientSurname = patientSurname;
             patient.PatientLastname = patientLastname;
 
+            // modify the optional patient information
+            // only a couple of patient information is modifiable
+            patient.ExamCode = ExamCode;
+            patient.UniqueExamIdentifier = UniqueExamIdentifier;
+            patient.DateOfBirth = DateOfBirth;
+            patient.IsMale = Gender;
+            patient.IsInpatient = Inpatient;
+
+            // modify the injection information
             injection.Modality = modality;
             injection.RPs = RPs;
             injection.Doctor = Doctor;
@@ -168,6 +178,12 @@ namespace InjectionSoftware.Class
             string patientSurname = xElement.Element(df + "patientSurname").Value;
             string patientLastname = xElement.Element(df + "patientLastname").Value;
 
+            string uniqueExamIdentifier = xElement.Element(df + "uniqueExamIdentifier").Value;
+            string examCode = xElement.Element(df + "examCode").Value;
+            string dateOfBirth = xElement.Element(df + "dateOfBirth").Value;
+            bool gender = bool.Parse(xElement.Element(df + "gender").Value);
+            bool inpatient = bool.Parse(xElement.Element(df + "inpatient").Value);
+
             ObservableCollection<RP> rPs = new ObservableCollection<RP>();
             if (xElement.Element(df + "rp1").Value != "")
             {
@@ -189,7 +205,7 @@ namespace InjectionSoftware.Class
             bool isDelay = bool.Parse(xElement.Element(df + "isDelay").Value);
             bool isDischarge = bool.Parse(xElement.Element(df + "isDischarge").Value);
 
-            modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
+            modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, uniqueExamIdentifier, examCode, dateOfBirth, gender, inpatient, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
         }
 
         public static void dischargeInjectionNetwork(string AccessionNumber)
@@ -250,7 +266,7 @@ namespace InjectionSoftware.Class
             {
                 foreach (Injection injection in injections)
                 {
-                    if(injection.AccessionNumber == accessionNumber)
+                    if (injection.AccessionNumber == accessionNumber)
                     {
                         injections.Remove(injection);
                         break;
@@ -333,7 +349,7 @@ namespace InjectionSoftware.Class
             List<Injection> tempinjections = new List<Injection>();
             foreach (var injection in injections)
             {
-                if(injection.Modality == modality)
+                if (injection.Modality == modality)
                 {
                     tempinjections.Add(injection);
                 }
@@ -360,7 +376,7 @@ namespace InjectionSoftware.Class
             foreach (var file in
                 Directory.EnumerateFiles(fullpath, "*.xml"))
             {
-                Console.Out.WriteLine("[InjectionManager] loading injection from location: {0}",file);
+                Console.Out.WriteLine("[InjectionManager] loading injection from location: {0}", file);
                 XElement xElement = XElement.Load(file);
 
                 modInjection(xElement);
