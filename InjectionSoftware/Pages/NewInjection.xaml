@@ -208,7 +208,7 @@
                                             <TextBlock HorizontalAlignment="Center"> Patient Gender:</TextBlock>
                                             <ListView HorizontalAlignment="Left"
                                                       SelectedIndex="{Binding GenderIndex}"
-                                                      Style="{StaticResource ListViewItemOnSelectColor}">
+                                                      Style="{StaticResource ListViewItemOnSelectColorDefault}">
                                                 <ListView.ItemsPanel>
                                                     <ItemsPanelTemplate>
                                                         <StackPanel Orientation="Horizontal" />
@@ -238,7 +238,7 @@
                                             <TextBlock HorizontalAlignment="Center"> Inpatient:</TextBlock>
                                             <ListView HorizontalAlignment="Left"
                                                       SelectedIndex="{Binding InpatientIndex}"
-                                                      Style="{StaticResource ListViewItemOnSelectColor}">
+                                                      Style="{StaticResource ListViewItemOnSelectColorDefault}">
                                                 <ListView.ItemsPanel>
                                                     <ItemsPanelTemplate>
                                                         <StackPanel Orientation="Horizontal" />
@@ -353,7 +353,7 @@
                                 <TextBlock> Uptake Time:</TextBlock>
                                 <ListView HorizontalAlignment="Center"
                                           SelectedIndex="{Binding UptakeTimeIndex}"
-                                          Style="{StaticResource ListViewItemOnSelectColor}">
+                                          Style="{StaticResource ListViewItemOnSelectColorDefault}">
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <StackPanel Orientation="Horizontal" />
