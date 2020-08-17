@@ -187,6 +187,7 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\NetworkPageViewModel.cs" />
     <Compile Include="ViewModels\NewInjectionViewModel.cs" />
+    <Compile Include="ViewModels\RoomPageViewModel.cs" />
     <Page Include="Dialogs\SelectionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

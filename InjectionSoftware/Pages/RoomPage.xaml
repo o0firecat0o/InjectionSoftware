@@ -5,12 +5,97 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:InjectionSoftware"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="RoomPage">
+      d:DesignHeight="600" d:DesignWidth="800"
+      Title="RoomPage"
+      Background="#FFEBEBEB">
 
     <Grid>
-        <TextBlock>
-            Gudshf
-        </TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!-- Registered Section -->
+        <Border Background="#FF7878FF" Margin="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Viewbox Stretch="None">
+                    <TextBlock Foreground="White" TextAlignment="Center">
+                    R<LineBreak />
+                    E<LineBreak />
+                    G<LineBreak />
+                    I<LineBreak />
+                    S<LineBreak />
+                    T<LineBreak />
+                    E<LineBreak />
+                    R<LineBreak />
+                    E<LineBreak />
+                    D
+                    </TextBlock>
+                </Viewbox>
+                <StackPanel Margin="5"
+                            Background="AliceBlue"
+                            Grid.Column="1">
+                </StackPanel>
+            </Grid>            
+        </Border>
+
+        <Border Background="#FFFFC278"
+                Margin="5" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Viewbox Stretch="None">
+                    <TextBlock Foreground="White"
+                               TextAlignment="Center">
+                    U<LineBreak />
+                    P<LineBreak />
+                    T<LineBreak />
+                    A<LineBreak />
+                    K<LineBreak />
+                    I<LineBreak />
+                    N<LineBreak />
+                    G
+                    </TextBlock>
+                </Viewbox>
+                <StackPanel Margin="5"
+                            Background="#FFFEFFF0"
+                            Grid.Column="1">
+                </StackPanel>
+            </Grid>
+        </Border>
+        <!-- Depart Section-->
+        <Border Background="#FFFF7878"
+                Margin="5"
+                Grid.Row="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Viewbox Stretch="None">
+                    <TextBlock Foreground="White"
+                               TextAlignment="Center">
+                    D<LineBreak />
+                    E<LineBreak />
+                    P<LineBreak />
+                    A<LineBreak />
+                    R<LineBreak />
+                    T<LineBreak />
+                    E<LineBreak />
+                    D
+                    </TextBlock>
+                </Viewbox>
+                <StackPanel Margin="5"
+                            Background="#FFFFF4F0"
+                            Grid.Column="1">
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Page>

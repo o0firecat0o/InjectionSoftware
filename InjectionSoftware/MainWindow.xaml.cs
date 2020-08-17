@@ -40,8 +40,6 @@ namespace InjectionSoftware
                 
         public MainWindow()
         {
-            //new Server();
-            //new Client();
             window = this;
 
             InitializeComponent();

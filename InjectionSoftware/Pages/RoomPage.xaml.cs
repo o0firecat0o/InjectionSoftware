@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InjectionSoftware.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace InjectionSoftware
         public RoomPage()
         {
             InitializeComponent();
+            DataContext = new RoomPageViewModel();
         }
     }
 }
