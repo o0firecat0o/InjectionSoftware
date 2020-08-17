@@ -25,7 +25,7 @@
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Viewbox Stretch="None">
+                <Viewbox Stretch="Uniform" StretchDirection="DownOnly"> 
                     <TextBlock Foreground="White"
                                TextAlignment="Center">
                     R<LineBreak />
@@ -42,9 +42,7 @@
                 </Viewbox>
                 <StackPanel Margin="5"
                             Background="AliceBlue"
-                            Grid.Column="1">
-                    <localcustomusercontrol:InjectionUserControl Injection="{Binding FirstInjection}" />
-
+                            Grid.Column="1">                    
                     <ListBox Background="LightYellow"
                                   ItemsSource="{Binding AllInjection}">
                         <ListBox.ItemTemplate>
@@ -69,7 +67,8 @@
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Viewbox Stretch="None">
+                <Viewbox Stretch="Uniform"
+                         StretchDirection="DownOnly">
                     <TextBlock Foreground="White"
                                TextAlignment="Center">
                     U<LineBreak />
@@ -180,7 +179,8 @@
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Viewbox Stretch="None">
+                <Viewbox Stretch="Uniform"
+                         StretchDirection="DownOnly">
                     <TextBlock Foreground="White"
                                TextAlignment="Center">
                     D<LineBreak />

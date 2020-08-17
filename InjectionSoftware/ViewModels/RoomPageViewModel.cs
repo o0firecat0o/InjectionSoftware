@@ -28,18 +28,6 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
-        public RoomPageViewModel()
-        {
-            Number = 4;
-        }
-
-        private int _Number;
-        public int Number
-        {
-            get { return _Number; }
-            set { _Number = value; OnPropertyChanged("Number"); }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)
