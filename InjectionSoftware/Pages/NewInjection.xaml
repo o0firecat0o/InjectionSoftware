@@ -71,14 +71,15 @@
 
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <Grid Width="50"
-                                                  Height="50"
-                                                  HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center">
+                                            <Viewbox Stretch="Uniform"
+                                                        StretchDirection="DownOnly"
+                                                        Width="50"
+                                                        Height="50"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center">
                                                 <TextBlock Text="{Binding PatientFullSeperatedName}"
-                                                           TextAlignment="Center" />
-                                            </Grid>
-
+                                                            TextAlignment="Center" />
+                                            </Viewbox>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
