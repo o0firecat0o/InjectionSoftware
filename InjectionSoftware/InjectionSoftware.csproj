@@ -153,6 +153,9 @@
     <Compile Include="Class\Patient.cs" />
     <Compile Include="Class\PatientManager.cs" />
     <Compile Include="Class\Timer.cs" />
+    <Compile Include="CustomUserControl\InjectionUserControl.xaml.cs">
+      <DependentUpon>InjectionUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\SelectionDialog.xaml.cs">
       <DependentUpon>SelectionDialog.xaml</DependentUpon>
     </Compile>
@@ -188,6 +191,10 @@
     <Compile Include="ViewModels\NetworkPageViewModel.cs" />
     <Compile Include="ViewModels\NewInjectionViewModel.cs" />
     <Compile Include="ViewModels\RoomPageViewModel.cs" />
+    <Page Include="CustomUserControl\InjectionUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\SelectionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
