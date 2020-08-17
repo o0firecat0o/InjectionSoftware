@@ -77,15 +77,15 @@
                             <ItemsPanelTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2.3*" />
-                                        <ColumnDefinition Width="2.3*" />
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1.6*" />
                                         <ColumnDefinition />
                                         <ColumnDefinition Width="2.3*" />
                                         <ColumnDefinition Width="2.3*" />
-                                        <ColumnDefinition Width="2.3*" />
+                                        <ColumnDefinition Width="4*" />
                                         <ColumnDefinition />
-                                        <ColumnDefinition Width="2.3*" />
-                                        <ColumnDefinition Width="2.3*" />
+                                        <ColumnDefinition Width="4*" />
+                                        <ColumnDefinition Width="4*" />
 
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>

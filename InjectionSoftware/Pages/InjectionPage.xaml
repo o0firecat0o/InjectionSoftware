@@ -219,7 +219,8 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Viewbox Stretch="Uniform"
-                                                 HorizontalAlignment="Left">
+                                                 HorizontalAlignment="Left"
+                                                 StretchDirection="DownOnly">
                                             <TextBlock Text="{Binding Patient.PatientFullname}"
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Left"
