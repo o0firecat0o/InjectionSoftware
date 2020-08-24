@@ -21,13 +21,6 @@ namespace InjectionSoftware.CustomUserControl
     /// </summary>
     public partial class InjectionUserControl : UserControl
     {
-
-
-
-       
-
-
-
         public InjectionUserControl()
         {
             InitializeComponent();
