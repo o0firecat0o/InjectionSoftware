@@ -47,10 +47,9 @@
                                   ItemsSource="{Binding AllInjection}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Viewbox Stretch="Uniform">
+                               
                                     <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
                                             AncestorType=ListBoxItem}}" />
-                                </Viewbox>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
 
