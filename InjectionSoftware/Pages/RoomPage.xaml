@@ -43,17 +43,18 @@
                 <StackPanel Margin="5"
                             Background="AliceBlue"
                             Grid.Column="1">                    
-                    <ListBox Background="LightYellow"
-                                  ItemsSource="{Binding AllInjection}">
-                        <ListBox.ItemTemplate>
+                    <ItemsControl ItemsSource="{Binding AllInjection}">
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                               
+                                <Viewbox Stretch="Uniform">
                                     <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
-                                            AncestorType=ListBoxItem}}" />
+                                            AncestorType=ListBox}}" />
+                                </Viewbox>
+                                    
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
+                        </ItemsControl.ItemTemplate>
 
-                    </ListBox>
+                    </ItemsControl>
                 </StackPanel>
             </Grid>
         </Border>
