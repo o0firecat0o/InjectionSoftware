@@ -38,8 +38,9 @@
                     Margin="5"
                     HorizontalAlignment="Left"
                     Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
-                    <Viewbox Stretch="Uniform">
-                        <Border Width="5" Height="5">
+                <Viewbox Stretch="Uniform">
+                    <Border Width="5"
+                            Height="5">
                         <Viewbox Stretch="Uniform">
                             <TextBlock HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
@@ -48,9 +49,7 @@
                                        Text="{Binding CaseNumberText}" />
                         </Viewbox>
                     </Border>
-                        
-
-                    </Viewbox>
+                </Viewbox>
             </Border>
 
             <Grid>
