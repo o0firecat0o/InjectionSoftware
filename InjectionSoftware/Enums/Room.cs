@@ -47,28 +47,28 @@ namespace InjectionSoftware.Enums
 
         public static void AddDefault()
         {
-            new Room("NM", (Brush)converter.ConvertFromString("#FFE4C4"), 1, 2, 0, 0);
-            new Room("Treadmill", (Brush)converter.ConvertFromString("#C4F9FF"), 2, 2, 1, 0);
-            new Room("Clothes\nChange", (Brush)converter.ConvertFromString("#C4F9FF"), 3, 2, 3, 0);
-            new Room("Lobby", (Brush)converter.ConvertFromString("#F0C4FF"), 1, 2, 6, 0);
-            new Room("Mct", (Brush)converter.ConvertFromString("#FFE4C4"), 1, 2, 0, 2);
-            new Room("7", (Brush)converter.ConvertFromString("#C4FFCE"), 2, 3, 0, 4);
-            new Room("Bio", (Brush)converter.ConvertFromString("#FFE4C4"), 1, 2, 0, 7);
+            new Room("NM", (Brush)converter.ConvertFromString("#FFE4C4"), 3, 5, 0, 0);
+            new Room("Treadmill", (Brush)converter.ConvertFromString("#C4F9FF"), 3, 5, 3, 0);
+            new Room("Clothes\nChange", (Brush)converter.ConvertFromString("#C4F9FF"), 9, 5, 6, 0);
+            new Room("Lobby", (Brush)converter.ConvertFromString("#F0C4FF"), 3, 10, 12, 5);
+            new Room("Mct", (Brush)converter.ConvertFromString("#FFE4C4"), 3, 5, 0, 5);
+            new Room("7", (Brush)converter.ConvertFromString("#C4FFCE"), 5, 13, 0, 10);
+            new Room("Bio", (Brush)converter.ConvertFromString("#FFE4C4"), 3, 10, 0, 23);
 
-            new Room("8", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 2, 1, 7);
+            new Room("8", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 10, 3, 23);
 
-            new Room("9", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 4, 7);
-            new Room("3", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 5, 7);
-            new Room("6", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 6, 7); 
+            new Room("9", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 6, 23);
+            new Room("3", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 9, 23);
+            new Room("6", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 12, 23); 
 
-            new Room("1", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 4, 8);
-            new Room("4", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 5, 8);
-            new Room("5", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 1, 6, 8);
+            new Room("1", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 6, 28);
+            new Room("4", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 9, 28);
+            new Room("5", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 12, 28);
 
-            new Room("11", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 2, 3, 3);
-            new Room("10", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 1, 3, 5);
-            new Room("2", (Brush)converter.ConvertFromString("#C4FFCE"), 1, 2, 6, 4);
-            new Room("PetMR", (Brush)converter.ConvertFromString("#FFE4C4"), 1, 1, 6, 3);
+            new Room("11", (Brush)converter.ConvertFromString("#C4FFCE"), 6, 10, 6, 6);
+            new Room("10", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 9, 16);
+            new Room("2", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 6, 16);
+            new Room("PetMR", (Brush)converter.ConvertFromString("#FFE4C4"), 3, 8, 12, 15);
             
         }
     }
