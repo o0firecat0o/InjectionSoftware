@@ -25,7 +25,8 @@
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Viewbox Stretch="Uniform" StretchDirection="DownOnly"> 
+                <Viewbox Stretch="Uniform"
+                         StretchDirection="DownOnly">
                     <TextBlock Foreground="White"
                                TextAlignment="Center">
                     R<LineBreak />
@@ -42,7 +43,7 @@
                 </Viewbox>
                 <StackPanel Margin="5"
                             Background="AliceBlue"
-                            Grid.Column="1">                    
+                            Grid.Column="1">
                     <ItemsControl ItemsSource="{Binding AllInjection}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -50,7 +51,7 @@
                                     <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
                                             AncestorType=ListBox}}" />
                                 </Viewbox>
-                                    
+
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
 
@@ -127,7 +128,7 @@
                                         <ColumnDefinition />
                                         <ColumnDefinition />
                                         <ColumnDefinition />
-                                                                          </Grid.ColumnDefinitions>
+                                    </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
                                         <RowDefinition />
@@ -182,13 +183,27 @@
                                     <Grid Background="{Binding Color}">
                                         <Viewbox Stretch="Uniform"
                                                  StretchDirection="DownOnly">
-                                            <TextBlock HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center"
-                                                       TextAlignment="Center"
-                                                       FontSize="50"
-                                                       Foreground="#FF5FA1A5"
-                                                       Opacity="0.3"
-                                                       Text="{Binding Name}" />
+                                            <Grid>
+                                                <TextBlock HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           TextAlignment="Center"
+                                                           FontSize="50"
+                                                           Foreground="#FF5FA1A5"
+                                                           Opacity="0.3"
+                                                           Text="{Binding Name}" />
+                                                <ItemsControl ItemsSource="{Binding Injections}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+
+                                                            <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
+                                            AncestorType=ListBox}}" />
+
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </Grid>
+
+
 
                                         </Viewbox>
                                     </Grid>

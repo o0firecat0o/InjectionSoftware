@@ -284,6 +284,11 @@ namespace InjectionSoftware.Class
             }
         }
 
+        public static void reassignRoom()
+        {
+
+        }
+
         /// <summary>
         /// Rassign case number of doctor
         /// Used when case injection time changed, case assigned doctor changed etc
