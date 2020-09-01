@@ -17,6 +17,13 @@ namespace InjectionSoftware.Enums
 
         public float RowSpan { get; set; }
         public float ColumnSpan { get; set; }
+
+        /// <summary>
+        /// Used for grid inside grid, the larger the cell, the more child it could handle, for ex, room 11
+        /// </summary>
+        public int NumberOfChildColumn { get { return (int)(ColumnSpan / 5); } }
+        public int NumberOfChildRow { get { return (int)(RowSpan / 3); } }
+
         public float Row { get; set; }
         public float Column { get; set; }
 

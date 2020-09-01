@@ -193,7 +193,8 @@
                                         <ItemsControl ItemsSource="{Binding Injections}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <UniformGrid Rows="{Binding Row}">
+                                                    <UniformGrid Columns="{Binding NumberOfChildColumn}"
+                                                                 Rows="{Binding NumberOfChildRow}">
                                                     </UniformGrid>
                                                 </ItemsPanelTemplate>
                                             </ItemsControl.ItemsPanel>
