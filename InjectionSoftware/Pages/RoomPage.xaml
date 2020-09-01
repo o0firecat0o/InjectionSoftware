@@ -49,7 +49,7 @@
                             <DataTemplate>
                                 <Viewbox Stretch="Uniform">
                                     <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
-                                            AncestorType=ListBox}}" />
+                                            AncestorType=ListBox}}"/>
                                 </Viewbox>
 
                             </DataTemplate>
@@ -151,7 +151,7 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
 
-                        <ItemsControl.Resources>
+                        <ItemsControl.ItemContainerStyle>
                             <Style TargetType="ContentPresenter">
                                 <Style.Resources>
                                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
@@ -169,12 +169,8 @@
                                         Value="{Binding Row}" />
                                 <Setter Property="Grid.Column"
                                         Value="{Binding Column}" />
-
-
-
-
                             </Style>
-                        </ItemsControl.Resources>
+                        </ItemsControl.ItemContainerStyle>
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>

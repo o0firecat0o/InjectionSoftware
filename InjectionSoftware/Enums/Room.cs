@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,27 +10,25 @@ using System.Windows.Media;
 
 namespace InjectionSoftware.Enums
 {
-    public class Room
+    public class Room : INotifyPropertyChanged
     {
         public string Name { get; }
         public Brush Color { get; }
 
-        public float RowSpan { get; }
-        public float ColumnSpan { get; }
-        public float Row { get; }
-        public float Column { get; }
+        public float RowSpan { get; set; }
+        public float ColumnSpan { get; set; }
+        public float Row { get; set; }
+        public float Column { get; set; }
 
         private static BrushConverter converter = new System.Windows.Media.BrushConverter();
 
-        public static ObservableCollection<Room> Rooms = new ObservableCollection<Room>();
+        public static ObservableCollection<Room> Rooms { get; set; } = new ObservableCollection<Room>();
+
 
         public ObservableCollection<Injection> Injections
         {
-            get
-            {
-                return InjectionsManager.injections;
-            }
-        }
+            get; set;
+        } = new ObservableCollection<Injection>();
 
         public static Room getRoom(string Name)
         {
@@ -68,7 +67,7 @@ namespace InjectionSoftware.Enums
 
             new Room("9", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 6, 23);
             new Room("3", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 9, 23);
-            new Room("6", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 12, 23); 
+            new Room("6", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 12, 23);
 
             new Room("1", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 6, 28);
             new Room("4", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 9, 28);
@@ -77,7 +76,18 @@ namespace InjectionSoftware.Enums
             new Room("11", (Brush)converter.ConvertFromString("#C4FFCE"), 6, 10, 6, 6);
             new Room("10", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 9, 16);
             new Room("2", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 6, 16);
-            new Room("PetMR", (Brush)converter.ConvertFromString("#FFE4C4"), 3, 8, 12, 15);            
+            new Room("PetMR", (Brush)converter.ConvertFromString("#FFE4C4"), 3, 8, 12, 15);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

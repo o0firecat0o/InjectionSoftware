@@ -159,6 +159,7 @@ namespace InjectionSoftware.Class
             // it is useful when the injection time is changed, since some injection may swap
             reassignCaseNumberOfDoctor();
             reassignCaseNumber();
+            reassignRoom();
 
             // save the injection in xml format
             saveInjection(injection.AccessionNumber);
@@ -275,8 +276,9 @@ namespace InjectionSoftware.Class
 
                 reassignCaseNumberOfDoctor();
                 reassignCaseNumber();
+                reassignRoom();
 
-                delInjection(accessionNumber);
+                delInjectionFile(accessionNumber);
             }
             else
             {
@@ -284,16 +286,26 @@ namespace InjectionSoftware.Class
             }
         }
 
-        public static void reassignRoom()
+        private static void reassignRoom()
         {
-
+            foreach (Room room in Room.Rooms)
+            {
+                room.Injections.Clear();
+                foreach (Injection injection in injections)
+                {
+                    if(injection.SelectedRoom == room)
+                    {
+                        room.Injections.Add(injection);
+                    }
+                }
+            }
         }
 
         /// <summary>
         /// Rassign case number of doctor
         /// Used when case injection time changed, case assigned doctor changed etc
         /// </summary>
-        public static void reassignCaseNumberOfDoctor()
+        private static void reassignCaseNumberOfDoctor()
         {
             List<Injection> tempinjections = returnSortedInjectionByTime();
 
@@ -311,7 +323,7 @@ namespace InjectionSoftware.Class
             }
         }
 
-        public static void reassignCaseNumber()
+        private static void reassignCaseNumber()
         {
             List<Injection> tempPETCTinjections = returnSortedInjectionByTime(Modality.getModality("PETCT"));
 
@@ -333,7 +345,7 @@ namespace InjectionSoftware.Class
         /// sort the list and return it as result
         /// </summary>
         /// <returns></returns>
-        public static List<Injection> returnSortedInjectionByTime()
+        private static List<Injection> returnSortedInjectionByTime()
         {
 
             //Clone a Observable collection and convert it to list
@@ -349,7 +361,7 @@ namespace InjectionSoftware.Class
             return tempinjections;
         }
 
-        public static List<Injection> returnSortedInjectionByTime(Modality modality)
+        private static List<Injection> returnSortedInjectionByTime(Modality modality)
         {
             List<Injection> tempinjections = new List<Injection>();
             foreach (var injection in injections)
@@ -416,7 +428,7 @@ namespace InjectionSoftware.Class
             xmlFile.Save(fullpath);
         }
 
-        private static void delInjection(string accessionNumber)
+        private static void delInjectionFile(string accessionNumber)
         {
             try
             {
