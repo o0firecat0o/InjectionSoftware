@@ -290,7 +290,9 @@ namespace InjectionSoftware.Class
         {
             foreach (Room room in Room.Rooms)
             {
+                //clear all previous injections of the room
                 room.Injections.Clear();
+                //loop through all injections one by one and assign them to room
                 foreach (Injection injection in injections)
                 {
                     if(injection.SelectedRoom == room)
@@ -298,6 +300,8 @@ namespace InjectionSoftware.Class
                         room.Injections.Add(injection);
                     }
                 }
+                //trigger the room injection changed method, it is used for changing the room page grid size
+                room.InjectionsChanged();
             }
         }
 

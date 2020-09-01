@@ -22,7 +22,7 @@ namespace InjectionSoftware.Enums
         /// Used for grid inside grid, the larger the cell, the more child it could handle, for ex, room 11
         /// </summary>
         public int NumberOfChildColumn { get { return (int)(ColumnSpan / 5); } }
-        public int NumberOfChildRow { get { return (int)(RowSpan / 3); } }
+        public int NumberOfChildRow { get { return Math.Max((int)(RowSpan / 3), (Injections.Count + NumberOfChildColumn - 1) / NumberOfChildColumn ); } }
 
         public float Row { get; set; }
         public float Column { get; set; }
@@ -31,6 +31,13 @@ namespace InjectionSoftware.Enums
 
         public static ObservableCollection<Room> Rooms { get; set; } = new ObservableCollection<Room>();
 
+        /// <summary>
+        /// reset the grid width and height each time a new injection is added
+        /// </summary>
+        public void InjectionsChanged()
+        {
+            OnPropertyChanged("NumberOfChildRow");
+        }
 
         public ObservableCollection<Injection> Injections
         {

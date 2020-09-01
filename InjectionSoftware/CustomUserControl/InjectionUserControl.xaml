@@ -38,6 +38,7 @@
                                       Width="*" />
                 </Grid.ColumnDefinitions>
 
+                <!-- Injection case number-->
                 <Grid Grid.Column="0"
                       Margin="3 0 3 0">
                     <!-- Injection case number-->
@@ -45,17 +46,20 @@
                         <Border BorderBrush="Black"
                                 BorderThickness="2"
                                 CornerRadius="2"
-                                Padding="9"
+                                Padding="5"
                                 HorizontalAlignment="Left"
                                 Width="60"
                                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
 
 
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       TextAlignment="Center"
-                                       FontSize="36"
-                                       Text="{Binding CaseNumberText}" />
+                            <Viewbox>
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           TextAlignment="Center"
+                                           FontSize="36"
+                                           Text="{Binding CaseNumberText}" />
+                            </Viewbox>
+                            
                         </Border>
                     </Viewbox>
                     
