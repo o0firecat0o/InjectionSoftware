@@ -28,6 +28,14 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
+        public ObservableCollection<Injection> AllDischargedInjection
+        {
+            get
+            {
+                return InjectionsManager.dischargedInjections;
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)

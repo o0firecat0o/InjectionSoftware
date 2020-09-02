@@ -45,6 +45,7 @@ namespace InjectionSoftware.Class
             {
                 _CaseNumber = value;
                 OnPropertyChanged("CaseNumber");
+                OnPropertyChanged("CaseNumberText");
                 OnPropertyChanged("Row");
                 OnPropertyChanged("Column");
             }
@@ -140,6 +141,7 @@ namespace InjectionSoftware.Class
             {
                 _Modality = value;
                 OnPropertyChanged("Modality");
+                OnPropertyChanged("CaseNumberText");
             }
         }
 

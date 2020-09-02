@@ -82,6 +82,7 @@
                     G
                     </TextBlock>
                 </Viewbox>
+                <!-- room grid-->
                 <Grid Margin="5"
                       Background="#FFFEFFF0"
                       Grid.Column="1">
@@ -153,14 +154,6 @@
 
                         <ItemsControl.ItemContainerStyle>
                             <Style TargetType="ContentPresenter">
-                                <Style.Resources>
-                                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
-                                                     Color="Black" />
-                                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
-                                                     Color="White" />
-                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
-                                                     Color="Black" />
-                                </Style.Resources>
                                 <Setter Property="Grid.RowSpan"
                                         Value="{Binding RowSpan}" />
                                 <Setter Property="Grid.ColumnSpan"
@@ -239,10 +232,32 @@
                     D
                     </TextBlock>
                 </Viewbox>
-                <StackPanel Margin="5"
-                            Background="#FFFFF4F0"
-                            Grid.Column="1">
-                </StackPanel>
+                <Grid Margin="5"
+                      Background="#FFFEFFF0"
+                      Grid.Column="1">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl Background="#FFFFF0F8"
+                                      ItemsSource="{Binding AllDischargedInjection}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="10"></UniformGrid>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
+                                            AncestorType=ListBox}}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    
+                </Grid>
+
             </Grid>
         </Border>
     </Grid>

@@ -21,6 +21,7 @@ namespace InjectionSoftware.Class
     public static class InjectionsManager
     {
         public static ObservableCollection<Injection> injections = new ObservableCollection<Injection>();
+        public static ObservableCollection<Injection> dischargedInjections = new ObservableCollection<Injection>();
 
         public static void Init()
         {
@@ -209,6 +210,8 @@ namespace InjectionSoftware.Class
             modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, uniqueExamIdentifier, examCode, dateOfBirth, gender, inpatient, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
         }
 
+        //TODO: make more type of patient status mode, e.g. uptaking, imaging, checking
+
         public static void dischargeInjectionNetwork(string AccessionNumber)
         {
             if (hasInjection(AccessionNumber))
@@ -234,6 +237,8 @@ namespace InjectionSoftware.Class
             if (hasInjection(AccessionNumber))
             {
                 getInjection(AccessionNumber).isDischarge = true;
+                reassignRoom();
+                saveInjection(AccessionNumber);
             }
             else
             {
@@ -295,13 +300,23 @@ namespace InjectionSoftware.Class
                 //loop through all injections one by one and assign them to room
                 foreach (Injection injection in injections)
                 {
-                    if(injection.SelectedRoom == room)
+                    if(injection.SelectedRoom == room && injection.isDischarge != true)
                     {
                         room.Injections.Add(injection);
                     }
                 }
                 //trigger the room injection changed method, it is used for changing the room page grid size
                 room.InjectionsChanged();
+            }
+
+            // for the discharged row at the bottom of room page
+            dischargedInjections.Clear();
+            foreach (Injection injection in injections)
+            {
+                if (injection.isDischarge)
+                {
+                    dischargedInjections.Add(injection);
+                }
             }
         }
 
@@ -367,19 +382,17 @@ namespace InjectionSoftware.Class
 
         private static List<Injection> returnSortedInjectionByTime(Modality modality)
         {
-            List<Injection> tempinjections = new List<Injection>();
-            foreach (var injection in injections)
+            List<Injection> returnInjection = returnSortedInjectionByTime();
+            List<Injection> tempInjeciton = new List<Injection>();
+            foreach (Injection injection in returnInjection)
             {
-                if (injection.Modality == modality)
+                if(injection.Modality == modality)
                 {
-                    tempinjections.Add(injection);
+                    tempInjeciton.Add(injection);
                 }
             }
 
-            //sort the list according to the injection time
-            tempinjections.Sort((x, y) => (DateTime.Compare(x.InjectionTime, y.InjectionTime)));
-
-            return tempinjections;
+            return tempInjeciton;
         }
 
         public static void loadAllInjections()
