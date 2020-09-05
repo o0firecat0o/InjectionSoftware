@@ -179,8 +179,8 @@
                                                            Foreground="#FF5FA1A5"
                                                            Opacity="0.3"
                                                            Text="{Binding Name}" />
-                                                
-                                            </Grid>                                        
+
+                                            </Grid>
                                         </Viewbox>
                                         <ItemsControl ItemsSource="{Binding Injections}">
                                             <ItemsControl.ItemsPanel>
@@ -241,34 +241,42 @@
                 <Grid Margin="5"
                       Background="#FFFEFFF0"
                       Grid.Column="1">
+
                     <ScrollViewer VerticalScrollBarVisibility="Auto"
                                   HorizontalScrollBarVisibility="Disabled">
-                        <ItemsControl Background="#FFFFF0F8"
-                                      ItemsSource="{Binding AllDischargedInjection}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Columns="10"></UniformGrid>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
+                        <Viewbox Stretch="Uniform">
+                            <ItemsControl Background="#FFFFF0F8"
+                                          ItemsSource="{Binding AllDischargedInjection}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+
+                                        <UniformGrid Columns="3"></UniformGrid>
+
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
 
 
 
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
                                             AncestorType=ListBox}}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseDown">
-                                                <i:InvokeCommandAction Command="{Binding DataContext.Command1, RelativeSource={RelativeSource AncestorType=ScrollViewer}}"
-                                                                       CommandParameter="{Binding}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </localcustomusercontrol:InjectionUserControl>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseDown">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.Command1, RelativeSource={RelativeSource AncestorType=ScrollViewer}}"
+                                                                           CommandParameter="{Binding}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </localcustomusercontrol:InjectionUserControl>
+
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </Viewbox>
+                        
                     </ScrollViewer>
-                    
+
                 </Grid>
 
             </Grid>
