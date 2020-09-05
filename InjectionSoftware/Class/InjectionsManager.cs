@@ -22,6 +22,7 @@ namespace InjectionSoftware.Class
     {
         public static ObservableCollection<Injection> injections = new ObservableCollection<Injection>();
         public static ObservableCollection<Injection> dischargedInjections = new ObservableCollection<Injection>();
+        public static ObservableCollection<Patient> registeredPatients = new ObservableCollection<Patient>();
 
         public static void Init()
         {
@@ -42,6 +43,18 @@ namespace InjectionSoftware.Class
             foreach (var injection in injections)
             {
                 if (injection.AccessionNumber.Equals(accessionNumber))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool hasInjection_patientID(string patientID)
+        {
+            foreach (var injection in injections)
+            {
+                if (injection.Patient.PatientID.Equals(patientID))
                 {
                     return true;
                 }
@@ -158,9 +171,7 @@ namespace InjectionSoftware.Class
 
             // recalculate the case number,
             // it is useful when the injection time is changed, since some injection may swap
-            reassignCaseNumberOfDoctor();
-            reassignCaseNumber();
-            reassignRoom();
+            recreateObservableList();
 
             // save the injection in xml format
             saveInjection(injection.AccessionNumber);
@@ -237,7 +248,7 @@ namespace InjectionSoftware.Class
             if (hasInjection(AccessionNumber))
             {
                 getInjection(AccessionNumber).isDischarge = true;
-                reassignRoom();
+                recreateObservableList();
                 saveInjection(AccessionNumber);
             }
             else
@@ -279,9 +290,7 @@ namespace InjectionSoftware.Class
                     }
                 }
 
-                reassignCaseNumberOfDoctor();
-                reassignCaseNumber();
-                reassignRoom();
+                recreateObservableList();
 
                 delInjectionFile(accessionNumber);
             }
@@ -291,8 +300,25 @@ namespace InjectionSoftware.Class
             }
         }
 
+        public static void recreateObservableList()
+        {
+            reassignCaseNumberOfDoctor();
+            reassignCaseNumber();
+            reassignRoom();
+        }
+
         private static void reassignRoom()
         {
+            // reassign patient (waiting for injection) to a list
+            registeredPatients.Clear();
+            foreach (Patient patient in PatientManager.Patients)
+            {
+                if (!InjectionsManager.hasInjection_patientID(patient.PatientID)){
+                    registeredPatients.Add(patient);
+                }
+            }
+
+            // assign patient with injection to corresponding room
             foreach (Room room in Room.Rooms)
             {
                 //clear all previous injections of the room

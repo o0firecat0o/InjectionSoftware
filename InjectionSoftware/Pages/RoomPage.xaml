@@ -44,14 +44,12 @@
                 <StackPanel Margin="5"
                             Background="AliceBlue"
                             Grid.Column="1">
-                    <ItemsControl ItemsSource="{Binding AllInjection}">
+                    <ItemsControl ItemsSource="{Binding AllRegisteredPatient}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Viewbox Stretch="Uniform">
-                                    <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
-                                            AncestorType=ListBox}}"/>
-                                </Viewbox>
-
+                                <TextBlock>
+                                    Hello
+                                </TextBlock>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
 

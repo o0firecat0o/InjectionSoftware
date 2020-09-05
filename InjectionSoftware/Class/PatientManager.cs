@@ -76,6 +76,8 @@ namespace InjectionSoftware.Class
                     Console.Error.WriteLine(e);
                 }
             }
+
+            InjectionsManager.recreateObservableList();
         }
     }
 }

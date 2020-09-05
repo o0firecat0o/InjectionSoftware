@@ -10,13 +10,21 @@ using System.Threading.Tasks;
 
 namespace InjectionSoftware.ViewModels
 {
-    internal class RoomPageViewModel : INotifyPropertyChanged
+    internal class RoomPageViewModel
     {
         public ObservableCollection<Room> AllRoom
         {
             get
             {
                 return Room.Rooms;
+            }
+        }
+
+        public ObservableCollection<Patient> AllRegisteredPatient
+        {
+            get
+            {
+                return InjectionsManager.registeredPatients;
             }
         }
 
@@ -35,17 +43,5 @@ namespace InjectionSoftware.ViewModels
                 return InjectionsManager.dischargedInjections;
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            var handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
     }
 }
