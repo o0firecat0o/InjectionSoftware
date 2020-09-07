@@ -42,20 +42,57 @@
                     D
                     </TextBlock>
                 </Viewbox>
-                <StackPanel Margin="5"
-                            Background="AliceBlue"
-                            Grid.Column="1">
-                    <ItemsControl ItemsSource="{Binding AllRegisteredPatient}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock>
-                                    Hello
-                                </TextBlock>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
+                <Grid Margin="5"
+                      Background="AliceBlue"
+                      Grid.Column="1">
 
-                    </ItemsControl>
-                </StackPanel>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Disabled">
+                        <Viewbox Stretch="Uniform" VerticalAlignment="Top">
+                            <ItemsControl Background="AliceBlue"
+                                          ItemsSource="{Binding AllRegisteredPatient}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+
+                                        <UniformGrid Columns="3"></UniformGrid>
+
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Width="400" Height="80">
+                                            <Border CornerRadius="4"
+                                                    Margin="3"
+                                                    Background="White">
+                                                <Border.Effect>
+                                                    <DropShadowEffect ShadowDepth="2"
+                                                                      Color="#FF666666"
+                                                                      BlurRadius="3"
+                                                                      Opacity="0.7" />
+                                                </Border.Effect>
+                                            </Border>
+                                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                                                <TextBlock Text="{Binding PatientFullname}" FontSize="36"/>
+                                            </Viewbox>
+                                            
+
+                                            <Border CornerRadius="2"
+                                                    Margin="1"
+                                                    Background="Transparent"
+                                                    Style="{StaticResource StackPanelLink}" />
+                                        </Grid>
+                                        
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                        </Viewbox>
+
+                    </ScrollViewer>
+
+                </Grid>
+
             </Grid>
         </Border>
 
@@ -239,12 +276,12 @@
                     </TextBlock>
                 </Viewbox>
                 <Grid Margin="5"
-                      Background="#FFFEFFF0"
+                      Background="#FFFFF0F8"
                       Grid.Column="1">
 
                     <ScrollViewer VerticalScrollBarVisibility="Auto"
                                   HorizontalScrollBarVisibility="Disabled">
-                        <Viewbox Stretch="Uniform">
+                        <Viewbox Stretch="Uniform" VerticalAlignment="Top">
                             <ItemsControl Background="#FFFFF0F8"
                                           ItemsSource="{Binding AllDischargedInjection}">
                                 <ItemsControl.ItemsPanel>
@@ -274,7 +311,7 @@
                             </ItemsControl>
 
                         </Viewbox>
-                        
+
                     </ScrollViewer>
 
                 </Grid>

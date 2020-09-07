@@ -52,5 +52,10 @@ namespace InjectionSoftware.Pages
                 this.Title = "Modify Injection";
             }
         }
+
+        public NewInjection(Patient patient)
+        {
+
+        }
     }
 }

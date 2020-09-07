@@ -71,11 +71,11 @@ namespace InjectionSoftware.Enums
         {
             new Room("NM", (Brush)converter.ConvertFromString("#FFE4C4"), 3, 5, 0, 0);
             new Room("Treadmill", (Brush)converter.ConvertFromString("#C4F9FF"), 3, 5, 3, 0);
-            new Room("Clothes\nChange", (Brush)converter.ConvertFromString("#C4F9FF"), 9, 5, 6, 0);
+            new Room("Changing\nRooms", (Brush)converter.ConvertFromString("#C4F9FF"), 9, 5, 6, 0);
             new Room("Lobby", (Brush)converter.ConvertFromString("#F0C4FF"), 3, 10, 12, 5);
-            new Room("Mct", (Brush)converter.ConvertFromString("#FFE4C4"), 3, 5, 0, 5);
+            new Room("MCT", (Brush)converter.ConvertFromString("#FFE4C4"), 3, 5, 0, 5);
             new Room("7", (Brush)converter.ConvertFromString("#C4FFCE"), 5, 13, 0, 10);
-            new Room("Bio", (Brush)converter.ConvertFromString("#FFE4C4"), 3, 10, 0, 23);
+            new Room("BIO", (Brush)converter.ConvertFromString("#FFE4C4"), 3, 10, 0, 23);
 
             new Room("8", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 10, 3, 23);
 
