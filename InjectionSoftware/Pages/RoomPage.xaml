@@ -72,7 +72,7 @@
                                                                       Opacity="0.7" />
                                                 </Border.Effect>
                                             </Border>
-                                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="10">
                                                 <TextBlock Text="{Binding PatientFullname}" FontSize="36"/>
                                             </Viewbox>
                                             
@@ -81,6 +81,13 @@
                                                     Margin="1"
                                                     Background="Transparent"
                                                     Style="{StaticResource StackPanelLink}" />
+                                            
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseDown">
+                                                    <i:InvokeCommandAction Command="{Binding DataContext.Command2, RelativeSource={RelativeSource AncestorType=ScrollViewer}}"
+                                                                           CommandParameter="{Binding}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
                                         </Grid>
                                         
                                     </DataTemplate>

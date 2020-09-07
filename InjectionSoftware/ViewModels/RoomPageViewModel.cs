@@ -48,15 +48,23 @@ namespace InjectionSoftware.ViewModels
 
         public Command<Injection> Command1 { get; set; }
 
+        public Command<Patient> Command2 { get; set; }
+
         public RoomPageViewModel()
         {
             Command1 = new Command<Injection>(ExecuteCommand1);
+            Command2 = new Command<Patient>(ExecuteCommand2);
         }
 
         private void ExecuteCommand1(Injection injection)
         {
             Window newInjectionWindow = new NewInjection(injection);
             newInjectionWindow.ShowDialog();
+        }
+
+        private void ExecuteCommand2(Patient patient)
+        {
+            Console.Out.WriteLine(patient.PatientFullname);
         }
     }
 }
