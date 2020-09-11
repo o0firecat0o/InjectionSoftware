@@ -64,7 +64,8 @@ namespace InjectionSoftware.ViewModels
 
         private void ExecuteCommand2(Patient patient)
         {
-            Console.Out.WriteLine(patient.PatientFullname);
+            Window newInjectionWindow = new NewInjection(null,patient);
+            newInjectionWindow.ShowDialog();
         }
     }
 }

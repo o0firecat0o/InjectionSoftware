@@ -266,6 +266,12 @@ namespace InjectionSoftware.ViewModels
             reselectRoom();
         }
 
+        public void selectPatient(Patient patient)
+        {
+            SelectedPatient = patient;
+            ((NewInjection)NewInjection.window).PatientSelection.SelectedItem = SelectedPatient;
+        }
+
         private void reselectModality()
         {
             if (Injection != null)

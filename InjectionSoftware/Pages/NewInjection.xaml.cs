@@ -26,7 +26,7 @@ namespace InjectionSoftware.Pages
     {
         public static MetroWindow window;
 
-        public NewInjection(Injection Injection = null)
+        public NewInjection(Injection Injection = null, Patient patient = null)
         {
             if(window != null)
             {
@@ -37,7 +37,8 @@ namespace InjectionSoftware.Pages
 
 
             InitializeComponent();
-            DataContext = new NewInjectionViewModel(Injection);
+            NewInjectionViewModel vm = new NewInjectionViewModel(Injection);
+            DataContext = vm;
 
 
             if(Injection == null)
@@ -45,17 +46,16 @@ namespace InjectionSoftware.Pages
                 ThemeManager.Current.ChangeTheme(this, "Light.Green");
                 DeleteButton.Visibility = Visibility.Collapsed;
                 DischargeButton.Visibility = Visibility.Collapsed;
+                if(patient != null)
+                {
+                    vm.selectPatient(patient);
+                }
             }
             else
             {
                 ThemeManager.Current.ChangeTheme(this, "Light.Red");
                 this.Title = "Modify Injection";
             }
-        }
-
-        public NewInjection(Patient patient)
-        {
-
         }
     }
 }
