@@ -103,6 +103,17 @@
                                        Style="{DynamicResource MahApps.Styles.TextBlock.Watermark}" />
                         </StackPanel>
                     </ListViewItem>
+
+                    <!-- Console log -->
+                    <ListViewItem MinHeight="60">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="5">
+                            <iconPacks:PackIconUnicons Kind="Calculator" />
+                            <TextBlock Text="Console Log"
+                                       Margin="5,0,0,0"
+                                       Style="{DynamicResource MahApps.Styles.TextBlock.Watermark}" />
+                        </StackPanel>
+                    </ListViewItem>
                 </ListView>
 
             </StackPanel>

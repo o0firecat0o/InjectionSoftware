@@ -36,6 +36,7 @@ namespace InjectionSoftware
         private RoomPage roomPage = new RoomPage();
         private NetworkPage networkPage = new NetworkPage();
         private RolePage rolePage = new RolePage();
+        private ConsoleLogPage consoleLogPage = new ConsoleLogPage();
 
         public static MetroWindow window;
                 
@@ -79,6 +80,9 @@ namespace InjectionSoftware
                     break;
                 case 3:
                     Main.Content = networkPage;
+                    break;
+                case 4:
+                    Main.Content = consoleLogPage;
                     break;
             }            
         }
