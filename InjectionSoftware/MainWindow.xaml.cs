@@ -35,6 +35,7 @@ namespace InjectionSoftware
         private InjectionPage injectionPage = new InjectionPage();
         private RoomPage roomPage = new RoomPage();
         private NetworkPage networkPage = new NetworkPage();
+        private RolePage rolePage = new RolePage();
 
         public static MetroWindow window;
                 
@@ -74,7 +75,7 @@ namespace InjectionSoftware
                     Main.Content = roomPage;
                     break;
                 case 2:
-
+                    Main.Content = rolePage;
                     break;
                 case 3:
                     Main.Content = networkPage;

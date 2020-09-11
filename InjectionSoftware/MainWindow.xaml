@@ -86,8 +86,8 @@
                     <ListViewItem MinHeight="60">
                         <StackPanel Orientation="Horizontal"
                                     Margin="5">
-                            <iconPacks:PackIconMaterial Kind="Doctor" />
-                            <TextBlock Text="Sort by Assigned Doctor"
+                            <iconPacks:PackIconMaterial Kind="AccessPoint" />
+                            <TextBlock Text="Select My Role"
                                        Margin="5,0,0,0"
                                        Style="{DynamicResource MahApps.Styles.TextBlock.Watermark}" />
                         </StackPanel>
