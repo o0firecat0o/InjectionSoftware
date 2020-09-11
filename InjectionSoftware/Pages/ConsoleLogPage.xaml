@@ -8,10 +8,13 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ConsoleLogPage">
 
-    <Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                      VerticalScrollBarVisibility="Auto">
-            <TextBlock Text="{Binding ConsoleLogString}" />
-        </ScrollViewer>
+    <Grid Background="#FFE5E5E5">
+        <Border Margin="15" BorderThickness="7" BorderBrush="Black" Background="White">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                          VerticalScrollBarVisibility="Auto">
+                <TextBlock Text="{Binding ConsoleLogString}" />
+            </ScrollViewer>
+        </Border>
+        
     </Grid>
 </Page>
