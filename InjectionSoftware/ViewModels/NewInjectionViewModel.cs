@@ -67,16 +67,16 @@ namespace InjectionSoftware.ViewModels
         public string UniqueExamIdentifier { get { return _UniqueExamIdentifier; } set { _UniqueExamIdentifier = value; OnPropertyChanged("UniqueExamIdentifier"); } }
 
         private string _ExamCode;
-        public string ExamCode { get { return _ExamCode; } set { _ExamCode = value;OnPropertyChanged("ExamCode"); } }
+        public string ExamCode { get { return _ExamCode; } set { _ExamCode = value; OnPropertyChanged("ExamCode"); } }
 
         private string _DateOfBirth;
-        public string DateOfBirth { get { return _DateOfBirth;} set { _DateOfBirth = value;OnPropertyChanged("DateOfBirth");} }
+        public string DateOfBirth { get { return _DateOfBirth; } set { _DateOfBirth = value; OnPropertyChanged("DateOfBirth"); } }
 
         private int _GenderIndex;
         public int GenderIndex { get { return _GenderIndex; } set { _GenderIndex = value; OnPropertyChanged("GenderIndex"); } }
 
         private int _InpatientIndex;
-        public int InpatientIndex { get { return _InpatientIndex; } set { _InpatientIndex = value;OnPropertyChanged("InpatientIndex"); } }
+        public int InpatientIndex { get { return _InpatientIndex; } set { _InpatientIndex = value; OnPropertyChanged("InpatientIndex"); } }
         #endregion
 
         /// <summary>
@@ -131,7 +131,17 @@ namespace InjectionSoftware.ViewModels
         public int UptakeTimeIndex { get { return _UptakeTimeIndex; } set { _UptakeTimeIndex = value; OnPropertyChanged("UptakeTimeIndex"); } }
 
         private Room _SelectedRoom;
-        public Room SelectedRoom { get { return _SelectedRoom; } set { _SelectedRoom = value; OnPropertyChanged("SelectedRoom"); } }
+        public Room SelectedRoom
+        {
+            get { return _SelectedRoom; }
+            set
+            {
+                _SelectedRoom = value;
+                OnPropertyChanged("SelectedRoom");
+                //reset the triggerFlag
+                multiplePatientWarningDisplayFlag = true;
+            }
+        }
 
         private bool _isContrast;
         public bool isContrast { get { return _isContrast; } set { _isContrast = value; OnPropertyChanged("isContrast"); } }
@@ -189,6 +199,12 @@ namespace InjectionSoftware.ViewModels
         /// for better user input, automatically change uptake hour if the user select RP
         /// </summary>
         private float hasUptaketimeChanged = 2;
+
+        /// <summary>
+        /// for better user ui interface, show a warning if multiple patient is presented in the same room when a new patient is added
+        /// </summary>
+        private bool multiplePatientWarningDisplayFlag = true;
+
         public Command ClearPatient { get; set; }
         public Command Cancel { get; set; }
         public Command Confirm { get; set; }
@@ -225,7 +241,7 @@ namespace InjectionSoftware.ViewModels
                 {
                     SelectedPatient = PatientManager.GetPatient(Injection.Patient.PatientID);
                     ((NewInjection)NewInjection.window).PatientSelection.SelectedItem = SelectedPatient;
-                }                
+                }
                 patientID = Injection.Patient.PatientID;
                 patientSurname = Injection.Patient.PatientSurname;
                 patientLastname = Injection.Patient.PatientLastname;
@@ -348,7 +364,7 @@ namespace InjectionSoftware.ViewModels
         public void patientSelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             Patient patient = (Patient)(((NewInjection)NewInjection.window).PatientSelection.SelectedItem);
-            if(patient == null)
+            if (patient == null)
             {
                 return;
             }
@@ -386,7 +402,7 @@ namespace InjectionSoftware.ViewModels
             InpatientIndex = 0;
             ((NewInjection)NewInjection.window).PatientSelection.SelectedIndex = -1;
             ((NewInjection)NewInjection.window).patientIDTextBox.IsReadOnly = false;
-            ((NewInjection)NewInjection.window).patientIDTextBox.Background = Brushes.White;            
+            ((NewInjection)NewInjection.window).patientIDTextBox.Background = Brushes.White;
         }
 
         private void dispose()
@@ -428,43 +444,58 @@ namespace InjectionSoftware.ViewModels
                 RPs.Add(rP);
             }
 
-            if (patientID != null && patientID != "")
-            {
-                float UptakeTime;
-                switch (UptakeTimeIndex)
-                {
-                    case 0:
-                        UptakeTime = 60f;
-                        break;
-                    case 1:
-                        UptakeTime = 90f;
-                        break;
-                    default:
-                        UptakeTime = 60f;
-                        break;
-                }
-
-                //add new injection
-                if (Injection == null)
-                {
-                    InjectionsManager.modInjectionNetWork("", SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
-                    Console.Out.WriteLine("adding injection with patient ID: " + patientID);
-                }
-                //modify existing injection
-                else
-                {
-                    InjectionsManager.modInjectionNetWork(Injection.AccessionNumber, SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
-                    Console.Out.WriteLine("modifying injection with patient ID:" + patientID);
-                }
-
-
-
-                NewInjection.window.Close();
-            }
-            else
+            //check whether the user has inputted the patientID
+            if (patientID == null || patientID == "")
             {
                 await NewInjection.window.ShowMessageAsync("Error", "Please enter Patient ID");
+                return;
             }
+
+            //check whether the room has existing patient
+            if (multiplePatientWarningDisplayFlag)
+            {
+                if(SelectedRoom.getNumberOfPatient()>=1 && SelectedRoom.MultiplePatientAllowed == false)
+                {
+                    if (!SelectedRoom.hasPatient(patientID))
+                    {
+                        await NewInjection.window.ShowMessageAsync("Warning", "There is already patient in the selected room!");
+                    }
+                }
+                multiplePatientWarningDisplayFlag = false;
+                return;
+            }
+
+
+            float UptakeTime;
+            switch (UptakeTimeIndex)
+            {
+                case 0:
+                    UptakeTime = 60f;
+                    break;
+                case 1:
+                    UptakeTime = 90f;
+                    break;
+                default:
+                    UptakeTime = 60f;
+                    break;
+            }
+
+            //add new injection
+            if (Injection == null)
+            {
+                InjectionsManager.modInjectionNetWork("", SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                Console.Out.WriteLine("adding injection with patient ID: " + patientID);
+            }
+            //modify existing injection
+            else
+            {
+                InjectionsManager.modInjectionNetWork(Injection.AccessionNumber, SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                Console.Out.WriteLine("modifying injection with patient ID:" + patientID);
+            }
+
+
+
+            NewInjection.window.Close();
         }
 
 

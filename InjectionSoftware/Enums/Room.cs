@@ -96,6 +96,23 @@ namespace InjectionSoftware.Enums
             new Room("PetMR", (Brush)converter.ConvertFromString("#FFE4C4"), 3, 8, 12, 15);
         }
 
+        public bool hasPatient(string PatientID)
+        {
+            foreach (Injection injection in Injections)
+            {
+                if(injection.Patient.PatientID == PatientID)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public int getNumberOfPatient()
+        {
+            return Injections.Count;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string propertyName)
