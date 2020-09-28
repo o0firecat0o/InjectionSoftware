@@ -141,8 +141,6 @@ namespace InjectionSoftware.ViewModels
             {
                 _SelectedRoom = value;
                 OnPropertyChanged("SelectedRoom");
-                //reset the triggerFlag
-                multiplePatientWarningDisplayFlag = true;
             }
         }
 
@@ -203,11 +201,6 @@ namespace InjectionSoftware.ViewModels
         /// </summary>
         private float hasUptaketimeChanged = 2;
 
-        /// <summary>
-        /// for better user ui interface, show a warning if multiple patient is presented in the same room when a new patient is added
-        /// </summary>
-        private bool multiplePatientWarningDisplayFlag = true;
-
         public Command ClearPatient { get; set; }
         public Command Cancel { get; set; }
         public Command Confirm { get; set; }
@@ -216,6 +209,7 @@ namespace InjectionSoftware.ViewModels
 
         SelectionDialog deleteConfirmDialog = new SelectionDialog();
         SelectionDialog dischargeConfirmDialog = new SelectionDialog();
+        SelectionDialog duplicatedRoomConfirmDialog = new SelectionDialog();
 
         public NewInjectionViewModel(Injection Injection = null)
         {
@@ -417,12 +411,15 @@ namespace InjectionSoftware.ViewModels
             deleteConfirmDialog.Confirm.Click -= deleteDialog_OnDeleteDown;
             dischargeConfirmDialog.Cancel.Click -= dischargeDialog_OnCloseDown;
             dischargeConfirmDialog.Confirm.Click -= dischargeDialog_OnConfirmDown;
+            duplicatedRoomConfirmDialog.Cancel.Click -= duplicatedRoomConfirmDialog_OnCloseDown;
+            duplicatedRoomConfirmDialog.Confirm.Click -= duplicatedRoomConfirmDialog_OnConfirmDown;
 
             ((NewInjection)NewInjection.window).RP_injection.SelectionChanged -= reselectUptakeTime;
             ((NewInjection)NewInjection.window).PatientSelection.SelectionChanged -= patientSelectionChanged;
 
             deleteConfirmDialog = null;
             dischargeConfirmDialog = null;
+            duplicatedRoomConfirmDialog = null;
 
             Cancel = null;
             Confirm = null;
@@ -442,12 +439,6 @@ namespace InjectionSoftware.ViewModels
 
         private async void confirm()
         {
-            ObservableCollection<RP> RPs = new ObservableCollection<RP>();
-            foreach (RP rP in ((NewInjection)NewInjection.window).RP_injection.SelectedItems)
-            {
-                RPs.Add(rP);
-            }
-
             //check whether the user has inputted the patientID
             if (patientID == null || patientID == "")
             {
@@ -455,53 +446,25 @@ namespace InjectionSoftware.ViewModels
                 return;
             }
 
+
             //check whether the room has existing patient
-            if (multiplePatientWarningDisplayFlag)
+            if (SelectedRoom.getNumberOfPatient() >= 1 && SelectedRoom.MultiplePatientAllowed == false)
             {
-                if(SelectedRoom.getNumberOfPatient()>=1 && SelectedRoom.MultiplePatientAllowed == false)
+                if (!SelectedRoom.hasPatient(patientID))
                 {
-                    if (!SelectedRoom.hasPatient(patientID))
-                    {
-                        await NewInjection.window.ShowMessageAsync("Warning", "There is already patient in the selected room!");
-                    }
+                    duplicatedRoomConfirmDialog.MessageText.Content = "There is multiple patient in the selected room,\n Are you sure to proceed?";
+                    duplicatedRoomConfirmDialog.Cancel.Content = "Return";
+                    duplicatedRoomConfirmDialog.Confirm.Content = "Confirm & Add";
+                    duplicatedRoomConfirmDialog.Confirm.FontSize = 8;
+                    duplicatedRoomConfirmDialog.Cancel.Click += duplicatedRoomConfirmDialog_OnCloseDown;
+                    duplicatedRoomConfirmDialog.Confirm.Click += duplicatedRoomConfirmDialog_OnConfirmDown;
+                    await NewInjection.window.ShowMetroDialogAsync(duplicatedRoomConfirmDialog);
+                    return;
                 }
-                multiplePatientWarningDisplayFlag = false;
-                return;
             }
 
-
-            float UptakeTime;
-            switch (UptakeTimeIndex)
-            {
-                case 0:
-                    UptakeTime = 60f;
-                    break;
-                case 1:
-                    UptakeTime = 90f;
-                    break;
-                default:
-                    UptakeTime = 60f;
-                    break;
-            }
-
-            //add new injection
-            if (Injection == null)
-            {
-                InjectionsManager.modInjectionNetWork("", SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, WardNumber,RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
-                Console.Out.WriteLine("adding injection with patient ID: " + patientID);
-            }
-            //modify existing injection
-            else
-            {
-                InjectionsManager.modInjectionNetWork(Injection.AccessionNumber, SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, WardNumber, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
-                Console.Out.WriteLine("modifying injection with patient ID:" + patientID);
-            }
-
-
-
-            NewInjection.window.Close();
+            add();
         }
-
 
         public async void delete()
         {
@@ -543,6 +506,57 @@ namespace InjectionSoftware.ViewModels
         {
             InjectionsManager.dischargeInjectionNetwork(Injection.AccessionNumber);
             await NewInjection.window.HideMetroDialogAsync(dischargeConfirmDialog);
+            NewInjection.window.Close();
+        }
+
+        private async void duplicatedRoomConfirmDialog_OnCloseDown(object sender, RoutedEventArgs e)
+        {
+            await NewInjection.window.HideMetroDialogAsync(duplicatedRoomConfirmDialog);
+        }
+
+        private async void duplicatedRoomConfirmDialog_OnConfirmDown(object sender, RoutedEventArgs e)
+        {
+            await NewInjection.window.HideMetroDialogAsync(duplicatedRoomConfirmDialog);
+            add();
+        }
+
+        public void add()
+        {
+            //Clone the observable collection into another collection
+            ObservableCollection<RP> RPs = new ObservableCollection<RP>();
+            foreach (RP rP in ((NewInjection)NewInjection.window).RP_injection.SelectedItems)
+            {
+                RPs.Add(rP);
+            }
+
+            //Convert the uptakeindex into float;
+            float UptakeTime;
+            switch (UptakeTimeIndex)
+            {
+                case 0:
+                    UptakeTime = 60f;
+                    break;
+                case 1:
+                    UptakeTime = 90f;
+                    break;
+                default:
+                    UptakeTime = 60f;
+                    break;
+            }
+
+            //add new injection
+            if (Injection == null)
+            {
+                InjectionsManager.modInjectionNetWork("", SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, WardNumber, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                Console.Out.WriteLine("adding injection with patient ID: " + patientID);
+            }
+            //modify existing injection
+            else
+            {
+                InjectionsManager.modInjectionNetWork(Injection.AccessionNumber, SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, WardNumber, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                Console.Out.WriteLine("modifying injection with patient ID:" + patientID);
+            }
+
             NewInjection.window.Close();
         }
 
