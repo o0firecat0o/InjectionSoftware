@@ -126,17 +126,20 @@
                                     <StackPanel Grid.Column="1"
                                                 Margin="3">
                                         <TextBlock> Patient Surname:</TextBlock>
-                                        <TextBox Text="{Binding patientSurname}" />
+                                        <TextBox Text="{Binding patientSurname}"
+                                                 TabIndex="2" />
                                     </StackPanel>
                                     <StackPanel Grid.Column="2"
                                                 Margin="3">
                                         <TextBlock> Patient Lastame:</TextBlock>
-                                        <TextBox Text="{Binding patientLastname}" />
+                                        <TextBox Text="{Binding patientLastname}"
+                                                 TabIndex="3" />
                                     </StackPanel>
                                     <StackPanel Margin="3">
                                         <TextBlock> Patient ID:</TextBlock>
                                         <TextBox x:Name="patientIDTextBox"
-                                                 Text="{Binding patientID}" />
+                                                 Text="{Binding patientID}"
+                                                 TabIndex="1" />
                                     </StackPanel>
 
                                     <DockPanel Grid.Column="2"
@@ -168,7 +171,8 @@
                                     <TextBlock>
                                     AccessionNumber:
                                     </TextBlock>
-                                    <TextBox Text="{Binding UniqueExamIdentifier}" />
+                                    <TextBox Text="{Binding UniqueExamIdentifier}"
+                                             TabIndex="4" />
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -178,7 +182,8 @@
                                             <TextBlock>
                                                 ExamCode:
                                             </TextBlock>
-                                            <TextBox Text="{Binding ExamCode}" />
+                                            <TextBox Text="{Binding ExamCode}"
+                                                     TabIndex="5" />
 
                                         </StackPanel>
                                         <StackPanel Grid.Column="1"
@@ -194,18 +199,26 @@
                                     <TextBlock>
                                     Patient Date Of Birth:
                                     </TextBlock>
-                                    <TextBox Text="{Binding DateOfBirth}" />
-                                    <TextBlock>
-                                    Patient Age:
-                                    </TextBlock>
-                                    <TextBox Text="{Binding SelectedPatient.Age, Mode=OneWay}"
-                                             IsReadOnly="True"
-                                             Background="LightGray" />
+                                    <TextBox Text="{Binding DateOfBirth}"
+                                             TabIndex="6" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="2*" />
+                                        </Grid.ColumnDefinitions>
 
-                                    <StackPanel Orientation="Horizontal"
-                                                HorizontalAlignment="Center">
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    Grid.Column="1">
+                                            <TextBlock>
+                                                Patient Age:
+                                            </TextBlock>
+                                            <TextBox Text="{Binding SelectedPatient.Age, Mode=OneWay}"
+                                                     IsReadOnly="True"
+                                                     Background="LightGray" />
+                                        </StackPanel>
                                         <!-- Select patient Gender-->
-                                        <StackPanel Margin="30 0 30 0">
+                                        <StackPanel Margin="30 0 30 0" Grid.Column="0">
                                             <TextBlock HorizontalAlignment="Center"> Patient Gender:</TextBlock>
                                             <ListView HorizontalAlignment="Left"
                                                       SelectedIndex="{Binding GenderIndex}"
@@ -233,8 +246,24 @@
                                                 </ListViewItem>
                                             </ListView>
                                         </StackPanel>
+                                    </Grid>
 
-                                        <!-- Select patient Gender-->
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="2*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    Grid.Column="1">
+                                            <TextBlock>
+                                                 Ward Number:
+                                            </TextBlock>
+                                            <TextBox Text="{Binding DateOfBirth}"
+                                                     TabIndex="6" />
+                                        </StackPanel>
+                                        <!-- Select Inpatient Outpatient -->
                                         <StackPanel  Margin="30 0 30 0">
                                             <TextBlock HorizontalAlignment="Center"> Inpatient:</TextBlock>
                                             <ListView HorizontalAlignment="Left"
@@ -245,20 +274,19 @@
                                                         <StackPanel Orientation="Horizontal" />
                                                     </ItemsPanelTemplate>
                                                 </ListView.ItemsPanel>
-                                                <!--Male-->
+                                                <!--Inpatient-->
                                                 <ListViewItem Background="#FFE4FFEA">
                                                     <TextBlock HorizontalAlignment="Center"
                                                                Text="IN" />
                                                 </ListViewItem>
-                                                <!--Female-->
+                                                <!--Outpatient-->
                                                 <ListViewItem Background="#FFFFF4DC">
                                                     <TextBlock HorizontalAlignment="Center"
                                                                Text="OUT" />
                                                 </ListViewItem>
                                             </ListView>
                                         </StackPanel>
-                                    </StackPanel>
-
+                                    </Grid>
 
                                     <TextBlock>
                                     PhoneNumber:
