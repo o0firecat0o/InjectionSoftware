@@ -202,17 +202,20 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Viewbox Stretch="Uniform"
-                                 HorizontalAlignment="Left"
-                                 StretchDirection="DownOnly">
-                            <TextBlock Text="{Binding Patient.PatientFullname}"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
-                                       Margin="2"
-                                       FontSize="36" />
-                        </Viewbox>
+                        <Grid>
+                            <Viewbox Stretch="Uniform"
+                                     HorizontalAlignment="Left"
+                                     StretchDirection="DownOnly">
+                                <TextBlock Text="{Binding Patient.PatientFullname}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Margin="2"
+                                           FontSize="36" />
+                            </Viewbox>
+                        </Grid>
+                        
 
 
                         <Grid Grid.Column="1">

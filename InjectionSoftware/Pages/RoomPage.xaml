@@ -288,13 +288,13 @@
 
                     <ScrollViewer VerticalScrollBarVisibility="Auto"
                                   HorizontalScrollBarVisibility="Disabled">
-                        <Viewbox Stretch="Uniform" VerticalAlignment="Top">
+                       
                             <ItemsControl Background="#FFFFF0F8"
                                           ItemsSource="{Binding AllDischargedInjection}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-
-                                        <UniformGrid Columns="3"></UniformGrid>
+                                        <UniformGrid Columns="3" Rows="10" Height="700"></UniformGrid>
+                                        
 
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
@@ -317,7 +317,6 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
 
-                        </Viewbox>
 
                     </ScrollViewer>
 
