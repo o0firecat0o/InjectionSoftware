@@ -17,7 +17,7 @@
       Background="#FFEBEBEB">
 
     <Page.Resources>
-        <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
 
     <Grid>
@@ -26,7 +26,8 @@
 
                 <!-- Template for each injection case-->
                 <DataTemplate DataType="{x:Type localclass:Injection}">
-                    <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
+                    <localcustomusercontrol:InjectionUserControl Visibility="{Binding isVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
                                             AncestorType=ListBox}}">
                         <!-- Button Press Event Trigger -->
                         <i:Interaction.Triggers>

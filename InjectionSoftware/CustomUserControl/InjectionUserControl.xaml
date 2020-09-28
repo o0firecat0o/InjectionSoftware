@@ -11,10 +11,6 @@
              d:DesignHeight="100"
              d:DesignWidth="400">
 
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
-    </UserControl.Resources>
-
     <Grid x:Name="injectionGrid">
         <!-- outline of the injection case-->
         <Border CornerRadius="4"

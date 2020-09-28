@@ -480,6 +480,13 @@ namespace InjectionSoftware.Class
             SearchString += Patient.PatientFullname + "_";
             SearchString += Patient.PatientID + "_";
             SearchString += AccessionNumber + "_";
+            SearchString += Patient.WardNumber + "_";
+
+            SearchString += Patient.PhoneNumber + "_";
+            SearchString += Patient.Referral + "_";
+            SearchString += Patient.UniqueExamIdentifier + "_";
+            SearchString += SelectedRoom.Name + "_";
+
             foreach (RP rP in RPs)
             {
                 SearchString += rP.Name + "_";
