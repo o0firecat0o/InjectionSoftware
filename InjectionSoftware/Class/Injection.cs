@@ -508,6 +508,7 @@ namespace InjectionSoftware.Class
             XElement dateOfBirth = new XElement("dateOfBirth", Patient.DateOfBirth);
             XElement gender = new XElement("gender", Patient.IsMale.ToString());
             XElement inpatient = new XElement("inpatient", Patient.IsInpatient.ToString());
+            XElement wardNumber = new XElement("wardNumber", Patient.WardNumber);
 
             XElement rp1 = new XElement("rp1");
             XElement rp2 = new XElement("rp2");
@@ -559,6 +560,7 @@ namespace InjectionSoftware.Class
             injection.Add(isContrast);
             injection.Add(isDelay);
             injection.Add(isDischarge);
+            injection.Add(wardNumber);
 
             return injection;
         }

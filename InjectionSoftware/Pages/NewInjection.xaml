@@ -260,8 +260,8 @@
                                             <TextBlock>
                                                  Ward Number:
                                             </TextBlock>
-                                            <TextBox Text="{Binding DateOfBirth}"
-                                                     TabIndex="6" />
+                                            <TextBox Text="{Binding WardNumber}"
+                                                     TabIndex="7" />
                                         </StackPanel>
                                         <!-- Select Inpatient Outpatient -->
                                         <StackPanel  Margin="30 0 30 0">

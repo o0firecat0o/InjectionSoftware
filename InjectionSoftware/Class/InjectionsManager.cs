@@ -75,9 +75,9 @@ namespace InjectionSoftware.Class
             return null;
         }
 
-        public static void modInjectionNetWork(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
+        public static void modInjectionNetWork(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, string WardNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
         {
-            Injection injection = modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, Gender, Inpatient, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
+            Injection injection = modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, Gender, Inpatient, WardNumber, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, isDischarge);
             if (!NetworkManager.isServer)
             {
                 NetworkManager.client.TCPSendMessageToServer("modInjection", injection.toXML().ToString());
@@ -104,7 +104,7 @@ namespace InjectionSoftware.Class
         /// <param name="isDelay"></param>
         /// <param name="isDischarge"></param>
         /// <returns></returns>
-        private static Injection modInjection(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
+        private static Injection modInjection(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, string WardNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, bool isDischarge)
         {
             // find wether the patient is already registered and exist in the database
             Patient patient;
@@ -153,6 +153,7 @@ namespace InjectionSoftware.Class
             patient.DateOfBirth = DateOfBirth;
             patient.IsMale = Gender;
             patient.IsInpatient = Inpatient;
+            patient.WardNumber = WardNumber;
 
             // modify the injection information
             injection.Modality = modality;
@@ -196,6 +197,7 @@ namespace InjectionSoftware.Class
             string dateOfBirth = xElement.Element(df + "dateOfBirth").Value;
             bool gender = bool.Parse(xElement.Element(df + "gender").Value);
             bool inpatient = bool.Parse(xElement.Element(df + "inpatient").Value);
+            string wardNumber = xElement.Element(df + "wardNumber").Value;
 
             ObservableCollection<RP> rPs = new ObservableCollection<RP>();
             if (xElement.Element(df + "rp1").Value != "")
@@ -218,7 +220,7 @@ namespace InjectionSoftware.Class
             bool isDelay = bool.Parse(xElement.Element(df + "isDelay").Value);
             bool isDischarge = bool.Parse(xElement.Element(df + "isDischarge").Value);
 
-            modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, uniqueExamIdentifier, examCode, dateOfBirth, gender, inpatient, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
+            modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, uniqueExamIdentifier, examCode, dateOfBirth, gender, inpatient, wardNumber, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, isDischarge);
         }
 
         //TODO: make more type of patient status mode, e.g. uptaking, imaging, checking

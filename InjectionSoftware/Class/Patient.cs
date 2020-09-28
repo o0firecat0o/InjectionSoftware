@@ -84,6 +84,7 @@ namespace InjectionSoftware.Class
         public string UniqueExamIdentifier { get; set; } = "";
         public string ExamCode { get; set; } = "";
         public string ExamName { get; set; } = "";
+        public string WardNumber { get; set; } = "";
 
         public int Age
         {
@@ -178,6 +179,7 @@ namespace InjectionSoftware.Class
             UniqueExamIdentifier = xElement.Element(df + "uniqueExamIdentifier").Value;
             ExamCode = xElement.Element(df + "examCode").Value;
             ExamName = xElement.Element(df + "examName").Value;
+            WardNumber = xElement.Element(df + "wardNumber").Value;
         }
 
         public XElement toXML()
@@ -191,10 +193,11 @@ namespace InjectionSoftware.Class
             XElement isMale = new XElement("isMale", IsMale.ToString());
             XElement phoneNumber = new XElement("phoneNumber", IsMale.ToString());
             XElement isInpatient = new XElement("isInpatient", IsInpatient.ToString());
-            XElement referral = new XElement("referral", Referral.ToString());
-            XElement uniqueExamIdentifier = new XElement("uniqueExamIdentifier", UniqueExamIdentifier.ToString());
-            XElement examCode = new XElement("examCode", ExamCode.ToString());
-            XElement examName = new XElement("examName", ExamName.ToString());
+            XElement referral = new XElement("referral", Referral);
+            XElement uniqueExamIdentifier = new XElement("uniqueExamIdentifier", UniqueExamIdentifier);
+            XElement examCode = new XElement("examCode", ExamCode);
+            XElement examName = new XElement("examName", ExamName);
+            XElement wardNumber = new XElement("wardNumber", WardNumber);
 
             patient.Add(patientID);
             patient.Add(patientLastname);
@@ -207,6 +210,7 @@ namespace InjectionSoftware.Class
             patient.Add(uniqueExamIdentifier);
             patient.Add(examCode);
             patient.Add(examName);
+            patient.Add(wardNumber);
 
             return patient;
         }
