@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:local="clr-namespace:InjectionSoftware"
       xmlns:localcustomusercontrol="clr-namespace:InjectionSoftware.CustomUserControl"
       mc:Ignorable="d"
@@ -26,11 +27,12 @@
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*" />
-                        <RowDefinition Height="2*" MaxHeight="20"/>
+                        <RowDefinition Height="4*"
+                                       MaxHeight="50" />
                     </Grid.RowDefinitions>
 
                     <Viewbox Stretch="Uniform"
@@ -51,21 +53,27 @@
                         </TextBlock>
                     </Viewbox>
 
-                    <Grid  Grid.Row="1"
-                           Margin="2"
-                           Background="AliceBlue"
-                           >
-                        <TextBlock Foreground="Black"
-                                   TextAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Text="{Binding AllRegisteredPatientCount}"/>
+                    <Viewbox Grid.Row="1">
+                        <Grid>
+                            <iconPacks:PackIconFontAwesome HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           Kind="CircleRegular"
+                                                           Foreground="blue" />
 
-                    </Grid>
+                            <TextBlock Foreground="Black"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       Padding="1"
+                                       Text="{Binding AllRegisteredPatientCount}" />
+                        </Grid>
+                    </Viewbox>
+                    
+
                 </Grid>
 
                 <Grid Margin="0 5 5 5"
-                           Background="AliceBlue"
-                           Grid.Column="1">
+                      Background="AliceBlue"
+                      Grid.Column="1">
 
 
 
@@ -143,8 +151,8 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*" />
-                        <RowDefinition Height="2*"
-                                       MaxHeight="20" />
+                        <RowDefinition Height="4*"
+                                       MaxHeight="50" />
                     </Grid.RowDefinitions>
 
                     <Viewbox Stretch="Uniform"
@@ -163,19 +171,25 @@
                         </TextBlock>
                     </Viewbox>
 
-                    <Grid  Grid.Row="1"
-                           Margin="2"
-                           Background="AliceBlue">
-                        <TextBlock TextAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Text="{Binding AllRegisteredPatientCount}" />
+                    <Viewbox Grid.Row="1">
+                        <Grid>
+                            <iconPacks:PackIconFontAwesome HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           Kind="CircleRegular"
+                                                           Foreground="Yellow" />
 
-                    </Grid>
+                            <TextBlock Foreground="Black"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       Padding="1"
+                                       Text="{Binding AllInjectionCount}" />
+                        </Grid>
+                    </Viewbox>
                 </Grid>
 
-                
+
                 <!-- room grid-->
-                <Grid Margin="0 5 5 5" 
+                <Grid Margin="0 5 5 5"
                       Background="#FFFEFFF0"
                       Grid.Column="1">
                     <ItemsControl x:Name="SelectedRoom"
@@ -320,8 +334,8 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*" />
-                        <RowDefinition Height="2*"
-                                       MaxHeight="20" />
+                        <RowDefinition Height="4*"
+                                       MaxHeight="50" />
                     </Grid.RowDefinitions>
 
                     <Viewbox Stretch="Uniform"
@@ -340,16 +354,22 @@
                         </TextBlock>
                     </Viewbox>
 
-                    <Grid  Grid.Row="1"
-                           Margin="2"
-                           Background="AliceBlue">
-                        <TextBlock TextAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   Text="{Binding AllRegisteredPatientCount}" />
+                    <Viewbox Grid.Row="1">
+                        <Grid>
+                            <iconPacks:PackIconFontAwesome HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           Kind="CircleRegular"
+                                                           Foreground="Red" />
 
-                    </Grid>
+                            <TextBlock Foreground="Black"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       Padding="1"
+                                       Text="{Binding AllDischargedInjectionCount}" />
+                        </Grid>
+                    </Viewbox>
                 </Grid>
-                <Grid Margin="5"
+                <Grid Margin="0 5 5 5"
                       Background="#FFFFF0F8"
                       Grid.Column="1">
 

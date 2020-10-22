@@ -59,7 +59,7 @@ namespace InjectionSoftware.ViewModels
         {
             get
             {
-                return InjectionsManager.injections.Count.ToString();
+                return (InjectionsManager.injections.Count- InjectionsManager.dischargedInjections.Count).ToString();
             }
         }
 
@@ -109,6 +109,7 @@ namespace InjectionSoftware.ViewModels
         {
             OnPropertyChanged("AllRegisteredPatientCount");
             OnPropertyChanged("AllInjectionCount");
+            OnPropertyChanged("AllDischargedInjectionCount");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
