@@ -55,6 +55,22 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
+        public string AllInjectionCount
+        {
+            get
+            {
+                return InjectionsManager.injections.Count.ToString();
+            }
+        }
+
+        public string AllDischargedInjectionCount
+        {
+            get
+            {
+                return InjectionsManager.dischargedInjections.Count.ToString();
+            }
+        }
+
         public Command<Injection> Command1 { get; set; }
 
         public Command<Patient> Command2 { get; set; }
@@ -92,6 +108,7 @@ namespace InjectionSoftware.ViewModels
         private void Update()
         {
             OnPropertyChanged("AllRegisteredPatientCount");
+            OnPropertyChanged("AllInjectionCount");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

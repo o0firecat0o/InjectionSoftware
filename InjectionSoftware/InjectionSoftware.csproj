@@ -284,5 +284,8 @@
   <ItemGroup>
     <Resource Include="icon.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ToDoList.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
