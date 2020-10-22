@@ -24,7 +24,9 @@ namespace InjectionSoftware
         public RoomPage()
         {
             InitializeComponent();
-            DataContext = new RoomPageViewModel();
+            RoomPageViewModel roomPageViewModel= new RoomPageViewModel();            
+            DataContext = roomPageViewModel;
+            roomPageViewModel.Init();
         }
     }
 }

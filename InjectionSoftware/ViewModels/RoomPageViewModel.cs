@@ -9,10 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace InjectionSoftware.ViewModels
 {
-    internal class RoomPageViewModel
+    internal class RoomPageViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Room> AllRoom
         {
@@ -46,6 +47,14 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
+        public string AllRegisteredPatientCount
+        {
+            get
+            {
+                return InjectionsManager.registeredPatients.Count.ToString();
+            }
+        }
+
         public Command<Injection> Command1 { get; set; }
 
         public Command<Patient> Command2 { get; set; }
@@ -64,8 +73,36 @@ namespace InjectionSoftware.ViewModels
 
         private void ExecuteCommand2(Patient patient)
         {
-            Window newInjectionWindow = new NewInjection(null,patient);
+            Window newInjectionWindow = new NewInjection(null, patient);
             newInjectionWindow.ShowDialog();
+        }
+
+        public void Init()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(3000);
+            timer.Start();
+
+            timer.Tick += new EventHandler(delegate (object s, EventArgs a)
+            {
+                Update();
+            });
+        }
+
+        private void Update()
+        {
+            OnPropertyChanged("AllRegisteredPatientCount");
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

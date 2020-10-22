@@ -26,29 +26,53 @@
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Viewbox Stretch="Uniform"
-                         StretchDirection="DownOnly">
-                    <TextBlock Foreground="White"
-                               TextAlignment="Center">
-                    R<LineBreak />
-                    E<LineBreak />
-                    G<LineBreak />
-                    I<LineBreak />
-                    S<LineBreak />
-                    T<LineBreak />
-                    E<LineBreak />
-                    R<LineBreak />
-                    E<LineBreak />
-                    D
-                    </TextBlock>
-                </Viewbox>
-                <Grid Margin="5"
-                      Background="AliceBlue"
-                      Grid.Column="1">
+                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="2*" MaxHeight="20"/>
+                    </Grid.RowDefinitions>
+
+                    <Viewbox Stretch="Uniform"
+                             StretchDirection="DownOnly">
+
+                        <TextBlock Foreground="White"
+                                   TextAlignment="Center">
+                            R<LineBreak />
+                            E<LineBreak />
+                            G<LineBreak />
+                            I<LineBreak />
+                            S<LineBreak />
+                            T<LineBreak />
+                            E<LineBreak />
+                            R<LineBreak />
+                            E<LineBreak />
+                            D
+                        </TextBlock>
+                    </Viewbox>
+
+                    <Grid  Grid.Row="1"
+                           Margin="2"
+                           Background="AliceBlue"
+                           >
+                        <TextBlock Foreground="Black"
+                                   TextAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Text="{Binding AllRegisteredPatientCount}"/>
+
+                    </Grid>
+                </Grid>
+
+                <Grid Margin="0 5 5 5"
+                           Background="AliceBlue"
+                           Grid.Column="1">
+
+
 
                     <ScrollViewer VerticalScrollBarVisibility="Auto"
                                   HorizontalScrollBarVisibility="Disabled">
-                        <Viewbox Stretch="Uniform" VerticalAlignment="Top">
+                        <Viewbox Stretch="Uniform"
+                                 VerticalAlignment="Top">
                             <ItemsControl Background="AliceBlue"
                                           ItemsSource="{Binding AllRegisteredPatient}">
                                 <ItemsControl.ItemsPanel>
@@ -58,10 +82,11 @@
 
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
-                                
+
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid Width="400" Height="80">
+                                        <Grid Width="400"
+                                              Height="80">
                                             <Border CornerRadius="4"
                                                     Margin="3"
                                                     Background="White">
@@ -72,16 +97,19 @@
                                                                       Opacity="0.7" />
                                                 </Border.Effect>
                                             </Border>
-                                            <Viewbox Stretch="Uniform" StretchDirection="DownOnly" Margin="10">
-                                                <TextBlock Text="{Binding PatientFullname}" FontSize="36"/>
+                                            <Viewbox Stretch="Uniform"
+                                                     StretchDirection="DownOnly"
+                                                     Margin="10">
+                                                <TextBlock Text="{Binding PatientFullname}"
+                                                           FontSize="36" />
                                             </Viewbox>
-                                            
+
 
                                             <Border CornerRadius="2"
                                                     Margin="1"
                                                     Background="Transparent"
                                                     Style="{StaticResource StackPanelLink}" />
-                                            
+
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="MouseDown">
                                                     <i:InvokeCommandAction Command="{Binding DataContext.Command2, RelativeSource={RelativeSource AncestorType=ScrollViewer}}"
@@ -89,7 +117,7 @@
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </Grid>
-                                        
+
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -111,22 +139,43 @@
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Viewbox Stretch="Uniform"
-                         StretchDirection="DownOnly">
-                    <TextBlock Foreground="White"
-                               TextAlignment="Center">
-                    U<LineBreak />
-                    P<LineBreak />
-                    T<LineBreak />
-                    A<LineBreak />
-                    K<LineBreak />
-                    I<LineBreak />
-                    N<LineBreak />
-                    G
-                    </TextBlock>
-                </Viewbox>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="2*"
+                                       MaxHeight="20" />
+                    </Grid.RowDefinitions>
+
+                    <Viewbox Stretch="Uniform"
+                             StretchDirection="DownOnly">
+
+                        <TextBlock Foreground="White"
+                                   TextAlignment="Center">
+                            U<LineBreak />
+                            P<LineBreak />
+                            T<LineBreak />
+                            A<LineBreak />
+                            K<LineBreak />
+                            I<LineBreak />
+                            N<LineBreak />
+                            G<LineBreak />
+                        </TextBlock>
+                    </Viewbox>
+
+                    <Grid  Grid.Row="1"
+                           Margin="2"
+                           Background="AliceBlue">
+                        <TextBlock TextAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Text="{Binding AllRegisteredPatientCount}" />
+
+                    </Grid>
+                </Grid>
+
+                
                 <!-- room grid-->
-                <Grid Margin="5"
+                <Grid Margin="0 5 5 5" 
                       Background="#FFFEFFF0"
                       Grid.Column="1">
                     <ItemsControl x:Name="SelectedRoom"
@@ -268,54 +317,74 @@
                     <ColumnDefinition Width="30" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Viewbox Stretch="Uniform"
-                         StretchDirection="DownOnly">
-                    <TextBlock Foreground="White"
-                               TextAlignment="Center">
-                    D<LineBreak />
-                    E<LineBreak />
-                    P<LineBreak />
-                    A<LineBreak />
-                    R<LineBreak />
-                    T<LineBreak />
-                    E<LineBreak />
-                    D
-                    </TextBlock>
-                </Viewbox>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="2*"
+                                       MaxHeight="20" />
+                    </Grid.RowDefinitions>
+
+                    <Viewbox Stretch="Uniform"
+                             StretchDirection="DownOnly">
+
+                        <TextBlock Foreground="White"
+                                   TextAlignment="Center">
+                            D<LineBreak />
+                            E<LineBreak />
+                            P<LineBreak />
+                            A<LineBreak />
+                            R<LineBreak />
+                            T<LineBreak />
+                            E<LineBreak />
+                            D
+                        </TextBlock>
+                    </Viewbox>
+
+                    <Grid  Grid.Row="1"
+                           Margin="2"
+                           Background="AliceBlue">
+                        <TextBlock TextAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Text="{Binding AllRegisteredPatientCount}" />
+
+                    </Grid>
+                </Grid>
                 <Grid Margin="5"
                       Background="#FFFFF0F8"
                       Grid.Column="1">
 
                     <ScrollViewer VerticalScrollBarVisibility="Auto"
                                   HorizontalScrollBarVisibility="Disabled">
-                       
-                            <ItemsControl Background="#FFFFF0F8"
-                                          ItemsSource="{Binding AllDischargedInjection}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <UniformGrid Columns="3" Rows="10" Height="700"></UniformGrid>
-                                        
 
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
+                        <ItemsControl Background="#FFFFF0F8"
+                                      ItemsSource="{Binding AllDischargedInjection}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="3"
+                                                 Rows="10"
+                                                 Height="700"></UniformGrid>
 
 
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
 
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
+
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
                                             AncestorType=ListBox}}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseDown">
-                                                    <i:InvokeCommandAction Command="{Binding DataContext.Command1, RelativeSource={RelativeSource AncestorType=ScrollViewer}}"
-                                                                           CommandParameter="{Binding}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </localcustomusercontrol:InjectionUserControl>
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseDown">
+                                                <i:InvokeCommandAction Command="{Binding DataContext.Command1, RelativeSource={RelativeSource AncestorType=ScrollViewer}}"
+                                                                       CommandParameter="{Binding}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </localcustomusercontrol:InjectionUserControl>
 
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
 
 
                     </ScrollViewer>
