@@ -3,6 +3,8 @@
 2> Room Increase Font Size (maybe warp row?)
 3> Readmit From Discharge
  =|= (maybe add different enum for patient status, instead of just isDischarged (for better future admend)
+ continue to add  public PatientStatus patientStatus (in injection)
+
 4> Total Number of Patient in Room List
 
 TODO(FUTURE):

@@ -401,6 +401,9 @@ namespace InjectionSoftware.Class
         }
         private bool _isDelay = false;
 
+        public PatientStatus patientStatus = PatientStatus.getPatientStatus("Registered");
+
+
         public bool isDischarge
         {
             get
