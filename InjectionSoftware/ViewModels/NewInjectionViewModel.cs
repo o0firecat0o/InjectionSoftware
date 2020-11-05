@@ -150,8 +150,8 @@ namespace InjectionSoftware.ViewModels
         private bool _isDelay;
         public bool isDelay { get { return _isDelay; } set { _isDelay = value; OnPropertyChanged("isDelay"); } }
 
-        private bool _isDischarge;
-        public bool isDischarge { get { return _isDischarge; } set { _isDischarge = value; OnPropertyChanged("isDischarge"); } }
+        private PatientStatus _patientStatus;
+        public PatientStatus patientStatus { get { return _patientStatus; } set { _patientStatus = value; OnPropertyChanged("patientStatus"); } }
 
         public ObservableCollection<Patient> ALLPatient
         {
@@ -264,13 +264,14 @@ namespace InjectionSoftware.ViewModels
                 SelectedRoom = Injection.SelectedRoom;
                 isContrast = Injection.isContrast;
                 isDelay = Injection.isDelay;
-                isDischarge = Injection.isDischarge;
+                patientStatus = Injection.patientStatus;
             }
             else
             {
                 UptakeTimeIndex = 0;
                 GenderIndex = 0;
                 InpatientIndex = 1;
+                patientStatus = PatientStatus.getPatientStatus("Registered"); 
             }
 
 
@@ -547,13 +548,13 @@ namespace InjectionSoftware.ViewModels
             //add new injection
             if (Injection == null)
             {
-                InjectionsManager.modInjectionNetWork("", SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, WardNumber, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                InjectionsManager.modInjectionNetWork("", SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, WardNumber, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, patientStatus);
                 Console.Out.WriteLine("adding injection with patient ID: " + patientID);
             }
             //modify existing injection
             else
             {
-                InjectionsManager.modInjectionNetWork(Injection.AccessionNumber, SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, WardNumber, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, isDischarge);
+                InjectionsManager.modInjectionNetWork(Injection.AccessionNumber, SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, WardNumber, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, patientStatus);
                 Console.Out.WriteLine("modifying injection with patient ID:" + patientID);
             }
 

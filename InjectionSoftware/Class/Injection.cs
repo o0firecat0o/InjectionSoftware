@@ -401,23 +401,20 @@ namespace InjectionSoftware.Class
         }
         private bool _isDelay = false;
 
-        public PatientStatus patientStatus = PatientStatus.getPatientStatus("Registered");
-
-
-        public bool isDischarge
+        public PatientStatus patientStatus
         {
             get
             {
-                return _isDischarge;
+                return _patientStatus;
             }
             set
             {
-                _isDischarge = value;
-                OnPropertyChanged("isDischarge");
-                OnPropertyChanged("BackgroundBrush");
+                _patientStatus = value;
+                OnPropertyChanged("patientStatus");
+                OnPropertyChanged("BackgraoundBrush");
             }
         }
-        private bool _isDischarge = false;
+        private PatientStatus _patientStatus;
 
         public string ContrastDelayString
         {
@@ -443,7 +440,7 @@ namespace InjectionSoftware.Class
         {
             get
             {
-                if (isDischarge)
+                if (patientStatus == PatientStatus.getPatientStatus("Discharged"))
                 {
                     return Brushes.DarkGray;
                 }
@@ -547,7 +544,7 @@ namespace InjectionSoftware.Class
 
             XElement isContrast = new XElement("isContrast", this.isContrast.ToString());
             XElement isDelay = new XElement("isDelay", this.isDelay.ToString());
-            XElement isDischarge = new XElement("isDischarge", this.isDischarge.ToString());
+            XElement patientStatus = new XElement("patientStatus", this.patientStatus.Name);
 
             injection.Add(accessionNumber);
             injection.Add(modality);
@@ -569,7 +566,7 @@ namespace InjectionSoftware.Class
             injection.Add(selectedRoom);
             injection.Add(isContrast);
             injection.Add(isDelay);
-            injection.Add(isDischarge);
+            injection.Add(patientStatus);
             injection.Add(wardNumber);
 
             return injection;

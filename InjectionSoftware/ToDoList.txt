@@ -2,16 +2,14 @@
 8> Add detailed view in AllInjection screen, including PO number, ward number, exam type etc
 2> Room Increase Font Size (maybe warp row?)
 3> Readmit From Discharge
- =|= (maybe add different enum for patient status, instead of just isDischarged (for better future admend)
- continue to add  public PatientStatus patientStatus (in injection)
+3.5> change netowrking function: NetworkManager/case "dischargeInjection": => mayto be "change patient status"
 
 4> Total Number of Patient in Room List
 
 TODO(FUTURE):
 (E)	add password protection
 (H)	auto read registered list and move them to a corresponding date file
-(E)	add different patient status enum instead of just isDischarged
-(E)	and add the corresponding visual for it
+(E)	and add the corresponding visual for different patient status
 (E)	reboot every day at a specific time
 (M)	add functionality to support barcode reader 
 (M)	add role 
@@ -31,3 +29,4 @@ DONE:
 5> Fix the Search function
 2a> Fix bottom discharge row, Room House Font Size is different for different length of patient input
 6> No room Warning fix (add a pop up instead of notify message only)
+(E)	add different patient status enum instead of just isDischarged
