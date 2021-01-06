@@ -468,8 +468,6 @@ namespace InjectionSoftware.Class
             }
         }
 
-        //TODO: modify the search string to include other stuff, eg doctor name
-
         /// <summary>
         /// the string used for quick searching in injection page
         /// </summary>
