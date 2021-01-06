@@ -223,8 +223,7 @@ namespace InjectionSoftware.Class
             modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, uniqueExamIdentifier, examCode, dateOfBirth, gender, inpatient, wardNumber, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, patientStatus);
         }
 
-        //TODO: make more type of patient status mode, e.g. uptaking, imaging, checking
-
+        
         public static void dischargeInjectionNetwork(string AccessionNumber)
         {
             if (hasInjection(AccessionNumber))
