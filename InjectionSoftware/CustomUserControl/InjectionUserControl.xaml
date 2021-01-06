@@ -194,8 +194,8 @@
                 <!-- Patient information + Room Number + Injection Time/ Image Time-->
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="2*" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="15" />
                     </Grid.RowDefinitions>
 
                     <!-- Patient information + Room Number-->
@@ -208,11 +208,15 @@
                             <Viewbox Stretch="Uniform"
                                      HorizontalAlignment="Left"
                                      StretchDirection="DownOnly">
-                                <TextBlock Text="{Binding Patient.PatientFullname}"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Left"
-                                           Margin="2"
-                                           FontSize="36" />
+
+                                <TextBlock Text="{Binding Patient.PatientFullSeperatedName}"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Left"
+                                            Margin="2"
+                                            TextAlignment="Center"
+                                            FontSize="36" />
+                                
+                                
                             </Viewbox>
                         </Grid>
                         
