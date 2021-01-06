@@ -299,7 +299,7 @@
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                    <localcustomusercontrol:InjectionUserControlForRoomPage Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
                                             AncestorType=ListBox}}">
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseDown">
@@ -307,7 +307,7 @@
                                                                                        CommandParameter="{Binding}" />
                                                             </i:EventTrigger>
                                                         </i:Interaction.Triggers>
-                                                    </localcustomusercontrol:InjectionUserControl>
+                                                    </localcustomusercontrol:InjectionUserControlForRoomPage>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
@@ -392,6 +392,7 @@
 
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
+                                    
                                     <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
                                             AncestorType=ListBox}}">
                                         <i:Interaction.Triggers>
@@ -401,6 +402,8 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </localcustomusercontrol:InjectionUserControl>
+                                    
+                                    
 
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

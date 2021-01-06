@@ -1,6 +1,6 @@
 ﻿TODO:
 8> Add detailed view in AllInjection screen, including PO number, ward number, exam type etc
-2> Room Increase Font Size (maybe warp row?)
+
 3> Readmit From Discharge
 3.5> change netowrking function: NetworkManager/case "dischargeInjection": => mayto be "change patient status"
 9> Fix date (inconsistancy between barcode and h7file)
@@ -32,3 +32,4 @@ DONE:
 6> No room Warning fix (add a pop up instead of notify message only)
 (E)	add different patient status enum instead of just isDischarged
 10> Fix changing patient name in room page does not change it in injection page
+2> Room Increase Font Size (maybe warp row?)
