@@ -274,7 +274,6 @@ namespace InjectionSoftware.ViewModels
                 patientStatus = PatientStatus.getPatientStatus("Registered"); 
             }
 
-
             reselectModality();
             reselectRPs();
             reselectRadiologist();

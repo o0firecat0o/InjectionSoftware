@@ -27,6 +27,7 @@ namespace InjectionSoftware.Class
                 _PatientSurname = value;
                 OnPropertyChanged("PatientSurname");
                 OnPropertyChanged("PatientFullname");
+                OnPropertyChanged("PatientFullSeperatedName");
             }
         }
         private string _PatientSurname;
@@ -42,6 +43,7 @@ namespace InjectionSoftware.Class
                 _PatientLastname = value;
                 OnPropertyChanged("PatientLastname");
                 OnPropertyChanged("PatientFullname");
+                OnPropertyChanged("PatientFullSeperatedName");
             }
         }
         private string _PatientLastname;
