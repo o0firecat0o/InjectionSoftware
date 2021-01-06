@@ -11,6 +11,7 @@ TODO(FUTURE):
 (E)	add password protection
 (H)	auto read registered list and move them to a corresponding date file
 (E)	and add the corresponding visual for different patient status
+(H) track patient's room history
 (E)	reboot every day at a specific time
 (M)	add functionality to support barcode reader 
 (M)	add role 
@@ -18,6 +19,7 @@ TODO(FUTURE):
 (E)	add remind me 15 minutes
 (I)	intergrate Iodine booking
 (E)	firework
+(I) record the patient previous history of which console, and relog them 
 
 TOTEST:
 Is registered list sync to each client, even if the server is closed and rebooted?
