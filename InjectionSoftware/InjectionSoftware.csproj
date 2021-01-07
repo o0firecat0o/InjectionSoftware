@@ -159,9 +159,6 @@
     <Compile Include="CustomUserControl\InjectionUserControl.xaml.cs">
       <DependentUpon>InjectionUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomUserControl\InjectionUserControlForRoomPage.xaml.cs">
-      <DependentUpon>InjectionUserControlForRoomPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\SelectionDialog.xaml.cs">
       <DependentUpon>SelectionDialog.xaml</DependentUpon>
     </Compile>
@@ -206,10 +203,6 @@
     <Compile Include="ViewModels\NewInjectionViewModel.cs" />
     <Compile Include="ViewModels\RoomPageViewModel.cs" />
     <Page Include="CustomUserControl\InjectionUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CustomUserControl\InjectionUserControlForRoomPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
