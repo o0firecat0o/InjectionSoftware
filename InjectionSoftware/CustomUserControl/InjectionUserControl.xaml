@@ -7,9 +7,15 @@
              xmlns:local="clr-namespace:InjectionSoftware.CustomUserControl"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:c="clr-namespace:InjectionSoftware.Converter"
              mc:Ignorable="d"
              d:DesignHeight="100"
              d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <c:BooleanToVisibilityInvertedConverter x:Key="BooleanToVisibilityInvertedConverter" />
+    </UserControl.Resources>
 
     <Grid x:Name="injectionGrid">
         <!-- outline of the injection case-->
@@ -57,10 +63,10 @@
                                            FontSize="36"
                                            Text="{Binding CaseNumberText}" />
                             </Viewbox>
-                            
+
                         </Border>
                     </Viewbox>
-                    
+
                 </Grid>
 
                 <!-- Assigned doctor -->
@@ -202,24 +208,39 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid>
                             <Viewbox Stretch="Uniform"
                                      HorizontalAlignment="Left"
                                      StretchDirection="DownOnly">
+                                <Grid>
+                                    <!-- For Vertical Name Disyplay-->
+                                    <TextBlock Text="{Binding Patient.PatientFullSeperatedName}"
+                                               Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
+                                            AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityInvertedConverter}}"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="2"
+                                               TextAlignment="Center"
+                                               FontSize="28" />
+                                    
+                                    <!-- For Horizontal Name Display-->
+                                    <TextBlock Text="{Binding Patient.PatientFullname}"
+                                               Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
+                                            AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="2"
+                                               TextAlignment="Center"
+                                               FontSize="28" />
+                                </Grid>
 
-                                <TextBlock Text="{Binding Patient.PatientFullname}"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
-                                            Margin="2"
-                                            TextAlignment="Center"
-                                            FontSize="28" />
-                                
-                                
+
+
                             </Viewbox>
                         </Grid>
-                        
+
 
 
                         <Grid Grid.Column="1">

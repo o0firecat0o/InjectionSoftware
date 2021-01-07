@@ -67,7 +67,7 @@
                                        Text="{Binding AllRegisteredPatientCount}" />
                         </Grid>
                     </Viewbox>
-                    
+
 
                 </Grid>
 
@@ -299,15 +299,16 @@
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-                                                    <localcustomusercontrol:InjectionUserControlForRoomPage Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
-                                            AncestorType=ListBox}}">
+                                                    <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
+                                            AncestorType=ListBox}}"
+                                                                                                 IsHorizontalString="False">
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseDown">
                                                                 <i:InvokeCommandAction Command="{Binding DataContext.Command1, RelativeSource={RelativeSource AncestorType=ItemsControl,AncestorLevel=2}}"
                                                                                        CommandParameter="{Binding}" />
                                                             </i:EventTrigger>
                                                         </i:Interaction.Triggers>
-                                                    </localcustomusercontrol:InjectionUserControlForRoomPage>
+                                                    </localcustomusercontrol:InjectionUserControl>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
@@ -392,9 +393,10 @@
 
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    
+
                                     <localcustomusercontrol:InjectionUserControl Injection="{Binding DataContext, RelativeSource={RelativeSource Mode=FindAncestor, 
-                                            AncestorType=ListBox}}">
+                                            AncestorType=ListBox}}"
+                                                                                 IsHorizontalString="True">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseDown">
                                                 <i:InvokeCommandAction Command="{Binding DataContext.Command1, RelativeSource={RelativeSource AncestorType=ScrollViewer}}"
@@ -402,8 +404,8 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </localcustomusercontrol:InjectionUserControl>
-                                    
-                                    
+
+
 
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

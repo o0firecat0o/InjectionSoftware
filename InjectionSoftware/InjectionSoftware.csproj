@@ -155,6 +155,7 @@
     <Compile Include="Class\Patient.cs" />
     <Compile Include="Class\PatientManager.cs" />
     <Compile Include="Class\Timer.cs" />
+    <Compile Include="Converter\BooleanToVisibilityInvertedConverter.cs" />
     <Compile Include="CustomUserControl\InjectionUserControl.xaml.cs">
       <DependentUpon>InjectionUserControl.xaml</DependentUpon>
     </Compile>

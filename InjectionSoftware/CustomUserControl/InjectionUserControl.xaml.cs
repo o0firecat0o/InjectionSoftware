@@ -24,15 +24,7 @@ namespace InjectionSoftware.CustomUserControl
         public InjectionUserControl()
         {
             InitializeComponent();
-
         }
-
-        public static readonly DependencyProperty InjectionProperty =
-          DependencyProperty.Register("Injection", typeof(Injection), typeof(InjectionUserControl), new FrameworkPropertyMetadata()
-          {
-              PropertyChangedCallback = OnInjectionChanged,
-              BindsTwoWayByDefault = true
-          });
 
         public Injection Injection
         {
@@ -40,7 +32,39 @@ namespace InjectionSoftware.CustomUserControl
             set { SetValue(InjectionProperty, value); }
         }
 
+        public static readonly DependencyProperty InjectionProperty =
+          DependencyProperty.Register("Injection", typeof(Injection), typeof(InjectionUserControl), new FrameworkPropertyMetadata()
+          {
+              PropertyChangedCallback = OnInjectionChanged,
+              BindsTwoWayByDefault = true
+          }); 
+
         private static void OnInjectionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.OldValue != e.NewValue)
+            {
+                // code to be executed on value update
+            }
+        }
+
+        
+        /// <summary>
+        /// Horizontal String boolean is used for determining whether the display name is in horizontal or vertical direction to save space
+        /// </summary>
+        public bool IsHorizontalString
+        {
+            get { return (bool)GetValue(IsHorizontalStringProperty); }
+            set { SetValue(IsHorizontalStringProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsHorizontalStringProperty =
+          DependencyProperty.Register("StringOrientation", typeof(bool), typeof(InjectionUserControl), new FrameworkPropertyMetadata()
+          {
+              PropertyChangedCallback = OnIsHorizontalStringChanged,
+              BindsTwoWayByDefault = true
+          });
+
+        private static void OnIsHorizontalStringChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (e.OldValue != e.NewValue)
             {
