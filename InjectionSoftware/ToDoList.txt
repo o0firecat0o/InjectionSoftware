@@ -19,6 +19,7 @@ TODO(FUTURE):
 (E)	add remind me 15 minutes
 (I)	intergrate Iodine booking
 (E)	firework
+(I) import patient information into SQL server
 (I) record the patient previous history of which console, and relog them 
 
 TOTEST:
