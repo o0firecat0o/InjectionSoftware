@@ -122,24 +122,26 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-
-                                    <StackPanel Grid.Column="1"
+                                    
+                                    <StackPanel 
                                                 Margin="3">
                                         <TextBlock> Patient Surname:</TextBlock>
                                         <TextBox Text="{Binding patientSurname}"
-                                                 TabIndex="2" />
+                                                 TabIndex="1" />
                                     </StackPanel>
-                                    <StackPanel Grid.Column="2"
+                                    <StackPanel Grid.Column="1"
                                                 Margin="3">
                                         <TextBlock> Patient Lastame:</TextBlock>
                                         <TextBox Text="{Binding patientLastname}"
-                                                 TabIndex="3" />
+                                                 TabIndex="2" />
                                     </StackPanel>
-                                    <StackPanel Margin="3">
+                                    
+                                    <StackPanel Grid.Column="2"
+                                                Margin="3">
                                         <TextBlock> Patient ID:</TextBlock>
                                         <TextBox x:Name="patientIDTextBox"
                                                  Text="{Binding patientID}"
-                                                 TabIndex="1" />
+                                                 TabIndex="3" />
                                     </StackPanel>
 
                                     <DockPanel Grid.Column="2"
