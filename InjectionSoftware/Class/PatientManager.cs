@@ -49,9 +49,6 @@ namespace InjectionSoftware.Class
             return false;
         }
 
-        // TODO: change to listening folder
-        // TODO: network capability
-        // TODO: add page to show patient info only
         public static void LoadAllPatient()
         {
             string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + @"\Schedular";
