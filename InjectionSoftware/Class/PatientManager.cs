@@ -19,7 +19,7 @@ namespace InjectionSoftware.Class
         {
             if (HasPatient(patient.PatientID))
             {
-                Console.Out.WriteLine("Patient with patient ID:" + patient.PatientID + " is already presented in database, fail to add patiet");
+                Console.Out.WriteLine("[PatientManager.AddPatient()] Patient with patient ID:" + patient.PatientID + " is already presented in database, fail to add patiet");
                 return;
             }
             Patients.Add(patient);
@@ -66,7 +66,14 @@ namespace InjectionSoftware.Class
                     string text = System.IO.File.ReadAllText(file);
                     Hl7file ff = Hl7file.load(text);
                     Patient patient = new Patient(ff);
+                    Console.Out.WriteLine("[PatientManager] Loading patient information from HL7 file with patientID:" + patient.PatientID);
+                    if (patient.PatientID == "")
+                    {
+                        Console.WriteLine("[PatientManager.LoadAllPatient()] " + file + " path contain corrupted information, the patient information has failed to load");
+                        continue;
+                    }
                     AddPatient(patient);
+
                 }
                 catch(System.Exception e)
                 {

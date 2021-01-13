@@ -25,7 +25,7 @@ namespace InjectionSoftware.Util.Scheduler
                 }
             }
             Console.Error.WriteLine("[HL7 file] segment with header name: {0} does not exist", header);
-            return null;
+            return new Hl7segment("");            
         }
 
         public bool hasSegment(string header)

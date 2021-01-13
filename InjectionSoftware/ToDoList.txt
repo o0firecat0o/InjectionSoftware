@@ -5,7 +5,8 @@
 3.5> change netowrking function: NetworkManager/case "dischargeInjection": => mayto be "change patient status"
 9> Fix date (inconsistancy between barcode and h7file)
 4> Total Number of Patient in Room List
-10> Auto read registered patient information from scheduler, and COPY them to local directory
+11> Auto read registered patient information from scheduler, and COPY them to local directory
+13> Handle situtation when two servers are started
 
 TODO(FUTURE):
 (E)	add password protection
@@ -34,3 +35,4 @@ DONE:
 (E)	add different patient status enum instead of just isDischarged
 10> Fix changing patient name in room page does not change it in injection page
 2> Room Increase Font Size (maybe warp row?)
+12> Handled exeption for reading invalid hl7 file

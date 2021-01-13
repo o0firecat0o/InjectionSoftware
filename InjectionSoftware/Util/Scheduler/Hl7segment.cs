@@ -32,7 +32,15 @@ namespace InjectionSoftware.Util.Scheduler
 
         public string getString(int index)
         {
-            return list[index];
+            if (index >= list.Count)
+            {
+                return "";
+            }
+            else
+            {
+                return list[index];
+            }
+            
         }
     }
 }
