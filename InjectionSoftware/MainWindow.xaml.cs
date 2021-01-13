@@ -57,12 +57,19 @@ namespace InjectionSoftware
             Room.AddDefault();
             PatientStatus.AddDefault();
 
+            
+
             InjectionsManager.Init();
 
             NetworkManager.Init(this);
         }
 
-        
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            Console.Out.WriteLine(e.Device.ToString());
+            base.OnKeyDown(e);
+        }
+
 
         // switching pages
         private void leftControlBar_SelectionChanged(object sender, SelectionChangedEventArgs e)
