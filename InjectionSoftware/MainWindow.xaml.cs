@@ -55,7 +55,6 @@ namespace InjectionSoftware
             RP.AddDefault();
             Doctor.AddDefault();
             Room.AddDefault();
-            PatientStatus.AddDefault();
 
             
 
