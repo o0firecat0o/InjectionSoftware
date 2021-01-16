@@ -55,6 +55,14 @@ namespace InjectionSoftware.Pages
             {
                 ThemeManager.Current.ChangeTheme(this, "Light.Red");
                 this.Title = "Modify Injection";
+                if(Injection.patientStatus == "Discharged")
+                {
+                    DischargeButton.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    ReAdmitButton.Visibility = Visibility.Collapsed;
+                }
             }
         }
     }

@@ -412,7 +412,6 @@ namespace InjectionSoftware.Class
                 _patientStatus = value;
                 OnPropertyChanged("patientStatus");
                 OnPropertyChanged("BackgroundBrush");
-                Console.Out.WriteLine("[Test] Changed." + _patientStatus);
             }
         }
         private string _patientStatus;

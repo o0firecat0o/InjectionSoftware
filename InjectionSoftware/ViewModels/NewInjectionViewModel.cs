@@ -206,9 +206,11 @@ namespace InjectionSoftware.ViewModels
         public Command Confirm { get; set; }
         public Command Delete { get; set; }
         public Command Discharge { get; set; }
+        public Command Readmit { get; set; }
 
         SelectionDialog deleteConfirmDialog = new SelectionDialog();
         SelectionDialog dischargeConfirmDialog = new SelectionDialog();
+        SelectionDialog readmitConfirmDialog = new SelectionDialog();
         SelectionDialog duplicatedRoomConfirmDialog = new SelectionDialog();
 
         public NewInjectionViewModel(Injection Injection = null)
@@ -219,6 +221,7 @@ namespace InjectionSoftware.ViewModels
             Confirm = new Command(confirm);
             Delete = new Command(delete);
             Discharge = new Command(discharge);
+            Readmit = new Command(readmit);
             ClearPatient = new Command(clearPatient);
             DateTime = DateTime.Now;
 
@@ -411,6 +414,8 @@ namespace InjectionSoftware.ViewModels
             deleteConfirmDialog.Confirm.Click -= deleteDialog_OnDeleteDown;
             dischargeConfirmDialog.Cancel.Click -= dischargeDialog_OnCloseDown;
             dischargeConfirmDialog.Confirm.Click -= dischargeDialog_OnConfirmDown;
+            readmitConfirmDialog.Cancel.Click -= readmitDialog_OnCloseDown;
+            readmitConfirmDialog.Confirm.Click -= readmitDialog_OnConfirmDown;
             duplicatedRoomConfirmDialog.Cancel.Click -= duplicatedRoomConfirmDialog_OnCloseDown;
             duplicatedRoomConfirmDialog.Confirm.Click -= duplicatedRoomConfirmDialog_OnConfirmDown;
 
@@ -419,13 +424,16 @@ namespace InjectionSoftware.ViewModels
 
             deleteConfirmDialog = null;
             dischargeConfirmDialog = null;
+            readmitConfirmDialog = null;
             duplicatedRoomConfirmDialog = null;
 
             Cancel = null;
             Confirm = null;
             Delete = null;
-            Discharge = null;
+            Discharge = null; 
+            Readmit = null;
             ClearPatient = null;
+
 
             Injection = null;
             SelectedPatient = null;
@@ -508,6 +516,29 @@ namespace InjectionSoftware.ViewModels
             await NewInjection.window.HideMetroDialogAsync(dischargeConfirmDialog);
             NewInjection.window.Close();
         }
+
+        private async void readmit() {
+            readmitConfirmDialog.MessageText.Content = "Are you sure you want to re-admit the case?";
+            readmitConfirmDialog.Confirm.Content = "Re-Admit";
+            readmitConfirmDialog.Confirm.Background = Brushes.Yellow;
+            readmitConfirmDialog.Confirm.Foreground = Brushes.Black;
+            readmitConfirmDialog.Cancel.Click += readmitDialog_OnCloseDown;
+            readmitConfirmDialog.Confirm.Click += readmitDialog_OnConfirmDown;
+            await NewInjection.window.ShowMetroDialogAsync(readmitConfirmDialog);
+        }
+
+        private async void readmitDialog_OnCloseDown(object sender, RoutedEventArgs e)
+        {
+            await NewInjection.window.HideMetroDialogAsync(readmitConfirmDialog);
+        }
+
+        private async void readmitDialog_OnConfirmDown(object sender, RoutedEventArgs e)
+        {
+            InjectionsManager.changePatientStatusNetwork(Injection.AccessionNumber, "Registered");
+            await NewInjection.window.HideMetroDialogAsync(readmitConfirmDialog);
+            NewInjection.window.Close();
+        }
+
 
         private async void duplicatedRoomConfirmDialog_OnCloseDown(object sender, RoutedEventArgs e)
         {

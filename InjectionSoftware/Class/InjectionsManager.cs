@@ -247,7 +247,7 @@ namespace InjectionSoftware.Class
         {
             if (hasInjection(AccessionNumber))
             {
-                getInjection(AccessionNumber).patientStatus = "Discharged";
+                getInjection(AccessionNumber).patientStatus = patientStatus;
                 recreateObservableList();
                 saveInjection(AccessionNumber);
             }

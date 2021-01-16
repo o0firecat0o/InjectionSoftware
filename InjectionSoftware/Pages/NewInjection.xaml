@@ -633,9 +633,24 @@
                         Grid.Column="2"
                         Height="50"
                         Margin="10"
-                        Background="#FFF8FF66"
+                        Background="Orange"
                         Command="{Binding Discharge}">
                     Discharge
+                </Button>
+
+                <Button x:Name="ReAdmitButton"
+                        Grid.Column="2"
+                        Height="50"
+                        Margin="10"
+                        Background="#FFF8FF66"
+                        Command="{Binding Readmit}"
+                        >
+                    <TextBlock TextAlignment="Center">
+                        Re-Admit
+                        <LineBreak />
+                        (if you have wrongly discharge patient)
+                    </TextBlock>
+                    
                 </Button>
 
                 <Button Grid.Column="3"
