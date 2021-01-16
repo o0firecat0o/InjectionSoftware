@@ -75,7 +75,7 @@ namespace InjectionSoftware.Class
             return null;
         }
 
-        public static void modInjectionNetWork(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, string WardNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, PatientStatus patientStatus)
+        public static void modInjectionNetWork(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, string WardNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, string patientStatus)
         {
             Injection injection = modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, Gender, Inpatient, WardNumber, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, patientStatus);
             if (!NetworkManager.isServer)
@@ -104,7 +104,7 @@ namespace InjectionSoftware.Class
         /// <param name="isDelay"></param>
         /// <param name="isDischarge"></param>
         /// <returns></returns>
-        private static Injection modInjection(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, string WardNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, PatientStatus patientStatus)
+        private static Injection modInjection(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, string WardNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, string patientStatus)
         {
             // find wether the patient is already registered and exist in the database
             Patient patient;
@@ -218,12 +218,46 @@ namespace InjectionSoftware.Class
 
             bool isContrast = bool.Parse(xElement.Element(df + "isContrast").Value);
             bool isDelay = bool.Parse(xElement.Element(df + "isDelay").Value);
-            PatientStatus patientStatus = PatientStatus.getPatientStatus(xElement.Element(df + "patientStatus").Value);
+            string patientStatus = (xElement.Element(df + "patientStatus").Value);
 
             modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, uniqueExamIdentifier, examCode, dateOfBirth, gender, inpatient, wardNumber, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, patientStatus);
         }
 
-        
+        public static void changePatientStatusNetwork(string AccessionNumber, string patientStatus)
+        {
+            if (hasInjection(AccessionNumber))
+            {
+                if (NetworkManager.isServer)
+                {
+                    changePatientStatus(AccessionNumber, patientStatus);
+                    NetworkManager.server.TCPBroadcastMessage("changePatientStatus", AccessionNumber + "^" + patientStatus);
+                }
+                else
+                {
+                    NetworkManager.client.TCPSendMessageToServer("changePatientStatus", AccessionNumber + "^" + patientStatus);
+                }
+            }
+            else
+            {
+                Console.Error.WriteLine("[InjectionManager_changePatientStatusNetwork()] Error executing discharge injection command, reason: patient with accessionNumber does not exist");
+            }
+        }
+
+        public static void changePatientStatus(string AccessionNumber, string patientStatus)
+        {
+            if (hasInjection(AccessionNumber))
+            {
+                getInjection(AccessionNumber).patientStatus = "Discharged";
+                recreateObservableList();
+                saveInjection(AccessionNumber);
+            }
+            else
+            {
+                Console.Error.WriteLine("[InjectionManager_changePatientStatus()] Error executing discharge injection command, reason: patient with accessionNumber does not exist");
+            }
+        }
+
+        [Obsolete("dischargeInjectionNetwork is deprecated, please use changePatientStatusNetwork instead.")]
         public static void dischargeInjectionNetwork(string AccessionNumber)
         {
             if (hasInjection(AccessionNumber))
@@ -244,11 +278,12 @@ namespace InjectionSoftware.Class
             }
         }
 
+        [Obsolete("dischargeInjectionNetwork is deprecated, please use changePatientStatusNetwork instead.")]
         public static void dischargeInjection(string AccessionNumber)
         {
             if (hasInjection(AccessionNumber))
             {
-                getInjection(AccessionNumber).patientStatus = PatientStatus.getPatientStatus("Discharged");
+                getInjection(AccessionNumber).patientStatus = "Discharged";
                 recreateObservableList();
                 saveInjection(AccessionNumber);
             }
@@ -314,7 +349,8 @@ namespace InjectionSoftware.Class
             registeredPatients.Clear();
             foreach (Patient patient in PatientManager.Patients)
             {
-                if (!InjectionsManager.hasInjection_patientID(patient.PatientID)){
+                if (!InjectionsManager.hasInjection_patientID(patient.PatientID))
+                {
                     registeredPatients.Add(patient);
                 }
             }
@@ -327,7 +363,7 @@ namespace InjectionSoftware.Class
                 //loop through all injections one by one and assign them to room
                 foreach (Injection injection in injections)
                 {
-                    if(injection.SelectedRoom == room && injection.patientStatus != PatientStatus.getPatientStatus("Discharged"))
+                    if (injection.SelectedRoom == room && injection.patientStatus != "Discharged")
                     {
                         room.Injections.Add(injection);
                     }
@@ -340,7 +376,7 @@ namespace InjectionSoftware.Class
             dischargedInjections.Clear();
             foreach (Injection injection in injections)
             {
-                if (injection.patientStatus == PatientStatus.getPatientStatus("Discharged"))
+                if (injection.patientStatus == "Discharged")
                 {
                     dischargedInjections.Add(injection);
                 }
@@ -413,7 +449,7 @@ namespace InjectionSoftware.Class
             List<Injection> tempInjeciton = new List<Injection>();
             foreach (Injection injection in returnInjection)
             {
-                if(injection.Modality == modality)
+                if (injection.Modality == modality)
                 {
                     tempInjeciton.Add(injection);
                 }

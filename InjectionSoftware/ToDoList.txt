@@ -2,7 +2,7 @@
 8> Add detailed view in AllInjection screen, including PO number, ward number, exam type etc
 
 3> Readmit From Discharge
-3.5> change netowrking function: NetworkManager/case "dischargeInjection": => mayto be "change patient status"
+
 9> Fix date (inconsistancy between barcode and h7file)
 4> Total Number of Patient in Room List
 11> Auto read registered patient information from scheduler, and COPY them to local directory
@@ -37,3 +37,4 @@ DONE:
 10> Fix changing patient name in room page does not change it in injection page
 2> Room Increase Font Size (maybe warp row?)
 12> Handled exeption for reading invalid hl7 file
+3.5> change netowrking function: NetworkManager/case "dischargeInjection": => mayto be "change patient status"

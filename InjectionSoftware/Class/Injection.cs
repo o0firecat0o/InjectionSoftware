@@ -401,7 +401,7 @@ namespace InjectionSoftware.Class
         }
         private bool _isDelay = false;
 
-        public PatientStatus patientStatus
+        public string patientStatus
         {
             get
             {
@@ -411,10 +411,11 @@ namespace InjectionSoftware.Class
             {
                 _patientStatus = value;
                 OnPropertyChanged("patientStatus");
-                OnPropertyChanged("BackgraoundBrush");
+                OnPropertyChanged("BackgroundBrush");
+                Console.Out.WriteLine("[Test] Changed." + _patientStatus);
             }
         }
-        private PatientStatus _patientStatus;
+        private string _patientStatus;
 
         public string ContrastDelayString
         {
@@ -440,7 +441,7 @@ namespace InjectionSoftware.Class
         {
             get
             {
-                if (patientStatus == PatientStatus.getPatientStatus("Discharged"))
+                if (_patientStatus == "Discharged")
                 {
                     return Brushes.DarkGray;
                 }
@@ -542,7 +543,7 @@ namespace InjectionSoftware.Class
 
             XElement isContrast = new XElement("isContrast", this.isContrast.ToString());
             XElement isDelay = new XElement("isDelay", this.isDelay.ToString());
-            XElement patientStatus = new XElement("patientStatus", this.patientStatus.Name);
+            XElement patientStatus = new XElement("patientStatus", this.patientStatus);
 
             injection.Add(accessionNumber);
             injection.Add(modality);

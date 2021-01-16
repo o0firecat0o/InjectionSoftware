@@ -154,12 +154,12 @@ namespace InjectionSoftware.Network
                 // clear all previous injection
                 InjectionsManager.injections.Clear();
                 // request all the injection
-                client.TCPSendMessageToServer("requestInitialInjection", "");  
-                
+                client.TCPSendMessageToServer("requestInitialInjection", "");
+
                 await window.HideMetroDialogAsync(progressingDialog);
                 await window.ShowMessageAsync("Connection to server succesful", "Server Name: " + client.servername + "\nServer IP:" + client.serverip);
             });
-        }       
+        }
 
         /// <summary>
         /// Event enabled if lost connection to server, Automatically restart connection if server disconnected
@@ -176,7 +176,7 @@ namespace InjectionSoftware.Network
             window.Dispatcher.Invoke(() =>
             {
                 // close the new injection window when lost connection to server
-                if(NewInjection.window != null)
+                if (NewInjection.window != null)
                 {
                     NewInjection.window.Close();
                 }
@@ -249,6 +249,8 @@ namespace InjectionSoftware.Network
                     }
                     break;
 
+                //////////////////////////////////////////////////
+                ////////    Obsolete    //////////////////////////
                 case "dischargeInjection":
                     Console.Out.WriteLine("[NetworkManager-Server] Receiving discharge Injection Request from client, proceed to discharge injection");
                     window.Dispatcher.Invoke(() =>
@@ -256,6 +258,25 @@ namespace InjectionSoftware.Network
                         server.TCPBroadcastMessage("dischargeInjection", messages[1]);
                         InjectionsManager.dischargeInjection(messages[1]);
                     });
+                    break;
+                //////////////////////////////////////////////////
+
+                case "changePatientStatus":
+                    Console.Out.WriteLine("[NetworkManager-Server] Receiving changePatientStatus Request from client, proceed to change PatientStatus");
+                    window.Dispatcher.Invoke(() =>
+                    {
+                        server.TCPBroadcastMessage("changePatientStatus", messages[1]);
+                        //try to splite the message back to (accessionNumber, patientStatus)
+                        if (messages[1].Split('^').Length == 2)
+                        {
+                            InjectionsManager.changePatientStatus(messages[1].Split('^')[0], messages[1].Split('^')[1]);
+                        }
+                        else
+                        {
+                            Console.Out.WriteLine("[NetworkManager-Server_changePatientStatus()] Corrupted changePatientStatus message, require 2 input. Message: " + messages[1]);
+                        }
+                    });
+
                     break;
 
                 case "removeInjection":
@@ -280,7 +301,7 @@ namespace InjectionSoftware.Network
             {
                 Console.Error.WriteLine(e);
             }
-            
+
         }
 
         /// <summary>
@@ -315,6 +336,25 @@ namespace InjectionSoftware.Network
                         InjectionsManager.modInjection(XElement.Parse(messages[1]));
                     });
                     break;
+
+                case "changePatientStatus":
+                    Console.Out.WriteLine("[NetworkManager-Client] Receiving change PatientStatus Request from server, proceed to change PatientStatus");
+                    window.Dispatcher.Invoke(() =>
+                    {
+                        //try to splite the message back to (accessionNumber, patientStatus)
+                        if (messages[1].Split('^').Length == 2)
+                        {
+                            InjectionsManager.changePatientStatus(messages[1].Split('^')[0], messages[1].Split('^')[1]);
+                        }
+                        else
+                        {
+                            Console.Out.WriteLine("[NetworkManager-Client_changePatientStatus()] Corrupted changePatientStatus message, require 2 input. Message: " + messages[1]);
+                        }
+                    });
+                    break;
+                    
+                //////////////////////////////////////////////////
+                ////////    Obsolete    //////////////////////////
                 case "dischargeInjection":
                     Console.Out.WriteLine("[NetworkManager-Client] Receiving Discharge Injection Request from server, proceed to discharge injection");
                     window.Dispatcher.Invoke(() =>
@@ -322,6 +362,8 @@ namespace InjectionSoftware.Network
                         InjectionsManager.dischargeInjection(messages[1]);
                     });
                     break;
+                //////////////////////////////////////////////////
+
                 case "removeInjection":
                     Console.Out.WriteLine("[NetworkManager-Client] Receiving remove Injection Request from server, proceed to remove injection");
                     window.Dispatcher.Invoke(() =>

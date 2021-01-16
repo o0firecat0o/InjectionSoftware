@@ -79,7 +79,7 @@ namespace InjectionSoftware.ViewModels
         public int InpatientIndex { get { return _InpatientIndex; } set { _InpatientIndex = value; OnPropertyChanged("InpatientIndex"); } }
 
         private string _WardNumber;
-        public string WardNumber { get { return _WardNumber; } set { _WardNumber = value;OnPropertyChanged("WardNumber"); } }
+        public string WardNumber { get { return _WardNumber; } set { _WardNumber = value; OnPropertyChanged("WardNumber"); } }
         #endregion
 
         /// <summary>
@@ -150,8 +150,8 @@ namespace InjectionSoftware.ViewModels
         private bool _isDelay;
         public bool isDelay { get { return _isDelay; } set { _isDelay = value; OnPropertyChanged("isDelay"); } }
 
-        private PatientStatus _patientStatus;
-        public PatientStatus patientStatus { get { return _patientStatus; } set { _patientStatus = value; OnPropertyChanged("patientStatus"); } }
+        private string _patientStatus;
+        public string patientStatus { get { return _patientStatus; } set { _patientStatus = value; OnPropertyChanged("patientStatus"); } }
 
         public ObservableCollection<Patient> ALLPatient
         {
@@ -271,7 +271,7 @@ namespace InjectionSoftware.ViewModels
                 UptakeTimeIndex = 0;
                 GenderIndex = 0;
                 InpatientIndex = 1;
-                patientStatus = PatientStatus.getPatientStatus("Registered"); 
+                patientStatus = "Registered";
             }
 
             reselectModality();
@@ -504,7 +504,7 @@ namespace InjectionSoftware.ViewModels
 
         private async void dischargeDialog_OnConfirmDown(object sender, RoutedEventArgs e)
         {
-            InjectionsManager.dischargeInjectionNetwork(Injection.AccessionNumber);
+            InjectionsManager.changePatientStatusNetwork(Injection.AccessionNumber, "Discharged");
             await NewInjection.window.HideMetroDialogAsync(dischargeConfirmDialog);
             NewInjection.window.Close();
         }
