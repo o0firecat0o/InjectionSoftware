@@ -7,6 +7,7 @@
 4> Total Number of Patient in Room List
 11> Auto read registered patient information from scheduler, and COPY them to local directory
 13> Handle situtation when two servers are started
+14> hide side bar, making us able to show 40 injections instead of just 30
 
 TODO(FUTURE):
 (E)	add password protection
