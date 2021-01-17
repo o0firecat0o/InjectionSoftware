@@ -34,6 +34,7 @@ namespace InjectionSoftware.Util
                     WindowConfig.WindowTop = MainWindow.window.Top;
                     WindowConfig.WindowLeft = MainWindow.window.Left;
                     WindowConfig.WindowState = MainWindow.window.WindowState;
+
                     if (NetworkManager.isServer)
                     {
                         WindowConfig.IsServer = 1;

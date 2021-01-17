@@ -50,14 +50,26 @@ namespace InjectionSoftware
 
             WindowConfig.Init();
 
-            if (WindowConfig.IsAutoRestart == 1)
+            //the timer is used to let the window initialize first, then move the screen
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(100);
+            timer.Start();
+            timer.Tick += new EventHandler(delegate (object s, EventArgs a)
             {
-                this.WindowStartupLocation = WindowStartupLocation.Manual;
-                this.Height = WindowConfig.WindowHeight;
-                this.Width = WindowConfig.WindowWidth;
-                this.Top = WindowConfig.WindowTop;
-                this.Left = WindowConfig.WindowLeft;
-            }
+                if (WindowConfig.IsAutoRestart == 1)
+                {
+                    this.Height = WindowConfig.WindowHeight;
+                    this.Width = WindowConfig.WindowWidth;
+                    this.Top = WindowConfig.WindowTop;
+                    this.Left = WindowConfig.WindowLeft;
+                    this.WindowState = WindowState.Maximized;
+                }
+                //reset the window config
+                WindowConfig.IsAutoRestart = 0;
+                WindowConfig.Save();
+
+                timer.Stop();
+            });
 
 
 
@@ -79,9 +91,7 @@ namespace InjectionSoftware
 
             NetworkManager.Init(this, WindowConfig.IsAutoRestart == 1, WindowConfig.IsServer == 1);
 
-            //reset the window config
-            WindowConfig.IsAutoRestart = 0;
-            WindowConfig.Save();
+
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
