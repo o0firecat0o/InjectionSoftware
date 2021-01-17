@@ -256,7 +256,9 @@ namespace InjectionSoftware.Network
                     window.Dispatcher.Invoke(() =>
                     {
                         server.TCPBroadcastMessage("dischargeInjection", messages[1]);
+#pragma warning disable CS0618 // Type or member is obsolete
                         InjectionsManager.dischargeInjection(messages[1]);
+#pragma warning restore CS0618 // Type or member is obsolete
                     });
                     break;
                 //////////////////////////////////////////////////
@@ -352,14 +354,16 @@ namespace InjectionSoftware.Network
                         }
                     });
                     break;
-                    
+
                 //////////////////////////////////////////////////
                 ////////    Obsolete    //////////////////////////
                 case "dischargeInjection":
                     Console.Out.WriteLine("[NetworkManager-Client] Receiving Discharge Injection Request from server, proceed to discharge injection");
                     window.Dispatcher.Invoke(() =>
                     {
+#pragma warning disable CS0618 // Type or member is obsolete
                         InjectionsManager.dischargeInjection(messages[1]);
+#pragma warning restore CS0618 // Type or member is obsolete
                     });
                     break;
                 //////////////////////////////////////////////////

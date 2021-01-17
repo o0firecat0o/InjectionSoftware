@@ -3,11 +3,13 @@ using InjectionSoftware.Dialogs;
 using InjectionSoftware.Enums;
 using InjectionSoftware.Network;
 using InjectionSoftware.Pages;
+using InjectionSoftware.Util;
 using InjectionSoftware.ViewModels;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -46,6 +48,14 @@ namespace InjectionSoftware
 
             InitializeComponent();
 
+            var userPrefs = new WindowConfig();
+
+            this.Height = userPrefs.WindowHeight;
+            this.Width = userPrefs.WindowWidth;
+            this.Top = userPrefs.WindowTop;
+            this.Left = userPrefs.WindowLeft;
+            this.WindowState = userPrefs.WindowState;
+
             DataContext = new MainWindowViewModel();
 
             //set the default selection to 1
@@ -56,7 +66,6 @@ namespace InjectionSoftware
             Doctor.AddDefault();
             Room.AddDefault();
 
-            
 
             InjectionsManager.Init();
 
@@ -69,6 +78,19 @@ namespace InjectionSoftware
             base.OnKeyDown(e);
         }
 
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            var userPrefs = new WindowConfig();
+
+            userPrefs.WindowHeight = this.Height;
+            userPrefs.WindowWidth = this.Width;
+            userPrefs.WindowTop = this.Top;
+            userPrefs.WindowLeft = this.Left;
+            userPrefs.WindowState = this.WindowState;
+
+            userPrefs.Save();
+            base.OnClosing(e);
+        }
 
         // switching pages
         private void leftControlBar_SelectionChanged(object sender, SelectionChangedEventArgs e)
