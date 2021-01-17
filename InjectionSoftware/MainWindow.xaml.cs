@@ -62,7 +62,7 @@ namespace InjectionSoftware
                     this.Width = WindowConfig.WindowWidth;
                     this.Top = WindowConfig.WindowTop;
                     this.Left = WindowConfig.WindowLeft;
-                    this.WindowState = WindowState.Maximized;
+                    this.WindowState = WindowConfig.WindowState;
                 }
                 //reset the window config
                 WindowConfig.IsAutoRestart = 0;
