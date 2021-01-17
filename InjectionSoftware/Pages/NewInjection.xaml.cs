@@ -46,7 +46,8 @@ namespace InjectionSoftware.Pages
                 ThemeManager.Current.ChangeTheme(this, "Light.Green");
                 DeleteButton.Visibility = Visibility.Collapsed;
                 DischargeButton.Visibility = Visibility.Collapsed;
-                if(patient != null)
+                ReAdmitButton.Visibility = Visibility.Collapsed;
+                if (patient != null)
                 {
                     vm.selectPatient(patient);
                 }
