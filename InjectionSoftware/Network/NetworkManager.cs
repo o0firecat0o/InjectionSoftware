@@ -30,7 +30,7 @@ namespace InjectionSoftware.Network
 
         private static MetroWindow window;
 
-        public static void Init(MetroWindow w)
+        public static void Init(MetroWindow w, bool autostart, bool startAsServer)
         {
             window = w;
 
@@ -43,15 +43,47 @@ namespace InjectionSoftware.Network
 
             progressingDialog.GiveUp.Click += GiveUpFindingServer;
 
-            //this timer is used to deal with a bug with metro dialog, where nullreferenceexception when initizaled in constructor
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(10);
-            timer.Start();
-            timer.Tick += new EventHandler(delegate (object s, EventArgs a)
+            if (autostart)
             {
-                server_client_Selection();
-                timer.Stop();
-            });
+                if (startAsServer)
+                {
+                    DispatcherTimer timer = new DispatcherTimer();
+                    timer.Interval = TimeSpan.FromMilliseconds(10);
+                    timer.Start();
+                    timer.Tick += new EventHandler(delegate (object s, EventArgs a)
+                    {
+                        StartServer(null, null);
+                        timer.Stop();
+                    });
+                }
+                else
+                {
+                    DispatcherTimer timer = new DispatcherTimer();
+                    timer.Interval = TimeSpan.FromMilliseconds(10);
+                    timer.Start();
+                    timer.Tick += new EventHandler(delegate (object s, EventArgs a)
+                    {
+                        StartClient(null, null);
+                        timer.Stop();
+                    });
+                }
+            }
+            else
+            {
+                
+
+                //this timer is used to deal with a bug with metro dialog, where nullreferenceexception when initizaled in constructor
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromMilliseconds(10);
+                timer.Start();
+                timer.Tick += new EventHandler(delegate (object s, EventArgs a)
+                {
+                    server_client_Selection();
+                    timer.Stop();
+                });
+            }
+
+
         }
 
         private async static void server_client_Selection()
@@ -75,14 +107,18 @@ namespace InjectionSoftware.Network
             //TODO: hide all dialog
             try
             {
-                await window.HideMetroDialogAsync(twoChoiceDialog);
+                if (twoChoiceDialog.IsVisible)
+                {
+                    await window.HideMetroDialogAsync(twoChoiceDialog);
+                }
             }
             catch (Exception)
             {
 
             }
 
-            await window.ShowMetroDialogAsync(progressingDialog);
+             await window.ShowMetroDialogAsync(progressingDialog);
+            
         }
 
         /// <summary>
@@ -107,7 +143,12 @@ namespace InjectionSoftware.Network
             //load all the injection after starting server, the client will load the injection via contacting with server
             InjectionsManager.loadAllInjections();
 
-            await window.HideMetroDialogAsync(twoChoiceDialog);
+            if (twoChoiceDialog.IsVisible)
+            {
+                await window.HideMetroDialogAsync(twoChoiceDialog);
+            }
+            
+
         }
 
         /// <summary>

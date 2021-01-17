@@ -28,7 +28,7 @@ using System.Windows.Threading;
 
 namespace InjectionSoftware
 {
-    
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -41,20 +41,26 @@ namespace InjectionSoftware
         private ConsoleLogPage consoleLogPage = new ConsoleLogPage();
 
         public static MetroWindow window;
-                
+
         public MainWindow()
         {
             window = this;
 
             InitializeComponent();
 
-            var userPrefs = new WindowConfig();
+            WindowConfig.Init();
 
-            this.Height = userPrefs.WindowHeight;
-            this.Width = userPrefs.WindowWidth;
-            this.Top = userPrefs.WindowTop;
-            this.Left = userPrefs.WindowLeft;
-            this.WindowState = userPrefs.WindowState;
+            if (WindowConfig.IsAutoRestart == 1)
+            {
+                this.WindowStartupLocation = WindowStartupLocation.Manual;
+                this.Height = WindowConfig.WindowHeight;
+                this.Width = WindowConfig.WindowWidth;
+                this.Top = WindowConfig.WindowTop;
+                this.Left = WindowConfig.WindowLeft;
+            }
+
+
+
 
             DataContext = new MainWindowViewModel();
 
@@ -66,30 +72,22 @@ namespace InjectionSoftware
             Doctor.AddDefault();
             Room.AddDefault();
 
+            //Start the timer, restart the program automatically every day
+            WindowAutoRestart.Init();
 
             InjectionsManager.Init();
 
-            NetworkManager.Init(this);
+            NetworkManager.Init(this, WindowConfig.IsAutoRestart == 1, WindowConfig.IsServer == 1);
+
+            //reset the window config
+            WindowConfig.IsAutoRestart = 0;
+            WindowConfig.Save();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
             Console.Out.WriteLine(e.Device.ToString());
             base.OnKeyDown(e);
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            var userPrefs = new WindowConfig();
-
-            userPrefs.WindowHeight = this.Height;
-            userPrefs.WindowWidth = this.Width;
-            userPrefs.WindowTop = this.Top;
-            userPrefs.WindowLeft = this.Left;
-            userPrefs.WindowState = this.WindowState;
-
-            userPrefs.Save();
-            base.OnClosing(e);
         }
 
         // switching pages
@@ -113,7 +111,7 @@ namespace InjectionSoftware
                 case 4:
                     Main.Content = consoleLogPage;
                     break;
-            }            
+            }
         }
     }
 }

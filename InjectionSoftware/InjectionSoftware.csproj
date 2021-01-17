@@ -198,6 +198,7 @@
     </Compile>
     <Compile Include="Util\Scheduler\Hl7file.cs" />
     <Compile Include="Util\Scheduler\Hl7segment.cs" />
+    <Compile Include="Util\WindowAutoRestart.cs" />
     <Compile Include="Util\WindowConfig.cs" />
     <Compile Include="ViewModels\ConsoleLogPageViewModel.cs" />
     <Compile Include="ViewModels\InjectionPageViewModel.cs" />
