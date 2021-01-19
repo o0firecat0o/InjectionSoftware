@@ -1,4 +1,5 @@
-﻿using InjectionSoftware.Util.Scheduler;
+﻿using InjectionSoftware.Util;
+using InjectionSoftware.Util.Scheduler;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -92,11 +93,11 @@ namespace InjectionSoftware.Class
         {
             get
             {
-                if(DateOfBirth != null && DateOfBirth.Length == 8)
+                if(DateOfBirth != null && DOBconverter.BarcodeDOBtohl7DOB(DateOfBirth).Length == 8)
                 {
                     try
                     {
-                        return (int)((DateTime.Now - DateTime.ParseExact(DateOfBirth, "yyyyMMdd",
+                        return (int)((DateTime.Now - DateTime.ParseExact(DOBconverter.BarcodeDOBtohl7DOB(DateOfBirth), "yyyyMMdd",
                 CultureInfo.InvariantCulture)).TotalDays / 365);
                     }catch(System.Exception e)
                     {
@@ -146,7 +147,8 @@ namespace InjectionSoftware.Class
                 {
                     PatientLastname = "";
                 }
-                DateOfBirth = hl7File.getSegment("PID").getString(7);
+                string rawDateOfBirth = hl7File.getSegment("PID").getString(7);
+                DateOfBirth = DOBconverter.hl7DOBtoBarcodeDOB(rawDateOfBirth);
                 IsMale = hl7File.getSegment("PID").getString(8) == "M" ? true : false;
                 PhoneNumber = hl7File.getSegment("PID").getString(13);
                 IsInpatient = hl7File.getSegment("PV1").getString(2) == "I" ? true : false;
@@ -223,5 +225,7 @@ namespace InjectionSoftware.Class
                 handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        
     }
 }

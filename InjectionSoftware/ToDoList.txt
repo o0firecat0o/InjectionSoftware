@@ -1,9 +1,5 @@
 ﻿TODO:
 8> Add detailed view in AllInjection screen, including PO number, ward number, exam type etc
-
-
-
-9> Fix date (inconsistancy between barcode and h7file)
 4> Total Number of Patient in Room List
 11> Auto read registered patient information from scheduler, and COPY them to local directory
 13> Handle situtation when two servers are started
@@ -42,3 +38,4 @@ DONE:
 3.5> change netowrking function: NetworkManager/case "dischargeInjection": => mayto be "change patient status"
 3> Readmit From Discharge
 (E)	reboot every day at a specific time
+9> Fix date (inconsistancy between barcode and h7file)
