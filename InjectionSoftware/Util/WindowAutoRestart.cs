@@ -20,11 +20,9 @@ namespace InjectionSoftware.Util
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMinutes(1);
             timer.Start();
-            float r = 0;
             timer.Tick += new EventHandler(delegate (object s, EventArgs a)
             {
-                r++;
-                if (DateTime.Today.CompareTo(today) != 0 || r>1)
+                if (DateTime.Today.CompareTo(today) != 0)
                 {
                     Console.Out.WriteLine("[WindowAutoRestart] date changed. Proceeeding to auto restart program");
                     WindowConfig.IsAutoRestart = 1;

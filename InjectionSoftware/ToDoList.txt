@@ -13,7 +13,7 @@ TODO(FUTURE):
 (E)	add password protection
 (E)	and add the corresponding visual for different patient status
 (H) track patient's room history
-(E)	reboot every day at a specific time
+
 (M)	add functionality to support barcode reader 
 (M)	add role 
 (I)	and auto detect barcode reader signal for each role
@@ -27,6 +27,7 @@ TOTEST:
 Is registered list sync to each client, even if the server is closed and rebooted?
 Is patient information sync to each client, even if the server is closed and rebooted?
 Is all client's functionality ceased, when the client lost connection to server to prevent double editing of patient information?
+Is the client/server connection still work after rebooting?
 
 DONE:
 7> rearrange the patient information input order in NEWINJECTION
@@ -40,3 +41,4 @@ DONE:
 12> Handled exeption for reading invalid hl7 file
 3.5> change netowrking function: NetworkManager/case "dischargeInjection": => mayto be "change patient status"
 3> Readmit From Discharge
+(E)	reboot every day at a specific time
