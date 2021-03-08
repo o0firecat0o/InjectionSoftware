@@ -2,8 +2,10 @@
 8> Add detailed view in AllInjection screen, including PO number, ward number, exam type etc
 4> Total Number of Patient in Room List
 11> Auto read registered patient information from scheduler, and COPY them to local directory
-13> Handle situtation when two servers are started
+
 14> hide side bar, making us able to show 40 injections instead of just 30
+
+13.5> Handle situtation when two servers are started (from dif computer)
 
 TODO(FUTURE):
 (E)	add password protection
@@ -39,3 +41,5 @@ DONE:
 3> Readmit From Discharge
 (E)	reboot every day at a specific time
 9> Fix date (inconsistancy between barcode and h7file)
+
+13> Handle situtation when two servers are started

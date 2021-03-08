@@ -86,6 +86,12 @@ namespace InjectionSoftware.Network
 
         }
 
+        public static async void Start(object sender, RoutedEventArgs e)
+        {
+            //detect if there is any server started on the computer
+            
+        }
+
         private async static void server_client_Selection()
         {
             await window.ShowMetroDialogAsync(twoChoiceDialog);
@@ -98,13 +104,20 @@ namespace InjectionSoftware.Network
         /// <param name="e"></param>
         public static async void StartClient(object sender, RoutedEventArgs e)
         {
+            //detect if a client is already started on this computer
+            //if yes, terminate the program
+            if (System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().GetActiveUdpListeners().Any(p => p.Port == 14999))
+            {
+                System.Windows.Forms.Application.Exit();
+                return;
+            }
             client = new Client();
             client.ServerFound += ServerFound;
             client.ServerConnected += ServerConnected;
             client.ServerDisconnected += ServerDisconnected;
             client.MessageReceivedFromServer += MessageReceivedFromServer;
 
-            //TODO: hide all dialog
+            //hide all dialog
             try
             {
                 if (twoChoiceDialog.IsVisible)
@@ -128,6 +141,13 @@ namespace InjectionSoftware.Network
         /// <param name="e"></param>
         public static async void StartServer(object sender, RoutedEventArgs e)
         {
+            //detect if a server is already started on this computer
+            //if yes, start a client instead
+            if (System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().GetActiveUdpListeners().Any(p => p.Port == 15000))
+            {
+                StartClient(null,null);
+                return;
+            }
             isServer = true;
             server = new Server();
 

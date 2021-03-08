@@ -34,6 +34,7 @@ namespace InjectionSoftware.Network
             tcpServer.ClientConnected += ClientConnected;
             tcpServer.ClientDisconnected += ClientDisconnected;
 
+
             tcpServer.Start();
 
             uDPNetworking.UDPStartListening();

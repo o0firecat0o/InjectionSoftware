@@ -20,8 +20,12 @@ namespace InjectionSoftware.Network
         public UDPNetworking(int PORT_NUMBER)
         {
             this.PORT_NUMBER = PORT_NUMBER;
-            udp =  new UdpClient(PORT_NUMBER);
+            
+            
+           
+            udp = new UdpClient(PORT_NUMBER);
             UDPStartListening();
+                     
         }
 
         public void UDPStartListening()
