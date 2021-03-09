@@ -33,14 +33,8 @@ namespace InjectionSoftware.Util
                     WindowConfig.WindowLeft = MainWindow.window.Left;
                     WindowConfig.WindowState = MainWindow.window.WindowState;
 
-                    if (NetworkManager.isServer)
-                    {
-                        WindowConfig.IsServer = 1;
-                    }
-                    else
-                    {
-                        WindowConfig.IsServer = 0;
-                    }
+                    //Obsolete
+                    WindowConfig.IsServer = 0;
 
                     WindowConfig.Save();
 

@@ -19,7 +19,13 @@ namespace InjectionSoftware.Network
 {
     public static class NetworkManager
     {
-        public static bool isServer = false;
+       public static bool isServer
+        {
+            get
+            {
+                return NetworkManager.clientNumber == 0;
+            }
+        }
 
         public static Client client;
 
@@ -31,10 +37,11 @@ namespace InjectionSoftware.Network
 
         private static MetroWindow window;
 
+        //not connected = -1
         //server = 0
         //1st client = 1
         //2nd client = 2 and so on
-        public static int clientNumber = 0;
+        public static int clientNumber = -1;
 
         public static bool connected = false;
 
@@ -52,6 +59,7 @@ namespace InjectionSoftware.Network
             progressingDialog.GiveUp.Click += GiveUpFindingServer;
 
             simultaneousErrorDialog.GiveUp.Click += RetryFindingServer;
+            simultaneousErrorDialog.GiveUp.Content = "Retry";
 
             //if (autostart)
             //{
@@ -106,7 +114,7 @@ namespace InjectionSoftware.Network
             if (System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().GetActiveUdpListeners().Any(p => p.Port == 14999))
             {
                 await window.ShowMetroDialogAsync(simultaneousErrorDialog);
-                simultaneousErrorDialog.MessageText.Content = "Error when starting client- UDP port already occupied. Check whether there is another instance running";
+                simultaneousErrorDialog.MessageText.Content = "Error when starting client- UDP port already occupied. \nCheck whether there is another instance running";
                 Console.Out.WriteLine("[NetworkManager] error when starting client- UDP port already occupied. Check whether there is another instance running");
                 return;
             }
@@ -148,7 +156,7 @@ namespace InjectionSoftware.Network
             if (System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().GetActiveUdpListeners().Any(p => p.Port == 14999))
             {
                 await window.ShowMetroDialogAsync(simultaneousErrorDialog);
-                simultaneousErrorDialog.MessageText.Content = "Error when starting client- UDP port already occupied. Check whether there is another instance running";
+                simultaneousErrorDialog.MessageText.Content = "Error when starting client- UDP port already occupied. \nCheck whether there is another instance running";
                 Console.Out.WriteLine("[NetworkManager] error when starting client- UDP port already occupied. Check whether there is another instance running");
                 return;
             }
@@ -185,10 +193,10 @@ namespace InjectionSoftware.Network
                 return;
             }
 
-            connected = true;
-
-            isServer = true;
             server = new Server();
+
+            connected = true;
+            clientNumber = 0;
 
             //TODO: add -= when server shut down?
             server.MessageReceivedFromClientEvent += MessageReceivedFromClient;
