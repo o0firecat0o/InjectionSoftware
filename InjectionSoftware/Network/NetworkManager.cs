@@ -43,6 +43,9 @@ namespace InjectionSoftware.Network
         //2nd client = 2 and so on
         public static int clientNumber = -1;
 
+        //for server only, to keep track of how many client is connected (include both connected AND disconnected)
+        public static int clientCount = 0;
+
         public static bool connected = false;
 
         public static void Init(MetroWindow w, bool autostart, bool startAsServer)
@@ -125,9 +128,9 @@ namespace InjectionSoftware.Network
             client.ServerDisconnected += ServerDisconnected;
             client.MessageReceivedFromServer += MessageReceivedFromServer;
 
-            //Auto give up finding client after 8 second
+            //Auto give up finding client after 10 second
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(8);
+            timer.Interval = TimeSpan.FromSeconds(10*(clientNumber+2));
             timer.Start();
             timer.Tick += new EventHandler(async delegate (object s, EventArgs a)
             {                
@@ -148,6 +151,7 @@ namespace InjectionSoftware.Network
             });
 
             await window.ShowMetroDialogAsync(progressingDialog);
+            progressingDialog.MessageText.Content = "Finding Server:\nPosition in queue: " + (clientNumber + 2);
         }
 
         private static async void StartClient(object sender, RoutedEventArgs e)
@@ -197,6 +201,7 @@ namespace InjectionSoftware.Network
 
             connected = true;
             clientNumber = 0;
+            clientCount = 0;
 
             //TODO: add -= when server shut down?
             server.MessageReceivedFromClientEvent += MessageReceivedFromClient;
@@ -343,6 +348,10 @@ namespace InjectionSoftware.Network
                 case "ConnectionSucessful":
                     Console.Out.WriteLine("[NetworkManager-Server] New connection established with client IP: {0}, Name: {1}", args.IpPort, messages[1]);
                     ClientViewObject.Add(messages[1], args.IpPort);
+                    //Send the clientNumber to the client
+                    clientCount += 1;
+                    Console.Out.WriteLine("[NetworkManager-Server] Setting client with IPPort: {0} as client number {1}", args.IpPort, clientCount);
+                    server.TCPSendMessage(args.IpPort, "setClientNumber", clientCount.ToString());
                     break;
 
                 case "modInjection":
@@ -451,6 +460,12 @@ namespace InjectionSoftware.Network
 
             switch (messages[0])
             {
+                case "setClientNumber":
+                    Console.Out.WriteLine("[NetworkManager-Client] Receiving Set ClientNumber Request from server, proceed to set self ClientNumber");
+                    clientNumber = int.Parse(messages[1]);
+                    Console.Out.WriteLine("[NetworkManager-Client] My client number is:" + clientNumber);
+                    break;
+                
                 case "modInjection":
                     Console.Out.WriteLine("[NetworkManager-Client] Receiving Mod Injection Request from server, proceed to modify injection");
                     window.Dispatcher.Invoke(() =>
