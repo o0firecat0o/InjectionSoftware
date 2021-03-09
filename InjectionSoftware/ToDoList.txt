@@ -5,7 +5,7 @@
 
 14> hide side bar, making us able to show 40 injections instead of just 30
 
-13.5> Handle situtation when a server is disconnected and a client has to take up the role to be a server
+
 
 TODO(FUTURE):
 (E)	add password protection
@@ -26,6 +26,7 @@ Is registered list sync to each client, even if the server is closed and reboote
 Is patient information sync to each client, even if the server is closed and rebooted?
 Is all client's functionality ceased, when the client lost connection to server to prevent double editing of patient information?
 Is the client/server connection still work after rebooting?
+13.5> Handle situtation when a server is disconnected and a client has to take up the role to be a server (from dif computer)
 
 DONE:
 7> rearrange the patient information input order in NEWINJECTION
@@ -44,3 +45,4 @@ DONE:
 
 13> Handle situtation when two servers are started
 13.5> Handle situtation when two servers are started (from dif computer)
+13.5> Handle situtation when a server is disconnected and a client has to take up the role to be a server

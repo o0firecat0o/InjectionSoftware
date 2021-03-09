@@ -130,7 +130,7 @@ namespace InjectionSoftware.Network
 
             //Auto give up finding client after 10 second
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(10*(clientNumber+2));
+            timer.Interval = TimeSpan.FromSeconds(5+4*(clientNumber+2));
             timer.Start();
             timer.Tick += new EventHandler(async delegate (object s, EventArgs a)
             {                
@@ -298,6 +298,9 @@ namespace InjectionSoftware.Network
             client.ServerConnected -= ServerConnected;
             client.ServerDisconnected -= ServerDisconnected;
             client.MessageReceivedFromServer -= MessageReceivedFromServer;
+
+            connected = false;
+
             window.Dispatcher.Invoke(() =>
             {
                 // close the new injection window when lost connection to server
@@ -307,7 +310,7 @@ namespace InjectionSoftware.Network
                 }
                 progressingDialog.TitleText.Content = "Lost Connection to Server";
                 progressingDialog.MessageText.Content = "Trying to re-establish connection";
-                StartClient(null, null);
+                StartClientThenServer();
             });
         }
 
