@@ -27,8 +27,16 @@ namespace InjectionSoftware.Network
 
         private static TwoChoiceDialog twoChoiceDialog = new TwoChoiceDialog();
         private static ProgressingDialog progressingDialog = new ProgressingDialog();
+        private static ProgressingDialog simultaneousErrorDialog = new ProgressingDialog();
 
         private static MetroWindow window;
+
+        //server = 0
+        //1st client = 1
+        //2nd client = 2 and so on
+        public static int clientNumber = 0;
+
+        public static bool connected = false;
 
         public static void Init(MetroWindow w, bool autostart, bool startAsServer)
         {
@@ -43,34 +51,36 @@ namespace InjectionSoftware.Network
 
             progressingDialog.GiveUp.Click += GiveUpFindingServer;
 
-            if (autostart)
+            simultaneousErrorDialog.GiveUp.Click += RetryFindingServer;
+
+            //if (autostart)
+            //{
+            //    if (startAsServer)
+            //    {
+            //        DispatcherTimer timer = new DispatcherTimer();
+            //        timer.Interval = TimeSpan.FromMilliseconds(10);
+            //        timer.Start();
+            //        timer.Tick += new EventHandler(delegate (object s, EventArgs a)
+            //        {
+            //            StartServer(null, null);
+            //            timer.Stop();
+            //        });
+            //    }
+            //    else
+            //    {
+            //        DispatcherTimer timer = new DispatcherTimer();
+            //        timer.Interval = TimeSpan.FromMilliseconds(10);
+            //        timer.Start();
+            //        timer.Tick += new EventHandler(delegate (object s, EventArgs a)
+            //        {
+            //            StartClient(null, null);
+            //            timer.Stop();
+            //        });
+            //    }
+            //}
+            //else
             {
-                if (startAsServer)
-                {
-                    DispatcherTimer timer = new DispatcherTimer();
-                    timer.Interval = TimeSpan.FromMilliseconds(10);
-                    timer.Start();
-                    timer.Tick += new EventHandler(delegate (object s, EventArgs a)
-                    {
-                        StartServer(null, null);
-                        timer.Stop();
-                    });
-                }
-                else
-                {
-                    DispatcherTimer timer = new DispatcherTimer();
-                    timer.Interval = TimeSpan.FromMilliseconds(10);
-                    timer.Start();
-                    timer.Tick += new EventHandler(delegate (object s, EventArgs a)
-                    {
-                        StartClient(null, null);
-                        timer.Stop();
-                    });
-                }
-            }
-            else
-            {
-                
+
 
                 //this timer is used to deal with a bug with metro dialog, where nullreferenceexception when initizaled in constructor
                 DispatcherTimer timer = new DispatcherTimer();
@@ -78,7 +88,7 @@ namespace InjectionSoftware.Network
                 timer.Start();
                 timer.Tick += new EventHandler(delegate (object s, EventArgs a)
                 {
-                    server_client_Selection();
+                    StartClientThenServer();
                     timer.Stop();
                 });
             }
@@ -86,29 +96,60 @@ namespace InjectionSoftware.Network
 
         }
 
-        public static async void Start(object sender, RoutedEventArgs e)
-        {
-            //detect if there is any server started on the computer
-            
-        }
+        
 
-        private async static void server_client_Selection()
-        {
-            await window.ShowMetroDialogAsync(twoChoiceDialog);
-        }
+       
 
-        /// <summary>
-        /// Click event that start the client
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public static async void StartClient(object sender, RoutedEventArgs e)
+        public static async void StartClientThenServer()
         {
             //detect if a client is already started on this computer
-            //if yes, terminate the program
             if (System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().GetActiveUdpListeners().Any(p => p.Port == 14999))
             {
-                System.Windows.Forms.Application.Exit();
+                await window.ShowMetroDialogAsync(simultaneousErrorDialog);
+                simultaneousErrorDialog.MessageText.Content = "Error when starting client- UDP port already occupied. Check whether there is another instance running";
+                Console.Out.WriteLine("[NetworkManager] error when starting client- UDP port already occupied. Check whether there is another instance running");
+                return;
+            }
+
+            client = new Client();
+            client.ServerFound += ServerFound;
+            client.ServerConnected += ServerConnected;
+            client.ServerDisconnected += ServerDisconnected;
+            client.MessageReceivedFromServer += MessageReceivedFromServer;
+
+            //Auto give up finding client after 8 second
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(8);
+            timer.Start();
+            timer.Tick += new EventHandler(async delegate (object s, EventArgs a)
+            {                
+                timer.Stop();
+                if (connected)
+                {
+                    return;
+                }
+                Console.Out.WriteLine("[NetworkManager] No server found. Terminating client. Start as Server instead");
+                //close the client
+                if (progressingDialog.IsVisible)
+                {
+                    await window.HideMetroDialogAsync(progressingDialog);
+                }                
+                client.StopUDP();
+                //start as a server
+                StartServer(null,null);
+            });
+
+            await window.ShowMetroDialogAsync(progressingDialog);
+        }
+
+        private static async void StartClient(object sender, RoutedEventArgs e)
+        {
+            //detect if a client is already started on this computer
+            if (System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().GetActiveUdpListeners().Any(p => p.Port == 14999))
+            {
+                await window.ShowMetroDialogAsync(simultaneousErrorDialog);
+                simultaneousErrorDialog.MessageText.Content = "Error when starting client- UDP port already occupied. Check whether there is another instance running";
+                Console.Out.WriteLine("[NetworkManager] error when starting client- UDP port already occupied. Check whether there is another instance running");
                 return;
             }
             client = new Client();
@@ -130,24 +171,22 @@ namespace InjectionSoftware.Network
 
             }
 
-             await window.ShowMetroDialogAsync(progressingDialog);
-            
+            await window.ShowMetroDialogAsync(progressingDialog);
+
         }
 
-        /// <summary>
-        /// Click event that start the server
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public static async void StartServer(object sender, RoutedEventArgs e)
+        private static async void StartServer(object sender, RoutedEventArgs e)
         {
-            //detect if a server is already started on this computer
-            //if yes, start a client instead
             if (System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().GetActiveUdpListeners().Any(p => p.Port == 15000))
             {
-                StartClient(null,null);
+                await window.ShowMetroDialogAsync(simultaneousErrorDialog);
+                simultaneousErrorDialog.MessageText.Content = "Error when starting server- UDP port already occupied. Check whether there is another instance running";
+                Console.Out.WriteLine("[NetworkManager] error when starting server- UDP port already occupied. Check whether there is another instance running");
                 return;
             }
+
+            connected = true;
+
             isServer = true;
             server = new Server();
 
@@ -167,8 +206,12 @@ namespace InjectionSoftware.Network
             {
                 await window.HideMetroDialogAsync(twoChoiceDialog);
             }
-            
+            await window.ShowMessageAsync("No server found. \nStarted as server instead!", "Server Name: " + NetworkUtil.GetMachineName() + "\nServer IP:" + NetworkUtil.GetLocalIPAddress());
+        }
 
+        private async static void server_client_Selection()
+        {
+            await window.ShowMetroDialogAsync(twoChoiceDialog);
         }
 
         /// <summary>
@@ -181,6 +224,12 @@ namespace InjectionSoftware.Network
             await window.HideMetroDialogAsync(progressingDialog);
             client.StopUDP();
             server_client_Selection();
+        }
+
+        public static async void RetryFindingServer(object sender, RoutedEventArgs e)
+        {
+            await window.HideMetroDialogAsync(simultaneousErrorDialog);
+            StartClientThenServer();
         }
 
         /// <summary>
@@ -205,6 +254,8 @@ namespace InjectionSoftware.Network
         public static void ServerConnected(object sender, EventArgs e)
         {
             client.TCPSendMessageToServer("ConnectionSucessful", NetworkUtil.GetMachineName());
+
+            connected = true;
 
             window.Dispatcher.Invoke(async () =>
             {

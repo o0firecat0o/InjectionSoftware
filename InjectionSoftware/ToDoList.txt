@@ -5,7 +5,7 @@
 
 14> hide side bar, making us able to show 40 injections instead of just 30
 
-13.5> Handle situtation when two servers are started (from dif computer)
+13.5> Handle situtation when a server is disconnected and a client has to take up the role to be a server
 
 TODO(FUTURE):
 (E)	add password protection
@@ -43,3 +43,4 @@ DONE:
 9> Fix date (inconsistancy between barcode and h7file)
 
 13> Handle situtation when two servers are started
+13.5> Handle situtation when two servers are started (from dif computer)

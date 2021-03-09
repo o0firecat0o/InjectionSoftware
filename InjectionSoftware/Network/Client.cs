@@ -84,8 +84,6 @@ namespace InjectionSoftware.Network
             tcpClient.MessageReceived += MessageReceived;
             tcpClient.ServerDisconnected += _ServerDisconnected;
 
-            Thread.Sleep(3000);
-
             try
             {
                 Console.Out.WriteLine("[Client] Trying to connect to server with ip: " +serverip);                
