@@ -196,6 +196,7 @@
     <Compile Include="Pages\RoomPage.xaml.cs">
       <DependentUpon>RoomPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util\ConsoleLogger.cs" />
     <Compile Include="Util\DOBconverter.cs" />
     <Compile Include="Util\Scheduler\Hl7file.cs" />
     <Compile Include="Util\Scheduler\Hl7segment.cs" />

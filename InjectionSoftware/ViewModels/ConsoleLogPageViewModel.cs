@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InjectionSoftware.Util;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -23,16 +24,14 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
+        
         public void Init()
-        {
-            var sw = new StringWriter();
-            Console.SetOut(sw);
-            Console.SetError(sw);
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        {            
+             DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Interval = TimeSpan.FromSeconds(2);
             dispatcherTimer.Tick += new EventHandler(delegate (object s, EventArgs a)
             {
-                ConsoleLogString = sw.ToString();
+                ConsoleLogString = ConsoleLogger.sw.ToString();
             });
             dispatcherTimer.Start();
         }

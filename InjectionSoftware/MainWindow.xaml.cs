@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -44,6 +45,10 @@ namespace InjectionSoftware
 
         public MainWindow()
         {
+            ConsoleLogger.Init();
+
+            AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
+
             window = this;
 
             InitializeComponent();
@@ -90,14 +95,42 @@ namespace InjectionSoftware
             InjectionsManager.Init();
 
             NetworkManager.Init(this, WindowConfig.IsAutoRestart == 1, WindowConfig.IsServer == 1);
-
-
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
             Console.Out.WriteLine(e.Device.ToString());
             base.OnKeyDown(e);
+        }
+
+        private void OnProcessExit(object sender, EventArgs e)
+        {
+            Console.Out.WriteLine("[MainWindow] Exitting Program");
+
+            Console.Out.WriteLine("[MainWindow] Writing file into ConsoleLog.txt");
+
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\";
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            string fullpath = path + @"consoleLog.txt";
+
+            try
+            {
+                using (StreamWriter writetext = new StreamWriter(fullpath))
+                {
+                    writetext.WriteLine(ConsoleLogger.sw.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Cannot open Redirect.txt for writing");
+                Console.WriteLine(ex.Message);
+                return;
+            }
         }
 
         // switching pages
