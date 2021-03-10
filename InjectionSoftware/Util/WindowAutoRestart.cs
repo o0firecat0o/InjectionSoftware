@@ -27,7 +27,7 @@ namespace InjectionSoftware.Util
                 {
                     return;
                 }
-                if (!isSameDate() || true)
+                if (!isSameDate())
                 {
                     timer.Stop();
 
