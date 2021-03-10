@@ -1,6 +1,7 @@
 ﻿using InjectionSoftware.Class;
 using InjectionSoftware.Dialogs;
 using InjectionSoftware.Pages;
+using InjectionSoftware.Util;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System;
@@ -44,9 +45,12 @@ namespace InjectionSoftware.Network
         public static int clientNumber = -1;
 
         //for server only, to keep track of how many client is connected (include both connected AND disconnected)
-        public static int clientCount = 0;
+        private static int clientCount = 0;
 
-        public static bool connected = false;
+        private static bool connected = false;
+
+        //enable the connection to server, if false => offline mode
+        public static bool connectionEnabled = true;
 
         public static void Init(MetroWindow w, bool autostart, bool startAsServer)
         {
@@ -119,6 +123,11 @@ namespace InjectionSoftware.Network
                 await window.ShowMetroDialogAsync(simultaneousErrorDialog);
                 simultaneousErrorDialog.MessageText.Content = "Error when starting client- UDP port already occupied. \nCheck whether there is another instance running";
                 Console.Out.WriteLine("[NetworkManager] error when starting client- UDP port already occupied. Check whether there is another instance running");
+                return;
+            }
+
+            if (!connectionEnabled)
+            {
                 return;
             }
 
@@ -252,6 +261,8 @@ namespace InjectionSoftware.Network
         /// <param name="e"></param>
         public static void ServerFound(object sender, EventArgs e)
         {
+            connected = true;
+
             client.ConnectToServer();
             window.Dispatcher.Invoke(() =>
             {
@@ -267,8 +278,6 @@ namespace InjectionSoftware.Network
         public static void ServerConnected(object sender, EventArgs e)
         {
             client.TCPSendMessageToServer("ConnectionSucessful", NetworkUtil.GetMachineName());
-
-            connected = true;
 
             window.Dispatcher.Invoke(async () =>
             {
@@ -463,6 +472,37 @@ namespace InjectionSoftware.Network
 
             switch (messages[0])
             {
+                case "autoRestart":
+                    Console.Out.WriteLine("[NetworkManager-Client] Receiving Auto Restart Request from server, proceed to restart client");
+
+                    //disable connection to prevent reconnection to server before restarting
+                    connectionEnabled = false;
+
+
+
+                    window.Dispatcher.Invoke(() =>
+                    {
+                        Console.Out.WriteLine("[NetworkManager-Client] Start timer of 15 seconds");
+                        DispatcherTimer timer = new DispatcherTimer();
+                        timer.Interval = TimeSpan.FromSeconds(15);
+                        timer.Start();
+                        timer.Tick += new EventHandler(delegate (object s, EventArgs a)
+                        {
+                            //only restart if it is a different date
+                            if (WindowAutoRestart.isSameDate())
+                            {
+                                Console.Out.WriteLine("[NetworkManager-Client] It is still yesterday. Wait until auto restart.");
+                            }
+                            else
+                            {
+                                Console.Out.WriteLine("[NetworkManager-Client] AutoRestarting...");
+                                WindowAutoRestart.AutoRestart();
+                                timer.Stop();
+                            }
+                        });
+                    });
+                    break;
+                
                 case "setClientNumber":
                     Console.Out.WriteLine("[NetworkManager-Client] Receiving Set ClientNumber Request from server, proceed to set self ClientNumber");
                     clientNumber = int.Parse(messages[1]);

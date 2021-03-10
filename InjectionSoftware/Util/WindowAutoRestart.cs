@@ -22,28 +22,46 @@ namespace InjectionSoftware.Util
             timer.Start();
             timer.Tick += new EventHandler(delegate (object s, EventArgs a)
             {
-                if (DateTime.Today.CompareTo(today) != 0)
+                //only auto restart if it is server
+                if (!NetworkManager.isServer)
                 {
-                    Console.Out.WriteLine("[WindowAutoRestart] date changed. Proceeeding to auto restart program");
-                    WindowConfig.IsAutoRestart = 1;
-
-                    WindowConfig.WindowHeight = MainWindow.window.Height;
-                    WindowConfig.WindowWidth = MainWindow.window.Width;
-                    WindowConfig.WindowTop = MainWindow.window.Top;
-                    WindowConfig.WindowLeft = MainWindow.window.Left;
-                    WindowConfig.WindowState = MainWindow.window.WindowState;
-
-                    //Obsolete
-                    WindowConfig.IsServer = 0;
-
-                    WindowConfig.Save();
-
-                    System.Windows.Forms.Application.Restart();
-                    System.Windows.Application.Current.Shutdown();
-
+                    return;
+                }
+                if (!isSameDate() || true)
+                {
                     timer.Stop();
+
+                    Console.Out.WriteLine("[WindowAutoRestart] date changed. Proceeeding to auto restart program");
+                    AutoRestart();
+
+                    NetworkManager.server.TCPBroadcastMessage("autoRestart", "");
                 }
             });
+        }
+
+        public static bool isSameDate()
+        {
+            return DateTime.Today.CompareTo(today) == 0;
+        }
+
+        public static void AutoRestart()
+        {
+            Console.Out.WriteLine("[WindowAutoRestart] Restarting program...");
+            WindowConfig.IsAutoRestart = 1;
+
+            WindowConfig.WindowHeight = MainWindow.window.Height;
+            WindowConfig.WindowWidth = MainWindow.window.Width;
+            WindowConfig.WindowTop = MainWindow.window.Top;
+            WindowConfig.WindowLeft = MainWindow.window.Left;
+            WindowConfig.WindowState = MainWindow.window.WindowState;
+
+            //Obsolete
+            WindowConfig.IsServer = 0;
+
+            WindowConfig.Save();
+
+            System.Windows.Forms.Application.Restart();
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }
