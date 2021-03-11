@@ -98,8 +98,6 @@ namespace InjectionSoftware.Network
             }
         }
 
-        //TODO: add previlages, admin right
-
         private ClientViewObject(int ClientNumber, string MachineName, string fullIP, string IP, string Port)
         {
             this.ClientNumber = ClientNumber;
