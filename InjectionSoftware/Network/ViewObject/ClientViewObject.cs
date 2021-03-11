@@ -77,10 +77,13 @@ namespace InjectionSoftware.Network
         public int Row { get; set; }
         public int Column { get; set; }
 
+        public int ClientNumber { get; set; }
+
         //TODO: add previlages, admin right
 
-        private ClientViewObject(string MachineName, string fullIP, string IP, string Port)
+        private ClientViewObject(int ClientNumber, string MachineName, string fullIP, string IP, string Port)
         {
+            this.ClientNumber = ClientNumber;
             this.MachineName = MachineName;
             this.fullIP = fullIP;
             this.IP = IP;
@@ -93,8 +96,10 @@ namespace InjectionSoftware.Network
             });
         }
 
-        public static void Add(string MachineName, string fullIP)
+        public static void Add(int ClientNumber, string MachineName, string fullIP)
         {
+           
+
             string IP = fullIP.Split(':')[0];
             string Port = "00000";
             if (fullIP.Split(':').Length >= 2)
@@ -110,7 +115,7 @@ namespace InjectionSoftware.Network
             }
             else
             {
-                new ClientViewObject(MachineName, fullIP, IP, Port);
+                new ClientViewObject(ClientNumber, MachineName, fullIP, IP, Port);
             }
         }
 

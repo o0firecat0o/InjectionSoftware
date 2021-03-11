@@ -212,6 +212,9 @@ namespace InjectionSoftware.Network
             clientNumber = 0;
             clientCount = 0;
 
+            //client view object for displaying in the network page
+            ClientViewObject.Add(clientNumber,NetworkUtil.GetMachineName(), NetworkUtil.GetLocalIPAddress());
+
             //TODO: add -= when server shut down?
             server.MessageReceivedFromClientEvent += MessageReceivedFromClient;
             server.ClientConnectedEvent += ClientConnected;
@@ -359,11 +362,15 @@ namespace InjectionSoftware.Network
             {
                 case "ConnectionSucessful":
                     Console.Out.WriteLine("[NetworkManager-Server] New connection established with client IP: {0}, Name: {1}", args.IpPort, messages[1]);
-                    ClientViewObject.Add(messages[1], args.IpPort);
+                    
                     //Send the clientNumber to the client
                     clientCount += 1;
                     Console.Out.WriteLine("[NetworkManager-Server] Setting client with IPPort: {0} as client number {1}", args.IpPort, clientCount);
                     server.TCPSendMessage(args.IpPort, "setClientNumber", clientCount.ToString());
+
+                    //Add the client view object for networking page
+                    ClientViewObject.Add(clientCount, messages[1], args.IpPort);
+
                     break;
 
                 case "modInjection":

@@ -45,52 +45,77 @@
 
         </StackPanel>
 
+
+
         <!-- client -->
         <Grid Grid.Row="1"
               Background="#FFE5E5E5"
               Margin="20">
+
+            
             <ItemsControl ItemsSource="{Binding CompositeCollection}">
                 <ItemsControl.Resources>
                     <DataTemplate DataType="{x:Type localclass:ClientViewObject}">
-                        <Grid>
+                        <Viewbox StretchDirection="Both">
                             <Border Background="Gray"
-                                    Margin="5">
-                                <StackPanel Background="White"
-                                      Margin="0.7">
-
-                                    <StackPanel.Resources>
+                                    Margin="2">
+                                <Grid Background="White"
+                                      Margin="0.7"
+                                      Height="208"
+                                      Width="124">
+                                    <Grid.Resources>
                                         <Style TargetType="TextBlock">
                                             <Setter Property="Foreground"
                                                     Value="#FF6B6B6B" />
                                         </Style>
-                                    </StackPanel.Resources>
+                                    </Grid.Resources>
 
-                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="4" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="4" />
+                                        <RowDefinition Height="140" />
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Orientation="Horizontal"
+                                                VerticalAlignment="Stretch"
+                                                HorizontalAlignment="Center"
+                                                Grid.Row="0">
                                         <iconPacks:PackIconBoxIcons Kind="RegularServer"
                                                                     Foreground="#FF6B6B6B"
-                                                                    VerticalAlignment="Center"/>
-                                        <TextBlock Margin="4"
+                                                                    VerticalAlignment="Center" />
+                                        <TextBlock Margin="2"
                                                    Text="{Binding MachineName}"
                                                    VerticalAlignment="Center"
-                                                   FontSize="19" />
+                                                   FontSize="13"
+                                                   FontWeight="Bold" />
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Vertical" Grid.Row="1">
+                                    <StackPanel Orientation="Vertical"
+                                                Grid.Row="1">
                                         <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical"
                                                 VerticalAlignment="Stretch"
                                                 HorizontalAlignment="Left"
-                                                Grid.Row="2">
+                                                Grid.Row="2"
+                                                Margin="5 0 5 0">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Padding="6"> IP Address:</TextBlock>
-                                            <TextBlock Padding="6"
+                                            <TextBlock FontSize="10"
+                                                       Text="IPAdress:   "
+                                                       FontWeight="Bold" />
+                                            <TextBlock FontSize="8"
+                                                       VerticalAlignment="Center"
                                                        Text="{Binding IP}" />
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Padding="6"> Port:</TextBlock>
-                                            <TextBlock Padding="6"
+                                            <TextBlock FontSize="10"
+                                                       Text="Port:   "
+                                                       FontWeight="Bold" />
+                                            <TextBlock VerticalAlignment="Center"
+                                                       FontSize="8"
                                                        Text="{Binding Port}" />
                                         </StackPanel>
                                     </StackPanel>
@@ -100,22 +125,38 @@
                                         <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                                     </StackPanel>
 
-                                    <StackPanel Orientation="Vertical"
-                                                VerticalAlignment="Stretch"
-                                                HorizontalAlignment="Left"
-                                                Grid.Row="4">
-                                        <TextBlock Padding="6"> MessageType:</TextBlock>
-                                        <TextBlock Padding="6"
-                                                    Text="{Binding PreviousMessageType}" />
-                                        <TextBlock Padding="6"> Message:</TextBlock>
-                                        <TextBlock Padding="6"
-                                                    Text="{Binding PreviousMessage}" />
-                                    </StackPanel>
-
-                                </StackPanel>
+                                    <Border Height="150"
+                                            Grid.Row="4">
+                                        <Grid Margin="5,0,5,10.4">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="15" />
+                                                <RowDefinition Height="15" />
+                                                <RowDefinition Height="15" />
+                                                <RowDefinition Height="95" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock FontSize="10"
+                                                       FontWeight="Bold"> MessageType:</TextBlock>
+                                            <TextBlock Grid.Row="1"
+                                                       FontSize="10"
+                                                       Text="{Binding PreviousMessageType}" />
+                                            <TextBlock Grid.Row="2"
+                                                       FontSize="10"
+                                                       FontWeight="Bold"> Message:</TextBlock>
+                                            <ScrollViewer Grid.Row="3"
+                                                          FontSize="10"
+                                                          VerticalScrollBarVisibility="Auto"
+                                                          HorizontalScrollBarVisibility="Auto"
+                                                          HorizontalAlignment="Left">
+                                                <TextBlock Text="{Binding PreviousMessage}" />
+                                            </ScrollViewer>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
 
                             </Border>
-                        </Grid>
+
+                        </Viewbox>
+
                     </DataTemplate>
                 </ItemsControl.Resources>
 
