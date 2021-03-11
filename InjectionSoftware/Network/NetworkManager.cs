@@ -340,8 +340,6 @@ namespace InjectionSoftware.Network
 
             window.Dispatcher.Invoke(() =>
             {
-                System.Threading.Thread.Sleep(2000 + clientNumber * 500);
-
                 ClientViewObject.clientViewObjects.Clear();
 
                 // close the new injection window when lost connection to server
@@ -349,6 +347,9 @@ namespace InjectionSoftware.Network
                 {
                     NewInjection.window.Close();
                 }
+
+                System.Threading.Thread.Sleep(2000 + clientNumber * 500);
+                
                 progressingDialog.TitleText.Content = "Lost Connection to Server";
                 progressingDialog.MessageText.Content = "Trying to re-establish connection";
                 StartClientThenServer();
