@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls.WebParts;
+using System.Windows.Media;
 
 namespace InjectionSoftware.Network
 {
@@ -73,11 +74,29 @@ namespace InjectionSoftware.Network
                 OnPropertyChanged("PreviousMessage");
             }
         }
+        
 
         public int Row { get; set; }
         public int Column { get; set; }
 
         public int ClientNumber { get; set; }
+        
+        //if ClientViewObject = self => GoldenYellow
+        //else White
+        public Brush BackgroundBrush
+        {
+            get
+            {
+                if (ClientNumber == NetworkManager.clientNumber)
+                {
+                    return Brushes.PaleGoldenrod;
+                }
+                else
+                {
+                    return Brushes.White;
+                }
+            }
+        }
 
         //TODO: add previlages, admin right
 
@@ -132,7 +151,6 @@ namespace InjectionSoftware.Network
                 }
             }
             Console.Error.WriteLine("Could not found clientviewobject with IP: {0}", fullIP);
-
         }
 
         public void UpdateMessage(string messageType, string message)

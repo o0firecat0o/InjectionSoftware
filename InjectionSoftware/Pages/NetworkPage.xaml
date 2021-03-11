@@ -59,7 +59,7 @@
                         <Viewbox StretchDirection="Both">
                             <Border Background="Gray"
                                     Margin="2">
-                                <Grid Background="White"
+                                <Grid Background="{Binding BackgroundBrush}"
                                       Margin="0.7"
                                       Height="208"
                                       Width="124">
