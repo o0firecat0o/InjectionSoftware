@@ -107,7 +107,7 @@ namespace InjectionSoftware.Network
                 Port = fullIP.Split(':')[1];
             }
 
-            if (HasClient(MachineName))
+            if (HasClient(ClientNumber))
             {
                 GetClient(MachineName).fullIP = fullIP;
                 GetClient(MachineName).IP = IP;
@@ -115,6 +115,7 @@ namespace InjectionSoftware.Network
             }
             else
             {
+                Console.Out.WriteLine(fullIP + ":" + IP + ":" + Port);
                 new ClientViewObject(ClientNumber, MachineName, fullIP, IP, Port);
             }
         }
@@ -126,10 +127,7 @@ namespace InjectionSoftware.Network
             {
                 if (clientViewObject.fullIP == fullIP)
                 {
-                    MainWindow.window.Dispatcher.Invoke(() =>
-                    {
-                        clientViewObjects.Remove(clientViewObject);
-                    });
+                    clientViewObjects.Remove(clientViewObject);
                     return;
                 }
             }
@@ -143,11 +141,24 @@ namespace InjectionSoftware.Network
             PreviousMessage = message;
         }
 
+        [Obsolete("HasClient(string MachineName) is Obsolete, please use HasClient(int ClientNumber) instead")]
         public static bool HasClient(string MachineName)
         {
             foreach (ClientViewObject clientViewObject in clientViewObjects)
             {
                 if (clientViewObject.MachineName == MachineName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool HasClient(int ClientNumber)
+        {
+            foreach (ClientViewObject clientViewObject in clientViewObjects)
+            {
+                if (clientViewObject.ClientNumber == ClientNumber)
                 {
                     return true;
                 }

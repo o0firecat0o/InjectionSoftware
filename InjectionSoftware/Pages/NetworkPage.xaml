@@ -73,9 +73,9 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30" />
                                         <RowDefinition Height="4" />
-                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="43" />
                                         <RowDefinition Height="4" />
-                                        <RowDefinition Height="140" />
+                                        <RowDefinition Height="127" />
                                     </Grid.RowDefinitions>
 
                                     <StackPanel Orientation="Horizontal"
@@ -117,6 +117,14 @@
                                             <TextBlock VerticalAlignment="Center"
                                                        FontSize="8"
                                                        Text="{Binding Port}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontSize="10"
+                                                       Text="ClientNumber:   "
+                                                       FontWeight="Bold" />
+                                            <TextBlock VerticalAlignment="Center"
+                                                       FontSize="8"
+                                                       Text="{Binding ClientNumber}" />
                                         </StackPanel>
                                     </StackPanel>
 

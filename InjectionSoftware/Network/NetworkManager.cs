@@ -332,7 +332,10 @@ namespace InjectionSoftware.Network
 
         public static void ClientDisconnected(object sender, ClientDisconnectedEventArgs args)
         {
-            ClientViewObject.Delete(args.IpPort);
+            window.Dispatcher.Invoke(() =>
+            {
+                ClientViewObject.Delete(args.IpPort);
+            });
         }
 
 
