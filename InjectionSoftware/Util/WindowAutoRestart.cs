@@ -31,10 +31,14 @@ namespace InjectionSoftware.Util
                 {
                     timer.Stop();
 
-                    Console.Out.WriteLine("[WindowAutoRestart] date changed. Proceeeding to auto restart program");
-                    AutoRestart();
+                    
 
                     NetworkManager.server.TCPBroadcastMessage("autoRestart", "");
+
+                    System.Threading.Thread.Sleep(5000);
+
+                    Console.Out.WriteLine("[WindowAutoRestart] date changed. Proceeeding to auto restart program");
+                    AutoRestart();
                 }
             });
         }

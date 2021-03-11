@@ -484,7 +484,7 @@ namespace InjectionSoftware.Network
                     {
                         Console.Out.WriteLine("[NetworkManager-Client] Start timer of 15 seconds");
                         DispatcherTimer timer = new DispatcherTimer();
-                        timer.Interval = TimeSpan.FromSeconds(15);
+                        timer.Interval = TimeSpan.FromMinutes(1);
                         timer.Start();
                         timer.Tick += new EventHandler(delegate (object s, EventArgs a)
                         {
