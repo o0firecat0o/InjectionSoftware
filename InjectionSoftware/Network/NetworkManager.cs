@@ -20,7 +20,7 @@ namespace InjectionSoftware.Network
 {
     public static class NetworkManager
     {
-       public static bool isServer
+        public static bool isServer
         {
             get
             {
@@ -111,9 +111,9 @@ namespace InjectionSoftware.Network
 
         }
 
-        
 
-       
+
+
 
         public static async void StartClientThenServer()
         {
@@ -139,10 +139,10 @@ namespace InjectionSoftware.Network
 
             //Auto give up finding client after 10 second
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(5+4*(clientNumber+2));
+            timer.Interval = TimeSpan.FromSeconds(5 + 4 * (clientNumber + 2));
             timer.Start();
             timer.Tick += new EventHandler(async delegate (object s, EventArgs a)
-            {                
+            {
                 timer.Stop();
                 if (connected)
                 {
@@ -153,10 +153,10 @@ namespace InjectionSoftware.Network
                 if (progressingDialog.IsVisible)
                 {
                     await window.HideMetroDialogAsync(progressingDialog);
-                }                
+                }
                 client.StopUDP();
                 //start as a server
-                StartServer(null,null);
+                StartServer(null, null);
             });
 
             await window.ShowMetroDialogAsync(progressingDialog);
@@ -213,7 +213,7 @@ namespace InjectionSoftware.Network
             clientCount = 0;
 
             //client view object for displaying in the network page
-            ClientViewObject.Add(clientNumber,NetworkUtil.GetMachineName(), NetworkUtil.GetLocalIPAddress());
+            ClientViewObject.Add(clientNumber, NetworkUtil.GetMachineName(), NetworkUtil.GetLocalIPAddress());
 
             //TODO: add -= when server shut down?
             server.MessageReceivedFromClientEvent += MessageReceivedFromClient;
@@ -315,6 +315,8 @@ namespace InjectionSoftware.Network
 
             window.Dispatcher.Invoke(() =>
             {
+                ClientViewObject.clientViewObjects.Clear();
+
                 // close the new injection window when lost connection to server
                 if (NewInjection.window != null)
                 {
@@ -365,15 +367,16 @@ namespace InjectionSoftware.Network
             {
                 case "ConnectionSucessful":
                     Console.Out.WriteLine("[NetworkManager-Server] New connection established with client IP: {0}, Name: {1}", args.IpPort, messages[1]);
-                    
-                    //Send the clientNumber to the client
-                    clientCount += 1;
-                    Console.Out.WriteLine("[NetworkManager-Server] Setting client with IPPort: {0} as client number {1}", args.IpPort, clientCount);
-                    server.TCPSendMessage(args.IpPort, "setClientNumber", clientCount.ToString());
+                    window.Dispatcher.Invoke(() =>
+                    {
+                        //Send the clientNumber to the client
+                        clientCount += 1;
+                        Console.Out.WriteLine("[NetworkManager-Server] Setting client with IPPort: {0} as client number {1}", args.IpPort, clientCount);
+                        server.TCPSendMessage(args.IpPort, "setClientNumber", clientCount.ToString());
 
-                    //Add the client view object for networking page
-                    ClientViewObject.Add(clientCount, messages[1], args.IpPort);
-
+                        //Add the client view object for networking page
+                        ClientViewObject.Add(clientCount, messages[1], args.IpPort);
+                    });
                     break;
 
                 case "modInjection":
@@ -512,13 +515,24 @@ namespace InjectionSoftware.Network
                         });
                     });
                     break;
-                
+
                 case "setClientNumber":
                     Console.Out.WriteLine("[NetworkManager-Client] Receiving Set ClientNumber Request from server, proceed to set self ClientNumber");
+                    window.Dispatcher.Invoke(() =>
+                    {
                     clientNumber = int.Parse(messages[1]);
                     Console.Out.WriteLine("[NetworkManager-Client] My client number is:" + clientNumber);
+                    });
                     break;
-                
+
+                case "addAllClientInfo":
+                    Console.Out.WriteLine("[NetworkManager-Client] Receiving Add All ClientInfo Request from server, proceed to add client view objects for network page");
+                    window.Dispatcher.Invoke(() =>
+                    {
+                        ClientViewObject.XMLtoClient(XElement.Parse(messages[1]));
+                    });
+                    break;
+
                 case "modInjection":
                     Console.Out.WriteLine("[NetworkManager-Client] Receiving Mod Injection Request from server, proceed to modify injection");
                     window.Dispatcher.Invoke(() =>
