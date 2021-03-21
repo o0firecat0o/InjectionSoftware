@@ -1,4 +1,5 @@
-﻿using InjectionSoftware.Util.Scheduler;
+﻿using InjectionSoftware.Network;
+using InjectionSoftware.Util.Scheduler;
 using MahApps.Metro.IconPacks;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,13 @@ namespace InjectionSoftware.Class
             // save the patient to a xml file
             // if the program is terminated, the next reboot will load the xml file and add the patient back
             SavePatient(patient);
+
+            // forward the patient information to all clients
+            // this is actually redundunt before adding auto load patient from schedular
+            if (NetworkManager.isServer)
+            {
+                NetworkManager.server.TCPBroadcastMessage("addPatient", patient.toXML().ToString());
+            }
         }
 
         public static Patient GetPatient(string patientID)
