@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace InjectionSoftware.Class
 {
@@ -15,14 +16,20 @@ namespace InjectionSoftware.Class
     {
         public static ObservableCollection<Patient> Patients = new ObservableCollection<Patient>();
 
-        public static void AddPatient(Patient patient)
+        public static void ModPatient(Patient patient)
         {
             if (HasPatient(patient.PatientID))
             {
                 Console.Out.WriteLine("[PatientManager.AddPatient()] Patient with patient ID:" + patient.PatientID + " is already presented in database, fail to add patiet");
-                return;
             }
-            Patients.Add(patient);
+            else
+            {
+                Patients.Add(patient);
+            }
+
+            // save the patient to a xml file
+            // if the program is terminated, the next reboot will load the xml file and add the patient back
+            SavePatient(patient);
         }
 
         public static Patient GetPatient(string patientID)
@@ -42,14 +49,15 @@ namespace InjectionSoftware.Class
         {
             foreach (Patient patient in Patients)
             {
-                if (patient.PatientID == patientID){
+                if (patient.PatientID == patientID)
+                {
                     return true;
                 }
             }
             return false;
         }
 
-        public static void LoadAllPatient()
+        public static void LoadAllPatientFromSchedular()
         {
             string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + @"\Schedular";
 
@@ -72,16 +80,57 @@ namespace InjectionSoftware.Class
                         Console.WriteLine("[PatientManager.LoadAllPatient()] " + file + " path contain corrupted information, the patient information has failed to load");
                         continue;
                     }
-                    AddPatient(patient);
+                    ModPatient(patient);
 
                 }
-                catch(System.Exception e)
+                catch (System.Exception e)
                 {
                     Console.Error.WriteLine(e);
                 }
             }
 
             InjectionsManager.recreateObservableList();
+        }
+
+        public static void LoadAllPatient()
+        {
+            Console.WriteLine("[InjectionManager] Loading previous logged patients");
+
+            string date = DateTime.Now.ToString("ddMMyyyy");
+            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date + @"\patient\";
+
+            if (!Directory.Exists(fullpath))
+            {
+                Directory.CreateDirectory(fullpath);
+            }
+
+            foreach (var file in
+                Directory.EnumerateFiles(fullpath, "*.xml"))
+            {
+                Console.Out.WriteLine("[PatientManager] loading patient from location: {0}", file);
+                XElement xElement = XElement.Load(file);
+
+                Patient patient = new Patient(xElement);
+                ModPatient(patient);
+            }
+        }
+
+        public static void SavePatient(Patient patient)
+        {
+
+            XElement xmlFile = patient.toXML();
+
+            string date = DateTime.Now.ToString("ddMMyyyy");
+            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "InjectionSoftware", date, "patient");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date + @"\patient\" + patient.PatientID + ".xml";
+
+            Console.WriteLine("[PatientManager] saving patient of accessionNumber: {0}, to: {1}", patient.PatientID, fullpath);
+            xmlFile.Save(fullpath);
         }
     }
 }

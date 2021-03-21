@@ -237,6 +237,7 @@ namespace InjectionSoftware.Network
 
 
             //load all patient in registered patient after starting server, the client will load the patient via requesting
+            PatientManager.LoadAllPatientFromSchedular();
             PatientManager.LoadAllPatient();
 
             //load all the injection after starting server, the client will load the injection via contacting with server
@@ -613,7 +614,7 @@ namespace InjectionSoftware.Network
                     Console.Out.WriteLine("[NetworkManager-Client] Receiving Add Patient Request from server, proceed to add Patient");
                     window.Dispatcher.Invoke(() =>
                     {
-                        PatientManager.AddPatient(new Patient(XElement.Parse(messages[1])));
+                        PatientManager.ModPatient(new Patient(XElement.Parse(messages[1])));
                     });
                     break;
 
