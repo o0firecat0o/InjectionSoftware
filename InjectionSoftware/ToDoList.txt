@@ -4,7 +4,7 @@
 11> Auto read registered patient information from scheduler, and COPY them to local directory
 
 14> hide side bar, making us able to show 40 injections instead of just 30
-
+15> add autoburn option to replace burning disc paper
 
 
 TODO(FUTURE):
