@@ -98,7 +98,7 @@ namespace InjectionSoftware
 
             FileSystemWatcher watcher = new FileSystemWatcher();
 
-            watcher.Path = @"C:\Temp\Folder";
+            watcher.Path = @"\\DESKTOP-5KHCAT7\Temp";
             watcher.IncludeSubdirectories = true;
 
             watcher.NotifyFilter = NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.DirectoryName | NotifyFilters.FileName | NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.Security | NotifyFilters.Size;
