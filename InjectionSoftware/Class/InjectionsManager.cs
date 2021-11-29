@@ -75,6 +75,7 @@ namespace InjectionSoftware.Class
             return null;
         }
 
+        [Obsolete("modInjectionNetwork is deprecated, please use modInjection instead.")]
         public static void modInjectionNetWork(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, string WardNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, string patientStatus)
         {
             Injection injection = modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, Gender, Inpatient, WardNumber, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, patientStatus);
@@ -104,7 +105,7 @@ namespace InjectionSoftware.Class
         /// <param name="isDelay"></param>
         /// <param name="isDischarge"></param>
         /// <returns></returns>
-        private static Injection modInjection(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, string WardNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, string patientStatus)
+        public static Injection modInjection(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, string WardNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, string patientStatus)
         {
             // find wether the patient is already registered and exist in the database
             Patient patient;
@@ -225,6 +226,7 @@ namespace InjectionSoftware.Class
             modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, uniqueExamIdentifier, examCode, dateOfBirth, gender, inpatient, wardNumber, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, patientStatus);
         }
 
+        [Obsolete("changePatientStatusNetwork is deprecated, please use changePatientStatus instead.")]
         public static void changePatientStatusNetwork(string AccessionNumber, string patientStatus)
         {
             if (hasInjection(AccessionNumber))
@@ -295,6 +297,7 @@ namespace InjectionSoftware.Class
             }
         }
 
+        [Obsolete("removeInjectionNetwork is deprecated, please use removeInjection instead.")]
         public static void removeInjectionNetwork(string AccessionNumber)
         {
             if (hasInjection(AccessionNumber))
