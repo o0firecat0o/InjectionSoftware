@@ -463,12 +463,11 @@ namespace InjectionSoftware.Class
             return tempInjeciton;
         }
 
-        public static void loadAllInjections()
+        public static void loadAllInjections(string path)
         {
             Console.WriteLine("[InjectionManager] Loading previous injection");
 
-            string date = DateTime.Now.ToString("ddMMyyyy");
-            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date + @"\injection\";
+            string fullpath = path;
 
             if (!Directory.Exists(fullpath))
             {
@@ -483,6 +482,15 @@ namespace InjectionSoftware.Class
 
                 modInjection(xElement);
             }
+        }
+
+        
+        public static void loadAllInjections()
+        {
+            string date = DateTime.Now.ToString("ddMMyyyy");
+            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date + @"\injection\";
+
+            loadAllInjections(fullpath);
         }
 
         public static void saveInjection(string accessionNumber)

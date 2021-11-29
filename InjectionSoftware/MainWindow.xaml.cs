@@ -1,6 +1,7 @@
 ﻿using InjectionSoftware.Class;
 using InjectionSoftware.Dialogs;
 using InjectionSoftware.Enums;
+using InjectionSoftware.FileSync;
 using InjectionSoftware.Network;
 using InjectionSoftware.Pages;
 using InjectionSoftware.Util;
@@ -100,28 +101,9 @@ namespace InjectionSoftware
 
             //NetworkManager.Init(this, WindowConfig.IsAutoRestart == 1, WindowConfig.IsServer == 1);
 
-            FileSystemWatcher watcher = new FileSystemWatcher();
-
-            watcher.Path = WindowConfig.NetworkFolderDirectory;
-            watcher.IncludeSubdirectories = true;
-
-            watcher.NotifyFilter = NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.DirectoryName | NotifyFilters.FileName | NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.Security | NotifyFilters.Size;
-
-
-            watcher.Filter = "*.*";
-
-            watcher.Changed += new FileSystemEventHandler(OnChanged);
-            watcher.Created += new FileSystemEventHandler(OnChanged);
-            watcher.Deleted += new FileSystemEventHandler(OnChanged);
-
-            watcher.EnableRaisingEvents = true;
+            FileSyncManager.Init();
         }
 
-        public static void OnChanged(object source, FileSystemEventArgs e)
-        {
-            // Specify what is done when a file is changed.  
-            Console.WriteLine("{0}, with path {1} has been {2}", e.Name, e.FullPath, e.ChangeType);
-        }
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
