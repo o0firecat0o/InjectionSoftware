@@ -21,6 +21,8 @@ namespace InjectionSoftware.Util
         public static int IsAutoRestart = 0;
         public static int IsServer = 0;
 
+        public static string NetworkFolderDirectory = "";
+
         public static void Init()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\";
@@ -60,6 +62,7 @@ namespace InjectionSoftware.Util
             {
                 WindowState = WindowState.Maximized;
             }
+            NetworkFolderDirectory = xElement.Element(df + "NetworkFolderDirectory").Value;
         }
 
         public static void Save()
@@ -84,6 +87,7 @@ namespace InjectionSoftware.Util
             XElement windowState = new XElement("WindowState", WindowState);
             XElement isAutoRestart = new XElement("IsAutoRestart", IsAutoRestart);
             XElement isServer = new XElement("IsServer", IsServer);
+            XElement networkFolderDirectory = new XElement("NetworkFolderDirectory", NetworkFolderDirectory);
 
             config.Add(windowHeight);
             config.Add(windowWidth);
@@ -92,7 +96,7 @@ namespace InjectionSoftware.Util
             config.Add(windowState);
             config.Add(isAutoRestart);
             config.Add(isServer);
-
+            config.Add(networkFolderDirectory);
 
             config.Save(fullpath);
         }

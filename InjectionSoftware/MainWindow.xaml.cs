@@ -94,11 +94,15 @@ namespace InjectionSoftware
 
             InjectionsManager.Init();
 
-            NetworkManager.Init(this, WindowConfig.IsAutoRestart == 1, WindowConfig.IsServer == 1);
+            //Obsolete
+            //Previously the networkManager is used to sync between different computers
+            //Now we use Temp (T drive) to sync across multiple different computers
+
+            //NetworkManager.Init(this, WindowConfig.IsAutoRestart == 1, WindowConfig.IsServer == 1);
 
             FileSystemWatcher watcher = new FileSystemWatcher();
 
-            watcher.Path = @"\\DESKTOP-5KHCAT7\Temp";
+            watcher.Path = WindowConfig.NetworkFolderDirectory;
             watcher.IncludeSubdirectories = true;
 
             watcher.NotifyFilter = NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.DirectoryName | NotifyFilters.FileName | NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.Security | NotifyFilters.Size;
