@@ -10,11 +10,11 @@
                       xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       mc:Ignorable="d"
                       Title="NewInjection"
-                      Height="800"
+                      Height="730"
                       Width="1100"
                       ResizeMode="NoResize"
                       GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
-                      WindowStartupLocation="CenterScreen">
+                      WindowStartupLocation= "CenterScreen">
 
     <DockPanel>
         <Grid Margin="10">
@@ -290,18 +290,40 @@
                                         </StackPanel>
                                     </Grid>
 
-                                    <TextBlock>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    Grid.Column="1">
+                                            <TextBlock>
                                     PhoneNumber:
-                                    </TextBlock>
-                                    <TextBox Text="{Binding SelectedPatient.PhoneNumber}"
+                                            </TextBlock>
+                                            <TextBox Text="{Binding SelectedPatient.PhoneNumber}"
                                              IsReadOnly="True"
                                              Background="LightGray" />
-                                    <TextBlock>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Vertical"
+                                                    VerticalAlignment="Center"
+                                                    Grid.Column="0">
+                                            <TextBlock>
                                     Referral:
-                                    </TextBlock>
-                                    <TextBox Text="{Binding SelectedPatient.Referral}"
+                                            </TextBlock>
+                                            <TextBox Text="{Binding SelectedPatient.Referral}"
                                              IsReadOnly="True"
                                              Background="LightGray" />
+                                        </StackPanel>
+
+                                        
+
+                                    </Grid>
+
+
+                                    
                                 </StackPanel>
 
 
@@ -362,31 +384,8 @@
                                     </ListView.ItemTemplate>
                                 </ListView>
 
-                                <TextBlock> Modality:</TextBlock>
-                                <ListView x:Name="Modality"
-                                          HorizontalAlignment="Center"
-                                          ItemsSource="{Binding ALLModality}"
-                                          SelectedItem="{Binding SelectedModality}"
-                                          Style="{StaticResource ListViewItemOnSelectColor}">
-
-                                    <ListView.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <StackPanel Orientation="Horizontal" />
-                                        </ItemsPanelTemplate>
-                                    </ListView.ItemsPanel>
-
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel HorizontalAlignment="Center">
-                                                <TextBlock Text="{Binding Name}"
-                                                           HorizontalAlignment="Center"
-                                                           VerticalAlignment="Center"
-                                                           TextAlignment="Center" />
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-
+                                
+                                <!-- second row of injection information-->
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
@@ -395,6 +394,7 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
+                                    
                                     <StackPanel>
                                         <TextBlock> Uptake Time:</TextBlock>
                                         <ListView HorizontalAlignment="Center"
@@ -416,6 +416,33 @@
                     1.5 Hour
                                                 </TextBlock>
                                             </ListViewItem>
+                                        </ListView>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock> Modality:</TextBlock>
+                                        <ListView x:Name="Modality"
+                                          HorizontalAlignment="Center"
+                                          ItemsSource="{Binding ALLModality}"
+                                          SelectedItem="{Binding SelectedModality}"
+                                          Style="{StaticResource ListViewItemOnSelectColor}">
+
+                                            <ListView.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </ListView.ItemsPanel>
+
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel HorizontalAlignment="Center">
+                                                        <TextBlock Text="{Binding Name}"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           TextAlignment="Center" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
                                         </ListView>
                                     </StackPanel>
 
