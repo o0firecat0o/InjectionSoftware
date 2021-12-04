@@ -63,6 +63,7 @@ namespace InjectionSoftware.Enums
             new Doctor("Dr-Lo", "LO", (Brush)converter.ConvertFromString("#B6B6B6"));
             new Doctor("Dr-Donald-Tse", "D\nTSE", (Brush)converter.ConvertFromString("#FF79E0"));
             new Doctor("Dr-Siu", "SIU", (Brush)converter.ConvertFromString("#FFCE79"));
+            new Doctor("Dr-Wong", "WONG", (Brush)converter.ConvertFromString("#00cc99"));
         }
     }
 }
