@@ -62,7 +62,18 @@ namespace InjectionSoftware.Util
             {
                 WindowState = WindowState.Maximized;
             }
-            NetworkFolderDirectory = xElement.Element(df + "NetworkFolderDirectory").Value;
+            if (xElement.Elements(df + "NetworkFolderDirectory").Any())
+            {
+                NetworkFolderDirectory = xElement.Element(df + "NetworkFolderDirectory").Value;
+            }
+            else
+            {
+                Console.WriteLine("[WindowConfig] Could not locate previous network directory, creating a temp one at C:/TempInjectionSoftware");
+                Console.WriteLine("[WindowConfig] Please specify a default directory at the config file");
+                NetworkFolderDirectory = @"C:\TempInjectionSoftware";
+            }
+
+
         }
 
         public static void Save()
