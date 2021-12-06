@@ -178,7 +178,7 @@ namespace InjectionSoftware.Class
             recreateObservableList();
 
             // save the injection in xml format
-            saveInjection(injection.AccessionNumber);
+            saveInjectionFile(injection.AccessionNumber);
 
             return injection;
         }
@@ -253,7 +253,7 @@ namespace InjectionSoftware.Class
             {
                 getInjection(AccessionNumber).patientStatus = patientStatus;
                 recreateObservableList();
-                saveInjection(AccessionNumber);
+                saveInjectionFile(AccessionNumber);
             }
             else
             {
@@ -289,7 +289,7 @@ namespace InjectionSoftware.Class
             {
                 getInjection(AccessionNumber).patientStatus = "Discharged";
                 recreateObservableList();
-                saveInjection(AccessionNumber);
+                saveInjectionFile(AccessionNumber);
             }
             else
             {
@@ -493,7 +493,7 @@ namespace InjectionSoftware.Class
             loadAllInjections(fullpath);
         }
 
-        public static void saveInjection(string accessionNumber)
+        public static void saveInjectionFile(string accessionNumber, string directory)
         {
             Injection injection;
             if (InjectionsManager.hasInjection(accessionNumber))
@@ -509,24 +509,29 @@ namespace InjectionSoftware.Class
             XElement xmlFile = injection.toXML();
 
             string date = DateTime.Now.ToString("ddMMyyyy");
-            string path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "InjectionSoftware", date, "injection");
+            string path = System.IO.Path.Combine(directory, "InjectionSoftware", date, "injection");
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date + @"\injection\" + accessionNumber + ".xml";
+            string fullpath = directory + @"\InjectionSoftware\" + date + @"\injection\" + accessionNumber + ".xml";
 
             Console.WriteLine("[InjectionManager] saving injection of accessionNumber: {0}, to: {1}", accessionNumber, fullpath);
             xmlFile.Save(fullpath);
         }
 
-        private static void delInjectionFile(string accessionNumber)
+        public static void saveInjectionFile(string accessionNumber)
+        {
+            saveInjectionFile(accessionNumber, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));            
+        }
+
+        public static void delInjectionFile(string accessionNumber, string directory)
         {
             try
             {
                 string date = DateTime.Now.ToString("ddMMyyyy");
-                string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + date + @"\injection\" + accessionNumber + ".xml";
+                string fullpath = directory + @"\InjectionSoftware\" + date + @"\injection\" + accessionNumber + ".xml";
                 if (File.Exists(fullpath))
                 {
                     // If file found, delete it    
@@ -539,6 +544,11 @@ namespace InjectionSoftware.Class
             {
                 Console.WriteLine(ioExp.Message);
             }
+        }
+
+        public static void delInjectionFile(string accessionNumber)
+        {
+            delInjectionFile(accessionNumber, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments));
         }
     }
 }
