@@ -233,6 +233,19 @@ namespace InjectionSoftware.Class
             modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, uniqueExamIdentifier, examCode, dateOfBirth, gender, inpatient, wardNumber, rPs, doctor, uptakeTime, injectionTime, room, isContrast, isDelay, patientStatus);
         }
 
+        public static void changePatientStatusFileSync(string AccessionNumber, string patientStatus)
+        {
+            if (hasInjection(AccessionNumber))
+            {
+               changePatientStatus(AccessionNumber, patientStatus);
+               saveInjectionFile(AccessionNumber,WindowConfig.NetworkFolderDirectory);
+            }
+            else
+            {
+                Console.Error.WriteLine("[InjectionManager_changePatientStatusNetwork()] Error executing discharge injection command, reason: patient with accessionNumber does not exist");
+            }
+        }
+
         [Obsolete("changePatientStatusNetwork is deprecated, please use changePatientStatus instead.")]
         public static void changePatientStatusNetwork(string AccessionNumber, string patientStatus)
         {

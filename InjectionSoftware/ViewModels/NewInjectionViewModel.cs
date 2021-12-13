@@ -512,7 +512,7 @@ namespace InjectionSoftware.ViewModels
 
         private async void dischargeDialog_OnConfirmDown(object sender, RoutedEventArgs e)
         {
-            InjectionsManager.changePatientStatus(Injection.AccessionNumber, "Discharged");
+            InjectionsManager.changePatientStatusFileSync(Injection.AccessionNumber, "Discharged");
             await NewInjection.window.HideMetroDialogAsync(dischargeConfirmDialog);
             NewInjection.window.Close();
         }
@@ -534,7 +534,7 @@ namespace InjectionSoftware.ViewModels
 
         private async void readmitDialog_OnConfirmDown(object sender, RoutedEventArgs e)
         {
-            InjectionsManager.changePatientStatus(Injection.AccessionNumber, "Registered");
+            InjectionsManager.changePatientStatusFileSync(Injection.AccessionNumber, "Registered");
             await NewInjection.window.HideMetroDialogAsync(readmitConfirmDialog);
             NewInjection.window.Close();
         }
