@@ -15,6 +15,7 @@ using System.Xml.Serialization;
 using InjectionSoftware.Network;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using InjectionSoftware.Util;
 
 namespace InjectionSoftware.Class
 {
@@ -75,6 +76,12 @@ namespace InjectionSoftware.Class
             return null;
         }
 
+        public static void modInjectionFileSync(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, string WardNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, string patientStatus)
+        {
+            Injection injection = modInjection(accessionNumber, modality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, Gender, Inpatient, WardNumber, RPs, Doctor, UptakeTime, InjectionTime, SelectedRoom, isContrast, isDelay, patientStatus);
+            saveInjectionFile(injection.AccessionNumber, WindowConfig.NetworkFolderDirectory);
+        }
+
         [Obsolete("modInjectionNetwork is deprecated, please use modInjection instead.")]
         public static void modInjectionNetWork(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, string WardNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, string patientStatus)
         {
@@ -105,7 +112,7 @@ namespace InjectionSoftware.Class
         /// <param name="isDelay"></param>
         /// <param name="isDischarge"></param>
         /// <returns></returns>
-        public static Injection modInjection(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, string WardNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, string patientStatus)
+        private static Injection modInjection(string accessionNumber, Modality modality, string patientID, string patientSurname, string patientLastname, string UniqueExamIdentifier, string ExamCode, string DateOfBirth, bool Gender, bool Inpatient, string WardNumber, ObservableCollection<RP> RPs, Doctor Doctor, float UptakeTime, DateTime InjectionTime, Room SelectedRoom, bool isContrast, bool isDelay, string patientStatus)
         {
             // find wether the patient is already registered and exist in the database
             Patient patient;
