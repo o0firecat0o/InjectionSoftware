@@ -488,7 +488,7 @@ namespace InjectionSoftware.ViewModels
 
         private async void deleteDialog_OnDeleteDown(object sender, RoutedEventArgs e)
         {
-            InjectionsManager.removeInjection(Injection.AccessionNumber);
+            InjectionsManager.removeInjectionFileSync(Injection.AccessionNumber);
             await NewInjection.window.HideMetroDialogAsync(deleteConfirmDialog);
             if (NewInjection.window != null)
             {
