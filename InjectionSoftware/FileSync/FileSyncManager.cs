@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
+using System.Xml.Linq;
 
 namespace InjectionSoftware.FileSync
 {
@@ -24,23 +26,23 @@ namespace InjectionSoftware.FileSync
 
 
 
-            FileSystemWatcher watcher = new FileSystemWatcher();
+            FileSystemWatcher InjectionWatcher = new FileSystemWatcher();
             try
             {
                 //          \\DESKTOP-5KHCAT7\\Temp
-                watcher.Path = WindowConfig.NetworkFolderDirectory;
-                watcher.IncludeSubdirectories = true;
+                InjectionWatcher.Path = WindowConfig.NetworkFolderDirectory + @"\InjectionSoftware\" + date + @"\injection\";
+                InjectionWatcher.IncludeSubdirectories = true;
 
-                watcher.NotifyFilter = NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.DirectoryName | NotifyFilters.FileName | NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.Security | NotifyFilters.Size;
+                InjectionWatcher.NotifyFilter = NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.DirectoryName | NotifyFilters.FileName | NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.Security | NotifyFilters.Size;
 
 
-                watcher.Filter = "*.*";
+                InjectionWatcher.Filter = "*.*";
 
-                watcher.Changed += new FileSystemEventHandler(OnChanged);
-                watcher.Created += new FileSystemEventHandler(OnChanged);
-                watcher.Deleted += new FileSystemEventHandler(OnChanged);
+                InjectionWatcher.Changed += new FileSystemEventHandler(OnChanged);
+                InjectionWatcher.Created += new FileSystemEventHandler(OnChanged);
+                InjectionWatcher.Deleted += new FileSystemEventHandler(OnChanged);
 
-                watcher.EnableRaisingEvents = true;
+                InjectionWatcher.EnableRaisingEvents = true;
             }
             catch (System.ArgumentException e)
             {
@@ -52,7 +54,18 @@ namespace InjectionSoftware.FileSync
         public static void OnChanged(object source, FileSystemEventArgs e)
         {
             // Specify what is done when a file is changed.  
-            Console.WriteLine("{0}, with path {1} has been {2}", e.Name, e.FullPath, e.ChangeType);
+            Console.WriteLine("[FileSyncManager]"+"{0}, with path {1} has been {2}", e.Name, e.FullPath, e.ChangeType);
+
+            XElement xElement = XElement.Load(e.FullPath);
+
+            MainWindow.window.Dispatcher.Invoke((Action)(() => InjectionsManager.modInjection(xElement)));
+
+            
+        }
+
+        public static void OnDeleted(object source, FileSystemEventArgs e)
+        {
+            
         }
     }
 
