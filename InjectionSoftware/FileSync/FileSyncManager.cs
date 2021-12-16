@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace InjectionSoftware.FileSync
@@ -56,11 +58,23 @@ namespace InjectionSoftware.FileSync
             // Specify what is done when a file is changed.  
             Console.WriteLine("[FileSyncManager]"+"{0}, with path {1} has been {2}", e.Name, e.FullPath, e.ChangeType);
 
-            XElement xElement = XElement.Load(e.FullPath);
 
-            MainWindow.window.Dispatcher.Invoke((Action)(() => InjectionsManager.modInjection(xElement)));
-
-            
+            try
+            {
+                using (var textReader = new XmlTextReader(e.FullPath))
+                {
+                    XElement xElement = XElement.Load(textReader);
+                    MainWindow.window.Dispatcher.Invoke((Action)(() => InjectionsManager.modInjection(xElement)));
+                }
+            }
+            catch (System.Exception)
+            {
+                Thread.Sleep(200);
+                OnChanged(source, e);
+            }
+            finally
+            {
+            }
         }
 
         public static void OnDeleted(object source, FileSystemEventArgs e)
