@@ -42,7 +42,7 @@ namespace InjectionSoftware.FileSync
 
                 InjectionWatcher.Changed += new FileSystemEventHandler(OnChanged);
                 InjectionWatcher.Created += new FileSystemEventHandler(OnChanged);
-                InjectionWatcher.Deleted += new FileSystemEventHandler(OnChanged);
+                InjectionWatcher.Deleted += new FileSystemEventHandler(OnDeleted);
 
                 InjectionWatcher.EnableRaisingEvents = true;
             }
@@ -80,6 +80,21 @@ namespace InjectionSoftware.FileSync
 
         public static void OnDeleted(object source, FileSystemEventArgs e)
         {
+            Console.WriteLine("[FileSyncManager]" + "{0}, with path {1} has been {2}", e.Name, e.FullPath, e.ChangeType);
+            
+            string accessionNumber = Path.GetFileNameWithoutExtension(e.Name);
+
+            
+            MainWindow.window.Dispatcher.Invoke(() =>
+            {
+                //remove the injection from software after detecting the file has been deleted by other users (including self) from temp
+                InjectionsManager.removeInjection(accessionNumber);
+
+                //also delete local beckup
+                InjectionsManager.delInjectionFile(accessionNumber);
+            });
+
+
             
         }
     }

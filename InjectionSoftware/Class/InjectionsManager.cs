@@ -341,7 +341,7 @@ namespace InjectionSoftware.Class
         public static void removeInjectionFileSync(string accessionNumber)
         {
             delInjectionFile(accessionNumber,WindowConfig.NetworkFolderDirectory);
-            removeInjection(accessionNumber);
+            
         }
 
         public static void removeInjection(string accessionNumber)
