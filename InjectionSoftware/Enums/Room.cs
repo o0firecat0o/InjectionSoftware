@@ -91,8 +91,8 @@ namespace InjectionSoftware.Enums
             new Room("5", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 12, 28);
 
             new Room("11", (Brush)converter.ConvertFromString("#C4FFCE"), 6, 10, 6, 6, true);
-            new Room("10", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 9, 16);
-            new Room("2", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 6, 16);
+            new Room("2", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 9, 16);
+            new Room("10", (Brush)converter.ConvertFromString("#C4FFCE"), 3, 5, 6, 16);
             new Room("PetMR", (Brush)converter.ConvertFromString("#FFE4C4"), 3, 8, 12, 15);
         }
 

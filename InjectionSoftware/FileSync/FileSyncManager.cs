@@ -67,8 +67,9 @@ namespace InjectionSoftware.FileSync
                     MainWindow.window.Dispatcher.Invoke((Action)(() => InjectionsManager.modInjection(xElement)));
                 }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
+                Console.WriteLine(ex);
                 Thread.Sleep(200);
                 OnChanged(source, e);
             }
