@@ -69,7 +69,7 @@ namespace InjectionSoftware.FileSync
             }
             catch (System.Exception ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine("[FileSyncManager/Onchanged()]"+ex);
                 Thread.Sleep(200);
                 OnChanged(source, e);
             }
