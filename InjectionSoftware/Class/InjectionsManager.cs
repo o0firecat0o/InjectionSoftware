@@ -222,7 +222,7 @@ namespace InjectionSoftware.Class
             Doctor doctor = Doctor.getDoctor(xElement.Element(df + "doctor").Value);
 
             float uptakeTime = float.Parse(xElement.Element(df + "uptakeTime").Value);
-            DateTime injectionTime = Convert.ToDateTime(xElement.Element(df + "injectionTime").Value);
+            DateTime injectionTime = DateTime.FromBinary(long.Parse(xElement.Element(df + "injectionTime").Value));
 
             Room room = Room.getRoom(xElement.Element(df + "selectedRoom").Value);
 

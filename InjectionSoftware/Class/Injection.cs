@@ -537,7 +537,7 @@ namespace InjectionSoftware.Class
 
             XElement doctor = new XElement("doctor", Doctor.Name);
             XElement uptakeTime = new XElement("uptakeTime", UptakeTime.ToString());
-            XElement injectionTime = new XElement("injectionTime", InjectionTime.ToString());
+            XElement injectionTime = new XElement("injectionTime", InjectionTime.ToBinary());
             XElement selectedRoom = new XElement("selectedRoom", SelectedRoom.Name);
 
             XElement isContrast = new XElement("isContrast", this.isContrast.ToString());
