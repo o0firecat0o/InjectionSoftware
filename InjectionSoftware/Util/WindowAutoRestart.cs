@@ -33,7 +33,7 @@ namespace InjectionSoftware.Util
                 {
                     timer.Stop();
 
-                    NetworkManager.server.TCPBroadcastMessage("autoRestart", "");
+                    //NetworkManager.server.TCPBroadcastMessage("autoRestart", "");
 
                     System.Threading.Thread.Sleep(5000);
 
