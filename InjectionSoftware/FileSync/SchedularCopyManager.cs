@@ -1,4 +1,6 @@
-﻿using InjectionSoftware.Util;
+﻿using InjectionSoftware.Class;
+using InjectionSoftware.Util;
+using InjectionSoftware.Util.Scheduler;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -54,9 +56,27 @@ namespace InjectionSoftware.FileSync
         public static void OnChanged(object source, FileSystemEventArgs e)
         {
             // Specify what is done when a file is changed.  
-            Console.WriteLine("[FileSyncManager]" + "{0}, with path {1} has been {2}", e.Name, e.FullPath, e.ChangeType);
+            Console.WriteLine("[SchedularCopyManager]" + "{0}, with path {1} has been {2}", e.Name, e.FullPath, e.ChangeType);
 
+            //TODO: filter out non-Pet patient and do not copy them
+            //TODO: copy all initial files, ?but do not replace them if they are already present @ Temp Drive/ Schedular
 
+            if (e.Name.Contains(todayDateString))
+            {
+                Console.WriteLine("[SchedularCopyManager]" + e.Name +" is considered added today and modified recently, proceed to copy it to Temp Drive.");
+
+                MainWindow.window.Dispatcher.Invoke(() => {
+                    string text = System.IO.File.ReadAllText(e.FullPath);
+                    Hl7file ff = Hl7file.load(text);
+                    Patient patient = new Patient(ff);
+
+                    PatientManager.ModPatient(patient);
+                });                
+            }
+
+            //Please Remeber to put this line back to the init series
+            //PatientManager.LoadAllPatientFromSchedular();
+            //PatientManager.LoadAllPatient();
         }
     }
 }

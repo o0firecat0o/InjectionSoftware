@@ -17,8 +17,12 @@ namespace InjectionSoftware.FileSync
     {
         public static void Init()
         {
-            PatientManager.LoadAllPatientFromSchedular();
-            PatientManager.LoadAllPatient();
+            //////////////////////////////////////
+            //Obsolete
+            //Now initial patients are loaded from SchedularCopyManager (server => copy to Temp/InjectionSoftware/Schedular) and  SchedularReaderManager (server and client)
+            //PatientManager.LoadAllPatientFromSchedular();
+            //PatientManager.LoadAllPatient();
+            //////////////////////////////////////
 
             string date = DateTime.Now.ToString("ddMMyyyy");
             string fullpath = WindowConfig.NetworkFolderDirectory + @"\InjectionSoftware\" + date + @"\injection\";

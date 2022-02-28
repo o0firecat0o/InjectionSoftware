@@ -34,10 +34,12 @@ namespace InjectionSoftware.Class
 
             // forward the patient information to all clients
             // this is actually redundunt before adding auto load patient from schedular
-            if (NetworkManager.isServer)
-            {
-                NetworkManager.server.TCPBroadcastMessage("addPatient", patient.toXML().ToString());
-            }
+            //if (NetworkManager.isServer)
+            //{
+            //   NetworkManager.server.TCPBroadcastMessage("addPatient", patient.toXML().ToString());
+            //}
+
+            InjectionsManager.recreateObservableList(); 
         }
 
         public static Patient GetPatient(string patientID)
