@@ -23,6 +23,10 @@ namespace InjectionSoftware.Util
 
         public static string NetworkFolderDirectory = "";
 
+        public static int IsFileSyncServer = 0;
+        //newly added schedular will be added here, then copy to T drive for assess of other computers
+        public static string SchedularDirectory = "";
+
         public static void Init()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\";
@@ -74,6 +78,25 @@ namespace InjectionSoftware.Util
             }
 
 
+            //File sync server will has the job to copy the newly added Hl7 file from O drive to T drive/schedular
+            if (xElement.Elements(df + "IsFileSyncServer").Any())
+            {
+                IsFileSyncServer = int.Parse(xElement.Element(df + "IsFileSyncServer").Value);
+            }
+            else
+            {
+                Console.WriteLine("[WindowConfig] [minor] Could not locate (int) IsFileSyncServer @ windowconfig.xml file");
+            }
+
+            if (xElement.Elements(df + "SchedularDirectory").Any())
+            {
+                SchedularDirectory =xElement.Element(df + "SchedularDirectory").Value;
+            }
+            else
+            {
+                Console.WriteLine("[WindowConfig] [minor] Could not locate (bool) SchedularDirectory @ windowconfig.xml file");
+            }
+
         }
 
         public static void Save()
@@ -86,7 +109,7 @@ namespace InjectionSoftware.Util
                 Directory.CreateDirectory(path);
             }
 
-            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\"  + "config.xml";
+            string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + "config.xml";
 
 
             XElement config = new XElement("config");
@@ -99,6 +122,8 @@ namespace InjectionSoftware.Util
             XElement isAutoRestart = new XElement("IsAutoRestart", IsAutoRestart);
             XElement isServer = new XElement("IsServer", IsServer);
             XElement networkFolderDirectory = new XElement("NetworkFolderDirectory", NetworkFolderDirectory);
+            XElement isFileSyncServer = new XElement("IsFileSyncServer", IsFileSyncServer);
+            XElement schedularDirectory = new XElement("SchedularDirectory", SchedularDirectory);
 
             config.Add(windowHeight);
             config.Add(windowWidth);
@@ -108,6 +133,8 @@ namespace InjectionSoftware.Util
             config.Add(isAutoRestart);
             config.Add(isServer);
             config.Add(networkFolderDirectory);
+            config.Add(isFileSyncServer);
+            config.Add(schedularDirectory);
 
             config.Save(fullpath);
         }

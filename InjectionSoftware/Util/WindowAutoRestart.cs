@@ -18,22 +18,22 @@ namespace InjectionSoftware.Util
             today = DateTime.Today;
             
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMinutes(1);
+            timer.Interval = TimeSpan.FromMinutes(5);
             timer.Start();
             timer.Tick += new EventHandler(delegate (object s, EventArgs a)
             {
                 //only auto restart if it is server
-                if (!NetworkManager.isServer)
-                {
-                    return;
-                }
+                //if (!NetworkManager.isServer)
+                //{
+                //    return;
+                //}
+                Console.Out.WriteLine("[WindowAutoRestart] Pulse..");
+
                 if (!isSameDate())
                 {
                     timer.Stop();
 
-                    
-
-                    NetworkManager.server.TCPBroadcastMessage("autoRestart", "");
+                    //NetworkManager.server.TCPBroadcastMessage("autoRestart", "");
 
                     System.Threading.Thread.Sleep(5000);
 

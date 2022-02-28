@@ -102,6 +102,11 @@ namespace InjectionSoftware
             //NetworkManager.Init(this, WindowConfig.IsAutoRestart == 1, WindowConfig.IsServer == 1);
 
             FileSyncManager.Init();
+
+            if (WindowConfig.IsFileSyncServer == 1)
+            {
+                SchedularCopyManager.Init();
+            }
         }
 
 
