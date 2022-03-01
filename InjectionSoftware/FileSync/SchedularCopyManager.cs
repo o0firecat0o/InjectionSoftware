@@ -25,7 +25,16 @@ namespace InjectionSoftware.FileSync
             //Calculate todayDate, to prevent loading stuff from yesterday
             todayDateString = System.DateTime.Now.ToString("yyMMdd");
 
+            Console.WriteLine("TODAY IS" + todayDateString);
+
+            Console.Out.WriteLine("[SchedularCopyManager] Loading initial file @" + WindowConfig.SchedularDirectory);
+
+
+            loadInitial();
+
             Console.Out.WriteLine("[SchedularCopyManager] Creating listerner @" + WindowConfig.SchedularDirectory);
+
+
 
             FileSystemWatcher FileWatcher = new FileSystemWatcher();
             try
@@ -63,20 +72,73 @@ namespace InjectionSoftware.FileSync
 
             if (e.Name.Contains(todayDateString))
             {
-                Console.WriteLine("[SchedularCopyManager]" + e.Name +" is considered added today and modified recently, proceed to copy it to Temp Drive.");
+                Console.WriteLine("[SchedularCopyManager]" + e.Name + " is considered added today and modified recently, proceed to copy it to Temp Drive.");
 
-                MainWindow.window.Dispatcher.Invoke(() => {
+                MainWindow.window.Dispatcher.Invoke(() =>
+                {
                     string text = System.IO.File.ReadAllText(e.FullPath);
                     Hl7file ff = Hl7file.load(text);
                     Patient patient = new Patient(ff);
 
-                    PatientManager.ModPatient(patient);
-                });                
+                    //do not copy non nmpet case to t drive;
+                    if (patient.ExamCode.Contains("PO") || patient.ExamCode.Contains("NM") || patient.ExamCode.Contains("PI"))
+                    {
+                        PatientManager.ModPatient(patient);
+                    }
+                });
             }
 
             //Please Remeber to put this line back to the init series
             //PatientManager.LoadAllPatientFromSchedular();
             //PatientManager.LoadAllPatient();
         }
+
+        public static void loadInitial()
+        {
+            string fullpath = WindowConfig.SchedularDirectory;
+
+            var fileNames = Directory.EnumerateFiles(fullpath, "*.hl7", SearchOption.TopDirectoryOnly);
+
+            foreach (string file in fileNames)
+            {
+                try
+                {
+
+                    Console.WriteLine("THE FILE NAME IS: " + file);
+
+                    //only read files from today
+                    //if (!file.Contains(todayDateString))
+                    //{
+                    //    return;
+                    //}
+
+                    string text = System.IO.File.ReadAllText(file);
+                    Hl7file ff = Hl7file.load(text);
+
+                    Console.Out.WriteLine("testing: "+ff.getSegment(".MSH").getString(6));
+                    Patient patient = new Patient(ff);
+
+
+
+                    Console.Out.WriteLine("[PatientManager] Loading patient information from HL7 file with patientID:" + patient.PatientID);
+                    if (patient.PatientID == "")
+                    {
+                        Console.WriteLine("[PatientManager.LoadAllPatient()] " + file + " path contain corrupted information, the patient information has failed to load");
+                        continue;
+                    }
+                    PatientManager.ModPatient(patient);
+
+                }
+                catch (System.Exception e)
+                {
+                    Console.WriteLine("OHNOOO");
+                    Console.Error.WriteLine(e);
+                }
+            }
+
+
+        }
+
     }
 }
+
