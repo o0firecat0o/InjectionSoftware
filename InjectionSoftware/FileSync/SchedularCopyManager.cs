@@ -98,32 +98,47 @@ namespace InjectionSoftware.FileSync
             string fullpath = WindowConfig.SchedularDirectory;
 
             var fileNames = Directory.EnumerateFiles(fullpath, "*.hl7", SearchOption.TopDirectoryOnly);
+            Console.WriteLine("[SchedularCopyManager/loadInitial()] There are a total of: " + fileNames.Count() + "files to load initially.");
 
             foreach (string file in fileNames)
             {
                 try
                 {
-
-                    Console.WriteLine("THE FILE NAME IS: " + file);
-
                     //only read files from today
-                    //if (!file.Contains(todayDateString))
-                    //{
-                    //    return;
-                    //}
+                    if (!file.Contains(todayDateString))
+                    {
+                        continue;
+                    }
 
                     string text = System.IO.File.ReadAllText(file);
                     Hl7file ff = Hl7file.load(text);
 
-                    Console.Out.WriteLine("testing: "+ff.getSegment(".MSH").getString(6));
+                    //sometime booker willl register patients not from today but with file name of today
+                    //the following segment will get rid of all those patients
+                    if (!ff.getSegment("ORC").getString(15).Contains(todayDateString))
+                    {
+                        continue;
+                    }
+
                     Patient patient = new Patient(ff);
 
 
+                    //todo: NM PETMR
+                    if (!patient.ExamCode.Contains("PO"))
+                    {
+                        continue;
+                    }
 
-                    Console.Out.WriteLine("[PatientManager] Loading patient information from HL7 file with patientID:" + patient.PatientID);
+
+                    
+
+
+                    Console.Out.WriteLine("[SchedularCopyManager/loadInitial()] Loading patient information from HL7 file with patientID:" + patient.PatientID);
+                    Console.Out.WriteLine("[SchedularCopyManager/loadInitial()] The patient referring phys and file directories are: " + patient.ExamCode+" , "+file);
+
                     if (patient.PatientID == "")
                     {
-                        Console.WriteLine("[PatientManager.LoadAllPatient()] " + file + " path contain corrupted information, the patient information has failed to load");
+                        Console.WriteLine("[SchedularCopyManager/loadInitial()] " + file + " path contain corrupted information, the patient information has failed to load");
                         continue;
                     }
                     PatientManager.ModPatient(patient);
@@ -131,7 +146,7 @@ namespace InjectionSoftware.FileSync
                 }
                 catch (System.Exception e)
                 {
-                    Console.WriteLine("OHNOOO");
+                    Console.WriteLine("[SchedularCopyManager/loadInitial()] there is error loading the initial files with file directory: "+ file);
                     Console.Error.WriteLine(e);
                 }
             }

@@ -10,7 +10,7 @@ namespace InjectionSoftware.Util.Scheduler
     public class Hl7segment
     {
         public readonly string header;
-        List<string> list = new List<string>();
+        public List<string> list = new List<string>();
 
         public Hl7segment(string fullstring)
         {
