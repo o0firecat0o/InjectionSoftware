@@ -67,26 +67,36 @@ namespace InjectionSoftware.FileSync
             // Specify what is done when a file is changed.  
             Console.WriteLine("[SchedularCopyManager]" + "{0}, with path {1} has been {2}", e.Name, e.FullPath, e.ChangeType);
 
-            //TODO: filter out non-Pet patient and do not copy them
-            //TODO: copy all initial files, ?but do not replace them if they are already present @ Temp Drive/ Schedular
+            //TODO: copy instead of load directly
 
-            if (e.Name.Contains(todayDateString))
+            if (!e.Name.Contains(todayDateString))
             {
-                Console.WriteLine("[SchedularCopyManager]" + e.Name + " is considered added today and modified recently, proceed to copy it to Temp Drive.");
-
-                MainWindow.window.Dispatcher.Invoke(() =>
-                {
-                    string text = System.IO.File.ReadAllText(e.FullPath);
-                    Hl7file ff = Hl7file.load(text);
-                    Patient patient = new Patient(ff);
-
-                    //do not copy non nmpet case to t drive;
-                    if (patient.ExamCode.Contains("PO") || patient.ExamCode.Contains("NM") || patient.ExamCode.Contains("PI"))
-                    {
-                        PatientManager.ModPatient(patient);
-                    }
-                });
+                return;
             }
+
+            string text = System.IO.File.ReadAllText(e.FullPath);
+            Hl7file ff = Hl7file.load(text);
+
+            if (!ff.getSegment("ORC").getString(15).Contains(todayDateString))
+            {
+                return;
+            }
+
+            Patient patient = new Patient(ff);
+
+            if (!(patient.ExamCode.Contains("PO") || patient.ExamCode.Contains("NM") || patient.ExamCode.Contains("PI")))
+            {
+                return;
+            }
+
+            Console.WriteLine("[SchedularCopyManager]" + e.Name + " is considered added today and modified recently, proceed to copy it to Temp Drive.");
+
+            MainWindow.window.Dispatcher.Invoke(() =>
+            {
+                PatientManager.ModPatient(patient);
+            });
+
+
 
             //Please Remeber to put this line back to the init series
             //PatientManager.LoadAllPatientFromSchedular();
@@ -123,18 +133,17 @@ namespace InjectionSoftware.FileSync
                     Patient patient = new Patient(ff);
 
 
-                    //todo: NM PETMR
-                    if (!patient.ExamCode.Contains("PO"))
+                    if (!(patient.ExamCode.Contains("PO") || patient.ExamCode.Contains("NM") || patient.ExamCode.Contains("PI")))
                     {
                         continue;
                     }
 
 
-                    
+
 
 
                     Console.Out.WriteLine("[SchedularCopyManager/loadInitial()] Loading patient information from HL7 file with patientID:" + patient.PatientID);
-                    Console.Out.WriteLine("[SchedularCopyManager/loadInitial()] The patient referring phys and file directories are: " + patient.ExamCode+" , "+file);
+                    Console.Out.WriteLine("[SchedularCopyManager/loadInitial()] The patient referring phys and file directories are: " + patient.ExamCode + " , " + file);
 
                     if (patient.PatientID == "")
                     {
@@ -146,7 +155,7 @@ namespace InjectionSoftware.FileSync
                 }
                 catch (System.Exception e)
                 {
-                    Console.WriteLine("[SchedularCopyManager/loadInitial()] there is error loading the initial files with file directory: "+ file);
+                    Console.WriteLine("[SchedularCopyManager/loadInitial()] there is error loading the initial files with file directory: " + file);
                     Console.Error.WriteLine(e);
                 }
             }

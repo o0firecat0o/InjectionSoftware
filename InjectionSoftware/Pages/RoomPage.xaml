@@ -86,7 +86,7 @@
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
 
-                                        <UniformGrid Columns="3"></UniformGrid>
+                                        <UniformGrid Columns="5"></UniformGrid>
 
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
