@@ -91,12 +91,24 @@ namespace InjectionSoftware.FileSync
 
             Console.WriteLine("[SchedularCopyManager]" + e.Name + " is considered added today and modified recently, proceed to copy it to Temp Drive.");
 
-            MainWindow.window.Dispatcher.Invoke(() =>
-            {
-                PatientManager.ModPatient(patient);
-            });
+            string date = DateTime.Now.ToString("ddMMyyyy");
+            string destinationPath = System.IO.Path.Combine(WindowConfig.NetworkFolderDirectory, "InjectionSoftware", date, "schedular");
+            string filenameWithoutPath = Path.GetFileName(e.FullPath);
 
-            //Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" +
+            if (!Directory.Exists(destinationPath))
+            {
+                Directory.CreateDirectory(destinationPath);
+            }
+
+            Console.WriteLine("[SchedularCopyManager]" + " Copying file... from " + e.FullPath + " to "+ destinationPath + "/" + filenameWithoutPath);
+            File.Copy(e.FullPath, destinationPath + "/" + filenameWithoutPath, true);
+            
+
+            //MainWindow.window.Dispatcher.Invoke(() =>
+            //{
+            //    PatientManager.ModPatient(patient);
+            //});
+
 
             //Please Remeber to put this line back to the init series
             //PatientManager.LoadAllPatientFromSchedular();
@@ -128,6 +140,7 @@ namespace InjectionSoftware.FileSync
                     continue;
                 }
 
+                //TODO: reimplement try catch in a much fancier way
                 try
                 {
 
@@ -151,17 +164,22 @@ namespace InjectionSoftware.FileSync
 
                 Patient patient = new Patient(ff);
 
-
                 if (!(patient.ExamCode.Contains("PO") || patient.ExamCode.Contains("NM") || patient.ExamCode.Contains("PI")))
                 {
                     continue;
                 }
 
-
-
                 string filenameWithoutPath = Path.GetFileName(file);
+                try
+                {
+                    File.Copy(file, destinationPath + "/" + filenameWithoutPath, true);
+                }
+                catch(System.IO.IOException e)
+                {
+                    Console.Out.WriteLine("[SchedularCopyManager]"+e);
+                }
 
-                File.Copy(file, destinationPath + "/" + filenameWithoutPath, false);
+                Console.WriteLine("[SchedularCopyManager]" + " Copying file... from " + file + " to " + destinationPath + "/" + filenameWithoutPath);
 
                 Console.Out.WriteLine("[SchedularCopyManager/loadInitial()] Loading patient information from HL7 file with patientID:" + patient.PatientID);
                 Console.Out.WriteLine("[SchedularCopyManager/loadInitial()] The patient referring phys and file directories are: " + patient.ExamCode + " , " + file);
