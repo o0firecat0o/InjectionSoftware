@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -85,7 +86,21 @@ namespace InjectionSoftware.Class
         public bool IsInpatient { get; set; } = false;
         public string Referral { get; set; } = "";
         public string UniqueExamIdentifier { get; set; } = "";
-        public string ExamCode { get; set; } = "";
+
+        private string _ExamCode = "";
+
+        public string ExamCode { get
+            {
+                return _ExamCode;
+            }
+            set
+            {
+                _ExamCode = value;
+                //backgroundbrush is used in room
+                OnPropertyChanged("BackgroundBrush");
+            }
+        }
+        
         public string ExamName { get; set; } = "";
         public string WardNumber { get; set; } = "";
 
@@ -93,23 +108,24 @@ namespace InjectionSoftware.Class
         {
             get
             {
-                if(DateOfBirth != null && DOBconverter.BarcodeDOBtohl7DOB(DateOfBirth).Length == 8)
+                if (DateOfBirth != null && DOBconverter.BarcodeDOBtohl7DOB(DateOfBirth).Length == 8)
                 {
                     try
                     {
                         return (int)((DateTime.Now - DateTime.ParseExact(DOBconverter.BarcodeDOBtohl7DOB(DateOfBirth), "yyyyMMdd",
                 CultureInfo.InvariantCulture)).TotalDays / 365);
-                    }catch(System.Exception e)
+                    }
+                    catch (System.Exception e)
                     {
                         Console.Error.WriteLine(e);
                         return 0;
-                    }                    
+                    }
                 }
                 else
                 {
                     return 0;
                 }
-                
+
             }
         }
 
@@ -124,6 +140,27 @@ namespace InjectionSoftware.Class
                 else
                 {
                     return "Female";
+                }
+            }
+        }
+
+        //used to distinguish between NM PI PO case color
+        public Brush BackgroundBrush
+        {
+            get
+            {
+                if (ExamCode.Contains("PO"))
+                {
+                    return Brushes.LightGoldenrodYellow;
+                }else if (ExamCode.Contains("NM")){
+                    return Brushes.Aquamarine;
+                }else if (ExamCode.Contains("PI"))
+                {
+                    return Brushes.LightGreen;
+                }
+                else
+                {
+                    return Brushes.White;
                 }
             }
         }
@@ -152,7 +189,7 @@ namespace InjectionSoftware.Class
                 IsMale = hl7File.getSegment("PID").getString(8) == "M" ? true : false;
                 PhoneNumber = hl7File.getSegment("PID").getString(13);
                 IsInpatient = hl7File.getSegment("PV1").getString(2) == "I" ? true : false;
-                Referral = hl7File.getSegment("PV1").getString(7).Replace('^', ' ');                
+                Referral = hl7File.getSegment("PV1").getString(7).Replace('^', ' ');
                 UniqueExamIdentifier = hl7File.getSegment("OBR").getString(2);
                 ExamCode = hl7File.getSegment("OBR").getString(3).Split('-')[0];
                 ExamName = hl7File.getSegment("OBR").getString(4);
@@ -226,6 +263,6 @@ namespace InjectionSoftware.Class
             }
         }
 
-        
+
     }
 }

@@ -97,7 +97,7 @@
                                               Height="80">
                                             <Border CornerRadius="4"
                                                     Margin="3"
-                                                    Background="White">
+                                                    Background="{Binding BackgroundBrush}">
                                                 <Border.Effect>
                                                     <DropShadowEffect ShadowDepth="2"
                                                                       Color="#FF666666"
