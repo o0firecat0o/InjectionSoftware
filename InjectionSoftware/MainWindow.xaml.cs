@@ -107,6 +107,9 @@ namespace InjectionSoftware
             {
                 SchedularCopyManager.Init();
             }
+
+            //This should be run on both server and client
+            SchedularSyncManager.Init();
         }
 
 

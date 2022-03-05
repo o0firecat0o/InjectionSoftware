@@ -49,7 +49,7 @@ namespace InjectionSoftware.FileSync
                 FileWatcher.Filter = "*.hl7*";
 
                 FileWatcher.Changed += new FileSystemEventHandler(OnChanged);
-                FileWatcher.Created += new FileSystemEventHandler(OnChanged);
+                //FileWatcher.Created += new FileSystemEventHandler(OnChanged);
 
                 FileWatcher.EnableRaisingEvents = true;
 
@@ -68,16 +68,6 @@ namespace InjectionSoftware.FileSync
             Console.WriteLine("[SchedularCopyManager]" + "{0}, with path {1} has been {2}", e.Name, e.FullPath, e.ChangeType);
 
             FileValidationAndCopy(e.FullPath);
-
-            //MainWindow.window.Dispatcher.Invoke(() =>
-            //{
-            //    PatientManager.ModPatient(patient);
-            //});
-
-
-            //Please Remeber to put this line back to the init series
-            //PatientManager.LoadAllPatientFromSchedular();
-            //PatientManager.LoadAllPatient();
         }
 
         public static void loadInitial()

@@ -177,6 +177,7 @@
     <Compile Include="Enums\RP.cs" />
     <Compile Include="FileSync\FileSyncManager.cs" />
     <Compile Include="FileSync\SchedularCopyManager.cs" />
+    <Compile Include="FileSync\SchedularSyncManager.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\ViewObject\ClientViewObject.cs" />
     <Compile Include="Network\NetworkManager.cs" />
