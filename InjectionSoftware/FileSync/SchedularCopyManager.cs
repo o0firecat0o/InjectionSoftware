@@ -67,42 +67,7 @@ namespace InjectionSoftware.FileSync
             // Specify what is done when a file is changed.  
             Console.WriteLine("[SchedularCopyManager]" + "{0}, with path {1} has been {2}", e.Name, e.FullPath, e.ChangeType);
 
-            if (!e.Name.Contains(todayDateString))
-            {
-                return;
-            }
-
-            string text = System.IO.File.ReadAllText(e.FullPath);
-            Hl7file ff = Hl7file.load(text);
-
-            if (!ff.getSegment("ORC").getString(15).Contains(todayDateString))
-            {
-                return;
-            }
-
-
-            Patient patient = new Patient(ff);
-
-            if (!(patient.ExamCode.Contains("PO") || patient.ExamCode.Contains("NM") || patient.ExamCode.Contains("PI")))
-            {
-                return;
-            }
-
-
-            Console.WriteLine("[SchedularCopyManager]" + e.Name + " is considered added today and modified recently, proceed to copy it to Temp Drive.");
-
-            string date = DateTime.Now.ToString("ddMMyyyy");
-            string destinationPath = System.IO.Path.Combine(WindowConfig.NetworkFolderDirectory, "InjectionSoftware", date, "schedular");
-            string filenameWithoutPath = Path.GetFileName(e.FullPath);
-
-            if (!Directory.Exists(destinationPath))
-            {
-                Directory.CreateDirectory(destinationPath);
-            }
-
-            Console.WriteLine("[SchedularCopyManager]" + " Copying file... from " + e.FullPath + " to "+ destinationPath + "/" + filenameWithoutPath);
-            File.Copy(e.FullPath, destinationPath + "/" + filenameWithoutPath, true);
-            
+            FileValidationAndCopy(e.FullPath);
 
             //MainWindow.window.Dispatcher.Invoke(() =>
             //{
@@ -122,6 +87,16 @@ namespace InjectionSoftware.FileSync
             var fileNames = Directory.EnumerateFiles(fullpath, "*.hl7", SearchOption.TopDirectoryOnly);
             Console.WriteLine("[SchedularCopyManager/loadInitial()] There are a total of: " + fileNames.Count() + "files to load initially.");
 
+            foreach (string file in fileNames)
+            {
+                FileValidationAndCopy(file);
+            }
+        }
+
+
+
+        private static void FileValidationAndCopy(string file)
+        {
             string date = DateTime.Now.ToString("ddMMyyyy");
             string destinationPath = System.IO.Path.Combine(WindowConfig.NetworkFolderDirectory, "InjectionSoftware", date, "schedular");
 
@@ -130,67 +105,63 @@ namespace InjectionSoftware.FileSync
                 Directory.CreateDirectory(destinationPath);
             }
 
-
-            foreach (string file in fileNames)
+            //only read files from today
+            if (!file.Contains(todayDateString))
             {
-
-                //only read files from today
-                if (!file.Contains(todayDateString))
-                {
-                    continue;
-                }
-
-                //TODO: reimplement try catch in a much fancier way
-                try
-                {
-
-                }
-                catch (System.Exception e)
-                {
-                    Console.WriteLine("[SchedularCopyManager/loadInitial()] there is error loading the initial files with file directory: " + file);
-                    Console.Error.WriteLine(e);
-                }
-
-                //sometime booker willl register patients not from today but with file name of today
-                //the following segment will get rid of all those patients
-
-                string text = System.IO.File.ReadAllText(file);
-
-                Hl7file ff = Hl7file.load(text);
-                if (!ff.getSegment("ORC").getString(15).Contains(todayDateString))
-                {
-                    continue;
-                }
-
-                Patient patient = new Patient(ff);
-
-                if (!(patient.ExamCode.Contains("PO") || patient.ExamCode.Contains("NM") || patient.ExamCode.Contains("PI")))
-                {
-                    continue;
-                }
-
-                string filenameWithoutPath = Path.GetFileName(file);
-                try
-                {
-                    File.Copy(file, destinationPath + "/" + filenameWithoutPath, true);
-                }
-                catch(System.IO.IOException e)
-                {
-                    Console.Out.WriteLine("[SchedularCopyManager]"+e);
-                }
-
-                Console.WriteLine("[SchedularCopyManager]" + " Copying file... from " + file + " to " + destinationPath + "/" + filenameWithoutPath);
-
-                Console.Out.WriteLine("[SchedularCopyManager/loadInitial()] Loading patient information from HL7 file with patientID:" + patient.PatientID);
-                Console.Out.WriteLine("[SchedularCopyManager/loadInitial()] The patient referring phys and file directories are: " + patient.ExamCode + " , " + file);
-
-                if (patient.PatientID == "")
-                {
-                    Console.WriteLine("[SchedularCopyManager/loadInitial()] " + file + " path contain corrupted information, the patient information has failed to load");
-                    continue;
-                }
-                //PatientManager.ModPatient(patient);
+                return;
             }
+
+            string text = "";
+            
+            try
+            {
+                text = System.IO.File.ReadAllText(file);
+            }
+            catch (System.Exception e)
+            {
+                Console.WriteLine("[SchedularCopyManager/loadInitial()] there is error loading the initial files with file directory: " + file);
+                Console.Error.WriteLine(e);
+                return;
+            }
+
+            //sometime booker willl register patients not from today but with file name of today
+            //the following segment will get rid of all those patients
+
+            Hl7file ff = Hl7file.load(text);
+            if (!ff.getSegment("ORC").getString(15).Contains(todayDateString))
+            {
+                return;
+            }
+
+            Patient patient = new Patient(ff);
+
+            if (!(patient.ExamCode.Contains("PO") || patient.ExamCode.Contains("NM") || patient.ExamCode.Contains("PI")))
+            {
+                return;
+            }
+
+            if (patient.PatientID == "")
+            {
+                Console.WriteLine("[SchedularCopyManager/loadInitial()] " + file + " path contain corrupted information, the patient information has failed to load");
+                return;
+            }
+
+            string filenameWithoutPath = Path.GetFileName(file);
+
+            try
+            {
+                File.Copy(file, destinationPath + "/" + filenameWithoutPath, true);
+            }
+            catch (System.IO.IOException e)
+            {
+                Console.Out.WriteLine("[SchedularCopyManager]" + e);
+            }
+
+            Console.Out.WriteLine("[SchedularCopyManager/FileValidationAndCopy()] Loading patient information from HL7 file with patientID:" + patient.PatientID);
+            Console.Out.WriteLine("[SchedularCopyManager/FileValidationAndCopy()] The patient referring phys and file directories are: " + patient.ExamCode + " , " + file);
+            Console.WriteLine("[SchedularCopyManager/FileValidationAndCopy()]" + " Copying file... from " + file + " to " + destinationPath + "/" + filenameWithoutPath);
+
+            //PatientManager.ModPatient(patient);
         }
     }
 }
