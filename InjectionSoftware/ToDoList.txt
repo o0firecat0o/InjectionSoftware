@@ -1,7 +1,6 @@
 ﻿TODO:
 8> Add detailed view in AllInjection screen, including PO number, ward number, exam type etc
 4> Total Number of Patient in Room List
-11> Auto read registered patient information from scheduler, and COPY them to local directory
 
 14> hide side bar, making us able to show 40 injections instead of just 30
 15> add autoburn option to replace burning disc paper
@@ -47,3 +46,5 @@ DONE:
 13> Handle situtation when two servers are started
 13.5> Handle situtation when two servers are started (from dif computer)
 13.5> Handle situtation when a server is disconnected and a client has to take up the role to be a server
+
+11> Auto read registered patient information from scheduler, and COPY them to local directory
