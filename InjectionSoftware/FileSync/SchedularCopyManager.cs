@@ -25,10 +25,7 @@ namespace InjectionSoftware.FileSync
             //Calculate todayDate, to prevent loading stuff from yesterday
             todayDateString = System.DateTime.Now.ToString("yyMMdd");
 
-            Console.WriteLine("TODAY IS" + todayDateString);
-
             Console.Out.WriteLine("[SchedularCopyManager] Loading initial file @" + WindowConfig.SchedularDirectory);
-
 
             loadInitial();
 

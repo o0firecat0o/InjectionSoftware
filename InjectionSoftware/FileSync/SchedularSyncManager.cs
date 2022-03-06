@@ -76,6 +76,7 @@ namespace InjectionSoftware.FileSync
 
             string text;
 
+            //multiple retries before giving up
             try
             {
                 text = System.IO.File.ReadAllText(file);
