@@ -117,6 +117,11 @@
 
             </StackPanel>
 
+           
+
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Bottom">
             <Viewbox Stretch="Uniform">
                 <Grid>
 
@@ -200,7 +205,6 @@
                     </xrpb:RadialProgressBar>
                 </Grid>
             </Viewbox>
-
         </StackPanel>
 
         <Frame x:Name="Main"
