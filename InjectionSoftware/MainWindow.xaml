@@ -117,7 +117,8 @@
 
             </StackPanel>
 
-            <Viewbox Stretch="Uniform" Margin="0 10 0 0">
+            <Viewbox Stretch="Uniform"
+                     Margin="0 10 0 0">
                 <Grid>
 
                     <StackPanel VerticalAlignment="Center"
@@ -203,7 +204,7 @@
 
         </StackPanel>
 
-        <StackPanel VerticalAlignment="Bottom">    
+        <StackPanel VerticalAlignment="Bottom">
             <StackPanel>
 
                 <StackPanel Orientation="Horizontal"
@@ -215,23 +216,31 @@
                                   Unchecked="ToggleButton_Unchecked"
                                   ToolTip="Toggle to display simplified view or detailed view."
                                   Style="{DynamicResource MahApps.Styles.ToggleButton.Circle}">
-                        <iconPacks:PackIconMaterial Kind="AccountBox"
-                                                    Foreground="AliceBlue" />
+                        <Grid>
+                            <iconPacks:PackIconMicrons Name="detailedViewIcon"
+                                                       Kind="Show"
+                                                       Foreground="AliceBlue"
+                                                       Visibility="Visible" />
+                            <iconPacks:PackIconOcticons Name="simplifiedViewIcon"
+                                                        Kind="EyeClosed"
+                                                        Foreground="AliceBlue"
+                                                        Visibility="Collapsed" />
+                        </Grid>
+
                     </ToggleButton>
-                    <TextBlock 
-                        x:Name="ToggleButtonText"
-                        Text="Detailed View"
+                    <TextBlock x:Name="ToggleButtonText"
+                               Text="Detailed View"
                                Margin="5,0,0,0"
                                VerticalAlignment="Center"
                                Foreground="AliceBlue"
                                Style="{DynamicResource MahApps.Styles.TextBlock.Watermark}" />
-                </StackPanel>            
+                </StackPanel>
             </StackPanel>
 
-            <StackPanel>               
-                    <TextBlock Text="Version 0.0.5a"
-                               Margin="5,0,0,0"
-                               VerticalAlignment="Center"
+            <StackPanel>
+                <TextBlock Text="Version 0.0.5a"
+                           Margin="5,0,0,0"
+                           VerticalAlignment="Center"
                            Foreground="AliceBlue"
                            Style="{DynamicResource MahApps.Styles.TextBlock.Watermark}" />
             </StackPanel>
@@ -239,7 +248,7 @@
 
             <StackPanel VerticalAlignment="Center"
                         Grid.Column="3">
-                
+
             </StackPanel>
         </StackPanel>
 
