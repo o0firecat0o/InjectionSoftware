@@ -39,7 +39,7 @@ namespace InjectionSoftware.Class
             //   NetworkManager.server.TCPBroadcastMessage("addPatient", patient.toXML().ToString());
             //}
 
-            InjectionsManager.recreateObservableList(); 
+            InjectionsManager.recreateObservableList();
         }
 
         public static Patient GetPatient(string patientID)
@@ -67,6 +67,7 @@ namespace InjectionSoftware.Class
             return false;
         }
 
+        [Obsolete("The method has been replaced by SchedularSyncManager/LoadInitial()")]
         public static void LoadAllPatientFromSchedular()
         {
             string fullpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InjectionSoftware\" + @"\Schedular";
@@ -102,6 +103,7 @@ namespace InjectionSoftware.Class
             InjectionsManager.recreateObservableList();
         }
 
+        [Obsolete("The method has been replaced by SchedularSyncManager/LoadInitial()")]
         public static void LoadAllPatient()
         {
             Console.WriteLine("[InjectionManager] Loading previous logged patients");

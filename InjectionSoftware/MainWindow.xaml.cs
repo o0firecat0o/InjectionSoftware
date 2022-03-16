@@ -172,5 +172,19 @@ namespace InjectionSoftware
                     break;
             }
         }
+
+        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ToggleButtonText.Text = "Simplified View";
+            detailedViewIcon.Visibility = Visibility.Hidden;
+            simplifiedViewIcon.Visibility = Visibility.Visible;
+        }
+
+        private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ToggleButtonText.Text = "Detailed View";
+            detailedViewIcon.Visibility = Visibility.Visible;
+            simplifiedViewIcon.Visibility = Visibility.Hidden;
+        }
     }
 }
