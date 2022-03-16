@@ -58,6 +58,11 @@ namespace InjectionSoftware.FileSync
             string date = DateTime.Now.ToString("ddMMyyyy");
             string fullpath = System.IO.Path.Combine(WindowConfig.NetworkFolderDirectory, "InjectionSoftware", date, "schedular");
 
+            if (!Directory.Exists(fullpath))
+            {
+                Directory.CreateDirectory(fullpath);
+            }
+
             var fileNames = Directory.EnumerateFiles(fullpath, "*.hl7", SearchOption.TopDirectoryOnly);
             Console.WriteLine("[SchedularSyncManager/loadInitial()] There are a total of: " + fileNames.Count() + "files to load initially.");
 
