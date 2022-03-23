@@ -47,24 +47,44 @@
                       Margin="3 0 3 0">
                     <!-- Injection case number-->
                     <Viewbox>
-                        <Border BorderBrush="Black"
+                        <StackPanel>
+                            <Border BorderBrush="Transparent"
                                 BorderThickness="2"
                                 CornerRadius="2"
-                                Padding="5"
-                                HorizontalAlignment="Left"
-                                Width="60"
+                                Padding="0"
+                                HorizontalAlignment="Center"
+                                Width="100"
                                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
 
-
-                            <Viewbox>
-                                <TextBlock HorizontalAlignment="Center"
+                                <!-- UPTAKE ROOM -->
+                                <Grid Grid.Column="4" Grid.Row="0">
+                                    <Viewbox Stretch="Uniform">
+                                        <iconPacks:PackIconPicolIcons Kind="Home"
+                                                              HorizontalAlignment="Center"
+                                                              VerticalAlignment="Center"
+                                                              Opacity="0.2" />
+                                    </Viewbox>
+                                    <Viewbox Stretch="Uniform">
+                                        <TextBlock HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
-                                           TextAlignment="Center"
-                                           FontSize="36"
-                                           Text="{Binding CaseNumberText}" />
+                                           Text="{Binding SelectedRoom.Name}"
+                                           FontWeight="UltraBold"
+                                           Margin="6">
+                                        </TextBlock>
+                                    </Viewbox>
+                                </Grid>
+                            </Border>
+                            
+                            <Viewbox>
+                                    
+                                    <TextBlock HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        TextAlignment="Center"
+                                        FontSize="36"
+                                        Text="{Binding CaseNumberText}" />
                             </Viewbox>
-
-                        </Border>
+                        </StackPanel>
+                        
                     </Viewbox>
 
                 </Grid>
@@ -204,8 +224,8 @@
                         <RowDefinition Height="15" />
                     </Grid.RowDefinitions>
 
-                    <!-- Patient information + Room Number-->
-                    <Grid>
+                    <!-- Patient information + Room Number (Simplified)-->
+                    <Grid Visibility="{Binding IsDetailed, Converter={StaticResource BooleanToVisibilityInvertedConverter}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*" />
                             <ColumnDefinition Width="*" />
@@ -224,7 +244,7 @@
                                                Margin="2"
                                                TextAlignment="Center"
                                                FontSize="28" />
-                                    
+
                                     <!-- For Horizontal Name Display-->
                                     <TextBlock Text="{Binding Patient.PatientFullname}"
                                                Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
@@ -259,6 +279,72 @@
                                 </TextBlock>
                             </Viewbox>
                         </Grid>
+                    </Grid>
+
+
+                    <!-- Patient information + Room Number (Detailed)-->
+                    <Grid Visibility="{Binding IsDetailed, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- PATIENT NAME -->
+                        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3">
+                            <Viewbox Stretch="Uniform"
+                                     HorizontalAlignment="Left"
+                                     StretchDirection="DownOnly">
+                                <Grid>
+                                    <!-- For Vertical Name Disyplay-->
+                                    <TextBlock Text="{Binding Patient.PatientFullSeperatedName}"
+                                               Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
+                                            AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityInvertedConverter}}"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="2"
+                                               TextAlignment="Center"
+                                               FontSize="28" />
+
+                                    <!-- For Horizontal Name Display-->
+                                    <TextBlock Text="{Binding Patient.PatientFullname}"
+                                               Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
+                                            AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="2"
+                                               TextAlignment="Center"
+                                               FontSize="28"
+                                               FontWeight="DemiBold"/>
+                                </Grid>
+
+
+
+                            </Viewbox>
+                        </Grid>
+
+                        <!-- PO Number -->
+                        <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">
+                            <Viewbox>
+                                <TextBlock Text="{Binding Patient.ExamCode}"/>
+                            </Viewbox>
+                        </Grid>
+
+                        <!-- REFERAL -->
+                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                            <Viewbox HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Patient.Referral}" FontStyle="Italic" />
+                            </Viewbox>
+                        </Grid>
+                        
+
+
                     </Grid>
 
 

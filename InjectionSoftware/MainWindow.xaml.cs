@@ -178,6 +178,11 @@ namespace InjectionSoftware
             ToggleButtonText.Text = "Simplified View";
             detailedViewIcon.Visibility = Visibility.Hidden;
             simplifiedViewIcon.Visibility = Visibility.Visible;
+
+            foreach (Injection injection in InjectionsManager.injections)
+            {
+                injection.IsDetailed = false;
+            }
         }
 
         private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)
@@ -185,6 +190,11 @@ namespace InjectionSoftware
             ToggleButtonText.Text = "Detailed View";
             detailedViewIcon.Visibility = Visibility.Visible;
             simplifiedViewIcon.Visibility = Visibility.Hidden;
+
+            foreach (Injection injection in InjectionsManager.injections)
+            {
+                injection.IsDetailed = true;
+            }
         }
     }
 }

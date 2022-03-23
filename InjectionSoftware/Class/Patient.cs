@@ -84,6 +84,20 @@ namespace InjectionSoftware.Class
         public bool IsMale { get; set; } = true;
         public string PhoneNumber { get; set; } = "";
         public bool IsInpatient { get; set; } = false;
+        public string IsInpatientString
+        {
+            get
+            {
+                if (IsInpatient)
+                {
+                    return "IP";
+                }
+                else
+                {
+                    return "OP";
+                }
+            }
+        }
         public string Referral { get; set; } = "";
         public string UniqueExamIdentifier { get; set; } = "";
 

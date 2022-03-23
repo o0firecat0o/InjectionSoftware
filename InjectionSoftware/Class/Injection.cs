@@ -19,6 +19,10 @@ namespace InjectionSoftware.Class
 {
     public class Injection : INotifyPropertyChanged
     {
+        private bool _isDetailed = true;
+
+        public bool IsDetailed { get { return _isDetailed; } set { _isDetailed = value; OnPropertyChanged("IsDetailed"); } }
+
         private Patient _Patient;
         public Patient Patient
         {
@@ -57,7 +61,7 @@ namespace InjectionSoftware.Class
             {
                 if (Modality == Modality.getModality("PETCT"))
                 {
-                    return CaseNumber.ToString();
+                    return "# " + CaseNumber.ToString();
                 }
                 else if (Modality == Modality.getModality("PETMR"))
                 {
