@@ -74,17 +74,17 @@
                                     </Viewbox>
                                 </Grid>
                             </Border>
-                            
+
                             <Viewbox>
-                                    
-                                    <TextBlock HorizontalAlignment="Center"
+
+                                <TextBlock HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         TextAlignment="Center"
                                         FontSize="36"
                                         Text="{Binding CaseNumberText}" />
                             </Viewbox>
                         </StackPanel>
-                        
+
                     </Viewbox>
 
                 </Grid>
@@ -342,8 +342,19 @@
                                 <TextBlock Text="{Binding Patient.Referral}" FontStyle="Italic" />
                             </Viewbox>
                         </Grid>
-                        
 
+                        <!-- Exam Number -->
+                        <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3">
+                            <Viewbox>
+                                <TextBlock Text="{Binding Patient.ExamName}"/>
+                            </Viewbox>
+                        </Grid>
+
+                        <Grid Grid.Row="0" Grid.Column="2">
+                            <Viewbox>
+                                <TextBlock Text="{Binding Patient.Gender}"/>
+                            </Viewbox>
+                        </Grid>
 
                     </Grid>
 

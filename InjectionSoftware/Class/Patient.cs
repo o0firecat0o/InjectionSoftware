@@ -149,11 +149,11 @@ namespace InjectionSoftware.Class
             {
                 if (IsMale)
                 {
-                    return "Male";
+                    return "M";
                 }
                 else
                 {
-                    return "Female";
+                    return "F";
                 }
             }
         }
