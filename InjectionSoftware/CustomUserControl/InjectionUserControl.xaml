@@ -285,8 +285,8 @@
                     <!-- Patient information + Room Number (Detailed)-->
                     <Grid Visibility="{Binding IsDetailed, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -331,13 +331,13 @@
 
                         <!-- PO Number -->
                         <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">
-                            <Viewbox>
+                            <Viewbox HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding Patient.ExamCode}"/>
                             </Viewbox>
                         </Grid>
 
                         <!-- REFERAL -->
-                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                             <Viewbox HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding Patient.Referral}" FontStyle="Italic" />
                             </Viewbox>
