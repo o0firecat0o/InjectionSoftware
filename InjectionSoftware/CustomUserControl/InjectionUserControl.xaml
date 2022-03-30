@@ -217,8 +217,10 @@
                     </Grid>
                 </Grid>
 
-                <!-- Patient information + Room Number + Injection Time/ Image Time-->
-                <Grid Grid.Column="1">
+                <!-- Patient information + Room Number + Injection Time/ Image Time [Injection page]-->
+                <Grid Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
+                                            AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3*" />
                         <RowDefinition Height="15" />
@@ -242,19 +244,7 @@
                             <Viewbox Stretch="Uniform"
                                      HorizontalAlignment="Left"
                                      StretchDirection="DownOnly">
-                                <Grid>
-                                    <!-- For Vertical Name Disyplay-->
-                                    <TextBlock Text="{Binding Patient.PatientFullSeperatedName}"
-                                               Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
-                                            AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityInvertedConverter}}"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Left"
-                                               Margin="2"
-                                               TextAlignment="Center"
-                                               FontSize="28" />
-
-                                    <!-- For Horizontal Name Display-->
-                                    <TextBlock Text="{Binding Patient.PatientCensoredName}"
+                                <TextBlock Text="{Binding Patient.PatientCensoredName}"
                                                Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
                                             AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                VerticalAlignment="Center"
@@ -263,10 +253,6 @@
                                                TextAlignment="Center"
                                                FontSize="28"
                                                FontWeight="DemiBold"/>
-                                </Grid>
-
-
-
                             </Viewbox>
                         </Grid>
 
@@ -314,19 +300,8 @@
                             <Viewbox Stretch="Uniform"
                                      HorizontalAlignment="Left"
                                      StretchDirection="DownOnly">
-                                <Grid>
-                                    <!-- For Vertical Name Disyplay-->
-                                    <TextBlock Text="{Binding Patient.PatientFullSeperatedName}"
-                                               Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
-                                            AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityInvertedConverter}}"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Left"
-                                               Margin="2"
-                                               TextAlignment="Center"
-                                               FontSize="28" />
 
-                                    <!-- For Horizontal Name Display-->
-                                    <TextBlock Text="{Binding Patient.PatientFullname}"
+                                <TextBlock Text="{Binding Patient.PatientFullname}"
                                                Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
                                             AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                VerticalAlignment="Center"
@@ -335,8 +310,6 @@
                                                TextAlignment="Center"
                                                FontSize="28"
                                                FontWeight="DemiBold"/>
-                                </Grid>
-
 
 
                             </Viewbox>
@@ -407,6 +380,7 @@
                         </Viewbox>
                     </Grid>
                 </Grid>
+                
             </Grid>
         </DockPanel>
 
