@@ -7,7 +7,6 @@
 16> readd network page
 17> default PSMA and FDG and ACETATE for new injection (for easier access)
 
-BUGS> after adding the patients through injection list, the patient information, such as referral/ phone number will be lost
 
 TODO(FUTURE):
 (E)	add password protection

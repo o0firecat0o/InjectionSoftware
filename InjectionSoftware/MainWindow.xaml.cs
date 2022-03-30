@@ -95,21 +95,28 @@ namespace InjectionSoftware
 
             InjectionsManager.Init();
 
+            ///////////////////////////////////////
             //Obsolete
             //Previously the networkManager is used to sync between different computers
             //Now we use Temp (T drive) to sync across multiple different computers
 
             //NetworkManager.Init(this, WindowConfig.IsAutoRestart == 1, WindowConfig.IsServer == 1);
+            ///////////////////////////////////////
+            
 
-            FileSyncManager.Init();
-
+            //This should be run on only server
+            //For copying schedular information to T drive for other computers' access
             if (WindowConfig.IsFileSyncServer == 1)
             {
                 SchedularCopyManager.Init();
             }
 
             //This should be run on both server and client
+            //For loading patient information from T drive
             SchedularSyncManager.Init();
+
+            //This should be run on both server and client
+            FileSyncManager.Init();
         }
 
 
