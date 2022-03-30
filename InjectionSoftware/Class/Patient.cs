@@ -80,6 +80,37 @@ namespace InjectionSoftware.Class
             }
         }
 
+        public string PatientCensoredName
+        {
+            get
+            {
+                // this function change CHAN TAI MAN
+                // into CHAN Txx Mxx
+
+                bool afterfirst = false;
+                string returnstring = PatientSurname + " ";
+                for (int i = 0; i < PatientLastname.Length; i++)
+                {
+                    if (afterfirst == false)
+                    {
+                        returnstring += PatientLastname[i];
+                        afterfirst = true;
+                    }
+                    else if (PatientLastname[i] == ' ')
+                    {
+                        returnstring += ' ';
+                        afterfirst = false;
+                    }
+                    else
+                    {
+                        returnstring += "x";
+                    }
+                }
+
+                return returnstring;
+            }
+        }
+
         public string DateOfBirth { get; set; }
         public bool IsMale { get; set; } = true;
         public string PhoneNumber { get; set; } = "";
@@ -103,7 +134,9 @@ namespace InjectionSoftware.Class
 
         private string _ExamCode = "";
 
-        public string ExamCode { get
+        public string ExamCode
+        {
+            get
             {
                 return _ExamCode;
             }
@@ -114,7 +147,7 @@ namespace InjectionSoftware.Class
                 OnPropertyChanged("BackgroundBrush");
             }
         }
-        
+
         public string ExamName { get; set; } = "";
         public string WardNumber { get; set; } = "";
 
@@ -166,9 +199,12 @@ namespace InjectionSoftware.Class
                 if (ExamCode.Contains("PO"))
                 {
                     return Brushes.LightGoldenrodYellow;
-                }else if (ExamCode.Contains("NM")){
+                }
+                else if (ExamCode.Contains("NM"))
+                {
                     return Brushes.Aquamarine;
-                }else if (ExamCode.Contains("PI"))
+                }
+                else if (ExamCode.Contains("PI"))
                 {
                     return Brushes.LightGreen;
                 }

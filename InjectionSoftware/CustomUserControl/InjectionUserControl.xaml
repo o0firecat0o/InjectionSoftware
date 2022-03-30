@@ -227,10 +227,18 @@
                     <!-- Patient information + Room Number (Simplified)-->
                     <Grid Visibility="{Binding IsDetailed, Converter={StaticResource BooleanToVisibilityInvertedConverter}}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- PATIENT NAME -->
+                        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
                             <Viewbox Stretch="Uniform"
                                      HorizontalAlignment="Left"
                                      StretchDirection="DownOnly">
@@ -246,14 +254,15 @@
                                                FontSize="28" />
 
                                     <!-- For Horizontal Name Display-->
-                                    <TextBlock Text="{Binding Patient.PatientFullname}"
+                                    <TextBlock Text="{Binding Patient.PatientCensoredName}"
                                                Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
                                             AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Left"
                                                Margin="2"
                                                TextAlignment="Center"
-                                               FontSize="28" />
+                                               FontSize="28"
+                                               FontWeight="DemiBold"/>
                                 </Grid>
 
 
@@ -261,24 +270,28 @@
                             </Viewbox>
                         </Grid>
 
-
-
-                        <Grid Grid.Column="1">
-                            <Viewbox Stretch="Uniform">
-                                <iconPacks:PackIconPicolIcons Kind="Home"
-                                                              HorizontalAlignment="Center"
-                                                              VerticalAlignment="Center"
-                                                              Opacity="0.4" />
-                            </Viewbox>
-
-                            <Viewbox Stretch="Uniform">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           Text="{Binding SelectedRoom.Name}"
-                                           Margin="6">
-                                </TextBlock>
+                        <!-- PO Number -->
+                        <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">
+                            <Viewbox HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Patient.ExamCode}"/>
                             </Viewbox>
                         </Grid>
+
+                        <!-- Patient Gender and Age -->
+                        <Grid Grid.Row="0" Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Viewbox>
+                                <TextBlock Text="{Binding Patient.Gender}"/>
+                            </Viewbox>
+                            <Viewbox Grid.Row="1">
+                                <TextBlock Text="{Binding Patient.Age}"/>
+                            </Viewbox>
+                        </Grid>
+
+
                     </Grid>
 
 
@@ -297,7 +310,7 @@
                         </Grid.RowDefinitions>
 
                         <!-- PATIENT NAME -->
-                        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3">
+                        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
                             <Viewbox Stretch="Uniform"
                                      HorizontalAlignment="Left"
                                      StretchDirection="DownOnly">
@@ -343,16 +356,24 @@
                             </Viewbox>
                         </Grid>
 
-                        <!-- Exam Number -->
+                        <!-- Exam Name -->
                         <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3">
                             <Viewbox>
                                 <TextBlock Text="{Binding Patient.ExamName}"/>
                             </Viewbox>
                         </Grid>
 
+                        <!-- Patient Gender and Age -->
                         <Grid Grid.Row="0" Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
                             <Viewbox>
                                 <TextBlock Text="{Binding Patient.Gender}"/>
+                            </Viewbox>
+                            <Viewbox Grid.Row="1">
+                                <TextBlock Text="{Binding Patient.Age}"/>
                             </Viewbox>
                         </Grid>
 
