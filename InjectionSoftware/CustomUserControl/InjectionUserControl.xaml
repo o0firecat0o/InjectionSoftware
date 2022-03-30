@@ -217,139 +217,196 @@
                     </Grid>
                 </Grid>
 
-                <!-- Patient information + Room Number + Injection Time/ Image Time [Injection page]-->
-                <Grid Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
-                                            AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                <!-- Patient information + Room Number + Injection Time/ Image Time-->
+                <Grid 
                     Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3*" />
-                        <RowDefinition Height="15" />
+                        <RowDefinition Height="12" />
                     </Grid.RowDefinitions>
 
-                    <!-- Patient information + Room Number (Simplified)-->
-                    <Grid Visibility="{Binding IsDetailed, Converter={StaticResource BooleanToVisibilityInvertedConverter}}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="3*"/>
-                        </Grid.RowDefinitions>
+                    <!--[Injection page]-->
+                    <Grid Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
+                                            AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                          >
+                        <!-- Patient information + Room Number (Simplified)-->
+                        <Grid Visibility="{Binding IsDetailed, Converter={StaticResource BooleanToVisibilityInvertedConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="3*"/>
+                            </Grid.RowDefinitions>
 
-                        <!-- PATIENT NAME -->
-                        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-                            <Viewbox Stretch="Uniform"
+                            <!-- PATIENT NAME -->
+                            <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                                <Viewbox Stretch="Uniform"
                                      HorizontalAlignment="Left"
                                      StretchDirection="DownOnly">
-                                <TextBlock Text="{Binding Patient.PatientCensoredName}"
-                                               Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
-                                            AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    <TextBlock Text="{Binding Patient.PatientCensoredName}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Left"
                                                Margin="2"
                                                TextAlignment="Center"
                                                FontSize="28"
                                                FontWeight="DemiBold"/>
-                            </Viewbox>
+                                </Viewbox>
+                            </Grid>
+
+                            <!-- PO Number -->
+                            <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">
+                                <Viewbox HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Patient.ExamCode}"/>
+                                </Viewbox>
+                            </Grid>
+
+                            <!-- Patient Gender and Age -->
+                            <Grid Grid.Row="0" Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Viewbox>
+                                    <TextBlock Text="{Binding Patient.Gender}"/>
+                                </Viewbox>
+                                <Viewbox Grid.Row="1">
+                                    <TextBlock Text="{Binding Patient.Age}"/>
+                                </Viewbox>
+                            </Grid>
+
+
                         </Grid>
 
-                        <!-- PO Number -->
-                        <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">
-                            <Viewbox HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Patient.ExamCode}"/>
-                            </Viewbox>
-                        </Grid>
 
-                        <!-- Patient Gender and Age -->
-                        <Grid Grid.Row="0" Grid.Column="2">
+                        <!-- Patient information + Room Number (Detailed)-->
+                        <Grid Visibility="{Binding IsDetailed, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="3*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Viewbox>
-                                <TextBlock Text="{Binding Patient.Gender}"/>
-                            </Viewbox>
-                            <Viewbox Grid.Row="1">
-                                <TextBlock Text="{Binding Patient.Age}"/>
-                            </Viewbox>
+
+                            <!-- PATIENT NAME -->
+                            <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                                <Viewbox Stretch="Uniform"
+                                     HorizontalAlignment="Left"
+                                     StretchDirection="DownOnly">
+
+                                    <TextBlock Text="{Binding Patient.PatientFullname}"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="2"
+                                               TextAlignment="Center"
+                                               FontSize="28"
+                                               FontWeight="DemiBold"/>
+
+
+                                </Viewbox>
+                            </Grid>
+
+                            <!-- PO Number -->
+                            <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">
+                                <Viewbox HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Patient.ExamCode}"/>
+                                </Viewbox>
+                            </Grid>
+
+                            <!-- REFERAL -->
+                            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                <Viewbox HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Patient.Referral}" FontStyle="Italic" />
+                                </Viewbox>
+                            </Grid>
+
+                            <!-- Exam Name -->
+                            <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3">
+                                <Viewbox>
+                                    <TextBlock Text="{Binding Patient.ExamName}"/>
+                                </Viewbox>
+                            </Grid>
+
+                            <!-- Patient Gender and Age -->
+                            <Grid Grid.Row="0" Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Viewbox>
+                                    <TextBlock Text="{Binding Patient.Gender}"/>
+                                </Viewbox>
+                                <Viewbox Grid.Row="1">
+                                    <TextBlock Text="{Binding Patient.Age}"/>
+                                </Viewbox>
+                            </Grid>
+
                         </Grid>
-
-
                     </Grid>
 
-
-                    <!-- Patient information + Room Number (Detailed)-->
-                    <Grid Visibility="{Binding IsDetailed, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <!-- [Room page] -->
+                    <Grid Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
+                                            AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityInvertedConverter}}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
                         <!-- PATIENT NAME -->
-                        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                        <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
                             <Viewbox Stretch="Uniform"
-                                     HorizontalAlignment="Left"
+                                     HorizontalAlignment="Center"
                                      StretchDirection="DownOnly">
-
-                                <TextBlock Text="{Binding Patient.PatientFullname}"
-                                               Visibility="{Binding StringOrientation, RelativeSource={RelativeSource Mode=FindAncestor, 
-                                            AncestorType=UserControl}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                <TextBlock Text="{Binding Patient.PatientFullSeperatedName}"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Left"
                                                Margin="2"
                                                TextAlignment="Center"
                                                FontSize="28"
                                                FontWeight="DemiBold"/>
-
-
                             </Viewbox>
                         </Grid>
 
                         <!-- PO Number -->
-                        <Grid Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2">
-                            <Viewbox HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Grid Grid.Row="1" Grid.Column="2">
+                            <Viewbox HorizontalAlignment="Right" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding Patient.ExamCode}"/>
                             </Viewbox>
                         </Grid>
-
-                        <!-- REFERAL -->
-                        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                            <Viewbox HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding Patient.Referral}" FontStyle="Italic" />
-                            </Viewbox>
-                        </Grid>
-
-                        <!-- Exam Name -->
-                        <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3">
-                            <Viewbox>
-                                <TextBlock Text="{Binding Patient.ExamName}"/>
-                            </Viewbox>
-                        </Grid>
-
-                        <!-- Patient Gender and Age -->
+                        
+                        <!-- Age and Gender -->
                         <Grid Grid.Row="0" Grid.Column="2">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
                             <Viewbox>
                                 <TextBlock Text="{Binding Patient.Gender}"/>
                             </Viewbox>
-                            <Viewbox Grid.Row="1">
+                            <Viewbox Grid.Column="1">
                                 <TextBlock Text="{Binding Patient.Age}"/>
                             </Viewbox>
                         </Grid>
 
+                        <!-- Exam Name -->
+                        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+                            <Viewbox>
+                                <TextBlock Text="{Binding Patient.ExamName}" FontStyle="Italic"/>
+                            </Viewbox>
+                        </Grid>
                     </Grid>
 
 
@@ -380,7 +437,7 @@
                         </Viewbox>
                     </Grid>
                 </Grid>
-                
+
             </Grid>
         </DockPanel>
 
