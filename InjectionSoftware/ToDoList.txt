@@ -1,11 +1,11 @@
 ﻿TODO:
-8> Add detailed view in AllInjection screen, including PO number, ward number, exam type etc
 4> Total Number of Patient in Room List
 
 14> hide side bar, making us able to show 40 injections instead of just 30
 15> add autoburn option to replace burning disc paper
 16> readd network page
-17> default PSMA and FDG and ACETATE for new injection (for easier access)
+
+18> handle NM booking
 
 
 TODO(FUTURE):
@@ -49,3 +49,6 @@ DONE:
 13.5> Handle situtation when a server is disconnected and a client has to take up the role to be a server
 
 11> Auto read registered patient information from scheduler, and COPY them to local directory
+
+17> default PSMA and FDG and ACETATE for new injection (for easier access)
+8> Add detailed view in AllInjection screen, including PO number, ward number, exam type etc

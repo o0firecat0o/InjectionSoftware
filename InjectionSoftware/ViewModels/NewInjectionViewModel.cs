@@ -196,10 +196,6 @@ namespace InjectionSoftware.ViewModels
             }
         }
 
-        /// <summary>
-        /// for better user input, automatically change uptake hour if the user select RP
-        /// </summary>
-        private float hasUptaketimeChanged = 2;
 
         public Command ClearPatient { get; set; }
         public Command Cancel { get; set; }
@@ -213,7 +209,7 @@ namespace InjectionSoftware.ViewModels
         SelectionDialog readmitConfirmDialog = new SelectionDialog();
         SelectionDialog duplicatedRoomConfirmDialog = new SelectionDialog();
 
-        public NewInjectionViewModel(Injection Injection = null)
+        public NewInjectionViewModel(Injection Injection = null, Patient patient = null)
         {
             this.Injection = Injection;
 
@@ -226,22 +222,17 @@ namespace InjectionSoftware.ViewModels
             DateTime = DateTime.Now;
 
             NewInjection.window.Closed += Window_Closed;
-            ((NewInjection)NewInjection.window).RP_injection.SelectionChanged += reselectUptakeTime;
             ((NewInjection)NewInjection.window).PatientSelection.SelectionChanged += patientSelectionChanged;
 
+            //if it is modifying existing injection instead of adding new one
             if (Injection != null)
             {
-                Console.Out.WriteLine("loading previous injection with patientID: " + Injection.Patient.PatientID);
-                // make it impossible to change the patient ID if loading from previous injection
-                ((NewInjection)NewInjection.window).patientIDTextBox.IsReadOnly = true;
-                ((NewInjection)NewInjection.window).patientIDTextBox.Background = Brushes.LightGray;
+                Console.Out.WriteLine("[NewInjectionViewModel]loading previous injection with patientID: " + Injection.Patient.PatientID);
 
-                // copy all the injection information to this VM.
-                if (PatientManager.HasPatient(Injection.Patient.PatientID))
-                {
-                    SelectedPatient = PatientManager.GetPatient(Injection.Patient.PatientID);
-                    ((NewInjection)NewInjection.window).PatientSelection.SelectedItem = SelectedPatient;
-                }
+                //make the newinjection window highlight the currently selected patient
+                selectPatient(Injection.Patient.PatientID);
+                //this will also trigger patientSelectionChanged()
+
                 patientID = Injection.Patient.PatientID;
                 patientSurname = Injection.Patient.PatientSurname;
                 patientLastname = Injection.Patient.PatientLastname;
@@ -268,97 +259,111 @@ namespace InjectionSoftware.ViewModels
                 isContrast = Injection.isContrast;
                 isDelay = Injection.isDelay;
                 patientStatus = Injection.patientStatus;
-            }
-            else
-            {
-                UptakeTimeIndex = 0;
-                GenderIndex = 0;
-                InpatientIndex = 1;
-                patientStatus = "Registered";
-            }
 
-            reselectModality();
-            reselectRPs();
-            reselectRadiologist();
-            reselectRoom();
-        }
-
-        public void selectPatient(Patient patient)
-        {
-            SelectedPatient = patient;
-            ((NewInjection)NewInjection.window).PatientSelection.SelectedItem = SelectedPatient;
-        }
-
-        private void reselectModality()
-        {
-            if (Injection != null)
-            {
                 SelectedModality = Injection.Modality;
-            }
-            else
-            {
-                SelectedModality = Modality.Modalities[0];
-            }
-        }
-
-        private void reselectRPs()
-        {
-            if (Injection != null)
-            {
                 ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Clear();
                 foreach (RP rP in Injection.RPs)
                 {
                     ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Add(rP);
                 }
-            }
-            else
-            {
-                ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 0;
-            }
-        }
-
-        private void reselectRadiologist()
-        {
-            if (Injection != null)
-            {
                 SelectedDoctor = Injection.Doctor;
-            }
-            else
-            {
-                SelectedDoctor = Doctor.Doctors[0];
-            }
-        }
-
-        private void reselectRoom()
-        {
-            if (Injection != null)
-            {
                 SelectedRoom = Injection.SelectedRoom;
             }
+            // if new injection is created from room page (with patient information but without injection information)
+            else if (patient != null)
+            {
+                //make the newinjection window highlight the currently selected patient
+                selectPatient(patient.PatientID);
+                //this will also trigger patientSelectionChanged()
+
+                Console.WriteLine("[NewInjectionViewModel]Creating new injection with patient ID: " + patient.PatientID);
+
+
+                //change newinjection window's modality base on registered patient information
+                if (patient.ExamCode.Contains("PO"))
+                {
+                    SelectedModality = Modality.Modalities[0];
+                }
+                else if(patient.ExamCode.Contains("PI"))
+                {
+                    SelectedModality = Modality.Modalities[1];
+                }
+                else if (patient.ExamCode.Contains("NM"))
+                {
+                    SelectedModality = Modality.Modalities[2];
+                }
+                else
+                {
+                    SelectedModality = Modality.Modalities[0];
+                }
+
+                //change newinjection window's RP and uptake time base on registered patient information
+                if (patient.ExamName.IndexOf("PSMA", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    UptakeTimeIndex = 1;
+                    ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 1;
+                }
+                else if (patient.ExamName.IndexOf("ACETATE", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    UptakeTimeIndex = 0;
+                    ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Add(RP.getRP("F18-FDG"));
+                    ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Add(RP.getRP("C11-Acetate"));
+                }
+                else if (patient.ExamName.IndexOf("PIB", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    UptakeTimeIndex = 0;
+                    ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 3;
+                }
+                else if (patient.ExamName.IndexOf("DOPA", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    UptakeTimeIndex = 0;
+                    ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 4;
+                }
+                else if (patient.ExamName.IndexOf("DOTA", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    UptakeTimeIndex = 0;
+                    ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 5;
+                }
+                else if (patient.ExamName.IndexOf("METH", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    UptakeTimeIndex = 0;
+                    ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 6;
+                }
+                else
+                {
+                    UptakeTimeIndex = 0;
+                    ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 0;
+                }
+
+                //initiallizing defaults
+                SelectedDoctor = Doctor.Doctors[0];
+                SelectedRoom = Room.Rooms[0];
+            }
             else
             {
+                GenderIndex = 0;
+                InpatientIndex = 1;
+                patientStatus = "Registered";
+
+                //initiallizing defaults
+                UptakeTimeIndex = 0;
+                SelectedModality = Modality.Modalities[0];
+                ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 0;
+                SelectedDoctor = Doctor.Doctors[0];
                 SelectedRoom = Room.Rooms[0];
             }
         }
 
-        public void reselectUptakeTime(object sender, SelectionChangedEventArgs args)
+        public void selectPatient(string thePatientID)
         {
-            if (hasUptaketimeChanged > 0)
+            if (PatientManager.HasPatient(thePatientID))
             {
-                if (Injection == null && ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Count >= 2)
-                {
-                    ((NewInjection)NewInjection.window).RP_injection.SelectedItems.RemoveAt(0);
-                    float UptakeTime = ((RP)((NewInjection)NewInjection.window).RP_injection.SelectedItems[0]).UptakeTime;
-                    if (UptakeTime == 60f)
-                    {
-                        UptakeTimeIndex = 0;
-                    }
-                    else
-                    {
-                        UptakeTimeIndex = 1;
-                    }
-                }
-                hasUptaketimeChanged -= 1;
+                // make it impossible to change the patient ID if loading from previous injection
+                ((NewInjection)NewInjection.window).patientIDTextBox.IsReadOnly = true;
+                ((NewInjection)NewInjection.window).patientIDTextBox.Background = Brushes.LightGray;
+
+                SelectedPatient = PatientManager.GetPatient(thePatientID);
+                ((NewInjection)NewInjection.window).PatientSelection.SelectedItem = SelectedPatient;
             }
         }
 
@@ -419,7 +424,6 @@ namespace InjectionSoftware.ViewModels
             duplicatedRoomConfirmDialog.Cancel.Click -= duplicatedRoomConfirmDialog_OnCloseDown;
             duplicatedRoomConfirmDialog.Confirm.Click -= duplicatedRoomConfirmDialog_OnConfirmDown;
 
-            ((NewInjection)NewInjection.window).RP_injection.SelectionChanged -= reselectUptakeTime;
             ((NewInjection)NewInjection.window).PatientSelection.SelectionChanged -= patientSelectionChanged;
 
             deleteConfirmDialog = null;
@@ -430,7 +434,7 @@ namespace InjectionSoftware.ViewModels
             Cancel = null;
             Confirm = null;
             Delete = null;
-            Discharge = null; 
+            Discharge = null;
             Readmit = null;
             ClearPatient = null;
 
@@ -517,7 +521,8 @@ namespace InjectionSoftware.ViewModels
             NewInjection.window.Close();
         }
 
-        private async void readmit() {
+        private async void readmit()
+        {
             readmitConfirmDialog.MessageText.Content = "Are you sure you want to re-admit the case?";
             readmitConfirmDialog.Confirm.Content = "Re-Admit";
             readmitConfirmDialog.Confirm.Background = Brushes.Yellow;
@@ -578,14 +583,14 @@ namespace InjectionSoftware.ViewModels
             //add new injection
             if (Injection == null)
             {
-                InjectionsManager.modInjectionFileSync ("", SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, WardNumber, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, patientStatus);
-                Console.Out.WriteLine("adding injection with patient ID: " + patientID);
+                Console.Out.WriteLine("[NewInjectionViewModel] adding injection with patient ID: " + patientID);
+                InjectionsManager.modInjectionFileSync("", SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, WardNumber, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, patientStatus);
             }
             //modify existing injection
             else
             {
+                Console.Out.WriteLine("[NewInjectionViewModel] modifying injection with patient ID:" + patientID);
                 InjectionsManager.modInjectionFileSync(Injection.AccessionNumber, SelectedModality, patientID, patientSurname, patientLastname, UniqueExamIdentifier, ExamCode, DateOfBirth, GenderIndex == 0, InpatientIndex == 0, WardNumber, RPs, SelectedDoctor, UptakeTime, DateTime, SelectedRoom, isContrast, isDelay, patientStatus);
-                Console.Out.WriteLine("modifying injection with patient ID:" + patientID);
             }
 
             NewInjection.window.Close();

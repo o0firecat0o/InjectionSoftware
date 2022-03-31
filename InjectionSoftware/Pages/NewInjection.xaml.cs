@@ -37,7 +37,8 @@ namespace InjectionSoftware.Pages
 
 
             InitializeComponent();
-            NewInjectionViewModel vm = new NewInjectionViewModel(Injection);
+
+            NewInjectionViewModel vm = new NewInjectionViewModel(Injection, patient);
             DataContext = vm;
 
 
@@ -46,11 +47,7 @@ namespace InjectionSoftware.Pages
                 ThemeManager.Current.ChangeTheme(this, "Light.Green");
                 DeleteButton.Visibility = Visibility.Collapsed;
                 DischargeButton.Visibility = Visibility.Collapsed;
-                ReAdmitButton.Visibility = Visibility.Collapsed;
-                if (patient != null)
-                {
-                    vm.selectPatient(patient);
-                }
+                ReAdmitButton.Visibility = Visibility.Collapsed;                
             }
             else
             {

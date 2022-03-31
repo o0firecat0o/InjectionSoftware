@@ -422,7 +422,7 @@
                                         </ListView>
                                     </StackPanel>
 
-                                    <StackPanel Grid.Column="1">
+                                    <StackPanel Grid.Column="1" Grid.ColumnSpan="2">
                                         <TextBlock> Modality:</TextBlock>
                                         <ListView x:Name="Modality"
                                           HorizontalAlignment="Center"
