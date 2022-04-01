@@ -238,7 +238,7 @@
             </StackPanel>
 
             <StackPanel>
-                <TextBlock Text="Version 0.0.5b"
+                <TextBlock Text="Version 0.0.5c"
                            Margin="5,0,0,0"
                            VerticalAlignment="Center"
                            Foreground="AliceBlue"

@@ -279,65 +279,12 @@ namespace InjectionSoftware.ViewModels
                 Console.WriteLine("[NewInjectionViewModel]Creating new injection with patient ID: " + patient.PatientID);
 
 
-                //change newinjection window's modality base on registered patient information
-                if (patient.ExamCode.Contains("PO"))
-                {
-                    SelectedModality = Modality.Modalities[0];
-                }
-                else if(patient.ExamCode.Contains("PI"))
-                {
-                    SelectedModality = Modality.Modalities[1];
-                }
-                else if (patient.ExamCode.Contains("NM"))
-                {
-                    SelectedModality = Modality.Modalities[2];
-                }
-                else
-                {
-                    SelectedModality = Modality.Modalities[0];
-                }
-
-                //change newinjection window's RP and uptake time base on registered patient information
-                if (patient.ExamName.IndexOf("PSMA", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    UptakeTimeIndex = 1;
-                    ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 1;
-                }
-                else if (patient.ExamName.IndexOf("ACETATE", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    UptakeTimeIndex = 0;
-                    ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Add(RP.getRP("F18-FDG"));
-                    ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Add(RP.getRP("C11-Acetate"));
-                }
-                else if (patient.ExamName.IndexOf("PIB", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    UptakeTimeIndex = 0;
-                    ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 3;
-                }
-                else if (patient.ExamName.IndexOf("DOPA", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    UptakeTimeIndex = 0;
-                    ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 4;
-                }
-                else if (patient.ExamName.IndexOf("DOTA", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    UptakeTimeIndex = 0;
-                    ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 5;
-                }
-                else if (patient.ExamName.IndexOf("METH", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    UptakeTimeIndex = 0;
-                    ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 6;
-                }
-                else
-                {
-                    UptakeTimeIndex = 0;
-                    ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 0;
-                }
-
                 //initiallizing defaults
                 SelectedDoctor = Doctor.Doctors[0];
                 SelectedRoom = Room.Rooms[0];
+
+                //this function is autorunned by patientSelectionChanged();
+                //defaultSelectionByPatient(patient);
             }
             else
             {
@@ -346,11 +293,89 @@ namespace InjectionSoftware.ViewModels
                 patientStatus = "Registered";
 
                 //initiallizing defaults
+                SelectedDoctor = Doctor.Doctors[0];
+                SelectedRoom = Room.Rooms[0];
+                //
                 UptakeTimeIndex = 0;
                 SelectedModality = Modality.Modalities[0];
                 ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 0;
-                SelectedDoctor = Doctor.Doctors[0];
-                SelectedRoom = Room.Rooms[0];
+            }
+        }
+
+        private void defaultSelectionByPatient(Patient patient)
+        {
+            ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = -1;
+
+
+            if (patient == null)
+            {
+                UptakeTimeIndex = 0;
+                SelectedModality = Modality.Modalities[0];
+                ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 0;
+                return;
+            }
+            
+            //change newinjection window's modality base on registered patient information
+            if (patient.ExamCode.Contains("PO"))
+            {
+                SelectedModality = Modality.Modalities[0];
+            }
+            else if (patient.ExamCode.Contains("PI"))
+            {
+                SelectedModality = Modality.Modalities[1];
+            }
+            else if (patient.ExamCode.Contains("NM"))
+            {
+                SelectedModality = Modality.Modalities[2];
+            }
+            else
+            {
+                SelectedModality = Modality.Modalities[0];
+            }
+
+            //change newinjection window's RP and uptake time base on registered patient information
+            if (patient.ExamName.IndexOf("PSMA", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                UptakeTimeIndex = 1;
+                ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 1;
+            }
+            else if (patient.ExamName.IndexOf("ACETATE", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                UptakeTimeIndex = 0;
+                ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Add(RP.getRP("F18-FDG"));
+                ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Add(RP.getRP("C11-Acetate"));
+            }
+            else if (patient.ExamName.IndexOf("PIB", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                UptakeTimeIndex = 0;
+                ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Add(RP.getRP("F18-FDG"));
+                ((NewInjection)NewInjection.window).RP_injection.SelectedItems.Add(RP.getRP("C11-PIB"));
+            }
+            else if (patient.ExamName.IndexOf("DOPA", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                UptakeTimeIndex = 0;
+                ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 4;
+            }
+            else if (patient.ExamName.IndexOf("DOTA", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                UptakeTimeIndex = 0;
+                ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 5;
+            }
+            else if (patient.ExamName.IndexOf("METH", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                UptakeTimeIndex = 0;
+                ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 6;
+            }
+            else
+            {
+                UptakeTimeIndex = 0;
+                ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 0;
+            }
+
+            if (patient.ExamCode.Contains("NM"))
+            {
+                UptakeTimeIndex = 0;
+                ((NewInjection)NewInjection.window).RP_injection.SelectedIndex = 8;
             }
         }
 
@@ -373,6 +398,10 @@ namespace InjectionSoftware.ViewModels
             if (patient == null)
             {
                 return;
+            }
+            if (Injection == null)
+            {
+                defaultSelectionByPatient(patient);
             }
             patientID = patient.PatientID;
             patientLastname = patient.PatientLastname;
