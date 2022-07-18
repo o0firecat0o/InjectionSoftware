@@ -71,13 +71,30 @@ namespace InjectionSoftware.FileSync
         {
             string fullpath = WindowConfig.SchedularDirectory;
 
-            var fileNames = Directory.EnumerateFiles(fullpath, "*.hl7", SearchOption.TopDirectoryOnly);
-            Console.WriteLine("[SchedularCopyManager/loadInitial()] There are a total of: " + fileNames.Count() + "files to load initially.");
+            DateTime today = DateTime.Now.Date;           
 
-            foreach (string file in fileNames)
+            DirectoryInfo DirInfo = new DirectoryInfo(fullpath);
+
+            // LINQ query for all files created before 2009.
+            var files = from f in DirInfo.EnumerateFiles("*.hl7",SearchOption.TopDirectoryOnly)
+                        where f.CreationTimeUtc > today
+                        select f;          
+
+            Console.WriteLine("[SchedularCopyManager/loadInitial()] There are a total of: " + files.Count() + "files to load initially.");
+
+            foreach (var f in files)
             {
-                FileValidationAndCopy(file);
+                FileValidationAndCopy(fullpath +f.Name);
             }
+
+
+            //var fileNames = Directory.EnumerateFiles(fullpath, "*.hl7", SearchOption.TopDirectoryOnly);
+            //Console.WriteLine("[SchedularCopyManager/loadInitial()] There are a total of: " + fileNames.Count() + "files to load initially.");
+
+            //foreach (string file in fileNames)
+            //{
+            //   FileValidationAndCopy(file);
+            //}
         }
 
 
@@ -99,7 +116,7 @@ namespace InjectionSoftware.FileSync
             }
 
             string text = "";
-            
+
             try
             {
                 text = System.IO.File.ReadAllText(file);
